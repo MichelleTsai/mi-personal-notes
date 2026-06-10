@@ -28,13 +28,11 @@
   .sidebar-logo p { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
   .nav-section { padding: .5rem 0; }
   .nav-section-label { font-size: 10px; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: .08em; padding: .5rem 1rem .25rem; }
-  /* Make nav items full-width and keyboard accessible */
-  .nav-item { display: block; width: 100%; box-sizing: border-box; padding: .45rem 1rem .45rem 1.25rem; font-size: 13px; color: var(--text-muted); text-decoration: none; border-left: 2px solid transparent; transition: all .15s; cursor: pointer; }
-  .nav-item:hover, .nav-item:focus { color: var(--text); background: var(--bg2); outline: none; }
+  .nav-item { display: block; padding: .45rem 1rem .45rem 1.25rem; font-size: 13px; color: var(--text-muted); text-decoration: none; border-left: 2px solid transparent; transition: all .15s; cursor: pointer; }
+  .nav-item:hover { color: var(--text); background: var(--bg2); }
   .nav-item.active { color: var(--purple-dark); border-left-color: var(--purple); background: var(--purple-light); font-weight: 500; }
 
-  /* Ensure main content doesn't have a max-width constraint */
-  .main { margin-left: 220px; padding: 2rem 2rem 4rem; }
+  .main { margin-left: 220px; padding: 2rem 2rem 4rem; max-width: 860px; }
 
   /* Header */
   .page-hero { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--gray-border); }
@@ -54,118 +52,262 @@
   .block-title { font-size: 13.5px; font-weight: 600; color: var(--text); margin-bottom: .5rem; }
   .block-body { font-size: 14px; color: var(--text); line-height: 1.72; }
 
-  /* ... other styles unchanged ... */
-  /* For brevity in this editor view the rest of the original styles are preserved unchanged in the saved file */
+  /* Highlight boxes */
+  .hl { border-left: 3px solid var(--purple); background: var(--purple-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; margin: 10px 0; font-size: 13.5px; line-height: 1.65; color: var(--text); }
+  .hl.teal { border-left-color: var(--teal); background: var(--teal-light); }
+  .hl.amber { border-left-color: var(--amber); background: var(--amber-light); }
+  .hl.red { border-left-color: var(--red); background: var(--red-light); }
+  .hl.blue { border-left-color: var(--blue); background: var(--blue-light); }
+  .hl.coral { border-left-color: var(--coral); background: var(--coral-light); }
+  .warn-box { background: var(--red-light); border: 1px solid #F09595; border-radius: var(--radius); padding: 11px 14px; margin: 10px 0; font-size: 13.5px; color: var(--red-dark); line-height: 1.65; }
+  .good-box { background: var(--teal-light); border: 1px solid #5DCAA5; border-radius: var(--radius); padding: 11px 14px; margin: 10px 0; font-size: 13.5px; color: var(--teal-dark); line-height: 1.65; }
+  .caution-box { background: var(--amber-light); border: 1px solid #FAC775; border-radius: var(--radius); padding: 11px 14px; margin: 10px 0; font-size: 13.5px; color: var(--amber-dark); line-height: 1.65; }
+
+  /* Tables */
+  .tbl-wrap { overflow-x: auto; margin: 10px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--bg2); padding: 8px 11px; text-align: left; font-weight: 600; color: var(--text-muted); font-size: 12px; border-bottom: 1px solid var(--gray-border); }
+  td { padding: 8px 11px; border-bottom: 1px solid var(--gray-border); color: var(--text); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+
+  /* Compare grid */
+  .cgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+  .ccard { border: 1px solid var(--gray-border); border-radius: var(--radius); padding: 11px 13px; background: var(--bg); }
+  .ccard-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+  .ccard-body { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  /* Steps */
+  .steps { margin: 10px 0; }
+  .step { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+  .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--purple-light); color: var(--purple-dark); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .step-text { font-size: 13.5px; color: var(--text); line-height: 1.65; flex: 1; }
+
+  /* Cases - collapsible */
+  .case-strip { border: 1px solid var(--gray-border); border-radius: var(--radius); margin: 8px 0; overflow: hidden; }
+  .case-hd { display: flex; align-items: center; gap: 8px; padding: 9px 13px; background: var(--bg2); cursor: pointer; user-select: none; }
+  .case-hd:hover { background: var(--bg3); }
+  .case-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .case-title { font-size: 13px; font-weight: 500; color: var(--text); flex: 1; }
+  .case-tag { font-size: 11px; padding: 2px 8px; border-radius: 20px; }
+  .case-chev { font-size: 11px; color: var(--text-faint); transition: transform .2s; }
+  .case-chev.open { transform: rotate(180deg); }
+  .case-bd { padding: 12px 13px; font-size: 13.5px; line-height: 1.68; color: var(--text); display: none; border-top: 1px solid var(--gray-border); }
+  .case-bd.open { display: block; }
+
+  /* Divider */
+  .div { border: none; border-top: 1px solid var(--gray-border); margin: 1.25rem 0; }
+
+  /* Formula */
+  .formula { background: var(--bg2); border-radius: var(--radius); padding: 11px 16px; margin: 8px 0; text-align: center; font-size: 16px; font-weight: 600; color: var(--text); }
+
+  /* Meter bars */
+  .mr { display: flex; align-items: center; gap: 9px; margin: 5px 0; }
+  .ml { font-size: 12px; color: var(--text-muted); width: 120px; flex-shrink: 0; text-align: right; }
+  .mbg { flex: 1; height: 9px; background: var(--bg3); border-radius: 5px; overflow: hidden; }
+  .mf { height: 100%; border-radius: 5px; }
+  .mv { font-size: 12px; font-weight: 600; width: 44px; flex-shrink: 0; }
+
+  /* Stats row */
+  .stat-row { display: flex; gap: 8px; margin: 8px 0; flex-wrap: wrap; }
+  .stat { background: var(--bg2); border-radius: var(--radius); padding: 8px 12px; flex: 1; min-width: 90px; }
+  .stat-label { font-size: 11px; color: var(--text-muted); }
+  .stat-val { font-size: 16px; font-weight: 700; margin-top: 2px; }
+
+  /* Timeline */
+  .tl-item { display: flex; gap: 10px; margin-bottom: 9px; align-items: flex-start; }
+  .tl-year { font-size: 11px; font-weight: 600; color: var(--text-faint); width: 36px; flex-shrink: 0; padding-top: 2px; }
+  .tl-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+  .tl-text { font-size: 13.5px; color: var(--text); line-height: 1.65; flex: 1; }
+
+  /* Badges */
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; margin-right: 4px; vertical-align: middle; font-weight: 500; }
+  .bp { background: var(--purple-light); color: var(--purple-dark); }
+  .bt { background: var(--teal-light); color: var(--teal-dark); }
+  .ba { background: var(--amber-light); color: var(--amber-dark); }
+  .br { background: var(--red-light); color: var(--red-dark); }
+  .bb { background: var(--blue-light); color: var(--blue-dark); }
+
+  /* Diagram containers */
+  .diagram { margin: 1rem 0; background: var(--bg); border: 1px solid var(--gray-border); border-radius: var(--radius-lg); padding: 1.25rem; }
+  .diagram-title { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 1rem; }
+
+  /* Gauge zones */
+  .gauge-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .zone { border-radius: var(--radius); padding: 10px 12px; text-align: center; }
+  .zone-label { font-size: 11px; font-weight: 600; margin-bottom: 3px; }
+  .zone-val { font-size: 17px; font-weight: 700; margin-bottom: 3px; }
+  .zone-desc { font-size: 11.5px; line-height: 1.5; }
+  .bar-track { height: 26px; border-radius: 13px; background: var(--bg3); display: flex; overflow: hidden; margin-bottom: 4px; }
+  .bar-seg { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; }
+  .ticks { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-faint); }
+
+  /* Debt ratio */
+  .ind-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+  .ind-label { font-size: 12.5px; color: var(--text); width: 150px; flex-shrink: 0; text-align: right; line-height: 1.4; }
+  .ind-track { flex: 1; height: 24px; background: var(--bg3); border-radius: 12px; overflow: hidden; }
+  .ind-fill { height: 100%; border-radius: 12px; display: flex; align-items: center; padding-left: 10px; }
+  .ind-fill-label { font-size: 11.5px; font-weight: 600; }
+  .ind-result { font-size: 12px; font-weight: 600; width: 70px; flex-shrink: 0; }
+  .warn-band { display: flex; gap: 8px; margin: 12px 0; }
+  .wb { flex: 1; padding: 9px 10px; border-radius: var(--radius); text-align: center; }
+  .wb-label { font-size: 11px; font-weight: 600; margin-bottom: 2px; }
+  .wb-val { font-size: 15px; font-weight: 700; }
+  .wb-sub { font-size: 11px; margin-top: 2px; }
+  .cd-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .cd-name { font-size: 12.5px; color: var(--text); width: 130px; flex-shrink: 0; text-align: right; }
+  .cd-track { flex: 1; height: 8px; background: var(--bg3); border-radius: 4px; position: relative; }
+  .cd-fill { height: 100%; border-radius: 4px; }
+  .cd-dot { width: 12px; height: 12px; border-radius: 50%; position: absolute; top: -2px; transform: translateX(-50%); border: 2px solid var(--bg); }
+  .cd-val { font-size: 12px; font-weight: 700; width: 42px; flex-shrink: 0; }
+  .cd-note { font-size: 11.5px; color: var(--text-muted); flex: 1; }
+  .axis { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-faint); padding: 2px 0 0; margin-left: 138px; }
+
+  /* Phase blocks */
+  .phase { margin-bottom: 10px; border-radius: var(--radius-lg); border: 1px solid var(--gray-border); overflow: hidden; }
+  .phase-hd { padding: 8px 13px; display: flex; align-items: center; gap: 9px; }
+  .phase-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+  .phase-title { font-size: 13.5px; font-weight: 600; color: var(--text); flex: 1; }
+  .phase-bd { display: grid; grid-template-columns: 1fr 1fr; }
+  .sd { padding: 10px 13px; font-size: 13px; line-height: 1.65; color: var(--text); }
+  .sd + .sd { border-left: 1px solid var(--gray-border); }
+  .sd-label { font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 10px; display: inline-block; margin-bottom: 5px; }
+  .phase-outcome { padding: 7px 13px; font-size: 12.5px; color: var(--text-muted); border-top: 1px solid var(--gray-border); }
+
+  /* Repo steps */
+  .repo-row { display: grid; grid-template-columns: 1fr 36px 1fr 36px 1fr; align-items: center; gap: 0; margin-bottom: 12px; }
+  .repo-step { border-radius: var(--radius); padding: 10px 12px; text-align: center; }
+  .repo-step-num { font-size: 10px; font-weight: 600; margin-bottom: 4px; opacity: .85; }
+  .repo-step-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .repo-step-desc { font-size: 11.5px; line-height: 1.5; }
+  .repo-arrow { text-align: center; font-size: 20px; color: var(--text-faint); }
+
+  /* Huaying compare */
+  .flow-steps { display: flex; align-items: stretch; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--gray-border); margin: 10px 0; }
+  .fs { flex: 1; padding: 10px; font-size: 12px; line-height: 1.5; text-align: center; border-right: 1px solid var(--gray-border); }
+  .fs:last-child { border-right: none; }
+  .metric { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--gray-border); }
+  .metric:last-child { border-bottom: none; }
+  .metric-label { font-size: 12.5px; color: var(--text-muted); }
+  .metric-val { font-size: 14px; font-weight: 700; }
+  .mbadge { font-size: 11px; padding: 1px 6px; border-radius: 8px; margin-left: 4px; vertical-align: middle; }
+
+  /* Cheat sheet */
+  .cheat-item { display: flex; gap: 10px; margin-bottom: 9px; align-items: flex-start; }
+  .cheat-check { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 1rem; }
+    .cgrid, .phase-bd, .gauge-row { grid-template-columns: 1fr; }
+    .repo-row { grid-template-columns: 1fr; }
+    .repo-arrow { transform: rotate(90deg); }
+    .warn-band { flex-wrap: wrap; }
+    .flow-steps { flex-direction: column; }
+    .fs { border-right: none; border-bottom: 1px solid var(--gray-border); }
+  }
 </style>
 </head>
 <body>
 
 <!-- Sidebar -->
-<nav class="sidebar" aria-label="章節導覽">
+<nav class="sidebar">
   <div class="sidebar-logo">
     <h1>第2章：評估企業的真實身價</h1>
     <p>大會計師教你從財報數字看懂經營本質</p>
   </div>
   <div class="nav-section">
     <div class="nav-section-label">基礎</div>
-    <a class="nav-item active" href="#base" data-scroll="base" tabindex="0" aria-current="page">資產負債表基礎</a>
+    <a class="nav-item active" onclick="scrollTo('base')">資產負債表基礎</a>
   </div>
   <div class="nav-section">
     <div class="nav-section-label">7大宏觀標準</div>
-    <a class="nav-item" href="#s1" data-scroll="s1" tabindex="0">標準1 資產總額</a>
-    <a class="nav-item" href="#s2" data-scroll="s2" tabindex="0">標準2 最大資產科目</a>
-    <a class="nav-item" href="#s3" data-scroll="s3" tabindex="0">標準3 資產配置</a>
-    <a class="nav-item" href="#s4" data-scroll="s4" tabindex="0">標準4 運用效能</a>
-    <a class="nav-item" href="#s5" data-scroll="s5" tabindex="0">標準5 流動比率</a>
-    <a class="nav-item" href="#s6" data-scroll="s6" tabindex="0">標準6 負債比率</a>
-    <a class="nav-item" href="#s7" data-scroll="s7" tabindex="0">標準7 合併vs個體</a>
+    <a class="nav-item" onclick="scrollTo('s1')">標準1 資產總額</a>
+    <a class="nav-item" onclick="scrollTo('s2')">標準2 最大資產科目</a>
+    <a class="nav-item" onclick="scrollTo('s3')">標準3 資產配置</a>
+    <a class="nav-item" onclick="scrollTo('s4')">標準4 運用效能</a>
+    <a class="nav-item" onclick="scrollTo('s5')">標準5 流動比率</a>
+    <a class="nav-item" onclick="scrollTo('s6')">標準6 負債比率</a>
+    <a class="nav-item" onclick="scrollTo('s7')">標準7 合併vs個體</a>
   </div>
   <div class="nav-section">
     <div class="nav-section-label">全球案例</div>
-    <a class="nav-item" href="#cases-dead" data-scroll="cases-dead" tabindex="0">倒閉警示案例</a>
-    <a class="nav-item" href="#cases-trick" data-scroll="cases-trick" tabindex="0">財報美化術</a>
-    <a class="nav-item" href="#cases-good" data-scroll="cases-good" tabindex="0">優等生財報</a>
-    <a class="nav-item" href="#cases-paradox" data-scroll="cases-paradox" tabindex="0">看起來危險但沒事</a>
+    <a class="nav-item" onclick="scrollTo('cases-dead')">倒閉警示案例</a>
+    <a class="nav-item" onclick="scrollTo('cases-trick')">財報美化術</a>
+    <a class="nav-item" onclick="scrollTo('cases-good')">優等生財報</a>
+    <a class="nav-item" onclick="scrollTo('cases-paradox')">看起來危險但沒事</a>
   </div>
   <div class="nav-section">
     <div class="nav-section-label">速查</div>
-    <a class="nav-item" href="#cheat" data-scroll="cheat" tabindex="0">速查表 & 警示清單</a>
+    <a class="nav-item" onclick="scrollTo('cheat')">速查表 & 警示清單</a>
   </div>
 </nav>
 
 <!-- Main -->
 <main class="main">
-  <!-- (保持原始內容不變，省略於此訊息省略顯示) -->
   <div class="page-hero">
     <div class="hero-tag">讀書筆記</div>
     <h2>評估企業的真實身價</h2>
     <p>《大會計師教你從財報數字看懂經營本質》第2章｜書本重點 ＋ 台灣＋全球真實案例整合版</p>
   </div>
-  <!-- 其餘章節內容略（檔案中保留完整內容） -->
+
+  <!-- ===== BASE ===== -->
+  <section class="section" id="base">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--purple)"></span>
+      <h3>資產負債表基礎概念</h3>
+      <span class="section-page">p.058–066</span>
+    </div>
+
+    <div class="block">
+      <div class="block-title">資產負債表的架構</div>
+      <div class="block-body">資產負債表就是一張「家當清單」。左邊寫你有什麼，右邊寫這些東西從哪來的。</div>
+    </div>
+
+    <!-- 架構圖 -->
+    <div class="diagram">
+      <div class="diagram-title">資產負債表架構圖</div>
+      <svg width="100%" viewBox="0 0 680 400" role="img" style="display:block">
+        <title>資產負債表架構圖</title>
+        <!-- 等式 -->
+        <text x="340" y="24" text-anchor="middle" font-size="13" font-weight="600" fill="#555">資產 ＝ 負債 ＋ 股東權益　（左邊永遠等於右邊）</text>
+        <!-- 左：資產外框 -->
+        <rect x="30" y="40" width="280" height="330" rx="12" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.8"/>
+        <text x="170" y="68" text-anchor="middle" font-size="14" font-weight="700" fill="#3C3489">資產（左半部）</text>
+        <text x="170" y="86" text-anchor="middle" font-size="12" fill="#534AB7">你擁有的所有東西</text>
+        <!-- 流動資產 -->
+        <rect x="50" y="102" width="240" height="118" rx="8" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="0.8"/>
+        <text x="170" y="126" text-anchor="middle" font-size="13" font-weight="700" fill="#085041">流動資產</text>
+        <text x="170" y="144" text-anchor="middle" font-size="11.5" fill="#0F6E56">1年內可以變成現金的東西</text>
+        <text x="170" y="162" text-anchor="middle" font-size="11" fill="#1D9E75">現金、應收帳款、存貨</text>
+        <text x="170" y="180" text-anchor="middle" font-size="11" fill="#1D9E75">台積電2022：2兆529億（41%）</text>
+        <text x="170" y="198" text-anchor="middle" font-size="11" fill="#0F6E56">→ 1年內可動用的錢</text>
+        <!-- 非流動資產 -->
+        <rect x="50" y="232" width="240" height="118" rx="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.8"/>
+        <text x="170" y="256" text-anchor="middle" font-size="13" font-weight="700" fill="#2C2C2A">非流動資產</text>
+        <text x="170" y="274" text-anchor="middle" font-size="11.5" fill="#444441">1年內不會變成現金的東西</text>
+        <text x="170" y="292" text-anchor="middle" font-size="11" fill="#5F5E5A">廠房設備、機器、商譽</text>
+        <text x="170" y="310" text-anchor="middle" font-size="11" fill="#5F5E5A">台積電2022：2兆9,119億（59%）</text>
+        <text x="170" y="328" text-anchor="middle" font-size="11" fill="#444441">→ 長期持有的資產</text>
+        <!-- 等號 -->
+        <text x="340" y="218" text-anchor="middle" font-size="26" font-weight="700" fill="#aaa">=</text>
+        <!-- 右：來源外框 -->
+        <rect x="370" y="40" width="280" height="330" rx="12" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.8"/>
+        <text x="510" y="68" text-anchor="middle" font-size="14" font-weight="700" fill="#2C2C2A">資金來源（右半部）</text>
+        <text x="510" y="86" text-anchor="middle" font-size="12" fill="#5F5E5A">這些資產是從哪來的</text>
+        <!-- 流動負債 -->
+        <rect x="388" y="102" width="244" height="68" rx="8" fill="#FAECE7" stroke="#F0997B" stroke-width="0.8"/>
+        <text x="510" y="126" text-anchor="middle" font-size="13" font-weight="700" fill="#712B13">流動負債</text>
+        <text x="510" y="148" text-anchor="middle" font-size="11" fill="#993C1D">1年內要還的債｜台積電：9,442億</text>
+        <!-- 非流動負債 -->
+        <rect x="388" y="180" width="244" height="68" rx="8" fill="#FAECE7" stroke="#F0997B" stroke-width="0.8"/>
+        <text x="510" y="204" text-anchor="middle" font-size="13" font-weight="700" fill="#712B13">非流動負債</text>
+        <text x="510" y="226" text-anchor="middle" font-size="11" fill="#993C1D">長期
+</svg>
+    </div>
+
+  </section>
 </main>
 
-<script>
-// Centralized nav handling: click, keyboard, and scroll highlight
-const navItems = Array.from(document.querySelectorAll('.nav-item'));
-const sections = Array.from(document.querySelectorAll('section[id]'));
-
-function activateNavItem(item) {
-  navItems.forEach(i => {
-    i.classList.remove('active');
-    i.removeAttribute('aria-current');
-  });
-  item.classList.add('active');
-  item.setAttribute('aria-current', 'page');
-}
-
-navItems.forEach(item => {
-  // click handler
-  item.addEventListener('click', function(e) {
-    // allow normal anchor behavior fallback but prevent jump to enable smooth scroll
-    e.preventDefault();
-    const targetId = this.getAttribute('data-scroll');
-    const target = document.getElementById(targetId);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      activateNavItem(this);
-      // move focus to the target for accessibility
-      target.setAttribute('tabindex', '-1');
-      target.focus({preventScroll:true});
-    }
-  });
-
-  // keyboard activation (Enter / Space)
-  item.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      this.click();
-    }
-  });
-});
-
-// Highlight nav based on scroll position
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(s => {
-    const rect = s.getBoundingClientRect();
-    if (rect.top <= 96) { // header offset
-      current = s.id;
-    }
-  });
-  if (current) {
-    const match = navItems.find(i => i.getAttribute('data-scroll') === current);
-    if (match) activateNavItem(match);
-  }
-}, { passive: true });
-
-// Case toggle (existing behavior)
-function togCase(hd) {
-  const bd = hd.nextElementSibling;
-  const ch = hd.querySelector('.case-chev');
-  const open = bd.classList.contains('open');
-  bd.classList.toggle('open', !open);
-  ch && ch.classList.toggle('open', !open);
-}
-</script>
 </body>
 </html>
