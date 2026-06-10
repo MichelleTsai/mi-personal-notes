@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第2章筆記：評估企業的真實身價</title>
+<style>
+  :root {
+    --purple: #7F77DD; --purple-light: #EEEDFE; --purple-dark: #3C3489;
+    --teal: #1D9E75; --teal-light: #E1F5EE; --teal-dark: #085041;
+    --amber: #BA7517; --amber-light: #FAEEDA; --amber-dark: #633806;
+    --coral: #D85A30; --coral-light: #FAECE7; --coral-dark: #712B13;
+    --red: #E24B4A; --red-light: #FCEBEB; --red-dark: #791F1F;
+    --blue: #378ADD; --blue-light: #E6F1FB; --blue-dark: #0C447C;
+    --green: #639922; --green-light: #EAF3DE; --green-dark: #27500A;
+    --gray-bg: #f8f8f6; --gray-border: #e5e4df; --gray-text: #555;
+    --text: #1a1a1a; --text-muted: #666; --text-faint: #999;
+    --bg: #ffffff; --bg2: #f8f8f6; --bg3: #f0efea;
+    --radius: 8px; --radius-lg: 12px; --radius-xl: 16px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--gray-bg); color: var(--text); line-height: 1.6; }
+
+  /* Layout */
+  .sidebar { position: fixed; top: 0; left: 0; width: 220px; height: 100vh; background: var(--bg); border-right: 1px solid var(--gray-border); overflow-y: auto; z-index: 100; padding: 0 0 2rem; }
+  .sidebar-logo { padding: 1.25rem 1rem 1rem; border-bottom: 1px solid var(--gray-border); }
+  .sidebar-logo h1 { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.4; }
+  .sidebar-logo p { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .nav-section { padding: .5rem 0; }
+  .nav-section-label { font-size: 10px; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: .08em; padding: .5rem 1rem .25rem; }
+  .nav-item { display: block; padding: .45rem 1rem .45rem 1.25rem; font-size: 13px; color: var(--text-muted); text-decoration: none; border-left: 2px solid transparent; transition: all .15s; cursor: pointer; }
+  .nav-item:hover { color: var(--text); background: var(--bg2); }
+  .nav-item.active { color: var(--purple-dark); border-left-color: var(--purple); background: var(--purple-light); font-weight: 500; }
+
+  .main { margin-left: 220px; padding: 2rem 2rem 4rem; max-width: 860px; }
+
+  /* Header */
+  .page-hero { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--gray-border); }
+  .hero-tag { font-size: 11px; font-weight: 600; color: var(--purple-dark); background: var(--purple-light); padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: .75rem; text-transform: uppercase; }
+  .page-hero h2 { font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: .4rem; }
+  .page-hero p { font-size: 14px; color: var(--text-muted); }
+
+  /* Sections */
+  .section { margin-bottom: 2.5rem; scroll-margin-top: 1.5rem; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; padding-bottom: .75rem; border-bottom: 1px solid var(--gray-border); }
+  .section-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .section-header h3 { font-size: 18px; font-weight: 600; color: var(--text); flex: 1; }
+  .section-page { font-size: 12px; color: var(--text-faint); }
+
+  /* Content blocks */
+  .block { margin-bottom: 1.25rem; }
+  .block-title { font-size: 13.5px; font-weight: 600; color: var(--text); margin-bottom: .5rem; }
+  .block-body { font-size: 14px; color: var(--text); line-height: 1.72; }
+
+  /* Highlight boxes */
+  .hl { border-left: 3px solid var(--purple); background: var(--purple-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; margin: 10px 0; font-size: 13.5px; line-height: 1.6; }
+  .hl.teal { border-left-color: var(--teal); background: var(--teal-light); }
+  .hl.amber { border-left-color: var(--amber); background: var(--amber-light); }
+  .hl.red { border-left-color: var(--red); background: var(--red-light); }
+  .hl.blue { border-left-color: var(--blue); background: var(--blue-light); }
+  .hl.coral { border-left-color: var(--coral); background: var(--coral-light); }
+  .warn-box { background: var(--red-light); border: 1px solid #F09595; border-radius: var(--radius); padding: 11px 14px; margin: 10px 0; font-size: 13.5px; color: var(--red-dark); line-height: 1.6; }
+  .good-box { background: var(--teal-light); border: 1px solid #5DCAA5; border-radius: var(--radius); padding: 11px 14px; margin: 10px 0; font-size: 13.5px; color: var(--teal-dark); line-height: 1.6; }
+  .caution-box { background: var(--amber-light); border: 1px solid #FAC775; border-radius: var(--radius); padding: 11px 14px; margin: 10px 0; font-size: 13.5px; color: var(--amber-dark); line-height: 1.6; }
+
+  /* Tables */
+  .tbl-wrap { overflow-x: auto; margin: 10px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--bg2); padding: 8px 11px; text-align: left; font-weight: 600; color: var(--text-muted); font-size: 12px; border-bottom: 1px solid var(--gray-border); }
+  td { padding: 8px 11px; border-bottom: 1px solid var(--gray-border); color: var(--text); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+
+  /* Compare grid */
+  .cgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+  .ccard { border: 1px solid var(--gray-border); border-radius: var(--radius); padding: 11px 13px; background: var(--bg); }
+  .ccard-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+  .ccard-body { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  /* Steps */
+  .steps { margin: 10px 0; }
+  .step { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+  .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--purple-light); color: var(--purple-dark); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-text { font-size: 13.5px; color: var(--text); line-height: 1.65; flex: 1; }
+
+  /* Cases - collapsible */
+  .case-strip { border: 1px solid var(--gray-border); border-radius: var(--radius); margin: 8px 0; overflow: hidden; }
+  .case-hd { display: flex; align-items: center; gap: 8px; padding: 9px 13px; background: var(--bg2); cursor: pointer; user-select: none; }
+  .case-hd:hover { background: var(--bg3); }
+  .case-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .case-title { font-size: 13px; font-weight: 500; color: var(--text); flex: 1; }
+  .case-tag { font-size: 11px; padding: 2px 8px; border-radius: 20px; }
+  .case-chev { font-size: 11px; color: var(--text-faint); transition: transform .2s; }
+  .case-chev.open { transform: rotate(180deg); }
+  .case-bd { padding: 12px 13px; font-size: 13.5px; line-height: 1.68; color: var(--text); display: none; border-top: 1px solid var(--gray-border); }
+  .case-bd.open { display: block; }
+
+  /* Divider */
+  .div { border: none; border-top: 1px solid var(--gray-border); margin: 1.25rem 0; }
+
+  /* Formula */
+  .formula { background: var(--bg2); border-radius: var(--radius); padding: 11px 16px; margin: 8px 0; text-align: center; font-size: 16px; font-weight: 600; color: var(--text); }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 1rem; }
+    .cgrid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <h1>第2章：評估企業的真實身價</h1>
+    <p>大會計師教你從財報數字看懂經營本質</p>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">基礎</div>
+    <a class="nav-item active" onclick="scrollTo('base')">資產負債表基礎</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">7大宏觀標準</div>
+    <a class="nav-item" onclick="scrollTo('s1')">標準1 資產總額</a>
+    <a class="nav-item" onclick="scrollTo('s2')">標準2 最大資產科目</a>
+    <a class="nav-item" onclick="scrollTo('s3')">標準3 資產配置</a>
+    <a class="nav-item" onclick="scrollTo('s4')">標準4 運用效能</a>
+    <a class="nav-item" onclick="scrollTo('s5')">標準5 流動比率</a>
+    <a class="nav-item" onclick="scrollTo('s6')">標準6 負債比率</a>
+    <a class="nav-item" onclick="scrollTo('s7')">標準7 合併vs個體</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">全球案例</div>
+    <a class="nav-item" onclick="scrollTo('cases-dead')">倒閉警示案例</a>
+    <a class="nav-item" onclick="scrollTo('cases-trick')">財報美化術</a>
+    <a class="nav-item" onclick="scrollTo('cases-good')">優等生財報</a>
+    <a class="nav-item" onclick="scrollTo('cases-paradox')">看起來危險但沒事</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">速查</div>
+    <a class="nav-item" onclick="scrollTo('cheat')">速查表 & 警示清單</a>
+  </div>
+</nav>
+
+<!-- Main -->
+<main class="main">
+  <div class="page-hero">
+    <div class="hero-tag">讀書筆記</div>
+    <h2>評估企業的真實身價</h2>
+    <p>《大會計師教你從財報數字看懂經營本質》第2章｜書本重點 ＋ 台灣＋全球真實案例整合版</p>
+  </div>
+
+  <!-- 原始內容在此 -->
+</main>
+
+<script>
+function scrollTo(id) {
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  event.target.classList.add('active');
+}
+function togCase(hd) {
+  const bd = hd.nextElementSibling;
+  const ch = hd.querySelector('.case-chev');
+  const open = bd.classList.contains('open');
+  bd.classList.toggle('open', !open);
+  ch && ch.classList.toggle('open', !open);
+}
+// Highlight active nav on scroll
+const sections = document.querySelectorAll('section[id]');
+const navItems = document.querySelectorAll('.nav-item');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+  navItems.forEach(i => {
+    i.classList.remove('active');
+    if (i.getAttribute('onclick')?.includes(current)) i.classList.add('active');
+  });
+}, {passive:true});
+</script>
+</body>
+</html>
