@@ -28,15 +28,15 @@
   .sidebar-logo p { font-size: 16.5px; color: var(--text-muted); margin-top: 2px; }
   .nav-section { padding: .5rem 0; }
   .nav-section-label { font-size: 15px; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: .08em; padding: .5rem 1rem .25rem; }
-  .nav-item { display: block; padding: .45rem 1rem .45rem 1.25rem; font-size: 19.5px; color: var(--text-muted); text-decoration: none; border-left: 2px solid transparent; transition: all .15s; cursor: pointer; }
+  .nav-item { display: block; width: 100%; box-sizing: border-box; padding: .45rem 1rem .45rem 1.25rem; font-size: 19.5px; color: var(--text-muted); text-decoration: none; border-left: 2px solid transparent; transition: all .15s; cursor: pointer; }
   .nav-item:hover { color: var(--text); background: var(--bg2); }
   .nav-item.active { color: var(--purple-dark); border-left-color: var(--purple); background: var(--purple-light); font-weight: 500; }
 
-  .main { margin-left: 220px; padding: 2rem 2rem 4rem; max-width: 860px; }
+  .main { margin-left: 220px; padding: 2rem 2rem 4rem; }
 
   /* Header */
   .page-hero { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--gray-border); }
-  .hero-tag { font-size: 16.5px; font-weight: 600; color: var(--purple-dark); background: var(--purple-light); padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: .75rem; text-transform: uppercase; }
+  .hero-tag { font-size: 16.5px; font-weight: 600; color: var(--purple-dark); background: var(--purple-light); padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: .75rem; text-transform: uppercase; letter-spacing: .06em; }
   .page-hero h2 { font-size: 39px; font-weight: 700; color: var(--text); margin-bottom: .4rem; }
   .page-hero p { font-size: 21px; color: var(--text-muted); }
 
@@ -53,15 +53,15 @@
   .block-body { font-size: 21px; color: var(--text); line-height: 1.72; }
 
   /* Highlight boxes */
-  .hl { border-left: 3px solid var(--purple); background: var(--purple-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; margin: 10px 0; font-size: 20.25px; line-height: 1.6; color: var(--text); }
+  .hl { border-left: 3px solid var(--purple); background: var(--purple-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; margin: 10px 0; font-size: 20.25px; line-height: 1.65; color: var(--text); }
   .hl.teal { border-left-color: var(--teal); background: var(--teal-light); }
   .hl.amber { border-left-color: var(--amber); background: var(--amber-light); }
   .hl.red { border-left-color: var(--red); background: var(--red-light); }
   .hl.blue { border-left-color: var(--blue); background: var(--blue-light); }
   .hl.coral { border-left-color: var(--coral); background: var(--coral-light); }
-  .warn-box { background: var(--red-light); border: 1px solid #F09595; border-radius: var(--radius); padding: 11px 14px; margin: 10px 0; font-size: 20.25px; color: var(--red-dark); line-height: 1.6; }
-  .good-box { background: var(--teal-light); border: 1px solid #5DCAA5; border-radius: var(--radius); padding: 11px 14px; margin: 10px 0; font-size: 20.25px; color: var(--teal-dark); line-height: 1.6; }
-  .caution-box { background: var(--amber-light); border: 1px solid #FAC775; border-radius: var(--radius); padding: 11px 14px; margin: 10px 0; font-size: 20.25px; color: var(--amber-dark); line-height: 1.6; }
+  .warn-box { background: var(--red-light); border: 1px solid #F09595; border-radius: var(--radius); padding: 11px 14px; margin: 10px 0; font-size: 20.25px; color: var(--red-dark); line-height: 1.65; }
+  .good-box { background: var(--teal-light); border: 1px solid #5DCAA5; border-radius: var(--radius); padding: 11px 14px; margin: 10px 0; font-size: 20.25px; color: var(--teal-dark); line-height: 1.65; }
+  .caution-box { background: var(--amber-light); border: 1px solid #FAC775; border-radius: var(--radius); padding: 11px 14px; margin: 10px 0; font-size: 20.25px; color: var(--amber-dark); line-height: 1.65; }
 
   /* Tables */
   .tbl-wrap { overflow-x: auto; margin: 10px 0; }
@@ -79,7 +79,7 @@
   /* Steps */
   .steps { margin: 10px 0; }
   .step { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
-  .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--purple-light); color: var(--purple-dark); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--purple-light); color: var(--purple-dark); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
   .step-text { font-size: 20.25px; color: var(--text); line-height: 1.65; flex: 1; }
 
   /* Cases - collapsible */
