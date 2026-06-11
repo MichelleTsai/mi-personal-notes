@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第3章筆記：抓出數字背後的魔鬼</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cr:#F5F0E8; --cr2:#EDE5D8; --cr3:#E2D7C6; --cr4:#D4C8B4; --cr5:#C0B09A;
+    --ct:#2C2420; --ct2:#5C4A3A; --ct3:#8B7560; --ct4:#B09A82;
+    --ca:#8B6B4A; --ca2:#6B4F32; --ca3:#4A3320; --ca-l:#F0E4D4; --ca-ll:#FAF5EE;
+    --cg:#7A8C72; --cg2:#5A6C52; --cg3:#3A4C32; --cg-l:#EAF0E6;
+    --cb:#7A8C9A; --cb2:#5A6C7A; --cb3:#3A4C5A; --cb-l:#E6EDF2;
+    --cw:#C4756A; --cw2:#A05548; --cw3:#7A3A30; --cw-l:#F5EAE8;
+    --radius: 10px; --radius-lg: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans TC', -apple-system, sans-serif; background: var(--cr); color: var(--ct); line-height: 1.72; font-size: 17px; font-weight: 400; -webkit-font-smoothing: antialiased; }
+  h2, h3 { font-family: 'Noto Serif TC', serif; font-weight: 700; letter-spacing: .02em; }
+  strong, b { font-weight: 600; color: var(--ca2); }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--cr2); }
+  ::-webkit-scrollbar-thumb { background: var(--cr4); border-radius: 3px; }
+
+  .sidebar { position: fixed; top: 0; left: 0; width: 260px; height: 100vh; background: var(--ca-ll); border-right: 1px solid var(--cr4); overflow-y: auto; z-index: 100; padding: 0 0 2rem; }
+  .sidebar-logo { padding: 1.4rem 1.2rem 1rem; border-bottom: 1px solid var(--cr4); background: var(--ca-l); }
+  .sidebar-logo h1 { font-family: 'Noto Serif TC', serif; font-size: 14px; font-weight: 700; color: var(--ca2); line-height: 1.5; }
+  .sidebar-logo p { font-size: 11px; color: var(--ct4); margin-top: 4px; }
+  .nav-section { padding: .4rem 0; }
+  .nav-section-label { font-size: 10px; font-weight: 600; color: var(--ct4); text-transform: uppercase; letter-spacing: .12em; padding: .6rem 1.2rem .3rem; }
+  .nav-item { display: block; padding: .5rem 1rem .5rem 1.3rem; font-size: 14px; color: var(--ct2); text-decoration: none; border-left: 2px solid transparent; transition: all .15s; cursor: pointer; font-weight: 400; }
+  .nav-item:hover { color: var(--ct); background: var(--cr2); }
+  .nav-item.active { color: var(--ca2); border-left-color: var(--ca); background: var(--ca-l); font-weight: 600; }
+  .main { margin-left: 260px; padding: 2.5rem 3.5rem 5rem; }
+
+  .page-hero { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--cr4); }
+  .hero-tag { font-size: 11px; font-weight: 600; color: var(--ca2); background: var(--ca-l); padding: 4px 13px; border-radius: 20px; display: inline-block; margin-bottom: .75rem; text-transform: uppercase; letter-spacing: .08em; border: 1px solid var(--cr5); }
+  .page-hero h2 { font-size: 30px; font-weight: 700; color: var(--ct); margin-bottom: .4rem; }
+  .page-hero p { font-size: 16px; color: var(--ct3); }
+
+  .section { margin-bottom: 2.5rem; scroll-margin-top: 1.5rem; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; padding-bottom: .75rem; border-bottom: 1px solid var(--cr4); }
+  .section-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; background: var(--ca); }
+  .section-header h3 { font-size: 21px; font-weight: 700; color: var(--ct); flex: 1; }
+  .section-page { font-size: 13px; color: var(--ct4); letter-spacing: .04em; }
+
+  .block { margin-bottom: 1.25rem; }
+  .block-title { font-size: 16px; font-weight: 600; color: var(--ca2); margin-bottom: .5rem; letter-spacing: .02em; }
+  .block-body { font-size: 17px; color: var(--ct); line-height: 1.78; }
+
+  .hl { border-left: 2.5px solid var(--ca); border-radius: 0; background: var(--ca-ll); padding: 12px 16px; margin: 12px 0; font-size: 16px; line-height: 1.7; color: var(--ct2); }
+  .hl.sage { border-left-color: var(--cg); background: var(--cg-l); color: var(--cg2); }
+  .hl.amber { border-left-color: #A07838; background: #F5ECD8; color: #6B4F20; }
+  .hl.red { border-left-color: var(--cw); background: var(--cw-l); color: var(--cw2); }
+  .hl.blue { border-left-color: var(--cb); background: var(--cb-l); color: var(--cb2); }
+  .warn-box { background: var(--cw-l); border-left: 2.5px solid var(--cw); border-radius: 0; padding: 13px 16px; margin: 12px 0; font-size: 16px; color: var(--cw2); line-height: 1.7; }
+  .good-box { background: var(--cg-l); border-left: 2.5px solid var(--cg); border-radius: 0; padding: 13px 16px; margin: 12px 0; font-size: 16px; color: var(--cg2); line-height: 1.7; }
+  .caution-box { background: #F5ECD8; border-left: 2.5px solid #A07838; border-radius: 0; padding: 13px 16px; margin: 12px 0; font-size: 16px; color: #6B4F20; line-height: 1.7; }
+
+  .tbl-wrap { overflow-x: auto; margin: 12px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th { background: var(--cr2); padding: 10px 13px; text-align: left; font-weight: 600; color: var(--ct3); font-size: 13px; border-bottom: 1px solid var(--cr4); text-transform: uppercase; letter-spacing: .05em; }
+  td { padding: 10px 13px; border-bottom: 1px solid var(--cr3); color: var(--ct); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--ca-ll); }
+
+  .cgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .ccard { border: 1px solid var(--cr4); border-radius: var(--radius); padding: 13px 15px; background: var(--ca-ll); }
+  .ccard-title { font-size: 15px; font-weight: 600; margin-bottom: 7px; color: var(--ca2); }
+  .ccard-body { font-size: 15px; color: var(--ct2); line-height: 1.65; }
+
+  .steps { margin: 12px 0; }
+  .step { display: flex; gap: 12px; margin-bottom: 11px; align-items: flex-start; }
+  .step-num { width: 27px; height: 27px; border-radius: 50%; background: var(--ca-l); color: var(--ca2); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; border: 1px solid var(--cr5); }
+  .step-text { font-size: 16px; color: var(--ct); line-height: 1.7; flex: 1; }
+
+  .case-strip { border: 1px solid var(--cr4); border-radius: var(--radius); margin: 9px 0; overflow: hidden; }
+  .case-hd { display: flex; align-items: center; gap: 10px; padding: 11px 15px; background: var(--cr2); cursor: pointer; user-select: none; transition: background .15s; }
+  .case-hd:hover { background: var(--cr3); }
+  .case-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .case-title { font-size: 15px; font-weight: 500; color: var(--ct); flex: 1; }
+  .case-tag { font-size: 11px; padding: 2px 9px; border-radius: 20px; font-weight: 500; border: 1px solid transparent; }
+  .tag-ok { background: var(--cg-l); color: var(--cg2); border-color: #A8C4A0; }
+  .tag-warn { background: var(--cw-l); color: var(--cw2); border-color: #D8A098; }
+  .tag-info { background: var(--cb-l); color: var(--cb2); border-color: #A8BCC8; }
+  .tag-neutral { background: var(--cr2); color: var(--ct3); border-color: var(--cr4); }
+  .case-chev { font-size: 11px; color: var(--ct4); transition: transform .2s; }
+  .case-chev.open { transform: rotate(180deg); }
+  .case-bd { padding: 14px 15px; font-size: 16px; line-height: 1.72; color: var(--ct); display: none; border-top: 1px solid var(--cr4); background: var(--ca-ll); }
+  .case-bd.open { display: block; }
+
+  .div { border: none; border-top: 1px solid var(--cr4); margin: 1.5rem 0; }
+  .formula { background: var(--cr2); border-radius: var(--radius); padding: 14px 20px; margin: 12px 0; text-align: center; font-size: 20px; font-weight: 700; color: var(--ca2); font-family: 'Noto Serif TC', serif; border: 1px solid var(--cr4); letter-spacing: .04em; }
+  .formula-note { font-size: 13px; color: var(--ct3); text-align: center; margin-top: 5px; }
+
+  .mr { display: flex; align-items: center; gap: 10px; margin: 7px 0; }
+  .ml { font-size: 13px; color: var(--ct3); width: 140px; flex-shrink: 0; text-align: right; }
+  .mbg { flex: 1; height: 9px; background: var(--cr3); border-radius: 5px; overflow: hidden; }
+  .mf { height: 100%; border-radius: 5px; }
+  .mv { font-size: 13px; font-weight: 600; width: 52px; flex-shrink: 0; }
+
+  .stat-row { display: flex; gap: 10px; margin: 12px 0; flex-wrap: wrap; }
+  .stat { background: var(--cr2); border: 1px solid var(--cr4); border-radius: var(--radius); padding: 10px 14px; flex: 1; min-width: 100px; }
+  .stat-label { font-size: 12px; color: var(--ct4); text-transform: uppercase; letter-spacing: .05em; }
+  .stat-val { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700; margin-top: 3px; }
+
+  .badge { display: inline-block; font-size: 12px; padding: 2px 10px; border-radius: 20px; margin-right: 4px; vertical-align: middle; font-weight: 500; border: 1px solid transparent; }
+  .bp { background: var(--ca-l); color: var(--ca2); border-color: var(--cr5); }
+  .bt { background: var(--cg-l); color: var(--cg2); border-color: #A8C4A0; }
+  .ba { background: #F5ECD8; color: #6B4F20; border-color: #C8A870; }
+  .br { background: var(--cw-l); color: var(--cw2); border-color: #D8A098; }
+  .bb { background: var(--cb-l); color: var(--cb2); border-color: #A8BCC8; }
+
+  .diagram { margin: 1.25rem 0; background: var(--ca-ll); border: 1px solid var(--cr4); border-radius: var(--radius-lg); padding: 1.5rem; }
+  .diagram-title { font-size: 11px; font-weight: 600; color: var(--ct4); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 1.1rem; }
+
+  .phase { margin-bottom: 10px; border-radius: var(--radius-lg); border: 1px solid var(--cr4); overflow: hidden; }
+  .phase-hd { padding: 10px 15px; display: flex; align-items: center; gap: 10px; }
+  .phase-tag { font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 10px; letter-spacing: .04em; }
+  .phase-title { font-size: 15px; font-weight: 600; color: var(--ct); flex: 1; }
+  .phase-bd { display: grid; grid-template-columns: 1fr 1fr; }
+  .sd { padding: 12px 15px; font-size: 15px; line-height: 1.68; color: var(--ct); }
+  .sd + .sd { border-left: 1px solid var(--cr4); }
+  .sd-label { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 10px; display: inline-block; margin-bottom: 6px; }
+  .phase-outcome { padding: 8px 15px; font-size: 14px; color: var(--ct3); border-top: 1px solid var(--cr4); font-style: italic; }
+
+  /* Danger meter */
+  .danger-scale { margin: 12px 0; }
+  .ds-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .ds-label { font-size: 13px; color: var(--ct2); width: 160px; flex-shrink: 0; font-weight: 500; }
+  .ds-bars { display: flex; gap: 3px; flex: 1; }
+  .ds-bar { height: 20px; border-radius: 4px; flex: 1; }
+  .ds-filled { background: var(--cw); }
+  .ds-empty { background: var(--cr3); }
+  .ds-note { font-size: 12px; color: var(--ct3); width: 120px; flex-shrink: 0; }
+
+  /* Flow diagram */
+  .flow-row { display: flex; align-items: center; gap: 0; margin: 12px 0; flex-wrap: wrap; }
+  .flow-box { border: 1px solid var(--cr4); border-radius: var(--radius); padding: 10px 14px; background: var(--ca-ll); font-size: 14px; text-align: center; flex: 1; min-width: 100px; }
+  .flow-arrow { font-size: 18px; color: var(--ct4); padding: 0 6px; flex-shrink: 0; }
+  .flow-box.highlight { background: var(--ca-l); border-color: var(--ca); font-weight: 600; color: var(--ca2); }
+  .flow-box.danger { background: var(--cw-l); border-color: var(--cw); color: var(--cw2); font-weight: 600; }
+  .flow-box.safe { background: var(--cg-l); border-color: var(--cg); color: var(--cg2); font-weight: 600; }
+
+  /* Timeline */
+  .tl-item { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+  .tl-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .tl-text { font-size: 16px; color: var(--ct); line-height: 1.7; flex: 1; }
+
+  @media (max-width: 700px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 1.25rem; }
+    .cgrid, .phase-bd { grid-template-columns: 1fr; }
+    .flow-row { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <h1>第3章：抓出數字背後的魔鬼</h1>
+    <p>大會計師教你從財報數字看懂經營本質</p>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">微觀指標</div>
+    <a class="nav-item active" onclick="navTo('intro')">本章導覽</a>
+    <a class="nav-item" onclick="navTo('i1')">指標1 現金安全水位</a>
+    <a class="nav-item" onclick="navTo('i2')">指標2 應收帳款天數</a>
+    <a class="nav-item" onclick="navTo('i3')">指標3 存貨週轉天數</a>
+    <a class="nav-item" onclick="navTo('i4')">指標4 投資聚焦度</a>
+    <a class="nav-item" onclick="navTo('i5')">指標5 廠房設備競爭力</a>
+    <a class="nav-item" onclick="navTo('i6')">指標6 閒置資產文化</a>
+    <a class="nav-item" onclick="navTo('i7')">指標7 短期負債還款壓力</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">速查</div>
+    <a class="nav-item" onclick="navTo('cheat')">關鍵數字速查表</a>
+    <a class="nav-item" onclick="navTo('cases')">全球真實案例</a>
+    <a class="nav-item" onclick="navTo('summary')">⭐ 重點整理</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- HERO -->
+  <div class="page-hero" id="intro">
+    <div class="hero-tag">第3章 · p.099–159</div>
+    <h2>抓出數字背後的魔鬼</h2>
+    <p>《大會計師教你從財報數字看懂經營本質》｜從微觀角度看懂「資產負債表」</p>
+  </div>
+
+  <!-- 本章導覽 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>這章在講什麼？</h3>
+    </div>
+    <div class="block-body">
+      第2章教我們用「宏觀角度」看報表全貌，第3章則拿放大鏡，針對資產負債表上的7個具體科目，一個一個問：這個數字健不健康？背後有沒有藏著魔鬼？
+    </div>
+    <div class="diagram" style="margin-top:1rem">
+      <div class="diagram-title">第3章的7個微觀衡量指標</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px">
+        <div style="background:var(--ca-l);border:1px solid var(--cr5);border-radius:var(--radius);padding:12px;text-align:center">
+          <div style="font-size:22px;font-weight:700;color:var(--ca);font-family:'Noto Serif TC',serif">1</div>
+          <div style="font-size:13px;color:var(--ca2);font-weight:600;margin-top:3px">現金安全水位</div>
+          <div style="font-size:12px;color:var(--ct3);margin-top:3px">夠用幾個月？</div>
+        </div>
+        <div style="background:var(--cb-l);border:1px solid #A8BCC8;border-radius:var(--radius);padding:12px;text-align:center">
+          <div style="font-size:22px;font-weight:700;color:var(--cb);font-family:'Noto Serif TC',serif">2</div>
+          <div style="font-size:13px;color:var(--cb2);font-weight:600;margin-top:3px">應收帳款天數</div>
+          <div style="font-size:12px;color:var(--ct3);margin-top:3px">客戶管理力？</div>
+        </div>
+        <div style="background:var(--cg-l);border:1px solid #A8C4A0;border-radius:var(--radius);padding:12px;text-align:center">
+          <div style="font-size:22px;font-weight:700;color:var(--cg);font-family:'Noto Serif TC',serif">3</div>
+          <div style="font-size:13px;color:var(--cg2);font-weight:600;margin-top:3px">存貨週轉天數</div>
+          <div style="font-size:12px;color:var(--ct3);margin-top:3px">倉庫積壓多久？</div>
+        </div>
+        <div style="background:#F5ECD8;border:1px solid #C8A870;border-radius:var(--radius);padding:12px;text-align:center">
+          <div style="font-size:22px;font-weight:700;color:#A07838;font-family:'Noto Serif TC',serif">4</div>
+          <div style="font-size:13px;color:#6B4F20;font-weight:600;margin-top:3px">投資聚焦度</div>
+          <div style="font-size:12px;color:var(--ct3);margin-top:3px">錢花在本業？</div>
+        </div>
+        <div style="background:var(--ca-l);border:1px solid var(--cr5);border-radius:var(--radius);padding:12px;text-align:center">
+          <div style="font-size:22px;font-weight:700;color:var(--ca);font-family:'Noto Serif TC',serif">5</div>
+          <div style="font-size:13px;color:var(--ca2);font-weight:600;margin-top:3px">廠房設備</div>
+          <div style="font-size:12px;color:var(--ct3);margin-top:3px">夠新夠多？</div>
+        </div>
+        <div style="background:var(--cw-l);border:1px solid #D8A098;border-radius:var(--radius);padding:12px;text-align:center">
+          <div style="font-size:22px;font-weight:700;color:var(--cw);font-family:'Noto Serif TC',serif">6</div>
+          <div style="font-size:13px;color:var(--cw2);font-weight:600;margin-top:3px">閒置資產</div>
+          <div style="font-size:12px;color:var(--ct3);margin-top:3px">有沒有在養蚊子？</div>
+        </div>
+        <div style="background:var(--cb-l);border:1px solid #A8BCC8;border-radius:var(--radius);padding:12px;text-align:center">
+          <div style="font-size:22px;font-weight:700;color:var(--cb);font-family:'Noto Serif TC',serif">7</div>
+          <div style="font-size:13px;color:var(--cb2);font-weight:600;margin-top:3px">短期負債壓力</div>
+          <div style="font-size:12px;color:var(--ct3);margin-top:3px">快到期的債有多少？</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 指標1 現金 -->
+  <section class="section" id="i1">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>指標一：現金安全水位 → 看經營穩健性</h3>
+      <span class="section-page">p.099–106</span>
+    </div>
+
+    <div class="block">
+      <div class="block-title">現金及約當現金是什麼？</div>
+      <div class="block-body">不只是口袋裡的鈔票。「現金及約當現金」包含：支票存款、活期存款，以及3個月內到期的定期存款和債券。只要是3個月內可以變現的，都算進去。</div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">現金的安全水位：至少要夠用2個月</div>
+      <div class="block-body">現金多不一定好，現金少也不一定壞，關鍵是要算「夠用幾個月」。</div>
+    </div>
+
+    <div class="formula">現金可用月數 ＝ 現金 ÷ （年度正常開銷 ÷ 12）</div>
+    <div class="block-body" style="margin-bottom:1rem">年度正常開銷 ＝ 日常營運支出 ＋ 資本支出 ＋ 股息</div>
+
+    <div class="diagram">
+      <div class="diagram-title">台積電 2022年 現金分析</div>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-label">現金及約當現金</div><div class="stat-val" style="color:var(--ca2)">1兆3,428億</div></div>
+        <div class="stat"><div class="stat-label">每月正常開銷</div><div class="stat-val" style="color:var(--ct2)">約1,862億</div></div>
+        <div class="stat"><div class="stat-label">可撐幾個月</div><div class="stat-val" style="color:var(--cg2)">7.2個月</div></div>
+      </div>
+      <div class="good-box" style="margin-top:10px">台積電現金可支撐7.2個月的正常營運，即使突然完全沒有收入，也撐得住半年多。這是台積電能在不景氣時繼續加碼投資的底氣。</div>
+      <div style="margin-top:12px">
+        <div class="mr"><span class="ml">台積電 7.2個月</span><div class="mbg"><div class="mf" style="width:90%;background:var(--ca)"></div></div><span class="mv" style="color:var(--ca2)">充裕</span></div>
+        <div class="mr"><span class="ml">鴻海 1.9個月</span><div class="mbg"><div class="mf" style="width:24%;background:#C4A882"></div></div><span class="mv" style="color:var(--ct3)">偏少</span></div>
+        <div class="mr"><span class="ml">安全標準 2個月</span><div class="mbg"><div class="mf" style="width:25%;background:var(--cg)"></div></div><span class="mv" style="color:var(--cg2)">基準</span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">重要警示：不要把現金全放在借款銀行</div>
+      <div class="block-body">很多企業把所有資金都放在有向它借款的銀行。這非常危險！</div>
+    </div>
+    <div class="warn-box">當公司發生醜聞、被調查、或財務出問題時，銀行可以立刻「提示本票」，凍結你在該行的所有存款。你的帳戶瞬間歸零。<br><br>建議：<strong>至少一半的現金，要放在沒有向它借款的銀行。</strong></div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cw)"></span><span class="case-title">真實案例：電子流通業客戶被銀行凍結帳戶</span><span class="case-tag tag-warn">台灣</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">一家從事電子流通的客戶，雖然經營良好，但因電子業毛利薄、需向銀行大量借款。某年被媒體爆料股東涉及股票操弄，銀行立刻抽銀根並提示本票凍結存款，財務瞬間亮紅燈。最後只能靠另一家電子大廠出手接手才度過危機。<br><br>教訓：不管你多會賺錢，萬一出事，在借款銀行的存款就是人質。</div>
+    </div>
+  </section>
+
+  <!-- 指標2 應收帳款 -->
+  <section class="section" id="i2">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>指標二：應收帳款天數 → 看對客戶的管理力</h3>
+      <span class="section-page">p.107–112</span>
+    </div>
+
+    <div class="block">
+      <div class="block-title">應收帳款是什麼？</div>
+      <div class="block-body">你把貨賣出去了，但客戶還沒付錢——這筆欠款就叫做「應收帳款」。配上還沒到期的票據叫「應收票據」，兩者合在一起計算天數。</div>
+      <div class="hl">就像你在公司幫同事代墊午餐費，你把飯幫他買了（出貨），但他還沒還你錢（未付款）。帳上就多了一筆應收款。問題是：如果他一直不還，這筆錢就變成呆帳了。</div>
+    </div>
+
+    <div class="formula">應收帳款天數 ＝ 期末應收帳款及票據 ÷ 全年銷貨金額 × 365（天）</div>
+    <div class="formula-note">也可用季銷貨金額換算當季天數</div>
+
+    <div class="diagram" style="margin-top:1rem">
+      <div class="diagram-title">台積電 2022年 應收帳款分析</div>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-label">應收帳款及票據</div><div class="stat-val" style="color:var(--ca2)">2,313億</div></div>
+        <div class="stat"><div class="stat-label">全年銷貨</div><div class="stat-val" style="color:var(--ct2)">22,639億</div></div>
+        <div class="stat"><div class="stat-label">週轉天數</div><div class="stat-val" style="color:var(--cg2)">37天</div></div>
+      </div>
+      <div class="mr" style="margin-top:12px"><span class="ml">台積電 37天</span><div class="mbg"><div class="mf" style="width:41%;background:var(--cg)"></div></div><span class="mv" style="color:var(--cg2)">優秀</span></div>
+      <div class="mr"><span class="ml">同業平均 48天</span><div class="mbg"><div class="mf" style="width:53%;background:var(--ca)"></div></div><span class="mv" style="color:var(--ca2)">正常</span></div>
+      <div class="mr"><span class="ml">警戒線 90天</span><div class="mbg"><div class="mf" style="width:100%;background:var(--cw)"></div></div><span class="mv" style="color:var(--cw2)">危險</span></div>
+      <div class="caution-box" style="margin-top:10px">統一超商的應收帳款天數趨近於零——消費者結帳當下就付現，所以超商幾乎沒有應收帳款！</div>
+    </div>
+
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">帳齡超過3個月：三大警訊</div>
+    </div>
+    <div class="cgrid">
+      <div class="ccard">
+        <div class="ccard-title" style="color:var(--cw2)">警訊一：可能是呆帳</div>
+        <div class="ccard-body">3個月還沒收到錢，代表客戶可能有財務困難，這筆錢可能收不回來，未來可能要認列「壞帳損失」，直接衝擊獲利。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title" style="color:var(--cw2)">警訊二：可能是做假帳</div>
+        <div class="ccard-body">如果應收帳款天數異常低（低於30天），而且媒體大量報導公司利多，反而要小心——可能是虛增銷售收入、做假帳的跡象（第6章詳述）。</div>
+      </div>
+    </div>
+    <div class="warn-box">會計師的建議：<strong>應收帳款天數宜維持在2個月左右，絕對不宜超過3個月</strong>（特殊行業除外，如出貨給鴻海、電子五哥等大廠）。</div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cw)"></span><span class="case-title">記憶體裝置公司：獎金制度讓業務員不催款</span><span class="case-tag tag-warn">台灣</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">作者輔導一家準備上市的公司，發現應收帳款天數超過120天。追問之下才知道：業務員的獎金是「營收的百分比＋利潤的百分比」，完全沒有催款機制！業務員拼命接單、樂得領高獎金，但貨款卻沒人催。作者把6,000多萬的呆帳打掉後，公司立刻修改獎金制度，改為收到貨款之後才發。結果好幾個業務員離職了——因為他們心裡知道，那些錢根本收不回來。</div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cb)"></span><span class="case-title">應收帳款可以賣給銀行？「賣斷」vs「抵押」</span><span class="case-tag tag-info">財務知識</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">如果應收帳款太多、現金週轉不靈，可以把它賣給銀行來換現金。有兩種方式：<br><br><strong>賣斷（factoring）</strong>：把鴻海欠你的帳款直接賣給銀行，帳上的應收帳款消失，現金進來。就算鴻海倒了，你也不用退錢（銀行承擔風險）。<br><br><strong>抵押融資</strong>：把應收帳款當抵押品向銀行借錢。帳款仍在你帳上，若鴻海倒了，你還是要退給銀行。<br><br>注意：如果是小公司的應收帳款，銀行通常不願意買斷。</div>
+    </div>
+  </section>
+
+  <!-- 指標3 存貨 -->
+  <section class="section" id="i3">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>指標三：存貨週轉天數 → 看銷售、採購、生產的管理力</h3>
+      <span class="section-page">p.112–121</span>
+    </div>
+
+    <div class="block">
+      <div class="block-title">存貨是什麼？</div>
+      <div class="block-body">放在倉庫裡還沒賣出去的東西：原材料（等待生產）、在製品（生產到一半）、製成品（已完成但未出貨）。存貨太多是個大問題。</div>
+      <div class="hl sage">想像你開一家滷肉飯店，進貨了100公斤豬肉，但只用了20公斤，剩下80公斤放在冰箱裡——這就是「存貨積壓」。放太久豬肉壞掉就是真實的損失。</div>
+    </div>
+
+    <div class="formula">存貨週轉天數 ＝ 期末存貨金額 ÷ 全年銷貨成本 × 365（天）</div>
+
+    <div class="diagram">
+      <div class="diagram-title">台積電 2022年 存貨分析</div>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-label">存貨金額</div><div class="stat-val" style="color:var(--ca2)">2,211億</div></div>
+        <div class="stat"><div class="stat-label">全年銷貨成本</div><div class="stat-val" style="color:var(--ct2)">9,155億</div></div>
+        <div class="stat"><div class="stat-label">週轉天數</div><div class="stat-val" style="color:var(--ca2)">88天</div></div>
+      </div>
+      <div class="caution-box" style="margin-top:10px">台積電88天 vs 同業74天，看起來台積電比較差？其實不然——台積電超過6成的晶片是28奈米以下的高階製程，生產過程複雜得像蓋100層超高層大樓，本來就需要更多時間，所以存貨天數偏高是合理的。</div>
+    </div>
+
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">存貨天數的判斷標準</div>
+    </div>
+    <div class="diagram">
+      <div class="diagram-title">存貨週轉天數安全區間</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+        <div style="background:var(--cg-l);border:1px solid #A8C4A0;border-radius:var(--radius);padding:12px;text-align:center">
+          <div style="font-size:12px;font-weight:600;color:var(--cg2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">安全</div>
+          <div style="font-size:20px;font-weight:700;color:var(--cg2);font-family:'Noto Serif TC',serif">1–2個月</div>
+          <div style="font-size:13px;color:var(--cg2);margin-top:4px">正常健康</div>
+        </div>
+        <div style="background:#F5ECD8;border:1px solid #C8A870;border-radius:var(--radius);padding:12px;text-align:center">
+          <div style="font-size:12px;font-weight:600;color:#6B4F20;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">注意</div>
+          <div style="font-size:20px;font-weight:700;color:#6B4F20;font-family:'Noto Serif TC',serif">2–6個月</div>
+          <div style="font-size:13px;color:#6B4F20;margin-top:4px">開始積壓，要觀察</div>
+        </div>
+        <div style="background:var(--cw-l);border:1px solid #D8A098;border-radius:var(--radius);padding:12px;text-align:center">
+          <div style="font-size:12px;font-weight:600;color:var(--cw2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">警戒</div>
+          <div style="font-size:20px;font-weight:700;color:var(--cw2);font-family:'Noto Serif TC',serif">超過6個月</div>
+          <div style="font-size:13px;color:var(--cw2);margin-top:4px">管理有問題，需追問</div>
+        </div>
+      </div>
+      <div class="warn-box">超過9個月要高度警戒！存貨週轉天數極低（低於30天）也要小心——可能是虛增銷售的做假帳跡象。</div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">存貨管理牽涉6個部門，是最難管的資產</div>
+      <div class="block-body">存貨過多絕不只是一個部門的問題，6個部門都可能是根源：</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">業</div><div class="step-text"><strong>業務部門</strong>：接單不嚴謹，給供應商「預測表」代替確定訂單，客戶突然縮單就產生大量庫存。2022–2023年台灣外銷業者就是吃了這個虧。</div></div>
+      <div class="step"><div class="step-num">採</div><div class="step-text"><strong>採購部門</strong>：為了怕缺貨（短料）而超量下單，等到景氣反轉客戶縮單，就剩下滿倉庫的「長料」。</div></div>
+      <div class="step"><div class="step-num">產</div><div class="step-text"><strong>生產部門</strong>：為了維持稼動率（設備利用率），故意生產沒有訂單的產品，美其名叫「儲庫存」，其實是在墊高存貨。</div></div>
+      <div class="step"><div class="step-num">研</div><div class="step-text"><strong>研發部門</strong>：設計產品時未考量庫存，導致11種不同型號的產品都用不同的MCU晶片。2022年有CEO讓研發想辦法消化庫存，才發現11種產品其實都能改用同一顆MCU。</div></div>
+      <div class="step"><div class="step-num">倉</div><div class="step-text"><strong>倉儲部門</strong>：好的倉儲不只是「整理整齊」，還要主動通報異常現象，例如積壓很久的在製品、山積如山的「長料」現象。</div></div>
+      <div class="step"><div class="step-num">會</div><div class="step-text"><strong>會計部門</strong>：應最早透過存貨週轉天數公式或ERP系統發現問題。若會計沒能力發現或沒向CEO報告，問題就會持續惡化。</div></div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cg)"></span><span class="case-title">台灣引興：精實生產讓存貨週轉天數降到10天以內</span><span class="case-tag tag-ok">台灣 優等生</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">中部一家做工具機零件的台灣引興，董事長在東海大學EMBA課程學到豐田精實生產（Toyota Production System），把生產線從120公尺縮短到27公尺，存貨週轉天數從數個月直接降到剩下營業額的0.6%，換算天數不到10天。這幾乎是製造業裡前所未有的成績。<br><br>作者感嘆：對一般稍具規模的企業，若不是因行業特性，要把存貨天數壓到30天以下是非常困難的事。</div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--ca)"></span><span class="case-title">Nike：服飾業存貨週轉天數100天屬正常</span><span class="case-tag tag-neutral">美國 特殊行業</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">Nike的存貨週轉天數保持在100天左右。鞋服業因品項繁多、規格複雜（幾百種款式 × 十幾種尺碼），本來就需要較多庫存。以Nike為基準，服飾業超過4個月要注意，超過6個月要警覺，超過9個月就代表存貨管理和調貨機制很有問題。</div>
+    </div>
+  </section>
+
+  <!-- 指標4 投資 -->
+  <section class="section" id="i4">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>指標四：從投資項目看經營的聚焦力度</h3>
+      <span class="section-page">p.122–133</span>
+    </div>
+
+    <div class="block">
+      <div class="block-title">企業投資可以分成三大類</div>
+    </div>
+    <div class="diagram">
+      <div class="diagram-title">三種投資類型</div>
+      <div class="cgrid">
+        <div class="ccard">
+          <div class="ccard-title" style="color:var(--cg2)">① 理財性投資</div>
+          <div class="ccard-body">用閒置現金賺取穩定報酬。原則是「趨吉避凶、穩健保本」，最好買政府公債、知名企業公司債、銀行存款。<br><br>台積電的短期金融資產大部分是政府債券、金融機構債券，非常保守穩健。</div>
+        </div>
+        <div class="ccard">
+          <div class="ccard-title" style="color:var(--ca2)">② 策略性投資</div>
+          <div class="ccard-body">為了強化核心競爭力而投資。例如台積電投資：<br>• SSMC（晶圓代工合資）<br>• 世界先進（成熟製程代工）<br>• 創意（IC設計）<br>• 精材、相豐（IC封裝）<br>都和台積電本業高度相關。</div>
+        </div>
+      </div>
+      <div class="warn-box" style="margin-top:10px"><strong>③ 策略不明的投資</strong>：既不是理財、也不是本業，這類投資越多越危險。來源通常有6種：前人留下的、投資失敗的、共襄盛舉（人情）、不當投機、轉型失焦、其他原因。</div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">持股比例如何影響財報上的科目？</div>
+    </div>
+    <div class="diagram">
+      <div class="diagram-title">投資股份比例 vs 財報科目</div>
+      <div class="flow-row">
+        <div class="flow-box"><div style="font-size:18px;font-weight:700;color:var(--ca)">≤20%</div><div style="font-size:12px;color:var(--ct3);margin-top:4px">透過損益或其他綜合損益衡量之金融資產</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box"><div style="font-size:18px;font-weight:700;color:var(--ca)">20–50%</div><div style="font-size:12px;color:var(--ct3);margin-top:4px">採用權益法之投資（有顯著影響力）</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box"><div style="font-size:18px;font-weight:700;color:var(--ca)">≥50%</div><div style="font-size:12px;color:var(--ct3);margin-top:4px">納入合併報表（具主導控制力）</div></div>
+      </div>
+      <div class="hl" style="margin-top:10px">為什麼要知道這個？因為不同比例的持股，在財報上出現的科目名稱完全不同，但其實都是「投資」。看財報時要把這幾個科目合起來看，才能了解公司的投資全貌。</div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">策略不明的投資：6大來源</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>前人留下</strong>：公司歷史越悠久，越容易積累前任留下的雜七雜八投資，分布在各種科目，甚至有停工幾十年的礦場。</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>投資失敗</strong>：曾試圖多角化但失敗，留下食之無味、棄之可惜的投資。台積電直到2018年第4季才把早年投資失敗的茂迪股票完全出清。</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>共襄盛舉</strong>：基於人情，朋友開餐廳跟著投資、同學創業捧個場。企業版就是和政界、商界人士「共同投資」某計畫。</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text"><strong>不當投機</strong>：拿閒錢去炒股票、炒房地產。台鳳就是典型案例（詳見下方案例）。</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text"><strong>轉型失焦</strong>：多角化經營失敗。GE（美國奇異）和大同公司同時跨足電機、家電、面板、半導體、太陽能等六大產業，資源分散，核心競爭力不明，最後都陷入困境。</div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-text"><strong>其他原因</strong>：莫名其妙的投資。例如台積電因為告贏中芯半導體，獲賠了一批中芯股票，帳上因此出現非本業的股票。</div></div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cw)"></span><span class="case-title">台鳳公司：從農業公司變成炒股機器，2000年倒閉</span><span class="case-tag tag-warn">台灣 倒閉</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">台鳳原本是做食品、飲料、外銷農產品的公司，1997年後大轉型為建設公司。發現房子賣不好，又把土地拿去抵押借款，然後專門炒股票。<br><br>從1997–1998年的財報就可以看出問題：<br>• 短期投資5億多元都是股票（上市公司股票及有買賣情形）<br>• 其他應收款中有借給關係人的48億元都是炒股資金<br>• 長期投資26億元成立許多子公司，大多也與本業無關<br><br>這家公司的本業早就不清楚了，最後在2000年宣告倒閉。財報如此，結局早已注定。</div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cw)"></span><span class="case-title">大同公司：跨足六大產業，核心競爭力失焦</span><span class="case-tag tag-warn">台灣</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">大同2018年的合併報表涵蓋：大同本體（發電機、電表、馬達、家電）、華映（面板）、福華（背光模組）、大世科（電腦軟硬體）、尚志（矽晶圓）、尚化（電塗料）、綠能（太陽能）共七大事業。<br><br>有限的資源分散在六大產業，每項業務的市場規模都不夠大，加上力量分散、核心競爭力不明，長期績效不佳。作者的結論是：「要多角化經營最好由大股東成立個別公司，讓每一家公司都能專注本業。」</div>
+    </div>
+  </section>
+
+  <!-- 指標5 廠房設備 -->
+  <section class="section" id="i5">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>指標五：從廠房設備看競爭力</h3>
+      <span class="section-page">p.134–142</span>
+    </div>
+
+    <div class="block">
+      <div class="block-title">廠房設備包含什麼？</div>
+      <div class="block-body">正式名稱是「不動產、廠房及設備」。包含：土地、建築物、機器設備、辦公設備、待驗設備及未完工程。看財報時，附註裡有詳細拆分。</div>
+      <div class="hl">「原始成本」是買入時花了多少錢。「累計折舊」是扣掉這幾年每年攤提的折舊費用。兩者相減就是「淨值（帳面餘額）」，也就是財報上顯示的金額。</div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">評估廠房設備的4個標準</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>金額</strong>：金額越大，通常規模越大、越有規模優勢。台積電廠房設備2.7兆元，是同業三星晶圓廠、聯電、中芯、力積電四家合計的好幾倍。</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>設備是否夠新</strong>：對高科技產業來說，這幾乎是軍備競賽。台積電2021–2022年兩年合計增加了近2兆元的廠房設備，超過台灣政府這兩年的經建預算！</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>錢是否花在刀口上</strong>：資本支出要花在能賺錢的設備上，而不是豪華辦公室、閒置土地、投資性不動產。台積電廠房設備裡，機器設備＋建築物＋未完工程三項合計超過98%，全部都花在刀口上。</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text"><strong>折舊政策</strong>：折舊年限越短，前期獲利看起來越差、但後期越好；同時也代表設備汰換速度越快，競爭力越強。台積電機器設備折舊年限只有5年，同業有6、8、10年甚至更長。</div></div>
+    </div>
+
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">折舊：看不懂財報的人最容易踩的坑</div>
+      <div class="block-body">折舊是什麼？就是把設備的成本「分年認列」為費用。一台機器花了3億，用5年攤提的話，每年認列6,000萬費用；用10年攤提的話，每年只認列3,000萬。</div>
+    </div>
+    <div class="caution-box">折舊年限「短」的公司：前幾年費用高→獲利看起來差，但是設備提完折舊後就不用再認列費用，獲利反而爆發。<br><br>折舊年限「長」的公司：每年費用低→獲利看起來漂亮，但設備一直都在提折舊，競爭對手的設備已經汰舊換新，他還在用老設備繳高折舊，最終競爭力會落後。</div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--ca)"></span><span class="case-title">旅館老闆：最賺錢的商業模式，就藏在折舊裡</span><span class="case-tag tag-neutral">台灣 真實故事</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">作者被邀去查帳時，問一家旅館負責人「成功關鍵是什麼？」他說：「好的旅館裝修成本非常高。我的旅館裝修費用按10年攤提，隔壁那家是按20年攤提。所以我每年折舊費用比他們高很多，一開始獲利沒他們高、股息沒他們多，常常被他們取笑。可是我每10年重新裝修一次，讓旅館永遠看起來很新、很不一樣，客人不斷回流。反過來取笑我的人，因為錢都拿去配息了，沒錢重新裝修，而且原來的折舊還沒提完——就這樣，他們不但不賺錢還虧損累累，我就把他們買了！」</div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cg)"></span><span class="case-title">台積電折舊策略：濃縮果汁效應</span><span class="case-tag tag-ok">台灣 競爭優勢</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">台積電機器設備折舊年限5年，同業有6、8、10年。折舊每多攤1年，稅前淨利就會增加幾百億。<br><br>作者說：如果把同業的利潤比喻為「原汁果汁」，台積電的利潤就是「濃縮果汁」——同樣的獲利，是在扣除更高折舊費用之後才擠出來的，代表實際賺錢能力更強。<br><br>台積電折舊費用佔銷貨成本高達47%，遠高於同業：聯電27%、格芯24%、力積電16%。前期雖然利潤看起來低，但設備提完折舊後就能以高折舊為由向客戶收更高價格，並在折舊提足後大幅降低成本。</div>
+    </div>
+  </section>
+
+  <!-- 指標6 閒置資產 -->
+  <section class="section" id="i6">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>指標六：從其他及閒置資產看企業文化</h3>
+      <span class="section-page">p.143–149</span>
+    </div>
+
+    <div class="block">
+      <div class="block-title">「其他及閒置資產」是什麼？</div>
+      <div class="block-body">簡單說，就是所有不能幫公司賺到本業獲利的資產。可以分成3類：</div>
+    </div>
+
+    <div class="diagram">
+      <div class="diagram-title">其他及閒置資產 3大類</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+        <div style="border:1px solid var(--cr4);border-radius:var(--radius);padding:13px;background:var(--ca-ll)">
+          <div style="font-size:13px;font-weight:600;color:var(--ca2);margin-bottom:6px">第1類：無形資產中的商譽及客戶關係</div>
+          <div style="font-size:13px;color:var(--ct2);line-height:1.6">大多來自併購。是「最虛」的資產，看不到摸不著，一旦併購效益不如預期，可能一夕歸零（認列減損損失）。</div>
+        </div>
+        <div style="border:1px solid var(--cr4);border-radius:var(--radius);padding:13px;background:var(--ca-ll)">
+          <div style="font-size:13px;font-weight:600;color:var(--ca2);margin-bottom:6px">第2類：投資性不動產及閒置資產</div>
+          <div style="font-size:13px;color:var(--ct2);line-height:1.6">不動產租給別人→投資性不動產；沒用也沒租出去→閒置資產。大同投資性不動產高達365億元！</div>
+        </div>
+        <div style="border:1px solid var(--cr4);border-radius:var(--radius);padding:13px;background:var(--ca-ll)">
+          <div style="font-size:13px;font-weight:600;color:var(--ca2);margin-bottom:6px">第3類：其他科目</div>
+          <div style="font-size:13px;color:var(--ct2);line-height:1.6">同業沒有但你帳上有的科目，如其他應收款、預付款項金額特別高。如興的3個「異常科目」合計超過40億，都是非正常營運所需。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hl red">一個越把錢花在刀口（生產設備）的公司，競爭力越強。「其他資產及閒置資產」越少，代表公司資產越乾淨，資源越聚焦。這類資產不宜超過總資產的5%（商譽除外）。</div>
+
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">商譽是什麼？商譽減損又是什麼？</div>
+      <div class="block-body">
+        當A公司花100億元收購B公司，但B公司的「淨資產（資產-負債）」只值20億，多付的80億要有個說法——這就是商譽。代表A公司認為B有品牌、有客戶群、有技術，值得多付這個錢。
+      </div>
+      <div class="hl amber">如興花約100億元收購大陸玩地，但玩地淨資產只有20億。評估後認為玩地的客戶群值22億，剩下的58億找不到理由，就是商譽。</div>
+      <div class="warn-box">商譽的最大風險：如果併購後2、3年都沒賺到預期的錢，就要認列「商譽減損損失」，可能一次大幅打掉商譽，讓股東損失慘重。GE曾在2018年一口氣打掉約230億美元的商譽！</div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cw)"></span><span class="case-title">GE（美國奇異）：一次性認列230億美元商譽減損</span><span class="case-tag tag-warn">美國 2018</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">GE因評估電力事業部門的獲利沒有達到預期，在2018年11月一次認列了近230億美元的商譽減損。這個數字幾乎等於台灣一個大型上市公司的總市值。商譽的危險在於：「它不需要任何實際損失，只要公司判斷未來獲利不如預期，帳面就可能一夕歸零。」</div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--ca)"></span><span class="case-title">台積電：其他及閒置資產僅佔總資產2%</span><span class="case-tag tag-ok">台灣 優等生</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">台積電的「其他資產及閒置資產」只有約1,200億元，且大部分也是對企業經營有用的資產（如商譽58億、技術權利金81億、電腦軟體設計費98億、專利權231億），比率只占總資產的2%左右，比大部分公司少很多。這反映台積電的資產高度集中在核心業務，沒有養閒置資產的文化。</div>
+    </div>
+  </section>
+
+  <!-- 指標7 短期負債 -->
+  <section class="section" id="i7">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>指標七：從短期負債科目看還款壓力</h3>
+      <span class="section-page">p.150–159</span>
+    </div>
+
+    <div class="block">
+      <div class="block-title">為什麼要特別看短期負債？</div>
+      <div class="block-body">記住：非流動負債（長期債務）不需要在1年內還，壓力不大。真正的危險在「流動負債」——1年內必須還的債。財務危機往往不是因為「不賺錢」，而是因為「到期還不出錢」。</div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">流動負債的還款壓力排序</div>
+      <div class="block-body">不同的流動負債，到期違約的後果嚴重程度差很多：</div>
+    </div>
+
+    <div class="diagram">
+      <div class="diagram-title">還款壓力強弱排序（由高到低）</div>
+      <div class="danger-scale">
+        <div class="ds-row">
+          <span class="ds-label" style="color:var(--cw2)">公司債</span>
+          <div class="ds-bars">
+            <div class="ds-bar ds-filled"></div><div class="ds-bar ds-filled"></div><div class="ds-bar ds-filled"></div><div class="ds-bar ds-filled"></div><div class="ds-bar ds-filled"></div>
+          </div>
+          <span class="ds-note" style="color:var(--cw2)">最危險！無法換票</span>
+        </div>
+        <div class="ds-row">
+          <span class="ds-label" style="color:var(--ca2)">應付票據</span>
+          <div class="ds-bars">
+            <div class="ds-bar ds-filled"></div><div class="ds-bar ds-filled"></div><div class="ds-bar ds-filled"></div><div class="ds-bar ds-filled"></div><div class="ds-bar ds-empty"></div>
+          </div>
+          <span class="ds-note" style="color:var(--ca2)">可換票但次數有限</span>
+        </div>
+        <div class="ds-row">
+          <span class="ds-label" style="color:var(--ca2)">銀行借款</span>
+          <div class="ds-bars">
+            <div class="ds-bar ds-filled"></div><div class="ds-bar ds-filled"></div><div class="ds-bar ds-filled"></div><div class="ds-bar ds-empty"></div><div class="ds-bar ds-empty"></div>
+          </div>
+          <span class="ds-note" style="color:var(--ca2)">通情達理但有底線</span>
+        </div>
+        <div class="ds-row">
+          <span class="ds-label" style="color:var(--ct3)">應付員工薪酬</span>
+          <div class="ds-bars">
+            <div class="ds-bar ds-filled"></div><div class="ds-bar ds-filled"></div><div class="ds-bar ds-empty"></div><div class="ds-bar ds-empty"></div><div class="ds-bar ds-empty"></div>
+          </div>
+          <span class="ds-note" style="color:var(--ct3)">台灣員工善良，短期容忍</span>
+        </div>
+        <div class="ds-row">
+          <span class="ds-label" style="color:var(--ct3)">應付帳款</span>
+          <div class="ds-bars">
+            <div class="ds-bar ds-filled"></div><div class="ds-bar ds-empty"></div><div class="ds-bar ds-empty"></div><div class="ds-bar ds-empty"></div><div class="ds-bar ds-empty"></div>
+          </div>
+          <span class="ds-note" style="color:var(--ct3)">很難拖，但能拖2、3年</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">應付票據：台灣特有的財務危機溫度計</div>
+      <div class="block-body">歐美財報上幾乎沒有「應付票據」這個科目，因為他們不允許開遠期支票。台灣企業習慣月結後開60天遠期支票給供應商——這就是應付票據。</div>
+    </div>
+    <div class="caution-box">公司快不行的時候，第一件事是去跟供應商「換票」（把即將到期的票換成新票延後還）。換票過程是公司財務健康狀況的晴雨表：<br><br>• 第一次換票：100張大約能換回95張（供應商體諒）<br>• 第二次換票：只能換70–80張（供應商開始擔心）<br>• 第三次換票：只剩50–60張（跳票機率大增）</div>
+
+    <div class="block">
+      <div class="block-title">公司債：最危險的流動負債</div>
+      <div class="block-body">公司債的持有人是不認識你的機構投資人，沒有往來感情可以說，期限一到就是要錢。如果財報上出現「1年內到期之公司債」，代表公司必須在1年內還一大筆錢給不認識的人。這是最沒有轉圜餘地的負債。</div>
+    </div>
+    <div class="warn-box">投資人判斷負債的關鍵清單：<br>• 負債比率超過70%且流動比率低於100% → 速速離場<br>• 流動負債中還有「應付公司債」→ 應即閃離<br>• 流動負債中有無應付公司債時，還必須查「1年內到期之長期借款」附註</div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cw)"></span><span class="case-title">華映2018年聲請重整：銀行立刻抽銀根</span><span class="case-tag tag-warn">台灣 倒閉</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">2018年末華映聲請重整，京城銀行以「違反借款合約」為由，立刻出售華映借款時提供的擔保品（大同股票）；台銀更直接提示借款時簽發的本票，讓華映直接跳票。<br><br>作者總結：「根據我的執業經驗，除了東隆五金等極少數個案，透過重整而起死回生的企業很少，絕大部分重整都是失敗的，甚至不知所終。聽到公司聲請重整時，投資人一定要立刻停損出場。」</div>
+    </div>
+  </section>
+
+  <!-- 速查表 -->
+  <section class="section" id="cheat">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>關鍵數字速查表</h3>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>指標</th><th>健康</th><th>注意</th><th>危險</th><th>台積電</th></tr>
+        <tr><td>現金可用月數</td><td style="color:var(--cg2)">≥ 2個月</td><td style="color:#6B4F20">1–2個月</td><td style="color:var(--cw2)">＜ 1個月</td><td style="color:var(--cg2)">7.2個月 ✓</td></tr>
+        <tr><td>應收帳款天數</td><td style="color:var(--cg2)">30–60天</td><td style="color:#6B4F20">60–90天</td><td style="color:var(--cw2)">超過90天</td><td style="color:var(--cg2)">37天（同業48天）✓</td></tr>
+        <tr><td>存貨週轉天數</td><td style="color:var(--cg2)">30–60天</td><td style="color:#6B4F20">60–180天</td><td style="color:var(--cw2)">超過180天</td><td style="color:var(--ca2)">88天（產品複雜，合理）</td></tr>
+        <tr><td>其他及閒置資產</td><td style="color:var(--cg2)">≤ 5%（商譽除外）</td><td style="color:#6B4F20">5–10%</td><td style="color:var(--cw2)">＞ 10%</td><td style="color:var(--cg2)">約2% ✓</td></tr>
+        <tr><td>廠房設備中設備新舊</td><td style="color:var(--cg2)">持續投入更新</td><td style="color:#6B4F20">設備老化</td><td style="color:var(--cw2)">多年未更新</td><td style="color:var(--cg2)">2年增加近2兆 ✓</td></tr>
+      </table>
+    </div>
+
+    <div class="block" style="margin-top:1.5rem">
+      <div class="block-title">財報上出現這些，要立刻提高警覺</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num" style="background:var(--cw-l);color:var(--cw2);border-color:#D8A098">!</div><div class="step-text">應收帳款天數超過3個月，且有大量帳齡超齡款項</div></div>
+      <div class="step"><div class="step-num" style="background:var(--cw-l);color:var(--cw2);border-color:#D8A098">!</div><div class="step-text">存貨週轉天數超過6個月，且無行業特殊理由</div></div>
+      <div class="step"><div class="step-num" style="background:var(--cw-l);color:var(--cw2);border-color:#D8A098">!</div><div class="step-text">財報中出現其他應收款、預付款項金額異常大，且同業沒有</div></div>
+      <div class="step"><div class="step-num" style="background:var(--cw-l);color:var(--cw2);border-color:#D8A098">!</div><div class="step-text">商譽金額龐大，且2–3年未能賺到對應利益（準備減損）</div></div>
+      <div class="step"><div class="step-num" style="background:var(--cw-l);color:var(--cw2);border-color:#D8A098">!</div><div class="step-text">流動負債中出現「1年內到期之公司債」→應即閃離</div></div>
+      <div class="step"><div class="step-num" style="background:var(--cw-l);color:var(--cw2);border-color:#D8A098">!</div><div class="step-text">負債比率超過70% + 流動比率低於100% → 速速離場</div></div>
+      <div class="step"><div class="step-num" style="background:var(--cw-l);color:var(--cw2);border-color:#D8A098">!</div><div class="step-text">公司聲請「重整」→立刻停損出場，幾乎沒有起死回生的案例</div></div>
+    </div>
+  </section>
+
+  <!-- 全球案例 -->
+  <section class="section" id="cases">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>本章全球真實案例彙整</h3>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cw)"></span><span class="case-title">安隆 Enron（美國）：商譽及客戶關係造假最終倒閉</span><span class="case-tag tag-warn">美國 2001倒閉</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">安隆長期透過「特殊目的公司」（SPE）把虧損轉移出去，帳上的商譽和各種無形資產看起來價值連城，但實際上都是為了美化財報而設計的會計架構。最終2001年破產，成為史上著名的會計醜聞。教訓：商譽金額龐大的公司，務必追問「這錢是怎麼賺回來的？」</div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cw)"></span><span class="case-title">玩具反斗城 Toys"R"Us（美國）：庫存管理失敗的教訓</span><span class="case-tag tag-warn">美國 2017倒閉</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">玩具反斗城在2017年申請破產，存貨管理問題是原因之一。玩具行業本身就有季節性（聖誕節前後大量囤貨），加上電商衝擊，存貨週轉越來越慢。大量庫存積壓不僅佔用資金，還因玩具流行週期短而必須大量折扣出清，壓縮了利潤率，最終資金鏈斷裂。</div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cg)"></span><span class="case-title">豐田 Toyota（日本）：精實生產把存貨天數壓到極低</span><span class="case-tag tag-ok">日本 優等生</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">豐田發明的「精實生產（TPS）」系統，核心就是「Just In Time」——零件在需要的時候、以需要的數量、到達需要的地方，不超前、不落後。這讓豐田的存貨週轉天數保持在業界最低水準。後來這套哲學傳到台灣（如台灣引興）和全球製造業，成為存貨管理的黃金標準。</div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cg)"></span><span class="case-title">蘋果 Apple（美國）：應收帳款幾乎為零的商業模式</span><span class="case-tag tag-ok">美國 優等生</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">蘋果在官網或Apple Store購買產品，消費者當下就刷卡付款。蘋果甚至不需要等消費者付錢——消費者先付錢，蘋果才生產（預收款）。因此蘋果的應收帳款天數極低，現金週轉效率業界頂尖。相比之下，蘋果的代工廠鴻海反而有大量應收帳款，因為蘋果給鴻海的付款條件是60–90天。</div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cw)"></span><span class="case-title">GE 美國奇異：多角化失焦 ＋ 商譽230億美元一次打掉</span><span class="case-tag tag-warn">美國 2018</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">GE曾是全球最大、最賺錢的公司之一，同時跨足航空引擎、發電設備、醫療設備、金融、媒體等眾多領域。但多角化讓資源過度分散，核心競爭力失焦。2018年，GE因電力部門獲利遠不如預期，一次認列約230億美元的商譽減損，股價重挫。最終GE被迫大規模拆分各業務，昔日巨人元氣大傷。</div>
+    </div>
+  </section>
+
+  <!-- 重點整理 -->
+  <section class="section" id="summary">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>第3章重點整理</h3>
+    </div>
+
+    <div class="block">
+      <div class="block-title">一句話總結這章</div>
+      <div class="hl">第2章教你看「全貌」，第3章教你看「細節」。7個微觀指標，每一個都像一個偵探工具，幫你從資產負債表的數字裡，抓出藏在背後的魔鬼。</div>
+    </div>
+
+    <div class="div"></div>
+
+    <!-- 7指標一覽表 -->
+    <div class="block">
+      <div class="block-title">7大指標對照表</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>指標</th><th>看的科目</th><th>問的問題</th><th>關鍵數字</th><th>警示訊號</th></tr>
+        <tr>
+          <td><strong>1. 現金安全水位</strong></td>
+          <td>現金及約當現金</td>
+          <td>現金夠公司撐幾個月？</td>
+          <td style="color:var(--cg2)">≥ 2個月</td>
+          <td>全部放借款銀行、現金低於1個月</td>
+        </tr>
+        <tr>
+          <td><strong>2. 應收帳款天數</strong></td>
+          <td>應收票據及帳款</td>
+          <td>客戶欠款幾天還清？</td>
+          <td style="color:var(--cg2)">≤ 60天</td>
+          <td>超過90天、或異常低於30天</td>
+        </tr>
+        <tr>
+          <td><strong>3. 存貨週轉天數</strong></td>
+          <td>存貨</td>
+          <td>庫存積壓幾天？</td>
+          <td style="color:var(--cg2)">≤ 60天</td>
+          <td>超過6個月、或異常低（假帳嫌疑）</td>
+        </tr>
+        <tr>
+          <td><strong>4. 投資聚焦度</strong></td>
+          <td>各類金融資產、權益法投資</td>
+          <td>投資是否和本業相關？</td>
+          <td style="color:var(--cg2)">策略清晰</td>
+          <td>大量策略不明投資、炒股票、跨業亂投</td>
+        </tr>
+        <tr>
+          <td><strong>5. 廠房設備</strong></td>
+          <td>不動產廠房及設備</td>
+          <td>設備夠新？錢花在刀口上？</td>
+          <td style="color:var(--cg2)">持續更新</td>
+          <td>設備老化、大量投資豪華辦公室或閒置土地</td>
+        </tr>
+        <tr>
+          <td><strong>6. 閒置資產</strong></td>
+          <td>商譽、投資性不動產、其他應收款等</td>
+          <td>有沒有養蚊子的資產？</td>
+          <td style="color:var(--cg2)">≤ 5%（商譽除外）</td>
+          <td>商譽龐大且獲利不如預期、其他科目異常暴增</td>
+        </tr>
+        <tr>
+          <td><strong>7. 短期負債壓力</strong></td>
+          <td>流動負債各科目</td>
+          <td>1年內要還哪些債？</td>
+          <td style="color:var(--cg2)">流動比率≥120%</td>
+          <td>流動負債有公司債、負債比率超70%且流動比率低於100%</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="div"></div>
+
+    <!-- 三個核心心法 -->
+    <div class="block">
+      <div class="block-title">作者傳授的三個核心心法</div>
+    </div>
+    <div class="cgrid">
+      <div class="ccard">
+        <div class="ccard-title">心法一：和同業比，別自己跟自己比</div>
+        <div class="ccard-body">每個指標的好壞，都要放回同產業的背景下判斷。台積電存貨88天看起來比同業74天差，但考量高階製程的複雜度，其實是合理的。不同產業不能比，一定要找同業基準。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">心法二：不能只看一個數字，要串連看</div>
+        <div class="ccard-body">應收帳款天數高，可能是業務員獎金制度設計錯誤；存貨週轉慢，可能是生產部門為維持稼動率而亂生產；財務數字是結果，背後一定有管理原因。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">心法三：異常科目是最大紅旗</div>
+        <div class="ccard-body">如果財報上出現同業沒有、或金額遠高於同業的科目（如「其他應收款」、「預付款項」暴增），這通常是問題的起點。越「乾淨」的財報，越代表公司資源聚焦在本業上。</div>
+      </div>
+    </div>
+    <div class="ccard" style="margin-top:10px">
+      <div class="ccard-title">心法四：數字過好看也要懷疑</div>
+      <div class="ccard-body">應收帳款天數異常低（低於30天）、存貨週轉天數異常快，加上媒體大量正面報導，反而要提高警戒——這可能是虛增銷售、做假帳的跡象，詳見第6章。</div>
+    </div>
+
+    <div class="div"></div>
+
+    <!-- 台積電 vs 問題公司 對照 -->
+    <div class="block">
+      <div class="block-title">優等生 vs 問題生：財報對比</div>
+    </div>
+    <div class="diagram">
+      <div class="diagram-title">台積電（優等生）vs 問題公司 各指標對比</div>
+      <div class="phase">
+        <div class="phase-hd" style="background:var(--ca-l)">
+          <span class="phase-tag" style="background:var(--cg-l);color:var(--cg2)">優等生</span>
+          <span class="phase-title">台積電 2022年</span>
+        </div>
+        <div class="phase-bd">
+          <div class="sd">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div><span style="font-size:12px;color:var(--ct3)">現金安全水位</span><br><strong style="color:var(--cg2)">7.2個月</strong>（同業的7倍）</div>
+              <div><span style="font-size:12px;color:var(--ct3)">應收帳款天數</span><br><strong style="color:var(--cg2)">37天</strong>（同業48天）</div>
+              <div><span style="font-size:12px;color:var(--ct3)">存貨週轉天數</span><br><strong style="color:var(--ca2)">88天</strong>（因高階製程複雜，合理）</div>
+            </div>
+          </div>
+          <div class="sd">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div><span style="font-size:12px;color:var(--ct3)">投資聚焦度</span><br><strong style="color:var(--cg2)">幾乎全部與本業相關</strong></div>
+              <div><span style="font-size:12px;color:var(--ct3)">廠房設備</span><br><strong style="color:var(--cg2)">2年增加近2兆，全花在刀口</strong></div>
+              <div><span style="font-size:12px;color:var(--ct3)">其他閒置資產</span><br><strong style="color:var(--cg2)">僅佔總資產2%</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase" style="margin-top:10px">
+        <div class="phase-hd" style="background:var(--cw-l)">
+          <span class="phase-tag" style="background:var(--cw-l);color:var(--cw2)">問題公司</span>
+          <span class="phase-title">台鳳 1998年（2000年倒閉）</span>
+        </div>
+        <div class="phase-bd">
+          <div class="sd">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div><span style="font-size:12px;color:var(--ct3)">現金安全水位</span><br><strong style="color:var(--cw2)">嚴重不足</strong>，大量現金借給關係人炒股</div>
+              <div><span style="font-size:12px;color:var(--ct3)">應收帳款品質</span><br><strong style="color:var(--cw2)">其他應收款佔總資產11.77%</strong>（關係人借款炒股）</div>
+            </div>
+          </div>
+          <div class="sd">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div><span style="font-size:12px;color:var(--ct3)">投資聚焦度</span><br><strong style="color:var(--cw2)">本業已不清楚</strong>，短期投資全是股票</div>
+              <div><span style="font-size:12px;color:var(--ct3)">長期投資</span><br><strong style="color:var(--cw2)">26億元設立子公司</strong>，大多與本業無關</div>
+            </div>
+          </div>
+        </div>
+        <div class="phase-outcome">財報如此清晰，2000年倒閉早在1997–1998年就寫在報表裡了。</div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <!-- 章末警語 -->
+    <div class="hl red" style="font-size:17px;line-height:1.8">
+      <strong>作者的最後叮嚀：</strong>財報數字是結果，不是原因。看到異常數字，要追問「為什麼」——是產業特性？是管理問題？還是財報造假？好的投資人不只看數字，更要理解數字背後的故事。
+    </div>
+
+
+
+  </section>
+
+</main>
+
+<script>
+function navTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  event.target.classList.add('active');
+}
+function togCase(hd) {
+  const bd = hd.nextElementSibling;
+  const ch = hd.querySelector('.case-chev');
+  const open = bd.classList.contains('open');
+  bd.classList.toggle('open', !open);
+  ch && ch.classList.toggle('open', !open);
+}
+const sections = document.querySelectorAll('section[id]');
+const navItems = document.querySelectorAll('.nav-item');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+  navItems.forEach(i => {
+    i.classList.remove('active');
+    if (i.getAttribute('onclick')?.includes(current)) i.classList.add('active');
+  });
+}, {passive:true});
+</script>
+</body>
+</html>
