@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第4章筆記：具備結構性獲利能力</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cr:#F5F0E8;--cr2:#EDE5D8;--cr3:#E2D7C6;--cr4:#D4C8B4;--cr5:#C0B09A;
+    --ct:#2C2420;--ct2:#5C4A3A;--ct3:#8B7560;--ct4:#B09A82;
+    --ca:#8B6B4A;--ca2:#6B4F32;--ca3:#4A3320;--ca-l:#F0E4D4;--ca-ll:#FAF5EE;
+    --cg:#7A8C72;--cg2:#5A6C52;--cg3:#3A4C32;--cg-l:#EAF0E6;
+    --cb:#7A8C9A;--cb2:#5A6C7A;--cb3:#3A4C5A;--cb-l:#E6EDF2;
+    --cw:#C4756A;--cw2:#A05548;--cw3:#7A3A30;--cw-l:#F5EAE8;
+    --radius:10px;--radius-lg:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans TC',-apple-system,sans-serif;background:var(--cr);color:var(--ct);line-height:1.72;font-size:17px;font-weight:400;-webkit-font-smoothing:antialiased;}
+  h2,h3{font-family:'Noto Serif TC',serif;font-weight:700;letter-spacing:.02em;}
+  strong,b{font-weight:600;color:var(--ca2);}
+  ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--cr2);}::-webkit-scrollbar-thumb{background:var(--cr4);border-radius:3px;}
+
+  .sidebar{position:fixed;top:0;left:0;width:260px;height:100vh;background:var(--ca-ll);border-right:1px solid var(--cr4);overflow-y:auto;z-index:100;padding:0 0 2rem;}
+  .sidebar-logo{padding:1.4rem 1.2rem 1rem;border-bottom:1px solid var(--cr4);background:var(--ca-l);}
+  .sidebar-logo h1{font-family:'Noto Serif TC',serif;font-size:14px;font-weight:700;color:var(--ca2);line-height:1.5;}
+  .sidebar-logo p{font-size:11px;color:var(--ct4);margin-top:4px;}
+  .nav-section{padding:.4rem 0;}
+  .nav-section-label{font-size:10px;font-weight:600;color:var(--ct4);text-transform:uppercase;letter-spacing:.12em;padding:.6rem 1.2rem .3rem;}
+  .nav-item{display:block;padding:.5rem 1rem .5rem 1.3rem;font-size:14px;color:var(--ct2);text-decoration:none;border-left:2px solid transparent;transition:all .15s;cursor:pointer;font-weight:400;}
+  .nav-item:hover{color:var(--ct);background:var(--cr2);}
+  .nav-item.active{color:var(--ca2);border-left-color:var(--ca);background:var(--ca-l);font-weight:600;}
+  .main{margin-left:260px;padding:2.5rem 3.5rem 5rem;}
+
+  .page-hero{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--cr4);}
+  .hero-tag{font-size:11px;font-weight:600;color:var(--ca2);background:var(--ca-l);padding:4px 13px;border-radius:20px;display:inline-block;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.08em;border:1px solid var(--cr5);}
+  .page-hero h2{font-size:30px;font-weight:700;color:var(--ct);margin-bottom:.4rem;}
+  .page-hero p{font-size:16px;color:var(--ct3);}
+
+  .section{margin-bottom:2.5rem;scroll-margin-top:1.5rem;}
+  .section-header{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--cr4);}
+  .section-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;background:var(--ca);}
+  .section-header h3{font-size:21px;font-weight:700;color:var(--ct);flex:1;}
+  .section-page{font-size:13px;color:var(--ct4);letter-spacing:.04em;}
+
+  .block{margin-bottom:1.25rem;}
+  .block-title{font-size:16px;font-weight:600;color:var(--ca2);margin-bottom:.5rem;letter-spacing:.02em;}
+  .block-body{font-size:17px;color:var(--ct);line-height:1.78;}
+
+  .hl{border-left:2.5px solid var(--ca);border-radius:0;background:var(--ca-ll);padding:12px 16px;margin:12px 0;font-size:16px;line-height:1.7;color:var(--ct2);}
+  .hl.sage{border-left-color:var(--cg);background:var(--cg-l);color:var(--cg2);}
+  .hl.amber{border-left-color:#A07838;background:#F5ECD8;color:#6B4F20;}
+  .hl.red{border-left-color:var(--cw);background:var(--cw-l);color:var(--cw2);}
+  .hl.blue{border-left-color:var(--cb);background:var(--cb-l);color:var(--cb2);}
+  .warn-box{background:var(--cw-l);border-left:2.5px solid var(--cw);border-radius:0;padding:13px 16px;margin:12px 0;font-size:16px;color:var(--cw2);line-height:1.7;}
+  .good-box{background:var(--cg-l);border-left:2.5px solid var(--cg);border-radius:0;padding:13px 16px;margin:12px 0;font-size:16px;color:var(--cg2);line-height:1.7;}
+  .caution-box{background:#F5ECD8;border-left:2.5px solid #A07838;border-radius:0;padding:13px 16px;margin:12px 0;font-size:16px;color:#6B4F20;line-height:1.7;}
+
+  .tbl-wrap{overflow-x:auto;margin:12px 0;}
+  table{width:100%;border-collapse:collapse;font-size:15px;}
+  th{background:var(--cr2);padding:10px 13px;text-align:left;font-weight:600;color:var(--ct3);font-size:13px;border-bottom:1px solid var(--cr4);text-transform:uppercase;letter-spacing:.05em;}
+  th.r{text-align:right;}
+  td{padding:10px 13px;border-bottom:1px solid var(--cr3);color:var(--ct);vertical-align:top;}
+  td.r{text-align:right;}
+  td.hi{background:var(--ca-l);font-weight:600;color:var(--ca2);}
+  td.good{background:var(--cg-l);font-weight:600;color:var(--cg2);}
+  td.warn{background:var(--cw-l);font-weight:600;color:var(--cw2);}
+  td.mute{color:var(--ct4);font-size:14px;}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:var(--ca-ll);}
+  .tbl-caption{font-size:12px;color:var(--ct4);margin-top:5px;font-style:italic;text-align:right;}
+
+  .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;}
+  .cgrid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:12px 0;}
+  .ccard{border:1px solid var(--cr4);border-radius:var(--radius);padding:13px 15px;background:var(--ca-ll);}
+  .ccard-title{font-size:15px;font-weight:600;margin-bottom:7px;color:var(--ca2);}
+  .ccard-body{font-size:15px;color:var(--ct2);line-height:1.65;}
+  .ccard.green .ccard-title{color:var(--cg2);}
+  .ccard.green{background:var(--cg-l);border-color:#A8C4A0;}
+
+  .steps{margin:12px 0;}
+  .step{display:flex;gap:12px;margin-bottom:11px;align-items:flex-start;}
+  .step-num{width:27px;height:27px;border-radius:50%;background:var(--ca-l);color:var(--ca2);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;border:1px solid var(--cr5);}
+  .step-num.g{background:var(--cg-l);color:var(--cg2);border-color:#A8C4A0;}
+  .step-text{font-size:16px;color:var(--ct);line-height:1.7;flex:1;}
+
+  .case-strip{border:1px solid var(--cr4);border-radius:var(--radius);margin:9px 0;overflow:hidden;}
+  .case-hd{display:flex;align-items:center;gap:10px;padding:11px 15px;background:var(--cr2);cursor:pointer;user-select:none;transition:background .15s;}
+  .case-hd:hover{background:var(--cr3);}
+  .case-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .case-title{font-size:15px;font-weight:500;color:var(--ct);flex:1;}
+  .case-tag{font-size:11px;padding:2px 9px;border-radius:20px;font-weight:500;border:1px solid transparent;}
+  .tag-ok{background:var(--cg-l);color:var(--cg2);border-color:#A8C4A0;}
+  .tag-warn{background:var(--cw-l);color:var(--cw2);border-color:#D8A098;}
+  .tag-info{background:var(--cb-l);color:var(--cb2);border-color:#A8BCC8;}
+  .tag-neutral{background:var(--cr2);color:var(--ct3);border-color:var(--cr4);}
+  .case-chev{font-size:11px;color:var(--ct4);transition:transform .2s;}
+  .case-chev.open{transform:rotate(180deg);}
+  .case-bd{padding:14px 15px;font-size:16px;line-height:1.72;color:var(--ct);display:none;border-top:1px solid var(--cr4);background:var(--ca-ll);}
+  .case-bd.open{display:block;}
+
+  .div{border:none;border-top:1px solid var(--cr4);margin:1.5rem 0;}
+  .formula{background:var(--cr2);border-radius:var(--radius);padding:14px 20px;margin:12px 0;text-align:center;font-size:20px;font-weight:700;color:var(--ca2);font-family:'Noto Serif TC',serif;border:1px solid var(--cr4);letter-spacing:.04em;}
+  .formula-note{font-size:13px;color:var(--ct3);text-align:center;margin-top:5px;}
+
+  .stat-row{display:flex;gap:10px;margin:12px 0;flex-wrap:wrap;}
+  .stat{background:var(--cr2);border:1px solid var(--cr4);border-radius:var(--radius);padding:10px 14px;flex:1;min-width:100px;}
+  .stat-label{font-size:12px;color:var(--ct4);text-transform:uppercase;letter-spacing:.05em;}
+  .stat-val{font-family:'Noto Serif TC',serif;font-size:22px;font-weight:700;margin-top:3px;}
+
+  .badge{display:inline-block;font-size:12px;padding:2px 10px;border-radius:20px;margin-right:4px;vertical-align:middle;font-weight:500;border:1px solid transparent;}
+  .bp{background:var(--ca-l);color:var(--ca2);border-color:var(--cr5);}
+  .bt{background:var(--cg-l);color:var(--cg2);border-color:#A8C4A0;}
+  .ba{background:#F5ECD8;color:#6B4F20;border-color:#C8A870;}
+  .br{background:var(--cw-l);color:var(--cw2);border-color:#D8A098;}
+  .bb{background:var(--cb-l);color:var(--cb2);border-color:#A8BCC8;}
+
+  .diagram{margin:1.25rem 0;background:var(--ca-ll);border:1px solid var(--cr4);border-radius:var(--radius-lg);padding:1.5rem;}
+  .diagram-title{font-size:11px;font-weight:600;color:var(--ct4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1.1rem;}
+
+  .mr{display:flex;align-items:center;gap:10px;margin:7px 0;}
+  .ml{font-size:13px;color:var(--ct3);width:180px;flex-shrink:0;text-align:right;}
+  .mbg{flex:1;height:9px;background:var(--cr3);border-radius:5px;overflow:hidden;}
+  .mf{height:100%;border-radius:5px;}
+  .mv{font-size:13px;font-weight:600;width:60px;flex-shrink:0;}
+
+  /* income statement structural flow */
+  .is-flow{margin:1rem 0;}
+  .is-row{display:flex;align-items:stretch;margin-bottom:3px;gap:3px;}
+  .is-num{width:36px;height:36px;border-radius:50%;background:var(--ca2);color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .is-label{flex:1;padding:8px 14px;border-radius:var(--radius);font-size:15px;font-weight:600;display:flex;align-items:center;}
+  .is-label.main{background:var(--ca-l);color:var(--ca2);}
+  .is-label.sub{background:var(--cr2);color:var(--ct2);font-weight:400;font-size:14px;padding-left:30px;}
+  .is-label.result{background:var(--cg-l);color:var(--cg2);}
+  .is-label.ext{background:var(--cb-l);color:var(--cb2);font-size:14px;}
+  .is-label.muted{background:var(--cr3);color:var(--ct3);font-size:13px;font-weight:400;padding-left:30px;}
+  .is-amount{width:160px;flex-shrink:0;padding:8px 14px;border-radius:var(--radius);background:var(--cr2);font-size:14px;color:var(--ct3);display:flex;align-items:center;justify-content:flex-end;}
+  .is-pct{width:50px;flex-shrink:0;padding:8px 6px;font-size:13px;color:var(--ct4);display:flex;align-items:center;justify-content:center;}
+
+  /* 5-standard cards */
+  .std-card{display:flex;gap:14px;border:1px solid var(--cr4);border-radius:var(--radius-lg);padding:14px 16px;background:var(--ca-ll);margin-bottom:10px;align-items:flex-start;}
+  .std-num{width:34px;height:34px;border-radius:50%;background:var(--ca2);color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .std-body{flex:1;}
+  .std-title{font-size:17px;font-weight:600;color:var(--ca2);margin-bottom:5px;}
+  .std-body .block-body{margin-top:0;}
+
+  /* moat type tag */
+  .moat-tag{display:inline-block;font-size:12px;padding:3px 11px;border-radius:20px;font-weight:600;letter-spacing:.04em;margin-bottom:6px;}
+  .mt-scale{background:var(--cb-l);color:var(--cb2);}
+  .mt-brand{background:var(--ca-l);color:var(--ca2);}
+  .mt-tech{background:var(--cg-l);color:var(--cg2);}
+  .mt-oem{background:#F5ECD8;color:#6B4F20;}
+  .mt-eff{background:var(--cr2);color:var(--ct3);}
+
+  .home-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:5px 13px;border-radius:20px;border:1px solid var(--cr4);background:var(--ca-ll);transition:all .15s;font-weight:400;margin-bottom:1.5rem;}
+  .home-btn:hover{background:var(--ca-l);color:var(--ca2);border-color:var(--cr5);}
+  .home-btn-sidebar{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:.55rem 1rem .55rem 1.3rem;border-top:1px solid var(--cr4);margin-top:.5rem;transition:color .15s;font-weight:400;}
+  .home-btn-sidebar:hover{color:var(--ca2);background:var(--ca-l);}
+
+  @media(max-width:700px){
+    .sidebar{display:none;}
+    .main{margin-left:0;padding:1.25rem;}
+    .cgrid,.cgrid3{grid-template-columns:1fr;}
+    .is-amount,.is-pct{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <h1>第4章：具備結構性獲利能力</h1>
+    <p>大會計師教你從財報數字看懂經營本質</p>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">損益表基礎</div>
+    <a class="nav-item active" onclick="navTo('intro')">本章導覽</a>
+    <a class="nav-item" onclick="navTo('is-structure')">損益表的12個科目</a>
+    <a class="nav-item" onclick="navTo('five-std')">5大結構性獲利標準</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">8個分析角度</div>
+    <a class="nav-item" onclick="navTo('a1')">① 營收成長性及穩定性</a>
+    <a class="nav-item" onclick="navTo('a2')">② 毛利率穩定性</a>
+    <a class="nav-item" onclick="navTo('a3')">③ 推銷費用合理性</a>
+    <a class="nav-item" onclick="navTo('a4')">④ 管理費用合理性</a>
+    <a class="nav-item" onclick="navTo('a5')">⑤ 研發費用金額</a>
+    <a class="nav-item" onclick="navTo('a6')">⑥ 獲利來源</a>
+    <a class="nav-item" onclick="navTo('a7')">⑦ 稅後淨利及EPS</a>
+    <a class="nav-item" onclick="navTo('a8')">⑧ ROE 比 EPS 更準</a>
+    <a class="nav-item" onclick="navTo('a9')">⑨ 不必理會其他綜合損益</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">速查</div>
+    <a class="nav-item" onclick="navTo('summary')">⭐ 重點整理</a>
+  </div>
+  <div style="padding:.75rem 1rem 1rem;margin-top:.5rem;">
+    <a class="home-btn-sidebar" href="index.html">← 回到目錄首頁</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <a class="home-btn" href="index.html">← 回到目錄首頁</a>
+
+  <div class="page-hero" id="intro">
+    <div class="hero-tag">第4章 · p.160–218</div>
+    <h2>具備結構性獲利能力</h2>
+    <p>《大會計師教你從財報數字看懂經營本質》｜從「損益表」判斷公司有沒有在本業真正賺錢</p>
+  </div>
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>這章在講什麼？</h3>
+    </div>
+    <div class="block-body">損益表是「企業如何賺錢」以及「賺了多少錢」的報表。這章教你從損益表看懂：公司有沒有真正的競爭力？獲利是來自本業還是業外收入？EPS 高是真的賺錢還是股本小的把戲？ROE 才是衡量真實獲利能力的指標。</div>
+    <div class="hl" style="margin-top:1rem">
+      <strong>本章核心觀念：「結構性獲利能力」</strong>——企業在長期上可以從其營業活動中賺得令股東滿意的報酬。這不是短期的一次性獲利，而是可以持續、可以重複的賺錢能力。
+    </div>
+    <div class="cgrid" style="margin-top:1.25rem">
+      <div class="ccard">
+        <div class="ccard-title">前半段：損益表架構</div>
+        <div class="ccard-body">12個科目逐一解說，以台積電 2022 年真實損益表（表4-1）為範例，讓你看懂每一行數字代表什麼意思。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">後半段：8個分析角度</div>
+        <div class="ccard-body">用損益表上的數字，從8個角度判斷一家公司的競爭力、管理能力、獲利品質，以及 EPS 和 ROE 的真正意義。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 損益表架構 ===== -->
+  <section class="section" id="is-structure">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>損益表的 12 個科目</h3>
+      <span class="section-page">p.162–169</span>
+    </div>
+    <div class="block-body">損益表的科目從上到下，是一層一層扣除成本與費用的過程。用台積電 2022 年合併綜合損益表（表4-1）逐項說明：</div>
+
+    <div class="is-flow" style="margin-top:1.25rem">
+      <div class="is-row">
+        <div class="is-num">①</div>
+        <div class="is-label main">營業收入</div>
+        <div class="is-amount">2兆2,639億</div>
+        <div class="is-pct">100%</div>
+      </div>
+      <div class="is-row">
+        <div class="is-num" style="background:var(--ct3)">②</div>
+        <div class="is-label sub">減：營業成本（直接原料、人工、製造費用）</div>
+        <div class="is-amount">9,155億</div>
+        <div class="is-pct">40%</div>
+      </div>
+      <div class="is-row">
+        <div class="is-num" style="background:var(--cg2)">③</div>
+        <div class="is-label result">＝ 營業毛利</div>
+        <div class="is-amount">1兆3,484億</div>
+        <div class="is-pct">60%</div>
+      </div>
+      <div class="is-row" style="margin-top:6px">
+        <div class="is-num" style="background:var(--ct3)">④</div>
+        <div class="is-label sub">減：營業費用（合計）</div>
+        <div class="is-amount">2,267億</div>
+        <div class="is-pct">10%</div>
+      </div>
+      <div class="is-row">
+        <div class="is-num" style="visibility:hidden">④</div>
+        <div class="is-label muted">⑤ 研究發展費用</div>
+        <div class="is-amount">1,633億</div>
+        <div class="is-pct">7%</div>
+      </div>
+      <div class="is-row">
+        <div class="is-num" style="visibility:hidden">④</div>
+        <div class="is-label muted">⑥ 管理費用</div>
+        <div class="is-amount">535億</div>
+        <div class="is-pct">2%</div>
+      </div>
+      <div class="is-row">
+        <div class="is-num" style="visibility:hidden">④</div>
+        <div class="is-label muted">⑦ 行銷（推銷）費用</div>
+        <div class="is-amount">99億</div>
+        <div class="is-pct">1%</div>
+      </div>
+      <div class="is-row">
+        <div class="is-num" style="background:var(--cg2)">⑧</div>
+        <div class="is-label result">＝ 營業淨利（本業賺到的錢）</div>
+        <div class="is-amount">1兆1,213億</div>
+        <div class="is-pct">50%</div>
+      </div>
+      <div class="is-row" style="margin-top:6px">
+        <div class="is-num" style="background:var(--cb2)">⑨</div>
+        <div class="is-label ext">± 營業外收入及支出（利息收入、匯差等）</div>
+        <div class="is-amount">+229億</div>
+        <div class="is-pct">1%</div>
+      </div>
+      <div class="is-row">
+        <div class="is-num" style="background:var(--cg2)">⑩</div>
+        <div class="is-label result">＝ 稅前淨利</div>
+        <div class="is-amount">1兆1,442億</div>
+        <div class="is-pct">51%</div>
+      </div>
+      <div class="is-row">
+        <div class="is-num" style="background:var(--ct3)">—</div>
+        <div class="is-label sub">減：所得稅費用</div>
+        <div class="is-amount">1,273億</div>
+        <div class="is-pct">6%</div>
+      </div>
+      <div class="is-row">
+        <div class="is-num" style="background:var(--ca2)">—</div>
+        <div class="is-label main">＝ 本年度稅後淨利（最關鍵！）</div>
+        <div class="is-amount">1兆169億</div>
+        <div class="is-pct">45%</div>
+      </div>
+      <div class="is-row" style="margin-top:6px">
+        <div class="is-num" style="background:var(--ct4)">⑪</div>
+        <div class="is-label muted">其他綜合損益（匯率、股票市值變動⋯幾乎可以忽略）</div>
+        <div class="is-amount">+424億</div>
+        <div class="is-pct">2%</div>
+      </div>
+      <div class="is-row">
+        <div class="is-num" style="background:var(--ct4)">⑫</div>
+        <div class="is-label muted">本年度綜合損益總額（⑪的影響加進來後的總數）</div>
+        <div class="is-amount">1兆593億</div>
+        <div class="is-pct">47%</div>
+      </div>
+    </div>
+
+    <div class="hl blue" style="margin-top:1rem">
+      <strong>實務上只需看「稅後淨利」（科目代碼8200）</strong>：IFRS 採用後，稅後淨利還是在那裡，只是下面多了⑪其他綜合損益及⑫綜合損益總額。這兩個科目金額通常不大，一般公司可以略而不看。
+    </div>
+
+    <div class="div"></div>
+
+    <div class="block-title">損益表各科目白話解說</div>
+    <div class="cgrid" style="margin-top:.75rem">
+      <div class="ccard">
+        <div class="ccard-title">① 營業收入</div>
+        <div class="ccard-body">銷售商品與提供服務的收入總額。台積電 2022 年：2兆2,639億元。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">② 營業成本</div>
+        <div class="ccard-body">銷售存貨與提供服務所負擔的成本，包含直接原料、直接人工、製造費用（水電費等）。台積電 2022 年：9,155億元。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">③ 營業毛利</div>
+        <div class="ccard-body">營收減去營業成本。台積電 2022 年毛利率高達 60%，是晶圓代工廠無人能及的比率。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">④ 營業費用</div>
+        <div class="ccard-body">不是賣貨的直接成本，而是讓公司好好賺錢、應對周邊工作（ESG、法遵等）所花費的支出。分為研發、管理、行銷三大類。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">⑤ 研究發展費用</div>
+        <div class="ccard-body">投入新技術、新製程、新專利或新產品的研發支出。是捨棄現在、投資未來的費用。台積電2022年：1,633億元。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">⑥ 管理費用</div>
+        <div class="ccard-body">與生產及銷售活動無關的部門費用：董事會、財務、人事、法務、IT、保全等。台積電2022年：535億元。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">⑦ 推銷／行銷費用</div>
+        <div class="ccard-body">把產品賣出去所花的「溝通、服務及交付貨物或服務」支出。B2C 產業（統一超、瓦城）推銷費用比率遠高於 B2B（台積電只有 0.44%）。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">⑧ 營業淨利</div>
+        <div class="ccard-body"><strong>企業從本業上賺取的金額</strong>。這一點很重要——獲利必須來自本業，而非業外一次性收入。台積電2022年：1兆1,213億元。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">⑨ 營業外收入及支出</div>
+        <div class="ccard-body">與本業無直接因果關係的收支：利息收入、外幣兌換損益、財務成本（借款利息）、投資損益等。正常情況下金額較小，可以略看。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">⑩ 稅前淨利</div>
+        <div class="ccard-body">營業淨利加減營業外收支。台積電 2022 年本業獲利占稅前淨利 98%，業外收入只占 2%——獲利品質非常好。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 5大結構性獲利標準 ===== -->
+  <section class="section" id="five-std">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>5 大科目看「結構性獲利能力」</h3>
+      <span class="section-page">p.169–177</span>
+    </div>
+    <div class="block-body">張忠謀說企業須具備結構性獲利能力。可以從損益表的 5 大科目來判斷：</div>
+
+    <div style="margin-top:1.25rem">
+      <div class="std-card">
+        <div class="std-num">1</div>
+        <div class="std-body">
+          <div class="std-title">可接受的重複性營業收入</div>
+          <div class="block-body">收入要夠大，更要能不斷重複，最好還要成長。<br>
+          <span style="color:var(--ct3);font-size:15px">比喻：合歡山上賣關東煮（收入夠大、可重複）是可以的；在合歡山開法國餐廳（大投資、客源稀少）則不符合這個標準。</span>
+          </div>
+          <div class="caution-box" style="margin-top:8px">2022年半導體景氣大好時，IC設計大廠要求晶圓代工廠擴充28奈米產能，就與聯電等簽下「不平等契約」：先付一大筆巨額預付款，承購廠家一定產能，承購價格普遍高於晶片缺貨前的代工價格。這讓晶圓代工廠確保了「可重複的大額收入」。</div>
+        </div>
+      </div>
+
+      <div class="std-card">
+        <div class="std-num">2</div>
+        <div class="std-body">
+          <div class="std-title">足夠的毛利水準</div>
+          <div class="block-body">毛利是「營業收入－營業成本」。毛利不夠，連費用都付不完，更別說獲利。毛利率要夠高且穩定。</div>
+          <div class="tbl-wrap" style="margin-top:8px">
+            <table>
+              <tr><th>商業模式</th><th class="r">華碩</th><th class="r">宏碁</th></tr>
+              <tr><td>毛利率（2020–2022平均）</td><td class="r hi">17.4%</td><td class="r">11.1%</td></tr>
+              <tr><td>研發費用率</td><td class="r">3.9%</td><td class="r">0.9%</td></tr>
+              <tr><td>行銷費用率</td><td class="r">5.9%</td><td class="r">5.3%</td></tr>
+              <tr><td>管理費用率</td><td class="r">1.7%</td><td class="r">1.7%</td></tr>
+            </table>
+            <div class="tbl-caption">表4-2｜華碩毛利率較高，可撐起較高的研發費用率。資料來源：作者整理</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="std-card">
+        <div class="std-num">3</div>
+        <div class="std-body">
+          <div class="std-title">可承受的營業費用</div>
+          <div class="block-body">營業費用（研發＋管理＋行銷）必須控制在毛利之內，才能讓公司賺得「營業淨利」而非「營業淨損」。<br>
+          <span style="color:var(--ct3);font-size:15px">統一超毛利率約33%，營業費用率約30%，讓公司有3%的營業淨利。全家費用率約32%，差異正是兩家公司賺錢能力最大的不同之處。</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="std-card">
+        <div class="std-num">4</div>
+        <div class="std-body">
+          <div class="std-title">可接受的營業淨利</div>
+          <div class="block-body">企業必須有營業淨利，而且這個利潤必須來自本業，而非業外一次性收入（賣股票、賣土地）。獲利來源靠業外收入不能長久。</div>
+          <div class="hl amber" style="margin-top:8px">統一超在 2017 年因被迫賣掉大陸星巴克股權而額外大賺 100 多億元，消息揭露時股價反而因「失去未來的金雞母」大跌 9.5%。有重大業外收入時，不用高興；有重大業外支出，則應檢討能否避免再發生。</div>
+        </div>
+      </div>
+
+      <div class="std-card">
+        <div class="std-num">5</div>
+        <div class="std-body">
+          <div class="std-title">營業淨利必須對得起股東投入的資源</div>
+          <div class="block-body">股東投入資源不只是「股本」，而是「股東權益」（股本＋保留盈餘＋資本公積）。白話就是：用股東全部的錢在做生意，那獲利就要符合股東要求的報酬率。<br><br>這就是 ROE（股東權益報酬率）的核心邏輯，詳見第8點。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hl red" style="margin-top:1rem">
+      研發型新創公司（如鎵創 Micro LED 技術）通常難以一開始就達到這 5 個標準，因為技術還沒成熟、成本高、收入小。投資這類公司需要勇氣與耐心，等技術突破後，毛利和獲利才會顯著改善。
+    </div>
+  </section>
+
+  <!-- ===== 8個角度 ===== -->
+
+  <!-- 角度1 -->
+  <section class="section" id="a1">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--cb)"></span>
+      <h3>① 營收成長性及穩定性——顯示企業競爭力</h3>
+      <span class="section-page">p.178–181</span>
+    </div>
+    <div class="block-body">一個好公司，理論上營收要逐年成長。但產業有景氣循環，所以單看成長率不夠準——要跟同業比。</div>
+
+    <div class="hl amber">
+      <strong>判斷公司競爭力的兩個標準：</strong><br>
+      ① 景氣好時，營收成長比別人高<br>
+      ② 景氣不好時，營收跌得比別人少<br><br>
+      另外，<strong>不管景氣好不好，營收都不太跌或跌很少，代表這是一家非常穩定的公司</strong>（例如便利商店）。
+    </div>
+
+    <div class="block-body" style="margin-top:1rem">比較時最好與同業<strong>連續比較 3 年以上</strong>，從長期來比較成長情形會更有意義。</div>
+
+    <div class="tbl-wrap" style="margin-top:1rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 4-5｜台積電近3年的營收成長率多優於同業（2020–2022）</div>
+      <table>
+        <tr>
+          <th>年度</th>
+          <th class="r">台積電 2022</th><th class="r">同業 2022</th>
+          <th class="r">台積電 2021</th><th class="r">同業 2021</th>
+          <th class="r">台積電 2020</th><th class="r">同業 2020</th>
+        </tr>
+        <tr>
+          <td>營業收入</td>
+          <td class="r">22,639億</td><td class="r">2,787億</td>
+          <td class="r">15,874億</td><td class="r">2,130億</td>
+          <td class="r">13,393億</td><td class="r">1,768億</td>
+        </tr>
+        <tr>
+          <td>營收成長金額</td>
+          <td class="r hi">6,765億</td><td class="r">748億</td>
+          <td class="r hi">2,481億</td><td class="r">362億</td>
+          <td class="r">2,693億</td><td class="r">286億</td>
+        </tr>
+        <tr>
+          <td>營收成長率</td>
+          <td class="r hi">43%</td><td class="r">31%</td>
+          <td class="r hi">19%</td><td class="r">20%</td>
+          <td class="r">25%</td><td class="r">19%</td>
+        </tr>
+      </table>
+      <div class="tbl-caption">資料來源：作者整理｜台積電2022年成長金額以2,481億對比同業748億，呈現完全碾壓，顯示台積電過去3年的成長性超過同業，也更具競爭力</div>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top:1.25rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 4-6｜華映出事前 3 年的營收成長率皆低於同業</div>
+      <table>
+        <tr><th>年度</th><th class="r">2018年</th><th class="r">2017年</th><th class="r">2016年</th></tr>
+        <tr><td>華映成長率</td><td class="r warn">6%</td><td class="r warn">-31%</td><td class="r warn">-16%</td></tr>
+        <tr><td>同業成長率</td><td class="r">15%</td><td class="r">-21%</td><td class="r">-15%</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：作者整理｜景氣不好時跌比別人重，景氣回升時漲不起來，競爭力比同業低很多</div>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top:1.25rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 4-7｜統一超疫情期間營收仍穩定</div>
+      <table>
+        <tr><th></th><th class="r">2022年</th><th class="r">2021年</th><th class="r">2020年</th></tr>
+        <tr><td>統一超營收（個體報表）</td><td class="r good">1,829億</td><td class="r good">1,680億</td><td class="r good">1,681億</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：作者整理｜Covid-19 肆虐全台時，統一超營收幾乎沒有下滑，展現便利商店的高競爭力與穩定性</div>
+    </div>
+  </section>
+
+  <!-- 角度2 -->
+  <section class="section" id="a2">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--cb)"></span>
+      <h3>② 毛利率穩定性——反映對價格或生產成本的掌控力</h3>
+      <span class="section-page">p.181–190</span>
+    </div>
+    <div class="block-body">看毛利率就是看成本率，也等於看毛利率。毛利率穩定，代表公司對自己的價格或成本有掌控能力。</div>
+
+    <div class="block-title" style="margin-top:1rem">持久戰中維持毛利率的 5 種類型（依持久度排序）</div>
+
+    <div style="margin-top:.75rem">
+      <div class="ccard" style="margin-bottom:10px">
+        <div><span class="moat-tag mt-scale">① 規模、通路或專利優勢者</span></div>
+        <div class="ccard-body" style="margin-top:6px">統一超及全家的毛利率維持在 33%±1% 左右，5 年來幾乎不動。原因：在全台超過 7,000 家及 3,000 多家門市，每天前往消費的人潮川流不息。通路規模讓他們能設定售價、守住毛利率。
+          <div class="tbl-wrap" style="margin-top:8px">
+            <table>
+              <tr><th>年度</th><th class="r">2022</th><th class="r">2021</th><th class="r">2020</th><th class="r">2019</th><th class="r">2018</th></tr>
+              <tr><td>統一超毛利率</td><td class="r good">33%</td><td class="r good">34%</td><td class="r good">33%</td><td class="r good">34%</td><td class="r good">34%</td></tr>
+              <tr><td>全家毛利率</td><td class="r good">33%</td><td class="r good">33%</td><td class="r good">33%</td><td class="r good">33%</td><td class="r good">33%</td></tr>
+            </table>
+            <div class="tbl-caption">表4-8｜具規模優勢的大通路商毛利率都很穩定。資料來源：作者整理</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ccard" style="margin-bottom:10px">
+        <div><span class="moat-tag mt-brand">② 品牌優勢者</span></div>
+        <div class="ccard-body" style="margin-top:6px">品牌夠硬，可以不必降價。Toyota 和 Lexus 長期占有台灣汽車約 3 成的市場，和泰汽車毛利率穩定甚至逐年上揚。台達電長期致力研發且注重環保，享有技術和品質的雙重優勢（B2B 也有品牌優勢）。
+          <div class="tbl-wrap" style="margin-top:8px">
+            <table>
+              <tr><th>公司</th><th class="r">2022年</th><th class="r">2021年</th><th class="r">2020年</th></tr>
+              <tr><td>和泰汽車毛利率</td><td class="r hi">10%</td><td class="r hi">9.2%</td><td class="r hi">8.9%</td></tr>
+              <tr><td>台達電毛利率</td><td class="r hi">29%</td><td class="r hi">29%</td><td class="r hi">31%</td></tr>
+            </table>
+            <div class="tbl-caption">表4-9、4-10｜品牌優勢者毛利率穩定，但絕不起跌。如果毛利率明顯下降，表示品牌損了。資料來源：作者整理</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ccard" style="margin-bottom:10px">
+        <div><span class="moat-tag mt-tech">③ 技術優勢者</span></div>
+        <div class="ccard-body" style="margin-top:6px">台積電近年來晶圓代工技術領先全球，不但先進製程領先、專利數量領先，其生產效率與產品良率也是業界表率。台積電毛利率近 3 年都維持在 50% 以上，甚至宣稱未來長期毛利率要維持在 53% 以上的水準。
+          <div class="tbl-wrap" style="margin-top:8px">
+            <table>
+              <tr><th>年度</th><th class="r">2022年</th><th class="r">2021年</th><th class="r">2020年</th></tr>
+              <tr><td>台積電毛利率</td><td class="r good">60%</td><td class="r good">52%</td><td class="r good">53%</td></tr>
+            </table>
+            <div class="tbl-caption">表4-11｜新節點導入時，往往伴隨較低的生產效率與產品良率，還要提列龐大新設備折舊費用。資料來源：作者整理</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ccard" style="margin-bottom:10px">
+        <div><span class="moat-tag mt-oem">④ 行業特性或對價格有所堅持的傳產業者</span></div>
+        <div class="ccard-body" style="margin-top:6px">汽車零件業是典型例子。OEM（原廠供應商）打進去後幾乎可以永遠承接訂單，毛利率穩定但較低。AM（售後維修）業者毛利率較高，但推銷管理費用也較高。
+          <div class="tbl-wrap" style="margin-top:8px">
+            <table>
+              <tr><th>公司</th><th class="r">2022年</th><th class="r">2021年</th><th class="r">2019年</th></tr>
+              <tr><td>大億（OEM為主）毛利率</td><td class="r">12%</td><td class="r">13%</td><td class="r">14%</td></tr>
+              <tr><td>帝寶（AM為主）毛利率</td><td class="r hi">30%</td><td class="r hi">28%</td><td class="r hi">24%</td></tr>
+            </table>
+            <div class="tbl-caption">表4-12｜OEM vs AM 毛利率差異頗大。AM 的毛利高但推銷費用也高。資料來源：作者整理</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ccard" style="margin-bottom:10px">
+        <div><span class="moat-tag mt-eff">⑤ 致力提升生產效能者（最難維持）</span></div>
+        <div class="ccard-body" style="margin-top:6px">沒有價格話語權的公司，只能不斷提升良率、效率、規模或壓低成本去維持毛利率。鴻海就是這種模式，2017年後 7% 的毛利率就正式失守。
+          <div class="tbl-wrap" style="margin-top:8px">
+            <table>
+              <tr><th>年度</th><th class="r">2022</th><th class="r">2021</th><th class="r">2020</th><th class="r">2019</th><th class="r">2018</th></tr>
+              <tr><td>鴻海毛利率</td><td class="r">6.0%</td><td class="r">6.0%</td><td class="r">5.7%</td><td class="r">5.9%</td><td class="r">6.3%</td></tr>
+            </table>
+            <div class="tbl-caption">表4-13｜鴻海 2017 年前毛利率大多能守 7%，從 2017 年起 7% 的毛利率就正式失守。注意：鴻海 1% 的毛利率差距，代表超過 600 億元的稅前淨利差異！資料來源：作者整理</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="warn-box">
+      毛利率下滑有短中長期之分。晶片導入新節點是短期現象（1年內）；特定原材料和銅價起伏是中期（2–3年）；因為中美爭霸以及地緣政治、台商被迫撤出大陸工廠則可能是長期現象。<strong>當毛利率出現顯著異常時，應了解變動是短期、中期還是長期現象，是否有解決之道以及對股價的影響。</strong>
+    </div>
+  </section>
+
+  <!-- 角度3 -->
+  <section class="section" id="a3">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--cb)"></span>
+      <h3>③ 推銷費用的合理性——表露產品競爭力</h3>
+      <span class="section-page">p.190–193</span>
+    </div>
+    <div class="block-body">推銷費用是指出售產品或勞務的過程所花費的各項溝通、服務及運送支出。</div>
+    <div class="hl amber">
+      <strong>如果推銷費用占營收比，比同業還低</strong>，通常暗示其產品賣相比較好，或是產品品質穩定，企業不須花費太多氣力去促銷。<br><br>
+      <strong>最忌諱：推銷費用成長率高於營業收入成長率</strong>——代表要不就是產品賣不動，必須花很多錢強力促銷；要不就暗示產品有瑕疵、必須花大把金錢去收拾後。
+    </div>
+    <div class="tbl-wrap" style="margin-top:1rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 4-14｜台積電推銷費用：營收成長率高於推銷費用成長率，顯示產品競爭力強</div>
+      <table>
+        <tr><th></th><th class="r">台積電 2022</th><th class="r">台積電 2021</th><th class="r">台積電 2020</th><th class="r">同業 2022</th><th class="r">同業 2021</th></tr>
+        <tr><td>營收</td><td class="r">22,639億</td><td class="r">15,874億</td><td class="r">13,393億</td><td class="r">2,787億</td><td class="r">2,130億</td></tr>
+        <tr><td>營收成長率</td><td class="r hi">43%</td><td class="r">19%</td><td class="r">25%</td><td class="r">31%</td><td class="r">20%</td></tr>
+        <tr><td>推銷費用</td><td class="r">99億</td><td class="r">76億</td><td class="r">71億</td><td class="r">42億</td><td class="r">47億</td></tr>
+        <tr><td>推銷費用／營收</td><td class="r good">0.44%</td><td class="r good">0.48%</td><td class="r good">0.53%</td><td class="r">1.93%</td><td class="r">2.20%</td></tr>
+        <tr><td>推銷費用成長率</td><td class="r good">30%</td><td class="r">7%</td><td class="r">13%</td><td class="r">-11%</td><td class="r">11.9%</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：作者整理｜台積電 2022 年推銷費用只占 0.44%，遠低於同業 1.93%；推銷費用成長率 30% 也低於營收成長率 43%</div>
+    </div>
+    <div class="cgrid" style="margin-top:1rem">
+      <div class="ccard">
+        <div class="ccard-title">瓦城（B2C 餐飲）</div>
+        <div class="ccard-body">推銷費用是營業收入的 35%。店員薪資、餐桌折舊費用、用餐區冷氣及租金都屬推銷費用。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">統一超（B2C 零售）</div>
+        <div class="ccard-body">推銷費用是營業收入的 28%。7-11 裡喊歡迎光臨的店員、冷氣、店租都是推銷費用，但因面積比瓦城小，費用率也低。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">台積電（B2B 製造）</div>
+        <div class="ccard-body">推銷費用只有 0.44%。蘋果的採購人員一次訂購 5,000 萬顆 IC，台積電為了服務這些重要客戶，聘請的業務員是名校碩士、交貨時 IC 要「坐飛機」。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">奢侈品業（Hermès 等）</div>
+        <div class="ccard-body">廣告支出最高，且省不得——奢侈品行業的廣告支出就如同製造業因營收不佳而大砍研發費用的道理一樣：殺雞取卵。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 角度4 -->
+  <section class="section" id="a4">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--cb)"></span>
+      <h3>④ 管理費用的合理性——呈現企業格局與管理力度</h3>
+      <span class="section-page">p.193–199</span>
+    </div>
+    <div class="block-body">管理費用是指與生產及銷售活動無直接關係的部門或活動的支出：董事會、財務、人事、法務、IT、保全等。</div>
+    <div class="hl amber" style="margin-top:.75rem">
+      <strong>管理費用的兩大特質：</strong><br>
+      ① 很多支出是公司單方可以決定的（電腦系統用 SAP 還是鼎新？公務車 Benz 還是 Toyota？）<br>
+      ② 管得好不好會讓很多有形及無形的開支差很多（好的法務降低訴訟成本，好的 ERP 降低生產成本，好的 ESG 提升公司形象）
+    </div>
+    <div class="block-body" style="margin-top:1rem">評估管理費用合理性最好的方式是根據企業願景來規劃並編制預算，次佳是和規模相當的同業比較，或與企業過去年度比較，以確定管理費用沒有不合理的大幅增加或減少。</div>
+    <div class="tbl-wrap" style="margin-top:1rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 4-15｜台積電管理費用成長率，連3年高於營收成長率</div>
+      <table>
+        <tr><th>項目</th><th class="r">台積電 2022</th><th class="r">台積電 2021</th><th class="r">台積電 2020</th><th class="r">同業 2022</th><th class="r">同業 2021</th><th class="r">同業 2020</th></tr>
+        <tr><td>營收</td><td class="r">22,639億</td><td class="r">15,874億</td><td class="r">13,393億</td><td class="r">2,787億</td><td class="r">2,130億</td><td class="r">1,768億</td></tr>
+        <tr><td>營收成長率</td><td class="r">43%</td><td class="r">19%</td><td class="r">25%</td><td class="r">31%</td><td class="r">20%</td><td class="r">19%</td></tr>
+        <tr><td>管理費用</td><td class="r">535億</td><td class="r">360億</td><td class="r">285億</td><td class="r">97億</td><td class="r">80億</td><td class="r">67億</td></tr>
+        <tr><td>管理費用／營收</td><td class="r">2.36%</td><td class="r">2.27%</td><td class="r">2.13%</td><td class="r">3.48%</td><td class="r">3.76%</td><td class="r">3.79%</td></tr>
+        <tr><td>管理費用成長率</td><td class="r warn">49%</td><td class="r warn">26%</td><td class="r warn">31%</td><td class="r">21%</td><td class="r">19%</td><td class="r">24%</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：作者整理｜台積電管理費用一直保持在 2% 的水準，比同業低 1%–1.6%；但3年來成長率持續高於營收成長率，是因費用失控？獎金增加？還是赴海外設廠致內外部溝通成本增加？有待進一步了解</div>
+    </div>
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--ca)"></span><span class="case-title">為何台商在中國大陸設廠的管理費用偏高？3個因素</span><span class="case-tag tag-neutral">台灣案例</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">
+        <strong>① 設廠因素：</strong>過去大陸地方政府鼓勵台商去設廠，提供許多優惠補助，台商常禁不住誘惑將廠設在優惠最高的地方。每設一個廠，就會產生許多額外管理費用。如果時光能夠倒流，把所有工廠集中在 2–3 個地方，管理費用就能大幅降低。<br><br>
+        <strong>② 制度因素：</strong>公司規模小時，採購、設備、人事都是老闆自己決定。但散布太廣之後，這些採購費用有沒有比同業貴？若比同業貴，原因在哪？在授權下放的同時，如果沒有好的內控機制，意味著成本就會比別人貴了。<br><br>
+        <strong>③ 本土優勢因素：</strong>美商到台灣設廠作業標準必須符合美國的高標準，日商必須符合日本的高標準，但台商只須符合台灣本地的標準。台灣人消息更靈通、在決策上彈性也比外商高，整體經營成本就比外商低。但台商去大陸設廠，反而成了「外商」，這些優勢都消失了。
+      </div>
+    </div>
+  </section>
+
+  <!-- 角度5 -->
+  <section class="section" id="a5">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--cb)"></span>
+      <h3>⑤ 研發費用金額——透露投資未來的承諾與力度</h3>
+      <span class="section-page">p.200–203</span>
+    </div>
+    <div class="block-body">張忠謀曾說，研發費用是<strong>捨注未來獲利，也是未來能夠持續領先對手的必要投資</strong>。研發費用過低，會影響未來成長與利潤；然而研發費用過高，將降低企業現階段的獲利。研發費用最好與營收呈現一個比率關係。</div>
+
+    <div class="hl sage">研發費用不宜因為景氣不好或企業自身業績衰退而刪減，就如同一個人在最困難的時候，還是要繼續讀書進修，才能翻身。</div>
+
+    <div class="cgrid" style="margin-top:1rem">
+      <div class="ccard">
+        <div class="ccard-title">判斷標準 ①：研發金額不低於同業</div>
+        <div class="ccard-body">華碩因為堅持研發自主，研發費用較宏碁高很多，其營收金額及成長率多年前就超越宏碁後一路領先，ROE 也一直領先。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">判斷標準 ②：研發支出是否持續增加</div>
+        <div class="ccard-body">持續不斷投入研發，對資本密集及技術密集的產業很重要。茂德（DRAM）在業績不好時大砍研發費用，最終宣告倒閉。</div>
+      </div>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top:1rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 4-16｜華碩較宏碁投入更多研發費用</div>
+      <table>
+        <tr><th></th><th class="r" colspan="3">華碩</th><th class="r" colspan="3">宏碁</th></tr>
+        <tr><th>年度</th><th class="r">2022</th><th class="r">2021</th><th class="r">2020</th><th class="r">2022</th><th class="r">2021</th><th class="r">2020</th></tr>
+        <tr><td>營收</td><td class="r">5,372億</td><td class="r">5,352億</td><td class="r">4,128億</td><td class="r">2,754億</td><td class="r">3,190億</td><td class="r">2,771億</td></tr>
+        <tr><td>研發費用</td><td class="r hi">206億</td><td class="r hi">201億</td><td class="r hi">169億</td><td class="r">24億</td><td class="r">26億</td><td class="r">24億</td></tr>
+        <tr><td>ROE</td><td class="r good">6.6%</td><td class="r good">20.5%</td><td class="r good">14%</td><td class="r">7.7%</td><td class="r">17.6%</td><td class="r">10.2%</td></tr>
+        <tr><td>EPS</td><td class="r">19.62元</td><td class="r">59.21元</td><td class="r">35.35元</td><td class="r">1.65元</td><td class="r">3.60元</td><td class="r">1.99元</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：作者整理｜宏碁的商業模式較像 HP 等電腦公司，以 ODM 方式向代工廠下單，把大部分研發工作甩給 ODM 廠去做</div>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top:1.25rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 4-17｜國際大廠普遍加碼投入研發（即使景氣下滑也不減）</div>
+      <table>
+        <tr><th>年度</th><th class="r">台積電</th><th class="r">英特爾</th><th class="r">蘋果</th><th class="r">高通（Qualcomm）</th></tr>
+        <tr><td>2022年</td><td class="r hi">台幣 1,633億</td><td class="r hi">81.89億美元</td><td class="r hi">226.08億美元</td><td class="r hi">66.83億美元</td></tr>
+        <tr><td>2021年</td><td class="r">台幣 1,247億</td><td class="r">87.62億美元</td><td class="r">194.90億美元</td><td class="r">60.16億美元</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：作者整理｜除了英特爾因撐不住之外，其他國際大廠不但沒有減少研發費用的投入，反而都有將近 10% 以上的成長</div>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top:1.25rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 4-18｜茂德下市前 3 年，狂砍研發費用（負面案例）</div>
+      <table>
+        <tr><th>項目</th><th class="r">2010年</th><th class="r">2009年</th><th class="r">2008年</th></tr>
+        <tr><td>研發費用</td><td class="r warn">12億元</td><td class="r warn">16億元</td><td class="r">31億元</td></tr>
+        <tr><td>營業收入</td><td class="r">228億元</td><td class="r">101億元</td><td class="r">308億元</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：作者整理｜業績不好時大砍研發費用，以致高階產品無法順利產出，在惡性循環下最終宣告倒閉</div>
+    </div>
+  </section>
+
+  <!-- 角度6 -->
+  <section class="section" id="a6">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--cb)"></span>
+      <h3>⑥ 獲利來源——顯示專注本業的程度</h3>
+      <span class="section-page">p.204–205</span>
+    </div>
+    <div class="block-body">「稅前淨收入是否主要來自『營業淨利』」，可以判斷該公司本業是否具競爭力、公司經營是否專注本業。</div>
+    <div class="hl red">獲利來源靠業外收入是不能長久的。賣股票、賣土地今年有，明年還有嗎？<br><strong>一個本業賺錢的企業，在損益表上一定會透過「收入－成本－費用」反映在「營業淨利」這個科目。</strong></div>
+    <div class="tbl-wrap" style="margin-top:1rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 4-19｜台積電 2022 年合併綜合損益表（摘要）</div>
+      <table>
+        <tr><th>會計項目</th><th class="r">2022年度（千元）</th><th class="r">%</th><th class="r">2021年度（千元）</th><th class="r">%</th></tr>
+        <tr><td>①營業收入淨額</td><td class="r">2,263,891,292</td><td class="r">100</td><td class="r">1,587,415,037</td><td class="r">100</td></tr>
+        <tr><td>②營業成本</td><td class="r">915,536,486</td><td class="r">40</td><td class="r">767,877,771</td><td class="r">48</td></tr>
+        <tr><td>③營業毛利</td><td class="r good">1,348,354,806</td><td class="r good">60</td><td class="r">819,537,266</td><td class="r">52</td></tr>
+        <tr><td>⑤研究發展費用</td><td class="r">163,262,208</td><td class="r">7</td><td class="r">124,734,755</td><td class="r">8</td></tr>
+        <tr><td>⑥管理費用</td><td class="r">53,524,898</td><td class="r">2</td><td class="r">36,929,588</td><td class="r">2</td></tr>
+        <tr><td>⑦行銷費用</td><td class="r">9,920,446</td><td class="r">1</td><td class="r">7,558,591</td><td class="r">1</td></tr>
+        <tr><td>④營業費用合計</td><td class="r">226,707,552</td><td class="r">10</td><td class="r">169,222,934</td><td class="r">11</td></tr>
+        <tr><td><strong>⑧營業淨利</strong></td><td class="r hi">1,121,278,851</td><td class="r hi">50</td><td class="r">649,980,897</td><td class="r">41</td></tr>
+        <tr><td>⑨營業外收支合計</td><td class="r">22,911,867</td><td class="r">1</td><td class="r">13,145,417</td><td class="r">1</td></tr>
+        <tr><td><strong>⑩稅前淨利</strong></td><td class="r hi">1,144,190,718</td><td class="r hi">51</td><td class="r">663,126,314</td><td class="r">42</td></tr>
+        <tr><td>所得稅費用</td><td class="r">127,290,203</td><td class="r">6</td><td class="r">66,053,180</td><td class="r">4</td></tr>
+        <tr><td><strong>本年度稅後淨利</strong></td><td class="r good">1,016,900,515</td><td class="r good">45</td><td class="r">597,073,134</td><td class="r">38</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：台積電 2022 年報｜台積電業外收入只占稅前淨利的 2%，獲利絕大部分來自本業，獲利品質非常好</div>
+    </div>
+  </section>
+
+  <!-- 角度7 -->
+  <section class="section" id="a7">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--cb)"></span>
+      <h3>⑦ 稅後淨利及 EPS——影響股價的主要因素</h3>
+      <span class="section-page">p.206–212</span>
+    </div>
+    <div class="block-body">EPS（每股盈餘）是衡量公司股價非常重要的依據，投資人都會時時注意，以 EPS 高低崇拜公司及其負責人。但有一個非常非常重要的觀念：</div>
+    <div class="hl red"><strong>EPS 並不能用來衡量或者無法精確衡量企業真正的獲利能力！</strong><br><br>因為 EPS 的高低除了取決於分子的稅後淨利外，也取決於分母的發行股數。高 EPS 的公司，可能是因為股本小的緣故，而不一定真的是高獲利公司。</div>
+
+    <div class="formula" style="margin-top:1rem">EPS ＝ 稅後淨利 ÷ 股數</div>
+
+    <div class="block-body" style="margin-top:1rem">高EPS 有兩種情況：</div>
+    <div class="cgrid" style="margin-top:.75rem">
+      <div class="ccard">
+        <div class="ccard-title">① 真的高獲利</div>
+        <div class="ccard-body">台積電 2022 年稅後淨利 1 兆 169 億元，股本是 2,593 億元（259.3 億股），換算下來 EPS 達 39.2 元。這是真的高獲利。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">② 股本小造成的高 EPS</div>
+        <div class="ccard-body">台商回台掛牌前，透過股份重組、設立 KY 控股公司，讓股本從 20 億元縮減到 2 億元，EPS 就從 1 元暴增到 10 元，股價隨之水漲船高。但公司市值沒有變，只是換形象。</div>
+      </div>
+    </div>
+
+    <div class="hl blue" style="margin-top:1rem">
+      <strong>實務上看損益表只需看到科目 8200「稅後淨利」即可</strong>（除非看金融業的損益表）。至於「其他綜合損益」（8300）及「綜合損益總額」（8500）這兩個科目，一般公司的金額都不大，讀者可以略而不看。
+    </div>
+
+    <div class="case-strip" style="margin-top:1rem">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--ca)"></span><span class="case-title">稅後淨利不必然全是投資標的公司的獲利數——以華映為例</span><span class="case-tag tag-info">財報知識</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">
+        編入華映 2016 年合併損益表中有一家華映僅占 25% 股權的大陸上市公司（簡化為「大陸華映」），這家公司 75% 股權據說屬於大陸福建省政府及大陸股民，大陸華映 75% 的獲利數不屬於台灣華映所擁有，所以華映損益表中 8600 這個項次就應運而生。
+        <div class="tbl-wrap" style="margin-top:10px">
+          <table>
+            <tr><th>科目代碼</th><th>會計項目</th><th class="r">2016年</th><th class="r">2015年</th></tr>
+            <tr><td>8200</td><td>本期淨損</td><td class="r warn">（895,168）千元</td><td class="r warn">（8,440,495）千元</td></tr>
+            <tr><td>8610</td><td><strong>母公司業主</strong>（真正歸台灣股東的）</td><td class="r warn">（1,776,479）千元</td><td class="r warn">（8,761,984）千元</td></tr>
+            <tr><td>8620</td><td>非控制權益</td><td class="r">881,311千元</td><td class="r">321,489千元</td></tr>
+          </table>
+        </div>
+        <div class="warn-box" style="margin-top:10px">「母公司業主」的淨損是「本期淨損」的 2 倍！投資人不可不慎。<strong>當投資人看到「本期淨利（損）」與「母公司業主」浮利（損）有很大差異時，一定要回頭去看個體報表，了解差異的原因為何。</strong></div>
+        <div style="margin-top:8px;font-size:15px;color:var(--ct3)">EPS 是以「母公司業主」科目除以股數而得。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 角度8 -->
+  <section class="section" id="a8">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--cb)"></span>
+      <h3>⑧ ROE 比 EPS 更能反映經營能力</h3>
+      <span class="section-page">p.212–213</span>
+    </div>
+    <div class="block-body">ROE（Return On Equity，股東權益報酬率）才是更精準衡量企業真正獲利能力的指標。</div>
+
+    <div class="formula">ROE ＝ 稅後淨利 ÷ 股東權益</div>
+    <div class="formula-note">為什麼要用稅後淨利除以股東權益？因為股東權益代表的是：股東到底出了多少錢讓經營團隊去從事這偉大的賺錢事業。</div>
+
+    <div class="block-body" style="margin-top:1rem">台積電 2022 年真正意義上的股本是 2 兆 5,656 億元（股本 2,593 億 ＋ 截至 2021 年底的股東權益 2 兆 1,707 億 ÷ 2 ＋ 2022 年底 2 兆 9,605 億）：</div>
+
+    <div class="diagram" style="margin-top:1rem">
+      <div class="diagram-title">台積電 2022 年 ROE 計算</div>
+      <div class="formula" style="background:var(--cr);border:none;font-size:18px">1 兆 169 億（稅後淨利）÷ 2 兆 5,656 億（股東權益平均值）＝ <span style="color:var(--cg2)">39.6%</span></div>
+      <div class="good-box" style="margin-top:1rem">39.6% 的 ROE 是一個非常高的數字，台灣絕大部分公司的 ROE 都沒有這麼高！39.6% 的意思也可以說：如果把未分配的保留盈餘及資本公積都轉成股本的話，台積電的 EPS 只有 3.96 元。但不要小看 39.6%，因為那已經是一個非常高的數字了。</div>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top:1.25rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 4-21｜從 ROE 角度看各公司的經營能力（2022年）</div>
+      <table>
+        <tr><th></th><th class="r">台積電</th><th class="r">聯發科</th><th class="r">大立光</th><th class="r">統一超</th></tr>
+        <tr><td>EPS（元）</td><td class="r">39.2元</td><td class="r">74.59元</td><td class="r">169.52元</td><td class="r">8.93元</td></tr>
+        <tr><td>ROE（名義／真正）</td><td class="r good">39.6% / 3.96元</td><td class="r good">27.1% / 2.71元</td><td class="r good">15.2% / 1.52元</td><td class="r good">26.3% / 2.63元</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：作者整理｜每家公司「真正的 EPS」都較「名義的 EPS」大幅縮水。縮水最嚴重的是大立光，原因是大立光的股本只有 13.3 億，但平均股東權益高達 1,484 億元，而這其中大部分是保留盈餘，未善加利用或發還給股東，致 ROE 因而下降</div>
+    </div>
+  </section>
+
+  <!-- 角度9 -->
+  <section class="section" id="a9">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--ct3)"></span>
+      <h3>⑨ 不必理會其他綜合損益及綜合損益總額</h3>
+      <span class="section-page">p.214–218</span>
+    </div>
+    <div class="block-body">「其他綜合損益」就是有些事件會影響到企業資產負債表的資產價值或負債金額，進而影響到股東權益。這個影響數，制定會計原則的大老爺們認為將其列入損益表很奇怪，但不列入損益表更奇怪，於是將這些影響數列在更加奇怪的「其他綜合損益」的科目，讓報表閱讀者自行判斷。</div>
+
+    <div class="hl blue">
+      <strong>用游泳池比喻資產負債表和損益表：</strong><br>
+      資產負債表就像某時點游泳池裡的水量（存量）；損益表就像水龍頭（收入）和洩水口（成本與費用）晝夜不停的流入與流出游泳池的水（流量）。<br><br>
+      「其他綜合損益」就像游泳池的水位還會受到溫度、蒸發、泳客、日照等因素的影響——這些影響直接當股東權益的加減項，不列入損益表中。
+    </div>
+
+    <div class="good-box" style="margin-top:1rem">
+      <strong>作者的總結：</strong>2018 年以後的報表，除了金融業以及投資部位很高的特定公司外，一般公司的「其他綜合損益」科目金額都不大，讀者可以略而不看。即便有金額大的科目，往往是「國外營運機構財務報表之兌換差額」這種因為匯率變動造成的一時性影響數，過一陣子又會回復，所以不管是正還是負，還是不重要。
+    </div>
+  </section>
+
+  <!-- ===== 重點整理 ===== -->
+  <section class="section" id="summary">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>⭐ 重點整理</h3>
+      <span class="section-page">第4章總結</span>
+    </div>
+
+    <div class="block-title">損益表 12 科目速查</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>#</th><th>科目</th><th>白話說明</th><th class="r">台積電2022年</th></tr>
+        <tr><td>①</td><td><strong>營業收入</strong></td><td>賣東西賺到的錢</td><td class="r">2兆2,639億</td></tr>
+        <tr><td>②</td><td>營業成本</td><td>生產東西的直接成本</td><td class="r mute">9,155億（40%）</td></tr>
+        <tr><td>③</td><td><strong>營業毛利</strong></td><td>收入扣掉直接成本</td><td class="r hi">1兆3,484億（60%）</td></tr>
+        <tr><td>⑤⑥⑦</td><td>營業費用</td><td>研發＋管理＋行銷三大費用</td><td class="r mute">2,267億（10%）</td></tr>
+        <tr><td>⑧</td><td><strong>營業淨利</strong></td><td class="good">本業賺到的錢，最重要！</td><td class="r hi">1兆1,213億（50%）</td></tr>
+        <tr><td>⑨</td><td>營業外收支</td><td>利息、匯差、投資損益</td><td class="r mute">+229億（1%）</td></tr>
+        <tr><td>⑩</td><td>稅前淨利</td><td>交所得稅前的利潤</td><td class="r mute">1兆1,442億（51%）</td></tr>
+        <tr><td>—</td><td><strong>稅後淨利（代碼8200）</strong></td><td class="good">最後的獲利，也是 EPS 的分子</td><td class="r good">1兆169億（45%）</td></tr>
+        <tr><td>⑪⑫</td><td>其他綜合損益／綜合損益總額</td><td class="mute">匯率、股票市值變動等影響，一般可略</td><td class="r mute">+424億（2%）</td></tr>
+      </table>
+    </div>
+
+    <div class="div"></div>
+
+    <div class="block-title">8個分析角度速查</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>角度</th><th>看什麼</th><th>警訊</th></tr>
+        <tr><td><strong>① 營收</strong></td><td>景氣好時成長比同業高、壞時跌比同業少</td><td class="warn">連續3年落後同業，或跌比同業深</td></tr>
+        <tr><td><strong>② 毛利率</strong></td><td>維持穩定，與同業相比不落後</td><td class="warn">突然大跌（尤其品牌公司），或長期持續下滑</td></tr>
+        <tr><td><strong>③ 推銷費用</strong></td><td>費用率比同業低，成長率低於營收成長率</td><td class="warn">推銷費用成長率 > 營收成長率</td></tr>
+        <tr><td><strong>④ 管理費用</strong></td><td>與同業相當，沒有不合理的大幅增加</td><td class="warn">沒有合理解釋的巨額增加</td></tr>
+        <tr><td><strong>⑤ 研發費用</strong></td><td>不低於同業，景氣壞時也不刪減</td><td class="warn">業績不好就大砍研發費用</td></tr>
+        <tr><td><strong>⑥ 獲利來源</strong></td><td>稅前淨利主要來自營業淨利（本業）</td><td class="warn">靠賣股票、賣土地等業外收入支撐</td></tr>
+        <tr><td><strong>⑦ EPS</strong></td><td>稅後淨利看「母公司業主」，而非「本期淨利」</td><td class="warn">本期淨利 vs 母公司業主差異過大</td></tr>
+        <tr><td><strong>⑧ ROE</strong></td><td>比 EPS 更能反映真實獲利能力</td><td class="warn">ROE 持續下滑，且無法解釋原因</td></tr>
+      </table>
+    </div>
+
+    <div class="div"></div>
+
+    <div class="block-title">三個核心心法</div>
+    <div class="cgrid3">
+      <div class="ccard">
+        <div class="ccard-title">① EPS 高不代表賺很多</div>
+        <div class="ccard-body">EPS 的分母是股數。股本小，EPS 自然高。ROE（稅後淨利／股東權益）才是衡量真正獲利能力的指標，台積電 ROE 39.6% 才是真正了不起的數字。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">② 本業賺錢才算數</div>
+        <div class="ccard-body">看「營業淨利」占「稅前淨利」的比例。台積電 2022 年本業貢獻 98%，這才是結構性獲利能力。業外收入不能長久，今年有明年未必有。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">③ 毛利率變動要追因</div>
+        <div class="ccard-body">毛利率下滑有短期（新節點）、中期（原料）、長期（地緣政治）之分。投資人必須判斷是哪種，才能正確評估對股價的影響。</div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+    <div class="block-title">台積電 2022 年損益表亮點對照</div>
+    <div class="good-box">
+      台積電 2022 年：毛利率 60%（業界最高）、研發費用 1,633 億元（全年度增加最多的費用科目）、推銷費用僅 0.44%（遠低於同業的 1.93%）、本業獲利占稅前淨利 98%、ROE 39.6%。每一項指標都完美，是結構性獲利能力的最佳示範。
+    </div>
+  </section>
+
+</main>
+
+<script>
+function navTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const match = [...document.querySelectorAll('.nav-item')].find(n => n.getAttribute('onclick')?.includes(id));
+  if (match) match.classList.add('active');
+}
+function togCase(hd) {
+  const bd = hd.nextElementSibling;
+  const ch = hd.querySelector('.case-chev');
+  bd.classList.toggle('open');
+  ch.classList.toggle('open');
+}
+</script>
+</body>
+</html>
