@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>財報判讀脈絡與 Checklist｜台積電 vs 南亞科</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--cr:#F5F0E8;--cr2:#EDE5D8;--cr3:#E2D7C6;--cr4:#D4C8B4;--cr5:#C0B09A;--ct:#2C2420;--ct2:#5C4A3A;--ct3:#8B7560;--ct4:#B09A82;--ca:#8B6B4A;--ca2:#6B4F32;--ca-l:#F0E4D4;--ca-ll:#FAF5EE;--cg:#7A8C72;--cg2:#5A6C52;--cg-l:#EAF0E6;--cb:#7A8C9A;--cb2:#5A6C7A;--cb-l:#E6EDF2;--cw:#C4756A;--cw2:#A05548;--cw-l:#F5EAE8;--amber:#A07838;--amber-l:#F5ECD8;--amber-d:#6B4F20;--radius:10px;--radius-lg:14px;--radius-xl:18px;--shadow-sm:0 4px 12px rgba(85,60,40,.06)}
+    *{box-sizing:border-box;margin:0;padding:0} body{font-family:'Noto Sans TC',sans-serif;background:var(--cr);color:var(--ct);line-height:1.72;font-size:17px}
+    h1,h2,h3,h4,.formula{font-family:'Noto Serif TC',serif;font-weight:700;letter-spacing:.02em} strong{color:var(--ca2)}
+    .sidebar{position:fixed;top:0;left:0;width:260px;height:100vh;background:var(--ca-ll);border-right:1px solid var(--cr4);overflow-y:auto;padding:0 0 2rem}
+    .sidebar-logo{padding:1.4rem 1.2rem 1rem;border-bottom:1px solid var(--cr4);background:var(--ca-l)} .sidebar-logo h1{font-size:14px;color:var(--ca2)} .sidebar-logo p{font-size:11px;color:var(--ct4);margin-top:4px}
+    .nav-section{padding:.4rem 0}.nav-section-label{font-size:10px;font-weight:600;color:var(--ct4);text-transform:uppercase;letter-spacing:.12em;padding:.6rem 1.2rem .3rem}
+    .nav-item{display:block;padding:.5rem 1rem .5rem 1.3rem;font-size:14px;color:var(--ct2);text-decoration:none;border-left:2px solid transparent;transition:all .15s;cursor:pointer}.nav-item:hover,.nav-item.active{color:var(--ca2);border-left-color:var(--ca);background:var(--ca-l);font-weight:600}
+    .main{margin-left:260px;padding:2.5rem 3.5rem 5rem}.page-hero{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--cr4)} .hero-tag{font-size:11px;font-weight:600;color:var(--ca2);background:var(--ca-l);padding:4px 13px;border-radius:20px;display:inline-block;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.08em;border:1px solid var(--cr5)} .page-hero h2{font-size:30px;margin-bottom:.4rem}.page-hero p{font-size:16px;color:var(--ct3)}
+    .section{margin-bottom:2.5rem;scroll-margin-top:1.5rem}.section-header{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--cr4)} .section-dot{width:9px;height:9px;border-radius:50%;background:var(--ca)} .section-header h3{font-size:21px;flex:1}.section-page{font-size:13px;color:var(--ct4)}
+    .hl,.good-box,.warn-box,.caution-box,.blue-box{border-left:2.5px solid var(--ca);background:var(--ca-ll);padding:12px 16px;margin:12px 0;font-size:16px;line-height:1.72;color:var(--ct2)} .good-box{border-left-color:var(--cg);background:var(--cg-l);color:var(--cg2)} .warn-box{border-left-color:var(--cw);background:var(--cw-l);color:var(--cw2)} .caution-box{border-left-color:var(--amber);background:var(--amber-l);color:var(--amber-d)} .blue-box{border-left-color:var(--cb);background:var(--cb-l);color:var(--cb2)}
+    .formula{background:var(--cr2);border-radius:var(--radius);padding:14px 20px;margin:10px 0;text-align:center;font-size:20px;color:var(--ca2);border:1px solid var(--cr4)}
+    .tbl-wrap{overflow-x:auto;margin:12px 0} table{width:100%;border-collapse:collapse;font-size:15px} th{background:var(--cr2);padding:10px 13px;text-align:left;font-weight:600;color:var(--ct3);font-size:13px;border-bottom:1px solid var(--cr4);text-transform:uppercase;letter-spacing:.05em} td{padding:10px 13px;border-bottom:1px solid var(--cr3);vertical-align:top} tr:last-child td{border-bottom:none} tr:hover td{background:var(--ca-ll)}
+    .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}.ccard{border:1px solid var(--cr4);border-radius:var(--radius);padding:13px 15px;background:var(--ca-ll);box-shadow:var(--shadow-sm)} .ccard-title{font-size:15px;font-weight:600;margin-bottom:7px;color:var(--ca2)} .ccard-body{font-size:15px;color:var(--ct2);line-height:1.65}
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}.company{border:1px solid var(--cr4);border-radius:var(--radius-lg);overflow:hidden;background:var(--ca-ll)} .company-hd{padding:10px 14px;background:var(--cr2);font-size:15px;font-weight:600;color:var(--ca2)} .company-bd{padding:13px 14px}.metric{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--cr4)} .metric:last-child{border-bottom:none}.metric-label{font-size:14px;color:var(--ct3)} .metric-val{font-size:15px;font-weight:700}
+    .badge{display:inline-block;font-size:12px;padding:2px 10px;border-radius:20px;font-weight:500;border:1px solid transparent}.bt{background:var(--cg-l);color:var(--cg2);border-color:#A8C4A0}.ba{background:var(--amber-l);color:var(--amber-d);border-color:#C8A870}.br{background:var(--cw-l);color:var(--cw2);border-color:#D8A098}.bb{background:var(--cb-l);color:var(--cb2);border-color:#A8BCC8}
+    .check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}.check-card{border:1px solid var(--cr4);border-radius:var(--radius);background:var(--ca-ll);padding:12px 13px}.check-card h4{font-size:14px;color:var(--ca2);margin-bottom:6px}
+    @media (max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:1.25rem}.cgrid,.compare-grid,.check-grid{grid-template-columns:1fr}}
+
+    .home-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:5px 13px;border-radius:20px;border:1px solid var(--cr4);background:var(--ca-ll);transition:all .15s;margin-bottom:1.5rem;}
+    .home-btn:hover{background:var(--ca-l);color:var(--ca2);}
+    .home-btn-sb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:.55rem 1rem .55rem 1.3rem;border-top:1px solid var(--cr4);margin-top:.5rem;transition:color .15s;}
+    .home-btn-sb:hover{color:var(--ca2);background:var(--ca-l);}
+    .cl-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--cr3);}
+    .cl-item:last-child{border-bottom:none;}
+    .cl-cb{width:20px;height:20px;border-radius:4px;border:1.5px solid var(--cr5);flex-shrink:0;margin-top:2px;cursor:pointer;accent-color:var(--ca2);}
+    .cl-label{font-size:16px;color:var(--ct);line-height:1.65;flex:1;}
+    .cl-note{width:100%;margin-top:6px;padding:6px 10px;border:1px solid var(--cr4);border-radius:6px;background:var(--cr);font-family:inherit;font-size:14px;color:var(--ct);resize:vertical;min-height:36px;}
+    .cl-note:focus{outline:none;border-color:var(--ca);}
+    .cl-group{background:var(--ca-ll);border:1px solid var(--cr4);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:12px;}
+    .cl-group-title{font-size:14px;font-weight:600;color:var(--ca2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em;}
+    .mine-score{background:var(--cr2);border:1px solid var(--cr4);border-radius:var(--radius);padding:12px 16px;margin-top:14px;display:flex;align-items:center;gap:12px;}
+    .mine-count{font-family:'Noto Serif TC',serif;font-size:28px;font-weight:700;color:var(--cw2);}
+    .mine-label{font-size:15px;color:var(--ct2);}
+  </style>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo"><h1>台積電 vs 南亞科</h1><p>財報判讀對照版</p></div>
+  <div class="nav-section">
+    <div class="nav-section-label">章節</div>
+    <a class="nav-item active" onclick="navTo('overview')">整體脈絡</a>
+    <a class="nav-item" onclick="navTo('safety')">安全比較</a>
+    <a class="nav-item" onclick="navTo('profit')">獲利比較</a>
+    <a class="nav-item" onclick="navTo('cycle')">週期比較</a>
+    <a class="nav-item" onclick="navTo('signals')">趨勢訊號</a>
+    <a class="nav-item" onclick="navTo('check')">實戰 checklist</a>
+  </div>
+</nav>
+<main class="main">
+  <div class="page-hero">
+    <div class="hero-tag">第二版・對照學習</div>
+    <h2>用台積電 vs 南亞科，把同一套框架跑兩遍</h2>
+    <p>台積電代表「高品質穩健型」，南亞科代表「記憶體循環型」。用兩家公司一起看，會更容易抓到數字背後的意思。</p>
+  </div>
+
+  <section class="section" id="overview">
+    <div class="section-header"><span class="section-dot"></span><h3>整體脈絡</h3><span class="section-page">先安全，再獲利，再效率</span></div>
+    <div class="hl">同一套判讀方法，放在不同公司身上，<strong>重點不是誰比較高，而是高低背後的商業模式與週期位置。</strong></div>
+    <div class="cgrid">
+      <div class="ccard"><div class="ccard-title">台積電</div><div class="ccard-body">晶圓代工龍頭，特色是財務保守、獲利率高、現金流穩定，適合拿來當「高品質基準組」。</div></div>
+      <div class="ccard"><div class="ccard-title">南亞科</div><div class="ccard-body">DRAM 廠，獲利受 ASP 和庫存循環影響大，適合拿來理解「景氣循環如何反映在財報」。</div></div>
+    </div>
+  </section>
+
+  <section class="section" id="safety">
+    <div class="section-header"><span class="section-dot" style="background:var(--cb)"></span><h3>安全比較</h3><span class="section-page">資產負債表</span></div>
+    <div class="compare-grid">
+      <div class="company">
+        <div class="company-hd">台積電 2026Q1</div>
+        <div class="company-bd">
+          <div class="metric"><span class="metric-label">負債比率</span><span class="metric-val" style="color:var(--cg2)">31.5%</span></div>
+          <div class="metric"><span class="metric-label">流動比率</span><span class="metric-val" style="color:var(--cg2)">248.8%</span></div>
+          <div class="metric"><span class="metric-label">槓桿倍數</span><span class="metric-val" style="color:var(--cg2)">1.46x</span></div>
+        </div>
+      </div>
+      <div class="company">
+        <div class="company-hd">南亞科 2026Q1</div>
+        <div class="company-bd">
+          <div class="metric"><span class="metric-label">負債比率</span><span class="metric-val" style="color:var(--cg2)">19.9%</span></div>
+          <div class="metric"><span class="metric-label">流動比率</span><span class="metric-val" style="color:var(--cg2)">561.8%</span></div>
+          <div class="metric"><span class="metric-label">槓桿感受</span><span class="metric-val" style="color:var(--cg2)">非常保守</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>指標</th><th>台積電</th><th>南亞科</th><th>解讀</th></tr>
+        <tr><td>負債比率</td><td>31.5%</td><td>19.9%</td><td>兩家都安全；南亞科更保守，代表帳上現金 / 流動資產非常厚。</td></tr>
+        <tr><td>流動比率</td><td>248.8%</td><td>561.8%</td><td>兩家短期償債都很強，但南亞科更極端，這在記憶體景氣反轉時很重要。</td></tr>
+        <tr><td>結構差異</td><td>穩定高 capex 型</td><td>景氣循環防守型</td><td>台積電是長期擴產仍維持穩健；南亞科則需要厚現金穿越循環。</td></tr>
+      </table>
+    </div>
+    <div class="good-box">這裡一個很重要的觀念：<strong>安全不等於成長，安全只是先讓你活過景氣循環。</strong></div>
+  </section>
+
+  <section class="section" id="profit">
+    <div class="section-header"><span class="section-dot" style="background:var(--cg)"></span><h3>獲利比較</h3><span class="section-page">損益表</span></div>
+    <div class="formula">毛利率 = 毛利 ÷ 營收　|　營業利益率 = 營業利益 ÷ 營收　|　淨利率 = 稅後淨利 ÷ 營收</div>
+    <div class="compare-grid">
+      <div class="company">
+        <div class="company-hd">台積電 2026Q1</div>
+        <div class="company-bd">
+          <div class="metric"><span class="metric-label">毛利率</span><span class="metric-val" style="color:var(--cb2)">66.2%</span></div>
+          <div class="metric"><span class="metric-label">營業利益率</span><span class="metric-val" style="color:var(--cb2)">58.1%</span></div>
+          <div class="metric"><span class="metric-label">淨利率</span><span class="metric-val" style="color:var(--cb2)">50.5%</span></div>
+        </div>
+      </div>
+      <div class="company">
+        <div class="company-hd">南亞科 2026Q1</div>
+        <div class="company-bd">
+          <div class="metric"><span class="metric-label">毛利率</span><span class="metric-val" style="color:var(--cb2)">67.9%</span></div>
+          <div class="metric"><span class="metric-label">營業利益率</span><span class="metric-val" style="color:var(--cb2)">61.3%</span></div>
+          <div class="metric"><span class="metric-label">淨利率</span><span class="metric-val" style="color:var(--cb2)">53.1%</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>觀察點</th><th>台積電</th><th>南亞科</th><th>判讀重點</th></tr>
+        <tr><td>2026Q1 三率</td><td>已經很高</td><td>甚至更高</td><td>不能只看單季高低；南亞科是 DRAM ASP 急漲帶動，週期性很強。</td></tr>
+        <tr><td>獲利穩定性</td><td>通常較穩定</td><td>波動大</td><td>台積電的高毛利比較偏結構性；南亞科要多看未來 2–4 季是否延續。</td></tr>
+        <tr><td>學到的事</td><td>高品質護城河型</td><td>高彈性循環型</td><td>同樣高毛利，不代表品質完全一樣；要看持續性。</td></tr>
+      </table>
+    </div>
+    <div class="caution-box">這裡最容易犯的錯是：<strong>看到南亞科單季毛利率比台積電高，就誤以為南亞科更強。</strong> 正確做法是問：這是結構性優勢，還是景氣循環高點？</div>
+  </section>
+
+  <section class="section" id="cycle">
+    <div class="section-header"><span class="section-dot" style="background:var(--amber)"></span><h3>週期比較</h3><span class="section-page">chapter 3 最關鍵</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>觀察面向</th><th>台積電</th><th>南亞科</th><th>你要怎麼看</th></tr>
+        <tr><td>DSO 應收天數</td><td>通常相對穩</td><td>也重要，但不是最核心</td><td>兩家都要看收款是否變慢；若 DSO 連升，代表現金回收變慢。</td></tr>
+        <tr><td>DIO 存貨天數</td><td>重要</td><td><strong>超級重要</strong></td><td>南亞科這種記憶體廠，DIO 是景氣與庫存循環的核心訊號。</td></tr>
+        <tr><td>營運週轉天數</td><td>觀察效率</td><td>觀察循環轉折</td><td>台積電偏看管理效率；南亞科偏看是否進入去庫存 / 補庫存階段。</td></tr>
+      </table>
+    </div>
+    <div class="warn-box">如果你接下來真的要練 DRAM，<strong>DIO 存貨天數的趨勢，重要性甚至高過單季 EPS。</strong></div>
+  </section>
+
+  <section class="section" id="signals">
+    <div class="section-header"><span class="section-dot" style="background:var(--cw)"></span><h3>趨勢訊號</h3><span class="section-page">看變多還是變少</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>指標</th><th>台積電上升代表</th><th>南亞科上升代表</th><th>你要特別注意</th></tr>
+        <tr><td>毛利率</td><td>產品組合 / 製程優勢更強</td><td>ASP 可能進入上行週期</td><td>南亞科要防止把循環高點當成常態。[web:93]</td></tr>
+        <tr><td>流動比率</td><td>安全邊際增加</td><td>能更好撐過下行</td><td>太高不一定是效率高，也可能是景氣循環保守配置。</td></tr>
+        <tr><td>DIO</td><td>庫存稍增需觀察需求</td><td>可能是景氣反轉警訊</td><td>對 DRAM 廠特別敏感。</td></tr>
+        <tr><td>營運週轉天數</td><td>管理效率變差</td><td>庫存和應收一起壓資金</td><td>若同時毛利下滑，就是雙重警訊。</td></tr>
+      </table>
+    </div>
+    <div class="blue-box">一句話抓差異：<strong>台積電看的是「品質能否維持」，南亞科看的是「週期是否反轉」。</strong></div>
+  </section>
+
+  <section class="section" id="check">
+    <div class="section-header"><span class="section-dot"></span><h3>實戰 checklist</h3><span class="section-page">之後照這張跑</span></div>
+    <div class="check-grid">
+      <div class="check-card"><h4>1. 先分類公司</h4><div class="ccard-body">它是護城河型、景氣循環型、還是高槓桿型？先分類，解讀方式才不會錯。</div></div>
+      <div class="check-card"><h4>2. 看安不安全</h4><div class="ccard-body">負債比率、流動比率、槓桿倍數有沒有過線？</div></div>
+      <div class="check-card"><h4>3. 看利潤高不高</h4><div class="ccard-body">毛利率 / 營益率 / 淨利率，這季高是因為護城河，還是因為景氣高點？</div></div>
+      <div class="check-card"><h4>4. 看現金有沒有跟上</h4><div class="ccard-body">現金流對淨利比有沒有一起變好？</div></div>
+      <div class="check-card"><h4>5. 看週期訊號</h4><div class="ccard-body">DSO、DIO、營運週轉天數是在改善，還是在惡化？</div></div>
+      <div class="check-card"><h4>6. 看趨勢不是只看單季</h4><div class="ccard-body">至少和去年同期、上季、同業比，才能知道是趨勢還是雜訊。</div></div>
+    </div>
+    <div class="good-box">如果你之後要練 DRAM 股，建議把這份第二版當成模板，下一步直接換成「南亞科 vs 華邦電」或「南亞科 vs 美光」。</div>
+  </section>
+</main>
+<script>
+function updateMineScore(){
+  const cbs = document.querySelectorAll('.mine-cb');
+  const count = [...cbs].filter(c=>c.checked).length;
+  const el = document.getElementById('mineCount');
+  const jel = document.getElementById('mineJudge');
+  if(el) el.textContent = count;
+  if(jel) jel.textContent = count===0?'目前無特殊警訊':count<=2?'有少量警訊，建議進一步確認':count<=4?'警訊偏多，建議詳細核查財報':'高風險！建議謹慎評估';
+  if(el) el.style.color = count===0?'var(--cg2)':count<=2?'var(--amber)':'var(--cw2)';
+}
+
+function updateMineScore(){
+  const cbs=document.querySelectorAll('.mine-cb');
+  const count=[...cbs].filter(c=>c.checked).length;
+  const el=document.getElementById('mineCount');
+  const jel=document.getElementById('mineJudge');
+  if(el){el.textContent=count;el.style.color=count===0?'var(--cg2)':count<=2?'var(--amber)':'var(--cw2)';}
+  if(jel) jel.textContent=count===0?'目前無特殊警訊':count<=2?'少量警訊，建議確認':count<=4?'警訊偏多，建議深查':'高風險！';
+}
+function navTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}const sections=document.querySelectorAll('section[id]');const navItems=document.querySelectorAll('.nav-item');window.addEventListener('scroll',()=>{let current='overview';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-100)current=s.id;});navItems.forEach(i=>{i.classList.toggle('active',i.getAttribute('onclick')?.includes(current));});},{passive:true});
+</script>
+</body>
+</html>

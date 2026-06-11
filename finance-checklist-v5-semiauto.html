@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>財報判讀半自動版｜第五版</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#F5F0E8;--bg2:#FBF7F1;--line:#D8CCBC;--line2:#C6B69F;--text:#2D2621;--muted:#776556;--soft:#A6917A;--accent:#8B6B4A;--accent2:#6B4F32;--green:#E8F0E5;--green-t:#4F6947;--blue:#EAF0F5;--blue-t:#52697D;--red:#F8EAE7;--red-t:#A35A4E;--amber:#F6EDD9;--amber-t:#8A6630;--radius:12px;--shadow:0 8px 24px rgba(80,55,35,.08)}
+    *{box-sizing:border-box;margin:0;padding:0} body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:16px} h1,h2,h3,h4{font-family:'Noto Serif TC',serif;font-weight:700}
+    .wrap{max-width:1280px;margin:0 auto;padding:24px 20px 50px}.hero{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:18px}.tag{display:inline-block;padding:4px 10px;border-radius:999px;background:var(--amber);color:var(--amber-t);font-size:12px;font-weight:600;margin-bottom:10px;border:1px solid #E0CDA4}.hero h1{font-size:30px}.hero p{color:var(--muted);max-width:780px}.btns{display:flex;gap:10px;flex-wrap:wrap}
+    button{border:none;border-radius:10px;padding:10px 14px;font-size:14px;cursor:pointer}.primary{background:var(--accent);color:#fff}.primary:hover{background:var(--accent2)}.secondary{background:#fff;border:1px solid var(--line);color:var(--accent2)}
+    .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px}.card h3{font-size:20px;margin-bottom:10px}.card h4{font-size:15px;color:var(--accent2);margin-bottom:8px}.sub{font-size:12px;color:var(--soft);margin-bottom:10px}.section{margin-top:18px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .field{margin-bottom:11px}.label{font-size:13px;color:var(--muted);display:block;margin-bottom:5px}.input,.textarea,.output{width:100%;background:var(--bg2);border:1px dashed var(--line2);border-radius:10px;padding:10px 12px;font-size:15px;color:var(--text);min-height:42px}.textarea{min-height:88px;resize:vertical}.output{background:#fcfbf8}.formula{padding:12px 15px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;font-family:'Noto Serif TC',serif;color:var(--accent2);font-size:17px;text-align:center;margin:10px 0 14px}
+    .good,.warn,.blue{padding:12px 14px;border-radius:12px;margin-top:10px}.good{background:var(--green);color:var(--green-t)}.warn{background:var(--red);color:var(--red-t)}.blue{background:var(--blue);color:var(--blue-t)}
+    .scoregrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.score{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}.score .k{font-size:12px;color:var(--soft);margin-bottom:5px}.score .v{font-size:18px;font-weight:700;color:var(--accent2)}
+    .table{width:100%;border-collapse:collapse;font-size:14px}.table th{background:var(--bg2);padding:10px;text-align:left;color:var(--muted);border-bottom:1px solid var(--line)}.table td{padding:10px;border-bottom:1px solid var(--line)}
+    @media (max-width:980px){.grid,.grid2,.grid3,.scoregrid{grid-template-columns:1fr}.hero{flex-direction:column;align-items:flex-start}}
+    @media print {.btns{display:none}.card{box-shadow:none}}
+  </style>
+</head>
+<body>
+<div class="wrap"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#8B7560;text-decoration:none;padding:5px 13px;border-radius:20px;border:1px solid #D4C8B4;background:#FAF5EE;margin-bottom:1.5rem;">← 回到目錄首頁</a>
+  <div class="hero">
+    <div>
+      <div class="tag">第五版・半自動</div>
+      <h1>財報判讀半自動版</h1>
+      <p>你只要把財報數字貼進去，這一版會自動算出常用比率，並生成一段初步判讀，讓你從「填數字」更快走到「寫結論」。</p>
+    </div>
+    <div class="btns">
+      <button class="primary" onclick="calculateAll()">自動計算</button>
+      <button class="secondary" onclick="fillDemo()">載入示範</button>
+      <button class="secondary" onclick="window.print()">列印 / PDF</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h3>輸入區</h3>
+        <div class="grid2">
+          <div class="field"><label class="label">公司名稱</label><input id="company" class="input" placeholder="例如：台積電"></div>
+          <div class="field"><label class="label">季度</label><input id="quarter" class="input" placeholder="例如：2026Q1"></div>
+        </div>
+        <div class="section">
+          <h4>資產負債表</h4>
+          <div class="grid3">
+            <div class="field"><label class="label">總資產</label><input id="assets" class="input" placeholder="輸入數字"></div>
+            <div class="field"><label class="label">總負債</label><input id="liab" class="input" placeholder="輸入數字"></div>
+            <div class="field"><label class="label">股東權益</label><input id="equity" class="input" placeholder="輸入數字"></div>
+            <div class="field"><label class="label">流動資產</label><input id="ca" class="input" placeholder="輸入數字"></div>
+            <div class="field"><label class="label">流動負債</label><input id="cl" class="input" placeholder="輸入數字"></div>
+            <div class="field"><label class="label">加權平均股數（可選）</label><input id="shares" class="input" placeholder="輸入股數"></div>
+          </div>
+        </div>
+        <div class="section">
+          <h4>損益表</h4>
+          <div class="grid3">
+            <div class="field"><label class="label">營收</label><input id="rev" class="input" placeholder="輸入數字"></div>
+            <div class="field"><label class="label">毛利</label><input id="gp" class="input" placeholder="輸入數字"></div>
+            <div class="field"><label class="label">營業利益</label><input id="op" class="input" placeholder="輸入數字"></div>
+            <div class="field"><label class="label">稅後淨利</label><input id="ni" class="input" placeholder="輸入數字"></div>
+            <div class="field"><label class="label">營業現金流（可選）</label><input id="ocf" class="input" placeholder="輸入數字"></div>
+            <div class="field"><label class="label">本季 EPS（可留白）</label><input id="epsInput" class="input" placeholder="若已知可輸入"></div>
+          </div>
+        </div>
+        <div class="section">
+          <h4>營運效率</h4>
+          <div class="grid3">
+            <div class="field"><label class="label">DSO 應收天數（可選）</label><input id="dso" class="input" placeholder="例如：25.6"></div>
+            <div class="field"><label class="label">DIO 存貨天數（可選）</label><input id="dio" class="input" placeholder="例如：70.5"></div>
+            <div class="field"><label class="label">去年同期 / 上季觀察（可選）</label><input id="trendHint" class="input" placeholder="例如：毛利率連兩季上升"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h3>自動輸出區</h3>
+        <div class="scoregrid">
+          <div class="score"><div class="k">負債比率</div><div class="v" id="outDebt">—</div></div>
+          <div class="score"><div class="k">流動比率</div><div class="v" id="outCurrent">—</div></div>
+          <div class="score"><div class="k">槓桿倍數</div><div class="v" id="outLev">—</div></div>
+          <div class="score"><div class="k">EPS</div><div class="v" id="outEps">—</div></div>
+        </div>
+        <div class="scoregrid section">
+          <div class="score"><div class="k">毛利率</div><div class="v" id="outGM">—</div></div>
+          <div class="score"><div class="k">營益率</div><div class="v" id="outOM">—</div></div>
+          <div class="score"><div class="k">淨利率</div><div class="v" id="outNM">—</div></div>
+          <div class="score"><div class="k">現金流 / 淨利</div><div class="v" id="outCash">—</div></div>
+        </div>
+        <div class="scoregrid section">
+          <div class="score"><div class="k">DSO</div><div class="v" id="outDso">—</div></div>
+          <div class="score"><div class="k">DIO</div><div class="v" id="outDio">—</div></div>
+          <div class="score"><div class="k">營運週轉天數</div><div class="v" id="outCycle">—</div></div>
+          <div class="score"><div class="k">整體類型</div><div class="v" id="outType">—</div></div>
+        </div>
+        <div class="blue" id="signalBox">輸入數字後按「自動計算」，這裡會出現重點提示。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section grid2">
+    <div class="card">
+      <h3>自動判讀</h3>
+      <textarea id="autoComment" class="textarea" style="min-height:220px" placeholder="計算後自動生成摘要..."></textarea>
+    </div>
+    <div class="card">
+      <h3>使用提醒</h3>
+      <table class="table">
+        <tr><th>區塊</th><th>怎麼看</th></tr>
+        <tr><td>安全</td><td>先看負債比率、流動比率、槓桿倍數，確認公司不會先出事。</td></tr>
+        <tr><td>獲利</td><td>再看三率，確認它是長期能賺，還是只是一季特別好。</td></tr>
+        <tr><td>效率</td><td>最後看 DSO、DIO、營運週轉天數，確認現金沒有卡住。</td></tr>
+        <tr><td>趨勢</td><td>至少和去年同期、上季比，避免把高點誤認成常態。</td></tr>
+      </table>
+      <div class="warn">半自動版會幫你算數字，但<strong>不會取代你判斷這是護城河還是景氣循環。</strong></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function updateMineScore5(){
+  const cbs = document.querySelectorAll('.mine-cb5');
+  const count = [...cbs].filter(c=>c.checked).length;
+  const el = document.getElementById('mineCount5');
+  const jel = document.getElementById('mineJudge5');
+  if(el) el.textContent = count;
+  if(jel) jel.textContent = count===0?'目前無特殊警訊':count<=2?'有少量警訊，建議進一步確認':count<=4?'警訊偏多，建議詳細核查':'高風險！建議謹慎評估';
+  if(el) el.style.color = count===0?'#7A8C72':count<=2?'#A07838':'#A05548';
+}
+function num(v){return Number(String(v).replace(/,/g,'').trim())||0}
+function pct(n){return n||n===0? (n*100).toFixed(1)+'%':'—'}
+function fixed(n,d=2){return n||n===0? Number(n).toFixed(d):'—'}
+function classifyDebt(r){if(r===0&&r!==0)return ''; if(r<0.4)return '安全'; if(r<=0.6)return '中性'; return '偏高';}
+function classifyCurrent(r){if(r<1)return '偏緊'; if(r<1.2)return '勉強'; if(r<=2)return '舒適'; return '寬鬆';}
+function qualityCash(r){if(!r&&r!==0)return '未填'; if(r>1)return '高品質'; if(r>=0.8)return '尚可'; return '偏弱';}
+function marginView(gm,om,nm){ if(gm>0.5&&om>0.3&&nm>0.2) return '高獲利'; if(gm>0.25&&om>0.1) return '中高獲利'; return '一般 / 波動型'; }
+function cycleView(dso,dio){ if(!dso&&!dio) return '未填'; const sum=(dso||0)+(dio||0); if(sum<100) return '週轉偏快'; if(sum<150) return '中性'; return '週轉偏慢'; }
+function calculateAll(){
+  const company=document.getElementById('company').value||'這家公司';
+  const quarter=document.getElementById('quarter').value||'';
+  const assets=num(document.getElementById('assets').value);
+  const liab=num(document.getElementById('liab').value);
+  const equity=num(document.getElementById('equity').value);
+  const ca=num(document.getElementById('ca').value);
+  const cl=num(document.getElementById('cl').value);
+  const shares=num(document.getElementById('shares').value);
+  const rev=num(document.getElementById('rev').value);
+  const gp=num(document.getElementById('gp').value);
+  const op=num(document.getElementById('op').value);
+  const ni=num(document.getElementById('ni').value);
+  const ocf=num(document.getElementById('ocf').value);
+  const dso=num(document.getElementById('dso').value);
+  const dio=num(document.getElementById('dio').value);
+  const trendHint=document.getElementById('trendHint').value.trim();
+  const epsInput=document.getElementById('epsInput').value.trim();
+
+  const debtRatio=assets?liab/assets:null;
+  const currentRatio=cl?ca/cl:null;
+  const leverage=equity?assets/equity:null;
+  const gm=rev?gp/rev:null;
+  const om=rev?op/rev:null;
+  const nm=rev?ni/rev:null;
+  const cashRatio=ni?ocf/ni:null;
+  const eps=epsInput?Number(epsInput):(shares?ni/shares:null);
+  const cycle=(dso||dio)?(dso+dio):null;
+  const type=marginView(gm||0,om||0,nm||0)+' / '+cycleView(dso,dio);
+
+  document.getElementById('outDebt').textContent=debtRatio!==null?pct(debtRatio):'—';
+  document.getElementById('outCurrent').textContent=currentRatio!==null?fixed(currentRatio*100,1)+'%':'—';
+  document.getElementById('outLev').textContent=leverage!==null?fixed(leverage,2)+'x':'—';
+  document.getElementById('outEps').textContent=eps!==null?fixed(eps,2):'—';
+  document.getElementById('outGM').textContent=gm!==null?pct(gm):'—';
+  document.getElementById('outOM').textContent=om!==null?pct(om):'—';
+  document.getElementById('outNM').textContent=nm!==null?pct(nm):'—';
+  document.getElementById('outCash').textContent=cashRatio!==null?fixed(cashRatio*100,1)+'%':'—';
+  document.getElementById('outDso').textContent=dso?fixed(dso,1)+'天':'—';
+  document.getElementById('outDio').textContent=dio?fixed(dio,1)+'天':'—';
+  document.getElementById('outCycle').textContent=cycle?fixed(cycle,1)+'天':'—';
+  document.getElementById('outType').textContent=type;
+
+  const debtText=debtRatio!==null?`負債比率約 ${pct(debtRatio)}，屬於${classifyDebt(debtRatio)}區。`:'';
+  const currentText=currentRatio!==null?`流動比率約 ${fixed(currentRatio*100,1)}%，短期流動性${classifyCurrent(currentRatio)}。`:'';
+  const levText=leverage!==null?`槓桿倍數約 ${fixed(leverage,2)}x。`:'';
+  const marginText=gm!==null&&om!==null&&nm!==null?`毛利率 ${pct(gm)}、營業利益率 ${pct(om)}、淨利率 ${pct(nm)}，整體屬於${marginView(gm,om,nm)}結構。`:'';
+  const cashText=cashRatio!==null?`營業現金流對淨利比約 ${fixed(cashRatio*100,1)}%，獲利變現能力${qualityCash(cashRatio)}。`:'';
+  const cycleText=cycle?`DSO ${fixed(dso,1)} 天、DIO ${fixed(dio,1)} 天，營運週轉天數約 ${fixed(cycle,1)} 天，代表${cycleView(dso,dio)}。`:'';
+  const trendText=trendHint?`補充觀察：${trendHint}。`:'';
+
+  const final=`${company}${quarter?` ${quarter}`:''} 的初步判讀：${debtText}${currentText}${levText}${marginText}${cashText}${cycleText}${trendText}`;
+
+  const dep = num((document.getElementById('depamort')||{}).value||'0');
+  const capex2 = num((document.getElementById('capex')||{}).value||'0');
+  const roe2 = equity ? ni/equity : null;
+  const fcf2 = (ocf && capex2) ? ocf - capex2 : null;
+  if(document.getElementById('outROE')) document.getElementById('outROE').textContent = roe2!==null ? pct(roe2) : '—';
+  if(document.getElementById('outFCF')) document.getElementById('outFCF').textContent = fcf2!==null ? fcf2.toLocaleString() : '—';
+  const roeAppend = roe2!==null ? ` ROE約${pct(roe2)}。` : '';
+  const fcfAppend = fcf2!==null ? ` 自由現金流量約${fcf2.toLocaleString()}。` : '';
+
+  document.getElementById('autoComment').value=final+roeAppend+fcfAppend;
+
+  const sig=[];
+  if(debtRatio!==null) sig.push(debtRatio<0.4?'財務結構偏保守':'負債需持續追蹤');
+  if(gm!==null) sig.push(gm>0.5?'毛利率很高':'毛利率需觀察持續性');
+  if(cashRatio!==null) sig.push(cashRatio>1?'獲利多能轉成現金':(cashRatio<0.8?'帳面獲利品質要留意':'現金流品質尚可'));
+  if(cycle) sig.push(cycle<100?'現金週轉偏快':(cycle>150?'現金卡較久':'週轉中性'));
+  document.getElementById('signalBox').textContent=sig.join('｜')||'請先輸入數字';
+}
+function fillDemo(){
+  document.getElementById('company').value='台積電';
+  document.getElementById('quarter').value='2026Q1';
+  document.getElementById('assets').value='8660949685';
+  document.getElementById('liab').value='2729162696';
+  document.getElementById('equity').value='5931786989';
+  document.getElementById('ca').value='4265512176';
+  document.getElementById('cl').value='1714045392';
+  document.getElementById('rev').value='1134103440';
+  document.getElementById('gp').value='751295421';
+  document.getElementById('op').value='658966142';
+  document.getElementById('ni').value='572801304';
+  document.getElementById('shares').value='259420000';
+  document.getElementById('dso').value='25.6';
+  document.getElementById('dio').value='70.5';
+  document.getElementById('trendHint').value='毛利率維持高檔，營運週轉較過往改善';
+  document.getElementById('depamort').value='428498179';
+  document.getElementById('capex').value='1082672130';
+  calculateAll();
+}
+</script>
+</body>
+</html>

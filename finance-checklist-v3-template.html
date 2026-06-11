@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>財報判讀模板｜可套用版</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--cr:#F5F0E8;--cr2:#EDE5D8;--cr3:#E2D7C6;--cr4:#D4C8B4;--cr5:#C0B09A;--ct:#2C2420;--ct2:#5C4A3A;--ct3:#8B7560;--ct4:#B09A82;--ca:#8B6B4A;--ca2:#6B4F32;--ca-l:#F0E4D4;--ca-ll:#FAF5EE;--cg:#7A8C72;--cg2:#5A6C52;--cg-l:#EAF0E6;--cb:#7A8C9A;--cb2:#5A6C7A;--cb-l:#E6EDF2;--cw:#C4756A;--cw2:#A05548;--cw-l:#F5EAE8;--amber:#A07838;--amber-l:#F5ECD8;--amber-d:#6B4F20;--radius:10px;--radius-lg:14px;--shadow-sm:0 4px 12px rgba(85,60,40,.06)}
+    *{box-sizing:border-box;margin:0;padding:0} body{font-family:'Noto Sans TC',sans-serif;background:var(--cr);color:var(--ct);line-height:1.72;font-size:17px} h1,h2,h3,h4,.formula{font-family:'Noto Serif TC',serif;font-weight:700;letter-spacing:.02em} strong{color:var(--ca2)}
+    .sidebar{position:fixed;top:0;left:0;width:260px;height:100vh;background:var(--ca-ll);border-right:1px solid var(--cr4);overflow-y:auto;padding:0 0 2rem}.sidebar-logo{padding:1.4rem 1.2rem 1rem;border-bottom:1px solid var(--cr4);background:var(--ca-l)}.sidebar-logo h1{font-size:14px;color:var(--ca2)}.sidebar-logo p{font-size:11px;color:var(--ct4);margin-top:4px}.nav-section{padding:.4rem 0}.nav-section-label{font-size:10px;font-weight:600;color:var(--ct4);text-transform:uppercase;letter-spacing:.12em;padding:.6rem 1.2rem .3rem}.nav-item{display:block;padding:.5rem 1rem .5rem 1.3rem;font-size:14px;color:var(--ct2);text-decoration:none;border-left:2px solid transparent;transition:all .15s;cursor:pointer}.nav-item:hover,.nav-item.active{color:var(--ca2);border-left-color:var(--ca);background:var(--ca-l);font-weight:600}
+    .main{margin-left:260px;padding:2.5rem 3.5rem 5rem}.page-hero{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--cr4)}.hero-tag{font-size:11px;font-weight:600;color:var(--ca2);background:var(--ca-l);padding:4px 13px;border-radius:20px;display:inline-block;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.08em;border:1px solid var(--cr5)}.page-hero h2{font-size:30px;margin-bottom:.4rem}.page-hero p{font-size:16px;color:var(--ct3)}
+    .section{margin-bottom:2.5rem;scroll-margin-top:1.5rem}.section-header{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--cr4)}.section-dot{width:9px;height:9px;border-radius:50%;background:var(--ca)}.section-header h3{font-size:21px;flex:1}.section-page{font-size:13px;color:var(--ct4)}
+    .hl,.good-box,.warn-box,.caution-box,.blue-box{border-left:2.5px solid var(--ca);background:var(--ca-ll);padding:12px 16px;margin:12px 0;font-size:16px;line-height:1.72;color:var(--ct2)} .good-box{border-left-color:var(--cg);background:var(--cg-l);color:var(--cg2)} .warn-box{border-left-color:var(--cw);background:var(--cw-l);color:var(--cw2)} .caution-box{border-left-color:var(--amber);background:var(--amber-l);color:var(--amber-d)} .blue-box{border-left-color:var(--cb);background:var(--cb-l);color:var(--cb2)}
+    .formula{background:var(--cr2);border-radius:var(--radius);padding:14px 20px;margin:10px 0;text-align:center;font-size:20px;color:var(--ca2);border:1px solid var(--cr4)}
+    .tbl-wrap{overflow-x:auto;margin:12px 0} table{width:100%;border-collapse:collapse;font-size:15px} th{background:var(--cr2);padding:10px 13px;text-align:left;font-weight:600;color:var(--ct3);font-size:13px;border-bottom:1px solid var(--cr4);text-transform:uppercase;letter-spacing:.05em} td{padding:10px 13px;border-bottom:1px solid var(--cr3);vertical-align:top} tr:last-child td{border-bottom:none} tr:hover td{background:var(--ca-ll)}
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}.company{border:1px solid var(--cr4);border-radius:var(--radius-lg);overflow:hidden;background:var(--ca-ll)}.company-hd{padding:10px 14px;background:var(--cr2);font-size:15px;font-weight:600;color:var(--ca2)}.company-bd{padding:13px 14px}.metric{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--cr4)}.metric:last-child{border-bottom:none}.metric-label{font-size:14px;color:var(--ct3)}.metric-val{font-size:15px;font-weight:700}
+    .check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}.check-card{border:1px solid var(--cr4);border-radius:var(--radius);background:var(--ca-ll);padding:12px 13px}.check-card h4{font-size:14px;color:var(--ca2);margin-bottom:6px}.fill{background:#fff;border:1px dashed var(--cr5);border-radius:8px;padding:2px 8px;color:var(--cw2)}
+    .legend{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}.legend-card{border:1px solid var(--cr4);border-radius:var(--radius);padding:10px 12px;background:var(--ca-ll)}.legend-card h4{font-size:13px;color:var(--ca2);margin-bottom:5px}.legend-card p{font-size:14px;color:var(--ct3)}
+    @media (max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:1.25rem}.compare-grid,.check-grid,.legend{grid-template-columns:1fr}}
+
+    .home-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:5px 13px;border-radius:20px;border:1px solid var(--cr4);background:var(--ca-ll);transition:all .15s;margin-bottom:1.5rem;}
+    .home-btn:hover{background:var(--ca-l);color:var(--ca2);}
+    .home-btn-sb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:.55rem 1rem .55rem 1.3rem;border-top:1px solid var(--cr4);margin-top:.5rem;transition:color .15s;}
+    .home-btn-sb:hover{color:var(--ca2);background:var(--ca-l);}
+    .cl-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--cr3);}
+    .cl-item:last-child{border-bottom:none;}
+    .cl-cb{width:20px;height:20px;border-radius:4px;border:1.5px solid var(--cr5);flex-shrink:0;margin-top:2px;cursor:pointer;accent-color:var(--ca2);}
+    .cl-label{font-size:16px;color:var(--ct);line-height:1.65;flex:1;}
+    .cl-note{width:100%;margin-top:6px;padding:6px 10px;border:1px solid var(--cr4);border-radius:6px;background:var(--cr);font-family:inherit;font-size:14px;color:var(--ct);resize:vertical;min-height:36px;}
+    .cl-note:focus{outline:none;border-color:var(--ca);}
+    .cl-group{background:var(--ca-ll);border:1px solid var(--cr4);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:12px;}
+    .cl-group-title{font-size:14px;font-weight:600;color:var(--ca2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em;}
+    .mine-score{background:var(--cr2);border:1px solid var(--cr4);border-radius:var(--radius);padding:12px 16px;margin-top:14px;display:flex;align-items:center;gap:12px;}
+    .mine-count{font-family:'Noto Serif TC',serif;font-size:28px;font-weight:700;color:var(--cw2);}
+    .mine-label{font-size:15px;color:var(--ct2);}
+  </style>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo"><h1>財報判讀模板</h1><p>可重複套用版</p></div>
+  <div class="nav-section">
+    <div class="nav-section-label">模板結構</div>
+    <a class="nav-item active" onclick="navTo('how')">怎麼使用</a>
+    <a class="nav-item" onclick="navTo('profile')">公司定位</a>
+    <a class="nav-item" onclick="navTo('safety')">安全檢查</a>
+    <a class="nav-item" onclick="navTo('profit')">獲利檢查</a>
+    <a class="nav-item" onclick="navTo('efficiency')">效率檢查</a>
+    <a class="nav-item" onclick="navTo('compare')">對照表</a>
+    <a class="nav-item" onclick="navTo('final')">判語模板</a>
+  </div>
+</nav>
+<main class="main">
+  <div class="page-hero">
+    <div class="hero-tag">第三版・模板</div>
+    <h2>財報判讀可套用版 HTML</h2>
+    <p>這一版不是固定分析某家公司，而是保留架構與欄位，讓你之後換任何標的都可以直接填。</p>
+  </div>
+
+  <section class="section" id="how">
+    <div class="section-header"><span class="section-dot"></span><h3>怎麼使用</h3><span class="section-page">先分類，再填數字</span></div>
+    <div class="hl">先把公司分成：<strong>護城河型、景氣循環型、高槓桿型、轉機型</strong>。分類不同，後面判讀重點也會不同。</div>
+    <div class="legend">
+      <div class="legend-card"><h4>護城河型</h4><p>看獲利率與現金流能否長期穩住。</p></div>
+      <div class="legend-card"><h4>景氣循環型</h4><p>看庫存、價格與獲利率是不是在高點。</p></div>
+      <div class="legend-card"><h4>高槓桿型</h4><p>先看會不會爆，再看能不能賺。</p></div>
+      <div class="legend-card"><h4>轉機型</h4><p>看數字是否已經連續改善，而不是只好一季。</p></div>
+    </div>
+    <div class="blue-box">建議用法：左邊放你要研究的公司，右邊放一個基準組。比如「台積電 vs 研究公司」或「同業 A vs 同業 B」。</div>
+  </section>
+
+  <section class="section" id="profile">
+    <div class="section-header"><span class="section-dot" style="background:var(--cb)"></span><h3>公司定位</h3><span class="section-page">先定性</span></div>
+    <div class="compare-grid">
+      <div class="company">
+        <div class="company-hd">公司 A：<span class="fill">填公司名稱</span></div>
+        <div class="company-bd">
+          <div class="metric"><span class="metric-label">產業</span><span class="metric-val"><span class="fill">例如：晶圓代工</span></span></div>
+          <div class="metric"><span class="metric-label">公司類型</span><span class="metric-val"><span class="fill">護城河型 / 循環型</span></span></div>
+          <div class="metric"><span class="metric-label">你最關心的點</span><span class="metric-val"><span class="fill">毛利 / 庫存 / 現金流</span></span></div>
+        </div>
+      </div>
+      <div class="company">
+        <div class="company-hd">公司 B：<span class="fill">填基準公司</span></div>
+        <div class="company-bd">
+          <div class="metric"><span class="metric-label">產業</span><span class="metric-val"><span class="fill">例如：DRAM</span></span></div>
+          <div class="metric"><span class="metric-label">公司類型</span><span class="metric-val"><span class="fill">高槓桿 / 循環型</span></span></div>
+          <div class="metric"><span class="metric-label">你最關心的點</span><span class="metric-val"><span class="fill">DIO / 流動比率</span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="safety">
+    <div class="section-header"><span class="section-dot" style="background:var(--cg)"></span><h3>安全檢查</h3><span class="section-page">先確認不會爆</span></div>
+    <div class="formula">負債比率 = 總負債 ÷ 總資產　|　流動比率 = 流動資產 ÷ 流動負債</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>指標</th><th>公司 A</th><th>公司 B</th><th>判讀標準</th><th>你的結論</th></tr>
+        <tr><td>負債比率</td><td><span class="fill">填數值</span></td><td><span class="fill">填數值</span></td><td>&lt;40% 安全；40–60% 中性；&gt;60% 危險</td><td><span class="fill">例如：A 比較保守</span></td></tr>
+        <tr><td>槓桿倍數</td><td><span class="fill">填數值</span></td><td><span class="fill">填數值</span></td><td>製造業常見 1.5–3x；過高要小心</td><td><span class="fill">例如：B 槓桿較高</span></td></tr>
+        <tr><td>流動比率</td><td><span class="fill">填數值</span></td><td><span class="fill">填數值</span></td><td>&lt;100% 壓力大；120–200% 舒適；&gt;200% 寬鬆</td><td><span class="fill">例如：A 短期安全</span></td></tr>
+      </table>
+    </div>
+    <div class="good-box">這一段只回答一件事：<strong>公司能不能先活過景氣或壓力期？</strong></div>
+  </section>
+
+  <section class="section" id="profit">
+    <div class="section-header"><span class="section-dot" style="background:var(--amber)"></span><h3>獲利檢查</h3><span class="section-page">再確認是不是有真賺</span></div>
+    <div class="formula">毛利率 = 毛利 ÷ 營收　|　營業利益率 = 營業利益 ÷ 營收　|　淨利率 = 稅後淨利 ÷ 營收</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>指標</th><th>公司 A</th><th>公司 B</th><th>你該問的問題</th></tr>
+        <tr><td>毛利率</td><td><span class="fill">填數值</span></td><td><span class="fill">填數值</span></td><td>高毛利是長期護城河，還是短期價格大漲？</td></tr>
+        <tr><td>營業利益率</td><td><span class="fill">填數值</span></td><td><span class="fill">填數值</span></td><td>本業獲利能力有沒有維持住？</td></tr>
+        <tr><td>淨利率</td><td><span class="fill">填數值</span></td><td><span class="fill">填數值</span></td><td>是不是有靠業外或匯兌支撐？</td></tr>
+        <tr><td>現金流對淨利比</td><td><span class="fill">填數值</span></td><td><span class="fill">填數值</span></td><td>&gt;100% 品質佳；長期 &lt;80% 要小心</td></tr>
+      </table>
+    </div>
+    <div class="caution-box">最重要的一句：<strong>高獲利率不等於高品質，要看它能不能連續維持。</strong></div>
+  </section>
+
+  <section class="section" id="efficiency">
+    <div class="section-header"><span class="section-dot" style="background:var(--cw)"></span><h3>效率檢查</h3><span class="section-page">最後看現金有沒有卡住</span></div>
+    <div class="formula">DSO = 90 ÷ 應收帳款週轉率　|　DIO = 90 ÷ 存貨週轉率　|　營運週轉天數 = DSO + DIO</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>指標</th><th>公司 A</th><th>公司 B</th><th>越少代表</th><th>越多代表</th></tr>
+        <tr><td>DSO</td><td><span class="fill">填數值</span></td><td><span class="fill">填數值</span></td><td>收款快</td><td>客戶拖款、現金回收慢</td></tr>
+        <tr><td>DIO</td><td><span class="fill">填數值</span></td><td><span class="fill">填數值</span></td><td>庫存周轉快</td><td>庫存堆高、需求轉弱</td></tr>
+        <tr><td>營運週轉天數</td><td><span class="fill">填數值</span></td><td><span class="fill">填數值</span></td><td>現金效率高</td><td>現金卡在營運中更久</td></tr>
+      </table>
+    </div>
+    <div class="warn-box">如果是記憶體、面板、鋼鐵、航運這種景氣循環型，<strong>DIO 的重要性通常會非常高。</strong></div>
+  </section>
+
+  <section class="section" id="compare">
+    <div class="section-header"><span class="section-dot"></span><h3>對照表</h3><span class="section-page">把答案濃縮成一頁</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>面向</th><th>公司 A</th><th>公司 B</th><th>誰比較好</th><th>為什麼</th></tr>
+        <tr><td>財務安全</td><td><span class="fill">填一句話</span></td><td><span class="fill">填一句話</span></td><td><span class="fill">A / B</span></td><td><span class="fill">例如：負債較低</span></td></tr>
+        <tr><td>獲利品質</td><td><span class="fill">填一句話</span></td><td><span class="fill">填一句話</span></td><td><span class="fill">A / B</span></td><td><span class="fill">例如：三率較穩</span></td></tr>
+        <tr><td>現金效率</td><td><span class="fill">填一句話</span></td><td><span class="fill">填一句話</span></td><td><span class="fill">A / B</span></td><td><span class="fill">例如：DIO 較短</span></td></tr>
+        <tr><td>最大風險</td><td><span class="fill">填一句話</span></td><td><span class="fill">填一句話</span></td><td><span class="fill">—</span></td><td><span class="fill">例如：庫存週期</span></td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="final">
+    <div class="section-header"><span class="section-dot" style="background:var(--cb)"></span><h3>判語模板</h3><span class="section-page">最後寫成一段話</span></div>
+    <div class="blue-box">判語範本：</div>
+    <div class="hl">「<span class="fill">公司名稱</span> 的財務結構 <span class="fill">偏保守 / 偏積極</span>，負債比率約 <span class="fill">數值</span>、流動比率約 <span class="fill">數值</span>，短期償債 <span class="fill">無虞 / 需留意</span>；獲利面上，毛利率 / 營業利益率 / 淨利率 <span class="fill">維持高檔 / 正在下滑</span>，代表 <span class="fill">產品力強 / 面臨價格壓力</span>。若從營運效率來看，DSO / DIO / 營運週轉天數 <span class="fill">改善 / 惡化</span>，顯示現金回收 <span class="fill">更順 / 被卡住</span>。整體而言，這家公司目前更像是 <span class="fill">高品質穩健型 / 景氣循環高點型 / 轉機初期型</span>。」</div>
+    <div class="good-box">你之後只要把空格填完，就等於完成一篇有脈絡的基本面分析。</div>
+  </section>
+</main>
+<script>
+function updateMineScore(){
+  const cbs = document.querySelectorAll('.mine-cb');
+  const count = [...cbs].filter(c=>c.checked).length;
+  const el = document.getElementById('mineCount');
+  const jel = document.getElementById('mineJudge');
+  if(el) el.textContent = count;
+  if(jel) jel.textContent = count===0?'目前無特殊警訊':count<=2?'有少量警訊，建議進一步確認':count<=4?'警訊偏多，建議詳細核查財報':'高風險！建議謹慎評估';
+  if(el) el.style.color = count===0?'var(--cg2)':count<=2?'var(--amber)':'var(--cw2)';
+}
+
+function navTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}const sections=document.querySelectorAll('section[id]');const navItems=document.querySelectorAll('.nav-item');window.addEventListener('scroll',()=>{let current='how';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-100)current=s.id;});navItems.forEach(i=>{i.classList.toggle('active',i.getAttribute('onclick')?.includes(current));});},{passive:true});
+</script>
+</body>
+</html>

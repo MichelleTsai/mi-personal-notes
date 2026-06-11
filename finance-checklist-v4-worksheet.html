@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>財報判讀工作底稿｜可編輯練習版</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#F5F0E8;--bg2:#FBF7F1;--line:#D8CCBC;--line2:#C6B69F;--text:#2D2621;--muted:#776556;--soft:#A6917A;--accent:#8B6B4A;--accent2:#6B4F32;--green:#E8F0E5;--green-t:#4F6947;--blue:#EAF0F5;--blue-t:#52697D;--red:#F8EAE7;--red-t:#A35A4E;--amber:#F6EDD9;--amber-t:#8A6630;--radius:12px;--shadow:0 8px 24px rgba(80,55,35,.08)}
+    *{box-sizing:border-box;margin:0;padding:0} body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:16px} h1,h2,h3,h4{font-family:'Noto Serif TC',serif;font-weight:700;letter-spacing:.02em}
+    .layout{display:grid;grid-template-columns:280px 1fr;min-height:100vh}.sidebar{background:var(--bg2);border-right:1px solid var(--line);padding:1.25rem 1rem;position:sticky;top:0;height:100vh;overflow:auto}.brand{padding:1rem;border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:1rem}.brand h1{font-size:16px;color:var(--accent2)}.brand p{font-size:12px;color:var(--soft);margin-top:5px}.nav a{display:block;padding:.55rem .8rem;border-radius:10px;color:var(--muted);text-decoration:none;font-size:14px;margin-bottom:4px;border:1px solid transparent}.nav a:hover,.nav a.active{background:#fff;color:var(--accent2);border-color:var(--line)}
+    .main{padding:2rem 2.25rem 4rem}.hero{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;padding-bottom:1.2rem;border-bottom:1px solid var(--line);margin-bottom:1.5rem}.hero h2{font-size:30px}.hero p{color:var(--muted);max-width:760px}.tag{display:inline-block;padding:4px 10px;border-radius:999px;background:var(--amber);color:var(--amber-t);font-size:12px;font-weight:600;margin-bottom:10px;border:1px solid #E0CDA4}
+    .section{margin-top:2rem;scroll-margin-top:1rem}.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem}.section-head h3{font-size:21px}.section-head span{font-size:12px;color:var(--soft)}
+    .note,.good,.warn,.blue{padding:12px 14px;border-radius:12px;margin:10px 0 14px;border:1px solid var(--line);background:#fff}.good{background:var(--green);color:var(--green-t);border-color:#C7D9C0}.warn{background:var(--red);color:var(--red-t);border-color:#E2BBB3}.blue{background:var(--blue);color:var(--blue-t);border-color:#C6D5E2}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:14px}
+    .card h4{font-size:15px;color:var(--accent2);margin-bottom:10px}.sub{font-size:12px;color:var(--soft);margin-bottom:10px}
+    .field{margin-bottom:11px}.label{font-size:13px;color:var(--muted);margin-bottom:5px;display:block}.input,.textarea,.select{width:100%;background:var(--bg2);border:1px dashed var(--line2);border-radius:10px;padding:10px 12px;font-size:15px;color:var(--text);min-height:42px}.textarea{min-height:88px;resize:vertical}.select{appearance:none}
+    .formula{padding:12px 15px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;font-family:'Noto Serif TC',serif;color:var(--accent2);font-size:18px;text-align:center;margin:10px 0 14px}
+    .table-wrap{overflow:auto}.mini-table{width:100%;border-collapse:collapse;font-size:14px}.mini-table th{background:var(--bg2);color:var(--muted);font-weight:600;text-align:left;padding:10px;border-bottom:1px solid var(--line)}.mini-table td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}.mini-table tr:last-child td{border-bottom:none}
+    .scorebox{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.score{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}.score .k{font-size:12px;color:var(--soft);margin-bottom:5px}.score .v{font-size:18px;font-weight:700;color:var(--accent2)}
+    .print-btn{background:var(--accent);color:#fff;border:none;padding:10px 14px;border-radius:10px;font-size:14px;cursor:pointer}.print-btn:hover{background:var(--accent2)}
+    @media (max-width:980px){.layout{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.main{padding:1.2rem}.grid2,.grid3,.scorebox{grid-template-columns:1fr}.hero{flex-direction:column;align-items:flex-start}}
+    @media print {.sidebar,.print-btn{display:none}.layout{display:block}.main{padding:0}.card{box-shadow:none;break-inside:avoid}}
+
+    .home-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:5px 13px;border-radius:20px;border:1px solid var(--cr4);background:var(--ca-ll);transition:all .15s;margin-bottom:1.5rem;}
+    .home-btn:hover{background:var(--ca-l);color:var(--ca2);}
+    .home-btn-sb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:.55rem 1rem .55rem 1.3rem;border-top:1px solid var(--cr4);margin-top:.5rem;transition:color .15s;}
+    .home-btn-sb:hover{color:var(--ca2);background:var(--ca-l);}
+    .cl-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--cr3);}
+    .cl-item:last-child{border-bottom:none;}
+    .cl-cb{width:20px;height:20px;border-radius:4px;border:1.5px solid var(--cr5);flex-shrink:0;margin-top:2px;cursor:pointer;accent-color:var(--ca2);}
+    .cl-label{font-size:16px;color:var(--ct);line-height:1.65;flex:1;}
+    .cl-note{width:100%;margin-top:6px;padding:6px 10px;border:1px solid var(--cr4);border-radius:6px;background:var(--cr);font-family:inherit;font-size:14px;color:var(--ct);resize:vertical;min-height:36px;}
+    .cl-note:focus{outline:none;border-color:var(--ca);}
+    .cl-group{background:var(--ca-ll);border:1px solid var(--cr4);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:12px;}
+    .cl-group-title{font-size:14px;font-weight:600;color:var(--ca2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em;}
+    .mine-score{background:var(--cr2);border:1px solid var(--cr4);border-radius:var(--radius);padding:12px 16px;margin-top:14px;display:flex;align-items:center;gap:12px;}
+    .mine-count{font-family:'Noto Serif TC',serif;font-size:28px;font-weight:700;color:var(--cw2);}
+    .mine-label{font-size:15px;color:var(--ct2);}
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <h1>財報判讀工作底稿</h1>
+      <p>第四版｜可編輯練習版</p>
+    </div>
+    <nav class="nav">
+      <a href="#basic" class="active">基本設定</a>
+      <a href="#safety">安全檢查</a>
+      <a href="#profit">獲利檢查</a>
+      <a href="#efficiency">效率檢查</a>
+      <a href="#trend">趨勢整理</a>
+      <a href="#compare">一句話對照</a>
+      <a href="#summary">最終判語</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="hero">
+      <div>
+        <div class="tag">可直接填寫</div>
+        <h2>財報判讀工作底稿</h2>
+        <p>這版設計成像工作紙，你可以直接在欄位裡填公司名稱、數值、結論，拿來練習任一檔股票。</p>
+      </div>
+      <button class="print-btn" onclick="window.print()">列印 / 匯出 PDF</button>
+    </div>
+
+    <a class="home-btn" href="index.html">← 回到目錄首頁</a>
+    <section class="section" id="basic">
+      <div class="section-head"><h3>基本設定</h3><span>先定義你在看誰、為什麼看</span></div>
+      <div class="grid2">
+        <div class="card">
+          <h4>研究標的</h4>
+          <div class="field"><label class="label">公司名稱</label><input class="input" placeholder="例如：台積電"></div>
+          <div class="field"><label class="label">股票代號</label><input class="input" placeholder="例如：2330"></div>
+          <div class="field"><label class="label">觀察季度</label><input class="input" placeholder="例如：2026Q1"></div>
+          <div class="field"><label class="label">公司類型</label><select class="select"><option>護城河型</option><option>景氣循環型</option><option>高槓桿型</option><option>轉機型</option></select></div>
+        </div>
+        <div class="card">
+          <h4>研究目的</h4>
+          <div class="field"><label class="label">這次最想確認什麼？</label><textarea class="textarea" placeholder="例如：想確認毛利率上升是不是結構性，而不是短期價格因素。"></textarea></div>
+          <div class="field"><label class="label">基準公司 / 對照組</label><input class="input" placeholder="例如：台積電 / 同業平均"></div>
+        </div>
+      </div>
+      <div class="blue">先分型再判讀：護城河型重點看<strong>獲利能不能穩住</strong>；景氣循環型重點看<strong>庫存與毛利是不是在高點</strong>。</div>
+    </section>
+
+    <section class="section" id="safety">
+      <div class="section-head"><h3>安全檢查</h3><span>先確認不會爆</span></div>
+      <div class="formula">負債比率 = 總負債 ÷ 總資產 ｜ 流動比率 = 流動資產 ÷ 流動負債</div>
+      <div class="grid3">
+        <div class="card">
+          <h4>負債比率</h4>
+          <div class="sub">&lt;40% 安全 ｜ 40–60% 中性 ｜ &gt;60% 危險</div>
+          <div class="field"><label class="label">數值</label><input class="input" placeholder="例如：31.5%"></div>
+          <div class="field"><label class="label">我的判讀</label><textarea class="textarea" placeholder="例如：位於安全區，資本結構偏保守。"></textarea></div>
+        </div>
+        <div class="card">
+          <h4>槓桿倍數</h4>
+          <div class="sub">製造業常見 1.5–3x，過高要留意</div>
+          <div class="field"><label class="label">數值</label><input class="input" placeholder="例如：1.46x"></div>
+          <div class="field"><label class="label">我的判讀</label><textarea class="textarea" placeholder="例如：槓桿偏低，財務保守。"></textarea></div>
+        </div>
+        <div class="card">
+          <h4>流動比率</h4>
+          <div class="sub">&lt;100% 壓力大 ｜ 120–200% 舒適 ｜ &gt;200% 寬鬆</div>
+          <div class="field"><label class="label">數值</label><input class="input" placeholder="例如：249%"></div>
+          <div class="field"><label class="label">我的判讀</label><textarea class="textarea" placeholder="例如：短期償債無壓力。"></textarea></div>
+        </div>
+      </div>
+      <div class="good">這一段只要回答一件事：<strong>這家公司現在有沒有先活下來的能力？</strong></div>
+    </section>
+
+    <section class="section" id="profit">
+      <div class="section-head"><h3>獲利檢查</h3><span>再確認是不是有真賺</span></div>
+      <div class="formula">毛利率 = 毛利 ÷ 營收 ｜ 營業利益率 = 營業利益 ÷ 營收 ｜ 淨利率 = 稅後淨利 ÷ 營收</div>
+      <div class="grid2">
+        <div class="card">
+          <h4>三率數值</h4>
+          <div class="field"><label class="label">毛利率</label><input class="input" placeholder="例如：66.2%"></div>
+          <div class="field"><label class="label">營業利益率</label><input class="input" placeholder="例如：58.1%"></div>
+          <div class="field"><label class="label">淨利率</label><input class="input" placeholder="例如：50.5%"></div>
+          <div class="field"><label class="label">現金流對淨利比</label><input class="input" placeholder="例如：120%"></div>
+        </div>
+        <div class="card">
+          <h4>獲利判讀</h4>
+          <div class="field"><label class="label">高毛利是因為什麼？</label><textarea class="textarea" placeholder="例如：先進製程帶動產品組合改善。"></textarea></div>
+          <div class="field"><label class="label">這些獲利可持續嗎？</label><textarea class="textarea" placeholder="例如：若只是景氣高點，未必能維持。"></textarea></div>
+        </div>
+      </div>
+      <div class="warn">高獲利率不一定代表高品質，<strong>最重要是看它可不可以連續維持 2–4 季以上。</strong></div>
+    </section>
+
+    <section class="section" id="efficiency">
+      <div class="section-head"><h3>效率檢查</h3><span>最後看現金有沒有卡住</span></div>
+      <div class="formula">DSO = 90 ÷ 應收帳款週轉率 ｜ DIO = 90 ÷ 存貨週轉率 ｜ 營運週轉天數 = DSO + DIO</div>
+      <div class="grid3">
+        <div class="card">
+          <h4>DSO 應收天數</h4>
+          <div class="sub">越少＝收款快 ｜ 越多＝收款慢</div>
+          <div class="field"><label class="label">數值</label><input class="input" placeholder="例如：25.6 天"></div>
+          <div class="field"><label class="label">趨勢判讀</label><textarea class="textarea" placeholder="例如：較去年同期縮短，收款效率改善。"></textarea></div>
+        </div>
+        <div class="card">
+          <h4>DIO 存貨天數</h4>
+          <div class="sub">越少＝周轉快 ｜ 越多＝庫存堆高</div>
+          <div class="field"><label class="label">數值</label><input class="input" placeholder="例如：70.5 天"></div>
+          <div class="field"><label class="label">趨勢判讀</label><textarea class="textarea" placeholder="例如：若連續拉長，要小心需求轉弱。"></textarea></div>
+        </div>
+        <div class="card">
+          <h4>營運週轉天數</h4>
+          <div class="sub">越短＝現金效率高 ｜ 越長＝現金卡更久</div>
+          <div class="field"><label class="label">數值</label><input class="input" placeholder="例如：96 天"></div>
+          <div class="field"><label class="label">趨勢判讀</label><textarea class="textarea" placeholder="例如：若同時槓桿往上，是雙重警訊。"></textarea></div>
+        </div>
+      </div>
+      <div class="blue">如果是 DRAM、面板、鋼鐵、航運，<strong>DIO 通常比單季 EPS 更早透露景氣訊號。</strong></div>
+    </section>
+
+    <section class="section" id="trend">
+      <div class="section-head"><h3>趨勢整理</h3><span>把變多 / 變少寫清楚</span></div>
+      <div class="card">
+        <div class="table-wrap">
+          <table class="mini-table">
+            <tr><th>指標</th><th>這一季</th><th>去年同期</th><th>上季</th><th>趨勢解讀</th></tr>
+            <tr><td>負債比率</td><td><input class="input" placeholder="本季"></td><td><input class="input" placeholder="YoY"></td><td><input class="input" placeholder="QoQ"></td><td><input class="input" placeholder="例如：持續下降，結構改善"></td></tr>
+            <tr><td>毛利率</td><td><input class="input" placeholder="本季"></td><td><input class="input" placeholder="YoY"></td><td><input class="input" placeholder="QoQ"></td><td><input class="input" placeholder="例如：連兩季上升"></td></tr>
+            <tr><td>DIO</td><td><input class="input" placeholder="本季"></td><td><input class="input" placeholder="YoY"></td><td><input class="input" placeholder="QoQ"></td><td><input class="input" placeholder="例如：庫存去化改善"></td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="compare">
+      <div class="section-head"><h3>一句話對照</h3><span>適合和基準組一起寫</span></div>
+      <div class="scorebox">
+        <div class="score"><div class="k">財務安全</div><div class="v">___ / 5</div></div>
+        <div class="score"><div class="k">獲利品質</div><div class="v">___ / 5</div></div>
+        <div class="score"><div class="k">營運效率</div><div class="v">___ / 5</div></div>
+        <div class="score"><div class="k">整體印象</div><div class="v">___ / 5</div></div>
+      </div>
+      <div class="grid2" style="margin-top:12px;">
+        <div class="card"><h4>比基準組好的地方</h4><textarea class="textarea" placeholder="例如：負債更低、流動比率更高。"></textarea></div>
+        <div class="card"><h4>比基準組弱的地方</h4><textarea class="textarea" placeholder="例如：DIO 較長、獲利率波動較大。"></textarea></div>
+      </div>
+    </section>
+
+    <section class="section" id="summary">
+      <div class="section-head"><h3>最終判語</h3><span>把它寫成一段話</span></div>
+      <div class="card">
+        <h4>輸出欄位</h4>
+        <textarea class="textarea" style="min-height:180px" placeholder="例如：這家公司財務結構偏保守，負債比率維持在安全區，流動性也足夠；獲利面上毛利率與營業利益率維持高檔，但需要持續追蹤其可持續性。若從營運效率來看，DIO 近期改善，顯示庫存去化順利，整體屬於高品質穩健型公司。"></textarea>
+      </div>
+      <div class="good">建議你每次分析一家公司，都至少把這頁填完一次，久了你就會自然形成自己的財報判斷流程。</div>
+    </section>
+
+    <section class="section" id="ch4profit">
+      <div class="section-header">
+        <span class="section-dot" style="background:var(--cg)"></span>
+        <h3>Step 2 ＋ 5｜獲利品質 ＋ 費用結構</h3><span class="section-page">ch4 損益表</span>
+      </div>
+      <div class="block-title">毛利率5種護城河類型</div>
+      <div class="tbl-wrap"><table>
+        <tr><th>類型</th><th>代表企業</th><th>毛利率特徵</th><th>警訊</th></tr>
+        <tr><td>① 規模/通路/專利</td><td>統一超、全家</td><td>33%±1%，多年不動</td><td>突然跌破30%</td></tr>
+        <tr><td>② 品牌優勢</td><td>和泰汽車、台達電</td><td>穩定甚至逐年上揚</td><td>明顯下降＝品牌掉漆</td></tr>
+        <tr><td>③ 技術優勢</td><td>台積電</td><td>50%以上，新節點時短暫下滑</td><td>連續下滑超過2年</td></tr>
+        <tr><td>④ 行業特性傳產</td><td>大億(OEM)、帝寶(AM)</td><td>OEM穩定偏低；AM較高但費用也高</td><td>OEM毛利突降</td></tr>
+        <tr><td>⑤ 生產效能提升</td><td>鴻海</td><td>6%左右，最難維持</td><td>持續下滑無底線</td></tr>
+      </table></div>
+      <div class="block-title" style="margin-top:1.25rem">費用率3項檢查</div>
+      <div class="cgrid">
+        <div class="ccard"><div class="ccard-title">推銷費用率</div><div class="ccard-body">比同業低→產品好賣；<br>成長率 > 營收成長率 → 警訊<br><span style="color:var(--ct3);font-size:13px">台積電0.44%，同業1.93%</span></div></div>
+        <div class="ccard"><div class="ccard-title">管理費用率</div><div class="ccard-body">與同業相當；無合理解釋的大幅增加要追問<br><span style="color:var(--ct3);font-size:13px">台積電約2%，同業3.5%</span></div></div>
+        <div class="ccard"><div class="ccard-title">研發費用率</div><div class="ccard-body">景氣差時不能大砍；與營收呈穩定比率<br><span style="color:var(--ct3);font-size:13px">台積電約7–8%，景氣差也不減</span></div></div>
+      </div>
+      <div class="tbl-wrap" style="margin-top:1rem"><table>
+        <tr><th>指標</th><th>公式</th><th>台積電2022</th><th>注意事項</th></tr>
+        <tr><td>EPS</td><td>稅後淨利 ÷ 股數</td><td>39.2元</td><td>股本小也會讓EPS偏高，不代表真的賺很多</td></tr>
+        <tr><td><strong>ROE</strong></td><td>稅後淨利 ÷ 股東權益</td><td style="color:var(--cg2);font-weight:700">39.6%</td><td>比EPS更能反映真實獲利能力</td></tr>
+        <tr><td>獲利來源比</td><td>營業淨利 ÷ 稅前淨利</td><td style="color:var(--cg2);font-weight:700">98%</td><td>靠業外收入不能長久</td></tr>
+      </table></div>
+    </section>
+    <section class="section" id="ch5cash">
+      <div class="section-header">
+        <span class="section-dot" style="background:var(--cb)"></span>
+        <h3>Step 3｜現金流量驗證</h3><span class="section-page">ch5 現金流量表</span>
+      </div>
+      <div class="tbl-wrap"><table>
+        <tr><th>活動</th><th>看什麼</th><th>好公司特徵</th><th>警訊</th></tr>
+        <tr><td><strong>① 營業</strong></td><td>本業賺錢能力</td><td style="color:var(--cg2)">穩定為正；折舊加回後比率穩定</td><td style="color:var(--cw2)">長期為負</td></tr>
+        <tr><td><strong>② 投資</strong></td><td>廠房設備支出</td><td style="color:var(--cg2)">聚焦廠房設備（本業擴張）</td><td style="color:var(--cw2)">亂投資非本業</td></tr>
+        <tr><td><strong>③ 籌資</strong></td><td>股息與借款</td><td style="color:var(--cg2)">主要就是發股息（靠本業賺的錢）</td><td style="color:var(--cw2)">贖回可轉債；頻繁增資</td></tr>
+      </table></div>
+      <div class="formula">自由現金流量 ＝ 營業活動現金流入 - 資本支出</div>
+      <div class="cgrid">
+        <div class="ccard"><div class="ccard-title">台積電2022自由現金流</div><div class="ccard-body">1兆6,106億 − 1兆896億 ＝ <strong>5,209億元</strong><br>可自由決定：發股息、還債、再投資</div></div>
+        <div class="ccard"><div class="ccard-title">獲利模式穩定度判斷</div><div class="ccard-body">「稅前淨利＋折舊攤銷－所得稅」與營業現金流的差異，若歷年小且穩定 → 獲利模式穩定</div></div>
+      </div>
+      <div class="blue-box"><strong>折舊費用是不用花錢的。</strong>台積電每年折舊4,000+億，現金流量遠大於稅後淨利。「台積電把賺的錢全投入資本支出所以沒錢發股利」是錯誤觀念。</div>
+    </section>
+    <section class="section" id="ch6mine">
+      <div class="section-header">
+        <span class="section-dot" style="background:var(--cw)"></span>
+        <h3>Step 7｜財報地雷排查</h3><span class="section-page">ch6 地雷警訊</span>
+      </div>
+      <div class="block-body" style="margin-bottom:1rem">勾選發現的警訊並填寫備註。出現越多，風險越高。</div>
+      <div class="cl-group">
+        <div class="cl-group-title">💰 財報7大特徵</div>
+        <div class="cl-item"><input type="checkbox" class="cl-cb mine-cb" onchange="updateMineScore()"><div class="cl-label"><strong>應收帳款天數過高</strong>（超過90天，同業無此情形）<textarea class="cl-note" placeholder="備註：帳齡幾天？同業約幾天？"></textarea></div></div>
+        <div class="cl-item"><input type="checkbox" class="cl-cb mine-cb" onchange="updateMineScore()"><div class="cl-label"><strong>存貨天數過低</strong>（製造業低於5–8天）<textarea class="cl-note" placeholder="備註：幾天？正常應約30天以上"></textarea></div></div>
+        <div class="cl-item"><input type="checkbox" class="cl-cb mine-cb" onchange="updateMineScore()"><div class="cl-label"><strong>存貨天數過高</strong>（超過正常水準2倍以上）<textarea class="cl-note" placeholder="備註："></textarea></div></div>
+        <div class="cl-item"><input type="checkbox" class="cl-cb mine-cb" onchange="updateMineScore()"><div class="cl-label"><strong>廠房設備過高</strong>（高於市價購入，或應收帳款突然消失）<textarea class="cl-note" placeholder="備註："></textarea></div></div>
+        <div class="cl-item"><input type="checkbox" class="cl-cb mine-cb" onchange="updateMineScore()"><div class="cl-label"><strong>長期投資過高</strong>（商譽或無形資產異常）<textarea class="cl-note" placeholder="備註："></textarea></div></div>
+        <div class="cl-item"><input type="checkbox" class="cl-cb mine-cb" onchange="updateMineScore()"><div class="cl-label"><strong>高現金＋高借款＋利息收入遠低於利息費用</strong><textarea class="cl-note" placeholder="備註："></textarea></div></div>
+        <div class="cl-item"><input type="checkbox" class="cl-cb mine-cb" onchange="updateMineScore()"><div class="cl-label"><strong>雜項資產過高</strong>（其他應收款、預付款、存出保證金異常）<textarea class="cl-note" placeholder="備註："></textarea></div></div>
+      </div>
+      <div class="cl-group">
+        <div class="cl-group-title">⚠️ 6大非財務警訊</div>
+        <div class="cl-item"><input type="checkbox" class="cl-cb mine-cb" onchange="updateMineScore()"><div class="cl-label"><strong>老闆誠信被質疑</strong>（耳語、賭博欠債、行事不按常理）<textarea class="cl-note" placeholder="備註："></textarea></div></div>
+        <div class="cl-item"><input type="checkbox" class="cl-cb mine-cb" onchange="updateMineScore()"><div class="cl-label"><strong>財務長／會計長離職</strong>（最先行指標）<textarea class="cl-note" placeholder="備註：何時離職？是否有官方說明？"></textarea></div></div>
+        <div class="cl-item"><input type="checkbox" class="cl-cb mine-cb" onchange="updateMineScore()"><div class="cl-label"><strong>股票價格異常飆漲</strong>（與同業及基本面脫鉤）<textarea class="cl-note" placeholder="備註：同業本益比約？這家約？"></textarea></div></div>
+        <div class="cl-item"><input type="checkbox" class="cl-cb mine-cb" onchange="updateMineScore()"><div class="cl-label"><strong>市場利多消息不斷</strong>（發言人反覆澄清）<textarea class="cl-note" placeholder="備註：澄清幾次？"></textarea></div></div>
+        <div class="cl-item"><input type="checkbox" class="cl-cb mine-cb" onchange="updateMineScore()"><div class="cl-label"><strong>借殼後第3年仍大幅成長</strong><textarea class="cl-note" placeholder="備註：何時借殼？這是第幾年？"></textarea></div></div>
+        <div class="cl-item"><input type="checkbox" class="cl-cb mine-cb" onchange="updateMineScore()"><div class="cl-label"><strong>不太好的產業卻獲利異常</strong><textarea class="cl-note" placeholder="備註：同業EPS約？這家約？"></textarea></div></div>
+      </div>
+      <div class="mine-score">
+        <div class="mine-count" id="mineCount">0</div>
+        <div><div class="mine-label">個警訊被勾選</div><div style="font-size:14px;color:var(--ct3)" id="mineJudge">目前無特殊警訊</div></div>
+      </div>
+      <div class="warn-box" style="margin-top:10px"><strong>黃金法則：</strong>「應收帳款天數過高」＋「存貨天數過低」同時出現，做假帳機率高達9成。出現2個以上非財務警訊應認真重新檢視。</div>
+    </section>
+  </main>
+</div>
+<script>
+const links=document.querySelectorAll('.nav a');
+links.forEach(link=>link.addEventListener('click',e=>{links.forEach(l=>l.classList.remove('active'));e.target.classList.add('active');}));
+</script>
+</body>
+</html>
