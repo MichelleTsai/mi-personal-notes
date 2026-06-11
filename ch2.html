@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第2章筆記：評估企業的真實身價</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cr:#F5F0E8; --cr2:#EDE5D8; --cr3:#E2D7C6; --cr4:#D4C8B4; --cr5:#C0B09A;
+    --ct:#2C2420; --ct2:#5C4A3A; --ct3:#8B7560; --ct4:#B09A82;
+    --ca:#8B6B4A; --ca2:#6B4F32; --ca3:#4A3320; --ca-l:#F0E4D4; --ca-ll:#FAF5EE;
+    --cg:#7A8C72; --cg2:#5A6C52; --cg3:#3A4C32; --cg-l:#EAF0E6;
+    --cb:#7A8C9A; --cb2:#5A6C7A; --cb3:#3A4C5A; --cb-l:#E6EDF2;
+    --cw:#C4756A; --cw2:#A05548; --cw3:#7A3A30; --cw-l:#F5EAE8;
+    /* aliases for existing HTML */
+    --purple: var(--ca); --purple-light: var(--ca-l); --purple-dark: var(--ca2);
+    --teal: var(--cg); --teal-light: var(--cg-l); --teal-dark: var(--cg2);
+    --amber: #A07838; --amber-light: #F5ECD8; --amber-dark: #6B4F20;
+    --coral: var(--ca); --coral-light: var(--ca-l); --coral-dark: var(--ca2);
+    --red: var(--cw); --red-light: var(--cw-l); --red-dark: var(--cw2);
+    --blue: var(--cb); --blue-light: var(--cb-l); --blue-dark: var(--cb2);
+    --green: var(--cg); --green-light: var(--cg-l); --green-dark: var(--cg2);
+    --gray-bg: var(--cr); --gray-border: var(--cr4);
+    --text: var(--ct); --text-muted: var(--ct3); --text-faint: var(--ct4);
+    --bg: var(--ca-ll); --bg2: var(--cr2); --bg3: var(--cr3);
+    --radius: 10px; --radius-lg: 14px; --radius-xl: 18px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--cr); color: var(--ct);
+    line-height: 1.72; font-size: 17px; font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+  h2, h3, .section-header h3, .page-hero h2 {
+    font-family: 'Noto Serif TC', serif; font-weight: 700; letter-spacing: .02em;
+  }
+  strong, b { font-weight: 600; color: var(--ca2); }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--cr2); }
+  ::-webkit-scrollbar-thumb { background: var(--cr4); border-radius: 3px; }
+
+  /* Layout */
+  .sidebar { position: fixed; top: 0; left: 0; width: 260px; height: 100vh; background: var(--ca-ll); border-right: 1px solid var(--cr4); overflow-y: auto; z-index: 100; padding: 0 0 2rem; }
+  .sidebar-logo { padding: 1.4rem 1.2rem 1rem; border-bottom: 1px solid var(--cr4); background: var(--ca-l); }
+  .sidebar-logo h1 { font-family: 'Noto Serif TC', serif; font-size: 14px; font-weight: 700; color: var(--ca2); line-height: 1.5; }
+  .sidebar-logo p { font-size: 11px; color: var(--ct4); margin-top: 4px; }
+  .nav-section { padding: .4rem 0; }
+  .nav-section-label { font-size: 10px; font-weight: 600; color: var(--ct4); text-transform: uppercase; letter-spacing: .12em; padding: .6rem 1.2rem .3rem; }
+  .nav-item { display: block; padding: .5rem 1rem .5rem 1.3rem; font-size: 14px; color: var(--ct2); text-decoration: none; border-left: 2px solid transparent; transition: all .15s; cursor: pointer; font-weight: 400; }
+  .nav-item:hover { color: var(--ct); background: var(--cr2); }
+  .nav-item.active { color: var(--ca2); border-left-color: var(--ca); background: var(--ca-l); font-weight: 600; }
+
+  .main { margin-left: 260px; padding: 2.5rem 3.5rem 5rem; }
+
+  /* Header */
+  .page-hero { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--cr4); }
+  .hero-tag { font-size: 11px; font-weight: 600; color: var(--ca2); background: var(--ca-l); padding: 4px 13px; border-radius: 20px; display: inline-block; margin-bottom: .75rem; text-transform: uppercase; letter-spacing: .08em; border: 1px solid var(--cr5); }
+  .page-hero h2 { font-size: 30px; font-weight: 700; color: var(--ct); margin-bottom: .4rem; }
+  .page-hero p { font-size: 16px; color: var(--ct3); font-weight: 400; }
+
+  /* Sections */
+  .section { margin-bottom: 2.5rem; scroll-margin-top: 1.5rem; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; padding-bottom: .75rem; border-bottom: 1px solid var(--cr4); }
+  .section-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; background: var(--ca); }
+  .section-header h3 { font-size: 21px; font-weight: 700; color: var(--ct); flex: 1; }
+  .section-page { font-size: 13px; color: var(--ct4); letter-spacing: .04em; }
+
+  /* Content blocks */
+  .block { margin-bottom: 1.25rem; }
+  .block-title { font-size: 16px; font-weight: 600; color: var(--ca2); margin-bottom: .5rem; letter-spacing: .02em; }
+  .block-body { font-size: 17px; color: var(--ct); line-height: 1.78; font-weight: 400; }
+
+  /* Highlight boxes */
+  .hl { border-left: 2.5px solid var(--ca); border-radius: 0; background: var(--ca-ll); padding: 12px 16px; margin: 12px 0; font-size: 16px; line-height: 1.7; color: var(--ct2); font-weight: 400; }
+  .hl.teal  { border-left-color: var(--cg);  background: var(--cg-l);  color: var(--cg2); }
+  .hl.amber { border-left-color: #A07838;     background: #F5ECD8;      color: #6B4F20; }
+  .hl.red   { border-left-color: var(--cw);  background: var(--cw-l);  color: var(--cw2); }
+  .hl.blue  { border-left-color: var(--cb);  background: var(--cb-l);  color: var(--cb2); }
+  .hl.coral { border-left-color: var(--ca);  background: var(--ca-l);  color: var(--ca2); }
+  .warn-box { background: var(--cw-l); border-left: 2.5px solid var(--cw); border-radius: 0; padding: 13px 16px; margin: 12px 0; font-size: 16px; color: var(--cw2); line-height: 1.7; font-weight: 400; }
+  .good-box { background: var(--cg-l); border-left: 2.5px solid var(--cg); border-radius: 0; padding: 13px 16px; margin: 12px 0; font-size: 16px; color: var(--cg2); line-height: 1.7; font-weight: 400; }
+  .caution-box { background: #F5ECD8; border-left: 2.5px solid #A07838; border-radius: 0; padding: 13px 16px; margin: 12px 0; font-size: 16px; color: #6B4F20; line-height: 1.7; font-weight: 400; }
+
+  /* Tables */
+  .tbl-wrap { overflow-x: auto; margin: 12px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th { background: var(--cr2); padding: 10px 13px; text-align: left; font-weight: 600; color: var(--ct3); font-size: 13px; border-bottom: 1px solid var(--cr4); text-transform: uppercase; letter-spacing: .05em; }
+  td { padding: 10px 13px; border-bottom: 1px solid var(--cr3); color: var(--ct); vertical-align: top; font-weight: 400; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--ca-ll); }
+
+  /* Compare grid */
+  .cgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .ccard { border: 1px solid var(--cr4); border-radius: var(--radius); padding: 13px 15px; background: var(--ca-ll); }
+  .ccard-title { font-size: 15px; font-weight: 600; margin-bottom: 7px; color: var(--ca2); }
+  .ccard-body { font-size: 15px; color: var(--ct2); line-height: 1.65; font-weight: 400; }
+
+  /* Steps */
+  .steps { margin: 12px 0; }
+  .step { display: flex; gap: 12px; margin-bottom: 11px; align-items: flex-start; }
+  .step-num { width: 27px; height: 27px; border-radius: 50%; background: var(--ca-l); color: var(--ca2); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; border: 1px solid var(--cr5); }
+  .step-text { font-size: 16px; color: var(--ct); line-height: 1.7; flex: 1; font-weight: 400; }
+
+  /* Cases */
+  .case-strip { border: 1px solid var(--cr4); border-radius: var(--radius); margin: 9px 0; overflow: hidden; }
+  .case-hd { display: flex; align-items: center; gap: 10px; padding: 11px 15px; background: var(--cr2); cursor: pointer; user-select: none; transition: background .15s; }
+  .case-hd:hover { background: var(--cr3); }
+  .case-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .case-title { font-size: 15px; font-weight: 500; color: var(--ct); flex: 1; }
+  .case-tag { font-size: 11px; padding: 2px 9px; border-radius: 20px; font-weight: 500; }
+  .case-chev { font-size: 11px; color: var(--ct4); transition: transform .2s; }
+  .case-chev.open { transform: rotate(180deg); }
+  .case-bd { padding: 14px 15px; font-size: 16px; line-height: 1.72; color: var(--ct); display: none; border-top: 1px solid var(--cr4); background: var(--ca-ll); font-weight: 400; }
+  .case-bd.open { display: block; }
+
+  /* Divider */
+  .div { border: none; border-top: 1px solid var(--cr4); margin: 1.5rem 0; }
+
+  /* Formula */
+  .formula { background: var(--cr2); border-radius: var(--radius); padding: 14px 20px; margin: 10px 0; text-align: center; font-size: 20px; font-weight: 700; color: var(--ca2); font-family: 'Noto Serif TC', serif; border: 1px solid var(--cr4); letter-spacing: .04em; }
+
+  /* Meter bars */
+  .mr { display: flex; align-items: center; gap: 10px; margin: 7px 0; }
+  .ml { font-size: 14px; color: var(--ct3); width: 140px; flex-shrink: 0; text-align: right; font-weight: 400; }
+  .mbg { flex: 1; height: 9px; background: var(--cr3); border-radius: 5px; overflow: hidden; }
+  .mf { height: 100%; border-radius: 5px; }
+  .mv { font-size: 14px; font-weight: 600; width: 52px; flex-shrink: 0; }
+
+  /* Stats row */
+  .stat-row { display: flex; gap: 10px; margin: 12px 0; flex-wrap: wrap; }
+  .stat { background: var(--cr2); border: 1px solid var(--cr4); border-radius: var(--radius); padding: 10px 14px; flex: 1; min-width: 100px; }
+  .stat-label { font-size: 12px; color: var(--ct4); text-transform: uppercase; letter-spacing: .05em; }
+  .stat-val { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700; margin-top: 3px; }
+
+  /* Timeline */
+  .tl-item { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+  .tl-year { font-size: 12px; font-weight: 600; color: var(--ct4); width: 42px; flex-shrink: 0; padding-top: 2px; letter-spacing: .04em; }
+  .tl-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  .tl-text { font-size: 16px; color: var(--ct); line-height: 1.7; flex: 1; font-weight: 400; }
+
+  /* Badges */
+  .badge { display: inline-block; font-size: 12px; padding: 2px 10px; border-radius: 20px; margin-right: 4px; vertical-align: middle; font-weight: 500; border: 1px solid transparent; }
+  .bp { background: var(--ca-l);  color: var(--ca2);  border-color: var(--cr5); }
+  .bt { background: var(--cg-l);  color: var(--cg2);  border-color: #A8C4A0; }
+  .ba { background: #F5ECD8;      color: #6B4F20;     border-color: #C8A870; }
+  .br { background: var(--cw-l);  color: var(--cw2);  border-color: #D8A098; }
+  .bb { background: var(--cb-l);  color: var(--cb2);  border-color: #A8BCC8; }
+
+  /* Diagram containers */
+  .diagram { margin: 1.25rem 0; background: var(--ca-ll); border: 1px solid var(--cr4); border-radius: var(--radius-lg); padding: 1.5rem; }
+  .diagram-title { font-size: 11px; font-weight: 600; color: var(--ct4); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 1.1rem; }
+
+  /* Gauge zones */
+  .gauge-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .zone { border-radius: var(--radius); padding: 13px 14px; text-align: center; border: 1px solid transparent; }
+  .zone-label { font-size: 12px; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: .06em; }
+  .zone-val { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .zone-desc { font-size: 13px; line-height: 1.55; font-weight: 400; }
+  .bar-track { height: 28px; border-radius: 14px; background: var(--cr3); display: flex; overflow: hidden; margin-bottom: 6px; }
+  .bar-seg { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
+  .ticks { display: flex; justify-content: space-between; font-size: 12px; color: var(--ct4); }
+
+  /* Debt ratio */
+  .ind-row { display: flex; align-items: center; gap: 12px; margin-bottom: 11px; }
+  .ind-label { font-size: 15px; color: var(--ct2); width: 180px; flex-shrink: 0; text-align: right; line-height: 1.4; font-weight: 400; }
+  .ind-track { flex: 1; height: 26px; background: var(--cr3); border-radius: 13px; overflow: hidden; }
+  .ind-fill { height: 100%; border-radius: 13px; display: flex; align-items: center; padding-left: 12px; }
+  .ind-fill-label { font-size: 12px; font-weight: 600; }
+  .ind-result { font-size: 14px; font-weight: 600; width: 80px; flex-shrink: 0; }
+  .warn-band { display: flex; gap: 8px; margin: 14px 0; }
+  .wb { flex: 1; padding: 11px 12px; border-radius: var(--radius); text-align: center; border: 1px solid transparent; }
+  .wb-label { font-size: 11px; font-weight: 600; margin-bottom: 3px; text-transform: uppercase; letter-spacing: .06em; }
+  .wb-val { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 700; }
+  .wb-sub { font-size: 12px; margin-top: 4px; font-weight: 400; }
+  .cd-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+  .cd-name { font-size: 14px; color: var(--ct2); width: 150px; flex-shrink: 0; text-align: right; font-weight: 400; }
+  .cd-track { flex: 1; height: 8px; background: var(--cr3); border-radius: 4px; position: relative; }
+  .cd-fill { height: 100%; border-radius: 4px; opacity: .8; }
+  .cd-dot { width: 13px; height: 13px; border-radius: 50%; position: absolute; top: -2.5px; transform: translateX(-50%); border: 2px solid var(--ca-ll); }
+  .cd-val { font-size: 14px; font-weight: 700; width: 48px; flex-shrink: 0; }
+  .cd-note { font-size: 13px; color: var(--ct3); flex: 1; font-weight: 400; }
+  .axis { display: flex; justify-content: space-between; font-size: 12px; color: var(--ct4); padding: 3px 0 0; margin-left: 160px; }
+
+  /* Phase blocks */
+  .phase { margin-bottom: 10px; border-radius: var(--radius-lg); border: 1px solid var(--cr4); overflow: hidden; }
+  .phase-hd { padding: 10px 15px; display: flex; align-items: center; gap: 10px; }
+  .phase-tag { font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 10px; letter-spacing: .04em; }
+  .phase-title { font-size: 15px; font-weight: 600; color: var(--ct); flex: 1; }
+  .phase-bd { display: grid; grid-template-columns: 1fr 1fr; }
+  .sd { padding: 12px 15px; font-size: 15px; line-height: 1.68; color: var(--ct); font-weight: 400; }
+  .sd + .sd { border-left: 1px solid var(--cr4); }
+  .sd-label { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 10px; display: inline-block; margin-bottom: 6px; letter-spacing: .03em; }
+  .phase-outcome { padding: 8px 15px; font-size: 14px; color: var(--ct3); border-top: 1px solid var(--cr4); font-style: italic; font-weight: 400; }
+
+  /* Repo steps */
+  .repo-row { display: grid; grid-template-columns: 1fr 40px 1fr 40px 1fr; align-items: center; gap: 0; margin-bottom: 14px; }
+  .repo-step { border-radius: var(--radius); padding: 13px 14px; text-align: center; }
+  .repo-step-num { font-size: 10px; font-weight: 600; margin-bottom: 5px; opacity: .75; text-transform: uppercase; letter-spacing: .06em; }
+  .repo-step-title { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+  .repo-step-desc { font-size: 13px; line-height: 1.55; font-weight: 400; }
+  .repo-arrow { text-align: center; font-size: 20px; color: var(--ct4); }
+
+  /* Huaying compare */
+  .flow-steps { display: flex; align-items: stretch; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--cr4); margin: 12px 0; }
+  .fs { flex: 1; padding: 12px; font-size: 14px; line-height: 1.55; text-align: center; border-right: 1px solid var(--cr4); font-weight: 400; }
+  .fs:last-child { border-right: none; }
+  .metric { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--cr4); }
+  .metric:last-child { border-bottom: none; }
+  .metric-label { font-size: 14px; color: var(--ct3); font-weight: 400; }
+  .metric-val { font-size: 15px; font-weight: 700; }
+  .mbadge { font-size: 11px; padding: 1px 7px; border-radius: 8px; margin-left: 5px; vertical-align: middle; }
+
+  /* Cheat sheet */
+  .cheat-item { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+  .cheat-check { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 1.25rem; }
+    .cgrid, .phase-bd, .gauge-row { grid-template-columns: 1fr; }
+    .repo-row { grid-template-columns: 1fr; }
+    .repo-arrow { transform: rotate(90deg); }
+    .warn-band { flex-wrap: wrap; }
+    .flow-steps { flex-direction: column; }
+    .fs { border-right: none; border-bottom: 1px solid var(--cr4); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <h1>第2章：評估企業的真實身價</h1>
+    <p>大會計師教你從財報數字看懂經營本質</p>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">基礎</div>
+    <a class="nav-item active" onclick="navTo('base')">資產負債表基礎</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">7大宏觀標準</div>
+    <a class="nav-item" onclick="navTo('s1')">標準1 資產總額</a>
+    <a class="nav-item" onclick="navTo('s2')">標準2 最大資產科目</a>
+    <a class="nav-item" onclick="navTo('s3')">標準3 資產配置</a>
+    <a class="nav-item" onclick="navTo('s4')">標準4 運用效能</a>
+    <a class="nav-item" onclick="navTo('s5')">標準5 流動比率</a>
+    <a class="nav-item" onclick="navTo('s6')">標準6 負債比率</a>
+    <a class="nav-item" onclick="navTo('s7')">標準7 合併vs個體</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">全球案例</div>
+    <a class="nav-item" onclick="navTo('cases-dead')">倒閉警示案例</a>
+    <a class="nav-item" onclick="navTo('cases-trick')">財報美化術</a>
+    <a class="nav-item" onclick="navTo('cases-good')">優等生財報</a>
+    <a class="nav-item" onclick="navTo('cases-paradox')">看起來危險但沒事</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">速查</div>
+    <a class="nav-item" onclick="navTo('cheat')">速查表 & 警示清單</a>
+  </div>
+</nav>
+
+<!-- Main -->
+<main class="main">
+  <div class="page-hero">
+    <div class="hero-tag">讀書筆記</div>
+    <h2>評估企業的真實身價</h2>
+    <p>《大會計師教你從財報數字看懂經營本質》第2章｜書本重點 ＋ 台灣＋全球真實案例整合版</p>
+  </div>
+
+  <!-- ===== BASE ===== -->
+  <section class="section" id="base">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--purple)"></span>
+      <h3>資產負債表基礎概念</h3>
+      <span class="section-page">p.058–066</span>
+    </div>
+
+    <div class="block">
+      <div class="block-title">資產負債表的架構</div>
+      <div class="block-body">資產負債表就是一張「家當清單」。左邊寫你有什麼，右邊寫這些東西從哪來的。</div>
+    </div>
+
+    <!-- 架構圖 -->
+    <div class="diagram">
+      <div class="diagram-title">資產負債表架構圖</div>
+      <svg width="100%" viewBox="0 0 680 400" role="img" style="display:block">
+        <title>資產負債表架構圖</title>
+        <!-- 等式 -->
+        <text x="340" y="24" text-anchor="middle" font-size="17" font-weight="600" fill="#555">資產 ＝ 負債 ＋ 股東權益　（左邊永遠等於右邊）</text>
+        <!-- 左：資產外框 -->
+        <rect x="30" y="40" width="280" height="330" rx="12" fill="#F0E4D4" stroke="#C0B09A" stroke-width="0.8"/>
+        <text x="170" y="68" text-anchor="middle" font-size="18" font-weight="700" fill="#6B4F32">資產（左半部）</text>
+        <text x="170" y="86" text-anchor="middle" font-size="16" fill="#8B6B4A">你擁有的所有東西</text>
+        <!-- 流動資產 -->
+        <rect x="50" y="102" width="240" height="118" rx="8" fill="#EAF0E6" stroke="#A0B898" stroke-width="0.8"/>
+        <text x="170" y="126" text-anchor="middle" font-size="17" font-weight="700" fill="#5A6C52">流動資產</text>
+        <text x="170" y="144" text-anchor="middle" font-size="15" fill="#7A8C72">1年內可以變成現金的東西</text>
+        <text x="170" y="162" text-anchor="middle" font-size="18" fill="#7A8C72">現金、應收帳款、存貨</text>
+        <text x="170" y="180" text-anchor="middle" font-size="18" fill="#7A8C72">台積電2022：2兆529億（41%）</text>
+        <text x="170" y="198" text-anchor="middle" font-size="18" fill="#7A8C72">→ 1年內可動用的錢</text>
+        <!-- 非流動資產 -->
+        <rect x="50" y="232" width="240" height="118" rx="8" fill="#EDE5D8" stroke="#C8BC A8" stroke-width="0.8"/>
+        <text x="170" y="256" text-anchor="middle" font-size="17" font-weight="700" fill="#2C2420">非流動資產</text>
+        <text x="170" y="274" text-anchor="middle" font-size="15" fill="#5C4A3A">1年內不會變成現金的東西</text>
+        <text x="170" y="292" text-anchor="middle" font-size="18" fill="#8B7560">廠房設備、機器、商譽</text>
+        <text x="170" y="310" text-anchor="middle" font-size="18" fill="#8B7560">台積電2022：2兆9,119億（59%）</text>
+        <text x="170" y="328" text-anchor="middle" font-size="18" fill="#5C4A3A">→ 長期持有的資產</text>
+        <!-- 等號 -->
+        <text x="340" y="218" text-anchor="middle" font-size="32" font-weight="700" fill="#C0B09A">=</text>
+        <!-- 右：來源外框 -->
+        <rect x="370" y="40" width="280" height="330" rx="12" fill="#EDE5D8" stroke="#C8BC A8" stroke-width="0.8"/>
+        <text x="510" y="68" text-anchor="middle" font-size="18" font-weight="700" fill="#2C2420">資金來源（右半部）</text>
+        <text x="510" y="86" text-anchor="middle" font-size="16" fill="#8B7560">這些資產是從哪來的</text>
+        <!-- 流動負債 -->
+        <rect x="388" y="102" width="244" height="68" rx="8" fill="#F0E4D4" stroke="#C8A090" stroke-width="0.8"/>
+        <text x="510" y="126" text-anchor="middle" font-size="17" font-weight="700" fill="#A05548">流動負債</text>
+        <text x="510" y="148" text-anchor="middle" font-size="18" fill="#8B6B4A">1年內要還的債｜台積電：9,442億</text>
+        <!-- 非流動負債 -->
+        <rect x="388" y="180" width="244" height="68" rx="8" fill="#F0E4D4" stroke="#C8A090" stroke-width="0.8"/>
+        <text x="510" y="204" text-anchor="middle" font-size="17" font-weight="700" fill="#A05548">非流動負債</text>
+        <text x="510" y="226" text-anchor="middle" font-size="18" fill="#8B6B4A">長期債務｜台積電：1兆601億</text>
+        <!-- 借來的標示：放在負債框右上角內側 -->
+        <rect x="578" y="106" width="46" height="20" rx="4" fill="#8B6B4A"/>
+        <text x="601" y="120" text-anchor="middle" font-size="18" font-weight="600" fill="#fff">借來的</text>
+        <!-- 股東權益 -->
+        <rect x="388" y="258" width="244" height="96" rx="8" fill="#E6EDF2" stroke="#A8BCC8" stroke-width="0.8"/>
+        <text x="510" y="282" text-anchor="middle" font-size="17" font-weight="700" fill="#5A6C7A">股東權益</text>
+        <text x="510" y="300" text-anchor="middle" font-size="18" fill="#7A8C9A">股本 ＋ 資本公積 ＋ 保留盈餘</text>
+        <text x="510" y="318" text-anchor="middle" font-size="18" fill="#7A8C9A">台積電2022：2兆9,604億（60%）</text>
+        <text x="510" y="336" text-anchor="middle" font-size="18" fill="#5A6C7A">→ 股東真正擁有的部分</text>
+        <!-- 自己的標示：放在股東權益框右上角內側 -->
+        <rect x="578" y="262" width="46" height="20" rx="4" fill="#7A8C9A"/>
+        <text x="601" y="276" text-anchor="middle" font-size="18" font-weight="600" fill="#fff">自己的</text>
+        <!-- 底部等式 -->
+        <text x="340" y="388" text-anchor="middle" font-size="16" fill="#B09A82">台積電：4兆9,648億 ＝ 2兆43億（負債）＋ 2兆9,604億（股東權益）</text>
+      </svg>
+    </div>
+
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">股東權益三大科目</div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-text"><strong>股本</strong>：股票總面額。台灣每股10元，台積電股本2,593億 ÷ 10 ＝ 流通253.9億股。</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text"><strong>資本公積</strong>：溢價發行多出的錢。例如每股30元賣出，10元是股本，20元進資本公積。</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-text"><strong>保留盈餘</strong>：歷年賺的錢扣掉股利，留在公司的部分。台積電2022年高達2兆6,375億，代表多年賺了很多卻沒全部發掉。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== S1 ===== -->
+  <section class="section" id="s1">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--teal)"></span>
+      <h3>標準一：資產總額 → 看企業影響力</h3>
+      <span class="section-page">p.069–070</span>
+    </div>
+    <div class="hl teal">資產越多 ＝ 掌握的社會資源越多 ＝ 影響力越大。大到一定規模甚至能影響政府決策、地方房價。</div>
+    <div class="block">
+      <div class="block-title">台積電的規模優勢</div>
+      <div class="mr"><span class="ml">台積電</span><div class="mbg"><div class="mf" style="width:100%;background:#1D9E75"></div></div><span class="mv" style="color:#5A6C52">5兆+</span></div>
+      <div class="mr"><span class="ml">英特爾</span><div class="mbg"><div class="mf" style="width:60%;background:#5DCAA5"></div></div><span class="mv" style="color:#5A6C52">~3兆</span></div>
+      <div class="mr"><span class="ml">三星晶圓</span><div class="mbg"><div class="mf" style="width:45%;background:#C8DCC4"></div></div><span class="mv" style="color:#5A6C52">~2兆</span></div>
+      <div class="block-body" style="margin-top:10px">全球只有台積電一家有鈔票力宣布「3年花1,000億美元擴廠」，這就是5兆資產帶來的底氣。</div>
+    </div>
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">規模的副作用：大公司往往創新遲緩</div>
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>大公司（輸了）</th><th>挑戰者（贏了）</th><th>教訓</th></tr>
+          <tr><td>豐田、BMW、GM</td><td>特斯拉 Tesla</td><td>電動車革命由新創帶動</td></tr>
+          <tr><td>沃爾瑪 Walmart</td><td>亞馬遜 Amazon</td><td>電商革命由新創帶動</td></tr>
+          <tr><td>大同、GE（奇異）</td><td>聚焦競爭者</td><td>跨太多領域→核心競爭力失焦</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-title">真實案例</div>
+      <div class="case-strip">
+        <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:#BA7517"></span><span class="case-title">台電：國營企業可以負債比率95%</span><span class="case-tag ba">台灣</span><span class="case-chev">▼</span></div>
+        <div class="case-bd">台電2022年因電價管制大虧2,264億元，負債比率高達95%。一般企業早就倒閉，但政府不能讓台電倒，只能繼續補貼、全民買單。這就是「國家政策型企業」可以例外的原因。</div>
+      </div>
+      <div class="case-strip">
+        <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:#C48080"></span><span class="case-title">雷曼兄弟：大到以為不能倒，結果倒了</span><span class="case-tag br">美國 2008</span><span class="case-chev">▼</span></div>
+        <div class="case-bd">資產超過6,000億美元，全球第四大投資銀行。2008年政府決定「這次不救」，9月15日申請破產，引爆全球金融海嘯。大到不能倒不是必然，政府有時就是不救。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== S2 ===== -->
+  <section class="section" id="s2">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--teal)"></span>
+      <h3>標準二：最大資產科目 → 看產業特性</h3>
+      <span class="section-page">p.070–073</span>
+    </div>
+    <div class="hl teal">帳上金額最大的資產科目，反映這家公司是怎麼賺錢的。</div>
+    <div class="block">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>公司</th><th>產業</th><th>最大資產科目</th><th>佔比</th><th>原因</th></tr>
+          <tr><td>台積電</td><td>晶圓代工</td><td>廠房及設備</td><td>54%</td><td>蓋一座12吋廠動輒數千億</td></tr>
+          <tr><td>鴻海</td><td>電子代工</td><td>應收帳款</td><td>27%</td><td>幫蘋果組裝完要等2個月才收款</td></tr>
+          <tr><td>全家</td><td>便利商店</td><td>使用權資產</td><td>39%</td><td>全台數千店面的長期租約</td></tr>
+          <tr><td>中信金</td><td>銀行</td><td>貼現及放款</td><td>43%</td><td>把存款貸出去賺利差</td></tr>
+          <tr><td>國泰金</td><td>壽險</td><td>各項投資</td><td>59%</td><td>把保費拿去買股票、債券</td></tr>
+          <tr><td>蘋果 Apple</td><td>科技</td><td>現金及投資</td><td>~55%</td><td>輕資產模式，製造外包</td></tr>
+          <tr><td>亞馬遜</td><td>電商/雲端</td><td>廠房及設備</td><td>~40%</td><td>物流倉庫＋AWS伺服器</td></tr>
+          <tr><td>波克夏</td><td>投資控股</td><td>各項投資</td><td>~40%</td><td>帳上是蘋果、可口可樂等股票</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-title">台積電 vs 同業：廠房設備差距</div>
+      <div class="mr"><span class="ml">台積電廠房</span><div class="mbg"><div class="mf" style="width:100%;background:#7F77DD"></div></div><span class="mv" style="color:#6B4F32">2.7兆</span></div>
+      <div class="mr"><span class="ml">同業廠房</span><div class="mbg"><div class="mf" style="width:6%;background:#E8D8C8"></div></div><span class="mv" style="color:#6B4F32">1,710億</span></div>
+      <div class="hl">台積電廠房設備是同業的 14.7 倍！護城河一眼可見。</div>
+    </div>
+  </section>
+
+  <!-- ===== S3 ===== -->
+  <section class="section" id="s3">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--teal)"></span>
+      <h3>標準三：資產配置 → 看經營理念</h3>
+      <span class="section-page">p.075–079</span>
+    </div>
+    <div class="block">
+      <div class="block-title">製造業4大核心資產（佔比越高越健康）</div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-text"><strong>廠房及設備</strong>：做生意的地盤，最核心的資產</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text"><strong>存貨</strong>：倉庫裡的原材料和產品，賣出後變現金</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-text"><strong>應收帳款</strong>：出貨了但還沒收到的錢，通常1-3個月後入帳</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-text"><strong>現金</strong>：付薪水、水電、供應商，以及景氣差時的生存武器</div></div>
+      </div>
+      <div class="mr" style="margin-top:10px"><span class="ml">台積電4項合計</span><div class="mbg"><div class="mf" style="width:91%;background:#1D9E75"></div></div><span class="mv" style="color:#5A6C52">91%</span></div>
+      <div class="mr"><span class="ml">同業4項合計</span><div class="mbg"><div class="mf" style="width:79%;background:#C8DCC4"></div></div><span class="mv" style="color:#5A6C52">79%</span></div>
+    </div>
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">為什麼現金這麼重要？三星消滅台灣DRAM的故事</div>
+      <div class="block-body" style="margin-bottom:10px">台積電現金1兆3,428億，同業只有1,738億——台積電是同業的7.7倍。以下是這個數字的意義：</div>
+
+      <!-- 三星 DRAM 圖 -->
+      <div class="diagram">
+        <div class="diagram-title">三星如何消滅台灣DRAM產業（2000s–2012）</div>
+        <div style="display:flex;gap:12px;margin-bottom:10px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted)"><div style="width:11px;height:11px;border-radius:3px;background:#E8D8C8"></div>三星（韓國）</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted)"><div style="width:11px;height:11px;border-radius:3px;background:#B8CCD8"></div>台灣廠商（茂德、力晶等）</div>
+        </div>
+        <div class="phase">
+          <div class="phase-hd" style="background:#F5ECD8">
+            <span class="phase-tag" style="background:#E8CFA0;color:#6B4F20">景氣好（2000s初）</span>
+            <span class="phase-title">雙方都在賺錢，策略完全不同</span>
+          </div>
+          <div class="phase-bd">
+            <div class="sd"><span class="sd-label" style="background:#E8D8C8;color:#6B4F32">三星</span><br>賺的錢全部再投入研發＋擴廠。手頭始終保持約5,000億台幣現金，像松鼠儲糧。</div>
+            <div class="sd"><span class="sd-label" style="background:#B8CCD8;color:#5A6C7A">台灣廠商</span><br>景氣好就賺錢，但沒大量囤積現金。規模和資本都比三星小很多。</div>
+          </div>
+          <div class="phase-outcome">表面差不多，但三星已悄悄拉開差距</div>
+        </div>
+        <div class="phase">
+          <div class="phase-hd" style="background:#F5EAE8">
+            <span class="phase-tag" style="background:#D8A098;color:#A05548">景氣崩盤（2008–2009）</span>
+            <span class="phase-title">每顆晶片售價低於成本，大家都虧錢</span>
+          </div>
+          <div class="phase-bd">
+            <div class="sd"><span class="sd-label" style="background:#E8D8C8;color:#6B4F32">三星</span><br>虧錢也繼續砸錢，甚至加速投資。口號：「景氣差才是超車好時機。」現金充足，完全不怕。</div>
+            <div class="sd"><span class="sd-label" style="background:#B8CCD8;color:#5A6C7A">台灣廠商</span><br>現金快燒完，被迫裁員、縮研發、停擴廠。負債比率衝破80%死亡線，銀行開始抽銀根。</div>
+          </div>
+          <div class="phase-outcome">三星技術持續進步，台廠技術越來越落後</div>
+        </div>
+        <div class="phase">
+          <div class="phase-hd" style="background:#EAF0E6">
+            <span class="phase-tag" style="background:#C8DCC4;color:#5A6C52">景氣回升（2010後）</span>
+            <span class="phase-title">三星技術遙遙領先，台廠只能認輸</span>
+          </div>
+          <div class="phase-bd">
+            <div class="sd"><span class="sd-label" style="background:#E8D8C8;color:#6B4F32">三星</span><br>新製程就緒，成本更低、良率更高。大規模降價，讓台廠根本沒有利潤空間。</div>
+            <div class="sd"><span class="sd-label" style="background:#B8CCD8;color:#5A6C7A">台灣廠商</span><br>技術落後2–3個世代，賣越多虧越多。一家家倒閉或被外國企業併購。</div>
+          </div>
+          <div class="phase-outcome">台灣DRAM產業幾乎全滅</div>
+        </div>
+        <div style="background:var(--red-light);border-left:2.5px solid #C4756A;border-radius:var(--radius);padding:10px 13px;margin-top:10px">
+          <div style="font-size:13px;font-weight:600;color:var(--red-dark);margin-bottom:6px">台灣DRAM產業的結局</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+            <div style="font-size:12px;color:var(--red-dark);padding:5px 9px;background:rgba(196,117,106,.1);border-radius:6px">茂德 → 2012年下市，清算</div>
+            <div style="font-size:12px;color:var(--red-dark);padding:5px 9px;background:rgba(196,117,106,.1);border-radius:6px">力晶 → 退出DRAM，轉型代工</div>
+            <div style="font-size:12px;color:var(--red-dark);padding:5px 9px;background:rgba(196,117,106,.1);border-radius:6px">南亞科 → 縮小規模，靠利基撐</div>
+            <div style="font-size:12px;color:var(--red-dark);padding:5px 9px;background:rgba(196,117,106,.1);border-radius:6px">華亞科 → 被美光（Micron）併購</div>
+          </div>
+        </div>
+        <div class="good-box" style="margin-top:10px">核心教訓：景氣差時，手上有沒有現金，決定你是獵人還是獵物。台積電、巴菲特的波克夏都奉行同一邏輯。</div>
+      </div>
+    </div>
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">警示：資產裡有「虛」的東西要注意</div>
+      <div class="warn-box">無形資產（商譽）通常是併購時「多付的錢」。公司虧錢時可能瞬間歸零，讓負債比率突然衝高。</div>
+      <div class="case-strip">
+        <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:#C48080"></span><span class="case-title">如興（牛仔褲代工）：80億無形資產陷阱</span><span class="case-tag br">台灣</span><span class="case-chev">▼</span></div>
+        <div class="case-bd">2017年以100億元併購大陸玩地，但玩地真實資產只有20億，因此產生80億元「商譽（無形資產）」——這80億就是帳面上的空氣。此後「其他應收款」、「預付款項」等非常規資產又暴增超過40億，合計逾120億都是「虛」的。2018-2022年五年共虧91億元。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== S4 ===== -->
+  <section class="section" id="s4">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--amber)"></span>
+      <h3>標準四：資產運用效能 → 看賺錢能力</h3>
+      <span class="section-page">p.080–082</span>
+    </div>
+    <div class="hl amber">就像餐廳的翻桌率——同樣一張桌子，一天坐3輪比1輪賺更多。</div>
+    <div class="formula">資產運用效能 ＝ 年營收 ÷ 平均資產總額</div>
+    <div class="block">
+      <div class="block-title">各公司效能比較（2022年）</div>
+      <div class="mr"><span class="ml">大聯大 IC通路</span><div class="mbg"><div class="mf" style="width:100%;background:#BA7517"></div></div><span class="mv" style="color:#6B4F20">2.57x</span></div>
+      <div class="mr"><span class="ml">鴻海 製造</span><div class="mbg"><div class="mf" style="width:64%;background:#D4B078"></div></div><span class="mv" style="color:#6B4F20">1.65x</span></div>
+      <div class="mr"><span class="ml">全家 零售</span><div class="mbg"><div class="mf" style="width:50%;background:#E8CFA0"></div></div><span class="mv" style="color:#6B4F20">1.29x</span></div>
+      <div class="mr"><span class="ml">台積電 晶圓</span><div class="mbg"><div class="mf" style="width:20%;background:#F5ECD8"></div></div><span class="mv" style="color:#6B4F20">0.52x</span></div>
+      <div class="mr"><span class="ml">中信金 銀行</span><div class="mbg"><div class="mf" style="width:1%;background:#F5ECD8"></div></div><span class="mv" style="color:#6B4F20">0.02x</span></div>
+      <div class="warn-box" style="margin-top:10px">千萬不能跨產業比較！各產業的合理範圍完全不同。</div>
+    </div>
+  </section>
+
+  <!-- ===== S5 ===== -->
+  <section class="section" id="s5">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--blue)"></span>
+      <h3>標準五：流動比率 → 看短期還款能力</h3>
+      <span class="section-page">p.082–083</span>
+    </div>
+    <div class="formula">流動比率 ＝ 流動資產 ÷ 流動負債</div>
+
+    <!-- 流動比率儀表圖 -->
+    <div class="diagram">
+      <div class="diagram-title">流動比率安全區間</div>
+      <div class="gauge-row">
+        <div class="zone" style="background:var(--red-light)">
+          <div class="zone-label" style="color:var(--red-dark)">危險區</div>
+          <div class="zone-val" style="color:var(--red-dark)">低於100%</div>
+          <div class="zone-desc" style="color:var(--red-dark)">短期償債能力有疑慮。銀行很緊張，可能立刻縮減貸款。</div>
+        </div>
+        <div class="zone" style="background:var(--amber-light)">
+          <div class="zone-label" style="color:var(--amber-dark)">警戒區</div>
+          <div class="zone-val" style="color:var(--amber-dark)">100%–120%</div>
+          <div class="zone-desc" style="color:var(--amber-dark)">勉強及格。銀行開始擔心，需要密切觀察。</div>
+        </div>
+        <div class="zone" style="background:var(--teal-light)">
+          <div class="zone-label" style="color:var(--teal-dark)">安全區</div>
+          <div class="zone-val" style="color:var(--teal-dark)">120% 以上</div>
+          <div class="zone-desc" style="color:var(--teal-dark)">流動性充足，短期還款完全沒問題。</div>
+        </div>
+      </div>
+      <div class="bar-track">
+        <div class="bar-seg" style="width:22%;background:#D8A098;color:#A05548">低於100%</div>
+        <div class="bar-seg" style="width:12%;background:#E8CFA0;color:#6B4F20">100–120%</div>
+        <div class="bar-seg" style="width:66%;background:#C8DCC4;color:#5A6C52">120%以上</div>
+      </div>
+      <div class="ticks"><span>0%</span><span>100%</span><span>120%</span><span style="margin-left:auto">300%+</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+        <div class="ccard"><div class="ccard-title" style="color:var(--teal-dark)">台積電 2022：217%</div><div class="ccard-body">安全。為擴廠大量發公司債，但仍充裕。</div></div>
+        <div class="ccard"><div class="ccard-title" style="color:var(--amber-dark)">蘋果 Apple：~87%</div><div class="ccard-body">看起來危險但沒事。客戶先付款的商業模式，現金流超強。</div></div>
+        <div class="ccard"><div class="ccard-title" style="color:var(--red-dark)">華映（個體）：23%</div><div class="ccard-body">極度危險。合併報表是88%，個體才是真相，後來倒閉。</div></div>
+        <div class="ccard"><div class="ccard-title" style="color:var(--red-dark)">恆大 2021：極低</div><div class="ccard-body">流動資產大部分是賣不出的房子，根本變不了現金。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== S6 ===== -->
+  <section class="section" id="s6">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--coral)"></span>
+      <h3>標準六：負債比率 → 看財務強度與風險偏好</h3>
+      <span class="section-page">p.084–091</span>
+    </div>
+    <div class="formula">負債比率 ＝ 負債 ÷ 總資產</div>
+
+    <!-- 負債比率色帶圖 -->
+    <div class="diagram">
+      <div class="diagram-title">各產業合理範圍 ＋ 死亡線警示</div>
+      <div class="ind-row">
+        <span class="ind-label">人壽及銀行業</span>
+        <div class="ind-track"><div class="ind-fill" style="width:95%;background:#C8DCC4"><span class="ind-fill-label" style="color:#5A6C52">90%–95%</span></div></div>
+        <span class="ind-result" style="color:#5A6C52">合理</span>
+      </div>
+      <div class="ind-row">
+        <span class="ind-label">證券、租賃、民生通路</span>
+        <div class="ind-track"><div class="ind-fill" style="width:88%;background:#C8D8B4"><span class="ind-fill-label" style="color:#5A6C52">80%–90%</span></div></div>
+        <span class="ind-result" style="color:#5A6C52">合理</span>
+      </div>
+      <div class="ind-row">
+        <span class="ind-label">大型電子代工</span>
+        <div class="ind-track"><div class="ind-fill" style="width:75%;background:#D4B078"><span class="ind-fill-label" style="color:#6B4F20">65%–80%</span></div></div>
+        <span class="ind-result" style="color:#6B4F20">注意</span>
+      </div>
+      <div class="ind-row">
+        <span class="ind-label">一般製造、買賣業</span>
+        <div class="ind-track"><div class="ind-fill" style="width:55%;background:#E8CFA0"><span class="ind-fill-label" style="color:#6B4F20">40%–65%</span></div></div>
+        <span class="ind-result" style="color:#6B4F20">注意</span>
+      </div>
+      <div class="ind-row">
+        <span class="ind-label">資本密集高科技</span>
+        <div class="ind-track"><div class="ind-fill" style="width:45%;background:#B8CCD8"><span class="ind-fill-label" style="color:#5A6C7A">50%以下</span></div></div>
+        <span class="ind-result" style="color:#5A6C7A">偏低最好</span>
+      </div>
+      <div class="warn-band" style="margin-top:14px">
+        <div class="wb" style="background:var(--teal-light)"><div class="wb-label" style="color:var(--teal-dark)">正常區</div><div class="wb-val" style="color:var(--teal-dark)">＜ 70%</div><div class="wb-sub" style="color:var(--teal)">銀行放心借款</div></div>
+        <div class="wb" style="background:var(--amber-light)"><div class="wb-label" style="color:var(--amber-dark)">警戒區</div><div class="wb-val" style="color:var(--amber-dark)">70–75%</div><div class="wb-sub" style="color:var(--amber)">銀行開始緊張</div></div>
+        <div class="wb" style="background:#E8C0B8"><div class="wb-label" style="color:var(--red-dark)">危險區</div><div class="wb-val" style="color:var(--red-dark)">75–80%</div><div class="wb-sub" style="color:var(--red)">倒閉機率95%</div></div>
+        <div class="wb" style="background:var(--red-light);border:1.5px solid #C4A090"><div class="wb-label" style="color:var(--red-dark)">死亡線</div><div class="wb-val" style="color:var(--red-dark)">＞ 80%</div><div class="wb-sub" style="color:var(--red)">倒閉機率99%</div></div>
+      </div>
+      <div class="div" style="margin:14px 0 10px"></div>
+      <div class="axis"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+      <div style="height:6px"></div>
+      <div class="cd-row"><span class="cd-name">台積電 2022</span><div class="cd-track"><div class="cd-fill" style="width:40%;background:#B8CCD8"></div><div class="cd-dot" style="left:40%;background:#185FA5"></div></div><span class="cd-val" style="color:#7A8C9A">40%</span><span class="cd-note">資本密集，刻意保守</span></div>
+      <div class="cd-row"><span class="cd-name">鴻海 2022</span><div class="cd-track"><div class="cd-fill" style="width:60%;background:#E8CFA0"></div><div class="cd-dot" style="left:60%;background:#BA7517"></div></div><span class="cd-val" style="color:#BA7517">60%</span><span class="cd-note">電子代工，利潤薄靠槓桿</span></div>
+      <div class="cd-row"><span class="cd-name">HP 惠普</span><div class="cd-track"><div class="cd-fill" style="width:100%;background:#D8A098"></div><div class="cd-dot" style="left:99%;background:#A32D2D"></div></div><span class="cd-val" style="color:#8B4038">108%</span><span class="cd-note">因買回股票，但仍正常</span></div>
+      <div class="cd-row"><span class="cd-name">茂德 2009</span><div class="cd-track"><div class="cd-fill" style="width:82%;background:#C48080"></div><div class="cd-dot" style="left:82%;background:#791F1F"></div></div><span class="cd-val" style="color:#A05548">82%</span><span class="cd-note">超過死亡線，2012年下市</span></div>
+      <div class="cd-row"><span class="cd-name">雷曼 2008</span><div class="cd-track"><div class="cd-fill" style="width:97%;background:#C48080"></div><div class="cd-dot" style="left:97%;background:#791F1F"></div></div><span class="cd-val" style="color:#A05548">97%</span><span class="cd-note">銀行業，短期融資依賴過高</span></div>
+    </div>
+
+    <div class="block" style="margin-top:1rem">
+      <div class="block-title">內行人才知道的警訊：財務主管「職務調整」</div>
+      <div class="warn-box">財務困難的公司，財務主管辭職通常被改寫成「職務調整」。先調往其他部門，1-2個月後才正式離職。看到這種公告＋負債比率偏高，就要特別小心！</div>
+    </div>
+  </section>
+
+  <!-- ===== S7 ===== -->
+  <section class="section" id="s7">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--blue)"></span>
+      <h3>標準七：合併報表 vs 個體報表</h3>
+      <span class="section-page">p.092–098</span>
+    </div>
+    <div class="cgrid">
+      <div class="ccard"><div class="ccard-title"><span class="badge bb">合併報表</span>主要看這個</div><div class="ccard-body">母公司＋所有子公司加在一起。法律規定每季公布。看到的是集團的「全貌」。</div></div>
+      <div class="ccard"><div class="ccard-title"><span class="badge bp">個體報表</span>特殊情況看</div><div class="ccard-body">只有台灣母公司自己。每年公布一次。有時是揭露真相的地方。</div></div>
+    </div>
+    <div class="block" style="margin-top:1rem">
+      <div class="block-title">什麼時候必須看個體報表？</div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-text">合併報表裡「非控制權益」金額很大 → 代表股東權益大部分不屬於你</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text">合併了太多不同業務 → 數字混在一起，看不出核心業務真實狀況</div></div>
+      </div>
+    </div>
+
+    <!-- 華映對比圖 -->
+    <div class="diagram">
+      <div class="diagram-title">華映案例：合併報表 vs 個體報表</div>
+      <div class="block-body" style="margin-bottom:12px;font-size:13px">台灣華映只持有大陸華映25%股份，卻把大陸華映的現金全部合併進來：</div>
+      <div class="flow-steps">
+        <div class="fs" style="background:var(--purple-light);color:var(--purple-dark)">台灣華映（母公司）<br>只持有大陸華映<br><strong style="font-size:16px">25%</strong> 股份</div>
+        <div class="fs" style="background:var(--blue-light);color:var(--blue-dark)">但大陸華映被<br>強行納入<br>合併報表</div>
+        <div class="fs" style="background:var(--teal-light);color:var(--teal-dark)">大陸華映的<br>現金、獲利<br>全部合進來</div>
+        <div class="fs" style="background:var(--amber-light);color:var(--amber-dark)">合併報表看起來<br>現金很多<br>財務很健康</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
+        <div style="border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--gray-border)">
+          <div style="padding:10px 13px;background:var(--teal-light);font-size:14px;font-weight:600;color:var(--teal-dark)">合併報表（外界看到的）</div>
+          <div style="padding:10px 13px">
+            <div class="metric"><span class="metric-label">現金</span><span class="metric-val" style="color:var(--teal-dark)">252億元<span class="mbadge" style="background:var(--teal-light);color:var(--teal-dark)">安全</span></span></div>
+            <div class="metric"><span class="metric-label">負債比率</span><span class="metric-val" style="color:var(--amber-dark)">58%<span class="mbadge" style="background:var(--amber-light);color:var(--amber-dark)">還好</span></span></div>
+            <div class="metric"><span class="metric-label">流動比率</span><span class="metric-val" style="color:var(--amber-dark)">88%<span class="mbadge" style="background:var(--amber-light);color:var(--amber-dark)">有點低</span></span></div>
+            <div class="metric"><span class="metric-label">非控制權益</span><span class="metric-val" style="color:var(--red-dark)">428億（75%！）</span></div>
+          </div>
+        </div>
+        <div style="border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--gray-border)">
+          <div style="padding:10px 13px;background:var(--red-light);font-size:14px;font-weight:600;color:var(--red-dark)">個體報表（台灣母公司真相）</div>
+          <div style="padding:10px 13px">
+            <div class="metric"><span class="metric-label">現金</span><span class="metric-val" style="color:var(--red-dark)">只有35億<span class="mbadge" style="background:var(--red-light);color:var(--red-dark)">差7倍</span></span></div>
+            <div class="metric"><span class="metric-label">負債比率</span><span class="metric-val" style="color:var(--red-dark)">70%<span class="mbadge" style="background:var(--red-light);color:var(--red-dark)">危險</span></span></div>
+            <div class="metric"><span class="metric-label">流動比率</span><span class="metric-val" style="color:var(--red-dark)">僅23%<span class="mbadge" style="background:var(--red-light);color:var(--red-dark)">極危險</span></span></div>
+            <div class="metric"><span class="metric-label">真實狀況</span><span class="metric-val" style="color:var(--red-dark)">早已岌岌可危</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="caution-box" style="margin-top:10px"><strong>關鍵訊號：</strong>非控制權益高達428億，佔股東權益75%。代表大部分「股東的錢」其實是大陸華映其他股東的錢，不屬於台灣股東。一旦看到這個數字就應該立刻去翻個體報表。</div>
+    </div>
+
+    <div class="block" style="margin-top:1rem">
+      <div class="block-title">雷曼兄弟：用Repo 105藏負債</div>
+      <!-- Repo 105 圖 -->
+      <div class="diagram">
+        <div class="diagram-title">Repo 105：如何在季末「藏掉」500億美元負債</div>
+        <div class="repo-row">
+          <div class="repo-step" style="background:var(--purple-light)">
+            <div class="repo-step-num" style="color:var(--purple-dark)">季末前10天</div>
+            <div class="repo-step-title" style="color:var(--purple-dark)">把資產「賣」出去</div>
+            <div class="repo-step-desc" style="color:var(--purple)">把500億美元資產賣給英國銀行，換回現金</div>
+          </div>
+          <div class="repo-arrow">→</div>
+          <div class="repo-step" style="background:var(--teal-light)">
+            <div class="repo-step-num" style="color:var(--teal-dark)">季末當天</div>
+            <div class="repo-step-title" style="color:var(--teal-dark)">用現金還掉短期負債</div>
+            <div class="repo-step-desc" style="color:var(--teal)">帳上負債少了500億，報表看起來健康</div>
+          </div>
+          <div class="repo-arrow">→</div>
+          <div class="repo-step" style="background:var(--amber-light)">
+            <div class="repo-step-num" style="color:var(--amber-dark)">季報公布後幾天</div>
+            <div class="repo-step-title" style="color:var(--amber-dark)">把資產悄悄買回來</div>
+            <div class="repo-step-desc" style="color:var(--amber)">負債也悄悄回來了，外界完全不知道</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+          <div class="ccard"><div class="ccard-title" style="color:var(--teal-dark)">季報顯示（假象）</div><div class="ccard-body">負債比率 ~92%，銀行業合理範圍，外界覺得正常。</div></div>
+          <div class="ccard"><div class="ccard-title" style="color:var(--red-dark)">實際狀況（真相）</div><div class="ccard-body">負債比率 ~97%，每季季末才藏起500億負債，季後立刻回來。</div></div>
+        </div>
+        <div class="warn-box">就像月底薪水還沒到，先跟朋友借10萬讓帳戶看起來有錢，等薪水進來再還。帳戶截圖看起來有錢，但你還欠著10萬元的債。Repo 105就是企業版的這個操作，規模500億美元。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GLOBAL CASES ===== -->
+  <section class="section" id="cases-dead">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--red)"></span>
+      <h3>全球案例：倒閉警示</h3>
+    </div>
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:#C48080"></span><span class="case-title">雷曼兄弟 Lehman Brothers — 2008年史上最大破產</span><span class="case-tag br">美國</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">
+        <div class="stat-row"><div class="stat"><div class="stat-label">負債比率</div><div class="stat-val" style="color:var(--red-dark)">97%</div></div><div class="stat"><div class="stat-label">流動比率</div><div class="stat-val" style="color:var(--red-dark)">&lt;100%</div></div><div class="stat"><div class="stat-label">結局</div><div class="stat-val" style="color:var(--red-dark)">破產</div></div></div>
+        <p style="margin-top:10px;font-size:13.5px;line-height:1.65">2006年開始大量買入美國次級房貸資產，2007年房市崩跌仍繼續加倉，同時用Repo 105手法藏負債。2008年9月15日申請破產，負債達6,130億美元，引爆全球金融海嘯。核心問題：每天靠短期借款維持運作，市場一不信任就隔天倒。</p>
+      </div>
+    </div>
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:#C48080"></span><span class="case-title">中國恆大 Evergrande — 2021年欠債3,000億美元爆雷</span><span class="case-tag br">中國</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">
+        <div class="stat-row"><div class="stat"><div class="stat-label">總負債</div><div class="stat-val" style="color:var(--red-dark)">2兆人民幣</div></div><div class="stat"><div class="stat-label">手上現金</div><div class="stat-val" style="color:var(--red-dark)">僅143億</div></div></div>
+        <p style="margin-top:10px;font-size:13.5px;line-height:1.65">商業模式：先賣房收訂金→拿這筆錢買地蓋新房→再收更多訂金，完全靠新錢還舊債的循環。2021年中國政府推出「三條紅線」限制房企借錢，資金循環瞬間中斷。手上現金143億人民幣，卻要還6,100億利息債。致命問題：流動資產大部分是「賣不出去的房子（存貨）」，根本無法快速變現。</p>
+      </div>
+    </div>
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:#C48080"></span><span class="case-title">WorldCom 世通 — 2002年電信巨頭的會計醜聞</span><span class="case-tag br">美國</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">
+        <p style="font-size:13.5px;line-height:1.65">造假手法：把「費用」列成「資產」。每年付給其他電信公司的線路租用費本應是費用（讓獲利減少），WorldCom說成是「未來可帶來收益的投資」，列為非流動資產。效果：費用少了→獲利數字變漂亮、資產多了→報表看起來更強。共造假110億美元，2002年申請破產。審計師安達信（Arthur Andersen）也因此被吊銷執照、解散。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="cases-trick">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--amber)"></span>
+      <h3>全球案例：財報美化術</h3>
+    </div>
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:#BA7517"></span><span class="case-title">安隆 Enron — 用子公司藏負債</span><span class="case-tag ba">美國 2001</span><span class="case-chev">▼</span></div>
+      <div class="case-bd"><p style="font-size:13.5px;line-height:1.65">成立大量「特殊目的公司」（SPE），把本來在安隆帳上的虧損和負債全部「轉移」給這些子公司。這些子公司不公開上市、不用公布財報，外界完全看不到。財報設計極其複雜，連分析師都看不懂。教訓：財報越複雜，越可能在藏什麼。</p></div>
+    </div>
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:#BA7517"></span><span class="case-title">恆大：用非控制權益膨脹股東權益</span><span class="case-tag ba">中國 2021</span><span class="case-chev">▼</span></div>
+      <div class="case-bd"><p style="font-size:13.5px;line-height:1.65">大量持有子公司多數股份，再讓子公司引入外部投資者。這些外部投資者的錢在合併報表裡算進「非控制權益」，讓整體股東權益看起來很高、負債比率不那麼嚇人。剔除非控制權益後，真實財務狀況遠比報表難看。這和書中「華映案例」是一模一樣的手法。</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="cases-good">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--teal)"></span>
+      <h3>全球案例：優等生財報</h3>
+    </div>
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:#1D9E75"></span><span class="case-title">蘋果 Apple — 流動比率低於100%卻完全不怕</span><span class="case-tag bt">美國 健康</span><span class="case-chev">▼</span></div>
+      <div class="case-bd"><p style="font-size:13.5px;line-height:1.65">蘋果流動比率約87%，看起來低於100%很危險，但原因是「客戶先付款的商業模式」——你在官網預訂iPhone就先刷卡，蘋果收到錢再生產出貨。流動負債大是因為預收款多，不是欠錢。蘋果每年產生超過1,000億美元現金流，手持現金1,580億美元，根本不怕。教訓：財報指標要結合商業模式來判斷。</p></div>
+    </div>
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:#1D9E75"></span><span class="case-title">波克夏 Berkshire Hathaway — 手握3,000億美元現金等待危機</span><span class="case-tag bt">美國 健康</span><span class="case-chev">▼</span></div>
+      <div class="case-bd"><p style="font-size:13.5px;line-height:1.65">巴菲特手持超過3,000億美元現金，很多人覺得奇怪：為什麼不去投資？巴菲特的回答：「現金就是子彈，等到市場崩盤時，別人沒錢買、我有錢買，這才是最大的優勢。」2008年金融海嘯時，波克夏在別人最恐慌的時刻出手投資高盛、通用電氣等，光這幾筆就賺了幾十億美元。和台積電的邏輯完全一樣。</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="cases-paradox">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--amber)"></span>
+      <h3>全球案例：看起來危險但其實沒問題</h3>
+    </div>
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:#BA7517"></span><span class="case-title">惠普 HP — 負債比率108%、股東權益負數，但沒倒</span><span class="case-tag ba">美國 正常</span><span class="case-chev">▼</span></div>
+      <div class="case-bd"><p style="font-size:13.5px;line-height:1.65">HP幾乎每年都用現金買回自己股票再註銷，加上大量發股利，讓帳面股東淨值越來越少直到變負數。但HP有穩定企業客戶和墨水訂閱收入，現金流充沛，銀行完全不擔心。教訓：負債高是因為「積極回饋股東」跟因為「虧錢撐不住」是完全不同的事，要看現金流是否穩定。</p></div>
+    </div>
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:#BA7517"></span><span class="case-title">全家便利商店 — 2019年資產和負債同時暴增</span><span class="case-tag ba">台灣 正常</span><span class="case-chev">▼</span></div>
+      <div class="case-bd"><p style="font-size:13.5px;line-height:1.65">2019年起IFRS 16新會計準則規定：公司簽的長期租約，必須把「未來要付的租金」列為「使用權資產」和「租賃負債」。結果全家、統一超、全聯等零售業資產和負債同時暴增，看起來財務變差，但實際上只是會計規定改了，公司狀況完全沒有變化。教訓：看財報不能只看數字，要知道這個數字怎麼來的，不同年份比較也要留意會計政策有沒有改變。</p></div>
+    </div>
+  </section>
+
+  <!-- ===== CHEAT SHEET ===== -->
+  <section class="section" id="cheat">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--purple)"></span>
+      <h3>速查表 ＆ 警示清單</h3>
+    </div>
+    <div class="block">
+      <div class="block-title">7大標準一覽</div>
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>標準</th><th>看什麼</th><th>台灣案例</th><th>國際案例</th></tr>
+          <tr><td>1. 資產總額</td><td>企業影響力與規模競爭力</td><td>台積電5兆→晶圓霸主；台電大到政府不敢讓它倒</td><td>雷曼6,000億→以為不能倒，2008年倒了</td></tr>
+          <tr><td>2. 最大資產科目</td><td>產業特性、商業模式</td><td>台積電廠房54%；鴻海應收27%；國泰金投資59%</td><td>蘋果現金55%；波克夏投資40%；亞馬遜廠房40%</td></tr>
+          <tr><td>3. 資產配置</td><td>4大核心資產佔比越高越好</td><td>台積電91%；如興虛資產超120億→虧91億</td><td>三星靠現金消滅台灣DRAM；波克夏3,000億現金等待危機</td></tr>
+          <tr><td>4. 資產運用效能</td><td>1元資產做幾元生意（翻桌率）</td><td>大聯大2.57x；台積電0.52x（擴廠中正常）</td><td>蘋果~1x；銀行業0.02x（正常）</td></tr>
+          <tr><td>5. 流動比率</td><td>短期是否有倒閉風險（≥120%安全）</td><td>台積電217%健康；華映個體23%→倒閉</td><td>蘋果87%沒事（先收款）；雷曼&lt;100%→倒</td></tr>
+          <tr><td>6. 負債比率</td><td>財務強度（各產業合理範圍不同）</td><td>台積電40%穩；茂德82%+→倒；如興虛資產膨脹</td><td>HP108%沒倒（買回股票）；雷曼97%+造假→倒</td></tr>
+          <tr><td>7. 合併vs個體</td><td>報表是否被美化</td><td>華映合併252億現金vs個體35億→倒閉</td><td>安隆用SPE藏負債→倒；恆大非控制權益膨脹</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">倒閉前的12個警示訊號</div>
+      <div class="steps">
+        <div class="step"><div class="step-num" style="background:var(--red-light);color:var(--red-dark)">1</div><div class="step-text">負債比率貼近75%（一般製造業）→ 倒閉機率95%</div></div>
+        <div class="step"><div class="step-num" style="background:var(--red-light);color:var(--red-dark)">2</div><div class="step-text">負債比率貼近80% → 倒閉機率99%</div></div>
+        <div class="step"><div class="step-num" style="background:var(--red-light);color:var(--red-dark)">3</div><div class="step-text">流動比率低於100%（非特殊產業）→ 短期償債有問題</div></div>
+        <div class="step"><div class="step-num" style="background:var(--red-light);color:var(--red-dark)">4</div><div class="step-text">個體報表比合併報表差很多 → 在用子公司美化報表</div></div>
+        <div class="step"><div class="step-num" style="background:var(--red-light);color:var(--red-dark)">5</div><div class="step-text">非控制權益佔股東權益比例很大 → 股東權益被膨脹</div></div>
+        <div class="step"><div class="step-num" style="background:var(--red-light);color:var(--red-dark)">6</div><div class="step-text">無形資產（商譽）暴增 → 通常是買了高估的公司（如興案例）</div></div>
+        <div class="step"><div class="step-num" style="background:var(--red-light);color:var(--red-dark)">7</div><div class="step-text">財務主管「職務調整」→ 幾乎等於離職，財務出問題</div></div>
+        <div class="step"><div class="step-num" style="background:var(--red-light);color:var(--red-dark)">8</div><div class="step-text">財報越來越複雜、難以理解 → 可能在藏東西（安隆前例）</div></div>
+        <div class="step"><div class="step-num" style="background:var(--red-light);color:var(--red-dark)">9</div><div class="step-text">帳上現金少但流動負債很大 → 資金鏈隨時可能斷（恆大）</div></div>
+        <div class="step"><div class="step-num" style="background:var(--red-light);color:var(--red-dark)">10</div><div class="step-text">應增資而不增資 → 大股東可能也沒錢了</div></div>
+        <div class="step"><div class="step-num" style="background:var(--red-light);color:var(--red-dark)">11</div><div class="step-text">4大核心資產佔比低、虛資產多 → 資產品質差</div></div>
+        <div class="step"><div class="step-num" style="background:var(--red-light);color:var(--red-dark)">12</div><div class="step-text">個體報表「其他應收款」「預付款項」異常暴增 → 可能藏著問題</div></div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">好財報的特徵</div>
+      <div class="steps">
+        <div class="step"><div class="step-num" style="background:var(--teal-light);color:var(--teal-dark)">✓</div><div class="step-text">合併與個體報表差異很小（台積電）→ 業務簡單聚焦透明</div></div>
+        <div class="step"><div class="step-num" style="background:var(--teal-light);color:var(--teal-dark)">✓</div><div class="step-text">4大核心資產佔比高（台積電91%）→ 資產乾淨務實</div></div>
+        <div class="step"><div class="step-num" style="background:var(--teal-light);color:var(--teal-dark)">✓</div><div class="step-text">手上現金遠超同業 → 景氣差時有能力反攻</div></div>
+        <div class="step"><div class="step-num" style="background:var(--teal-light);color:var(--teal-dark)">✓</div><div class="step-text">負債比率在產業合理範圍內 → 財務槓桿使用恰當</div></div>
+        <div class="step"><div class="step-num" style="background:var(--teal-light);color:var(--teal-dark)">✓</div><div class="step-text">流動比率穩定維持120%以上 → 短期不會有還款問題</div></div>
+        <div class="step"><div class="step-num" style="background:var(--teal-light);color:var(--teal-dark)">✓</div><div class="step-text">資產運用效能與同業相當或更高 → 管理層有能力</div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+function navTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  event.target.classList.add('active');
+}
+function togCase(hd) {
+  const bd = hd.nextElementSibling;
+  const ch = hd.querySelector('.case-chev');
+  const open = bd.classList.contains('open');
+  bd.classList.toggle('open', !open);
+  ch && ch.classList.toggle('open', !open);
+}
+// Highlight active nav on scroll
+const sections = document.querySelectorAll('section[id]');
+const navItems = document.querySelectorAll('.nav-item');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+  navItems.forEach(i => {
+    i.classList.remove('active');
+    if (i.getAttribute('onclick')?.includes(current)) i.classList.add('active');
+  });
+}, {passive:true});
+</script>
+</body>
+</html>
