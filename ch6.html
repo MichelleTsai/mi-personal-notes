@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第6章筆記：預先看出財報地雷</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cr:#F5F0E8; --cr2:#EDE5D8; --cr3:#E2D7C6; --cr4:#D4C8B4; --cr5:#C0B09A;
+    --ct:#2C2420; --ct2:#5C4A3A; --ct3:#8B7560; --ct4:#B09A82;
+    --ca:#8B6B4A; --ca2:#6B4F32; --ca3:#4A3320; --ca-l:#F0E4D4; --ca-ll:#FAF5EE;
+    --cg:#7A8C72; --cg2:#5A6C52; --cg3:#3A4C32; --cg-l:#EAF0E6;
+    --cb:#7A8C9A; --cb2:#5A6C7A; --cb3:#3A4C5A; --cb-l:#E6EDF2;
+    --cw:#C4756A; --cw2:#A05548; --cw3:#7A3A30; --cw-l:#F5EAE8;
+    --radius: 10px; --radius-lg: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans TC', -apple-system, sans-serif; background: var(--cr); color: var(--ct); line-height: 1.72; font-size: 17px; font-weight: 400; -webkit-font-smoothing: antialiased; }
+  h2, h3 { font-family: 'Noto Serif TC', serif; font-weight: 700; letter-spacing: .02em; }
+  strong, b { font-weight: 600; color: var(--ca2); }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--cr2); }
+  ::-webkit-scrollbar-thumb { background: var(--cr4); border-radius: 3px; }
+
+  .sidebar { position: fixed; top: 0; left: 0; width: 260px; height: 100vh; background: var(--ca-ll); border-right: 1px solid var(--cr4); overflow-y: auto; z-index: 100; padding: 0 0 2rem; }
+  .sidebar-logo { padding: 1.4rem 1.2rem 1rem; border-bottom: 1px solid var(--cr4); background: var(--ca-l); }
+  .sidebar-logo h1 { font-family: 'Noto Serif TC', serif; font-size: 14px; font-weight: 700; color: var(--ca2); line-height: 1.5; }
+  .sidebar-logo p { font-size: 11px; color: var(--ct4); margin-top: 4px; }
+  .nav-section { padding: .4rem 0; }
+  .nav-section-label { font-size: 10px; font-weight: 600; color: var(--ct4); text-transform: uppercase; letter-spacing: .12em; padding: .6rem 1.2rem .3rem; }
+  .nav-item { display: block; padding: .5rem 1rem .5rem 1.3rem; font-size: 14px; color: var(--ct2); text-decoration: none; border-left: 2px solid transparent; transition: all .15s; cursor: pointer; font-weight: 400; }
+  .nav-item:hover { color: var(--ct); background: var(--cr2); }
+  .nav-item.active { color: var(--ca2); border-left-color: var(--ca); background: var(--ca-l); font-weight: 600; }
+  .main { margin-left: 260px; padding: 2.5rem 3.5rem 5rem; }
+
+  .page-hero { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--cr4); }
+  .hero-tag { font-size: 11px; font-weight: 600; color: var(--ca2); background: var(--ca-l); padding: 4px 13px; border-radius: 20px; display: inline-block; margin-bottom: .75rem; text-transform: uppercase; letter-spacing: .08em; border: 1px solid var(--cr5); }
+  .page-hero h2 { font-size: 30px; font-weight: 700; color: var(--ct); margin-bottom: .4rem; }
+  .page-hero p { font-size: 16px; color: var(--ct3); }
+
+  .section { margin-bottom: 2.5rem; scroll-margin-top: 1.5rem; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; padding-bottom: .75rem; border-bottom: 1px solid var(--cr4); }
+  .section-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; background: var(--ca); }
+  .section-header h3 { font-size: 21px; font-weight: 700; color: var(--ct); flex: 1; }
+  .section-page { font-size: 13px; color: var(--ct4); letter-spacing: .04em; }
+
+  .block { margin-bottom: 1.25rem; }
+  .block-title { font-size: 16px; font-weight: 600; color: var(--ca2); margin-bottom: .5rem; letter-spacing: .02em; }
+  .block-body { font-size: 17px; color: var(--ct); line-height: 1.78; }
+
+  .hl { border-left: 2.5px solid var(--ca); border-radius: 0; background: var(--ca-ll); padding: 12px 16px; margin: 12px 0; font-size: 16px; line-height: 1.7; color: var(--ct2); }
+  .hl.sage { border-left-color: var(--cg); background: var(--cg-l); color: var(--cg2); }
+  .hl.amber { border-left-color: #A07838; background: #F5ECD8; color: #6B4F20; }
+  .hl.red { border-left-color: var(--cw); background: var(--cw-l); color: var(--cw2); }
+  .hl.blue { border-left-color: var(--cb); background: var(--cb-l); color: var(--cb2); }
+  .warn-box { background: var(--cw-l); border-left: 2.5px solid var(--cw); border-radius: 0; padding: 13px 16px; margin: 12px 0; font-size: 16px; color: var(--cw2); line-height: 1.7; }
+  .good-box { background: var(--cg-l); border-left: 2.5px solid var(--cg); border-radius: 0; padding: 13px 16px; margin: 12px 0; font-size: 16px; color: var(--cg2); line-height: 1.7; }
+  .caution-box { background: #F5ECD8; border-left: 2.5px solid #A07838; border-radius: 0; padding: 13px 16px; margin: 12px 0; font-size: 16px; color: #6B4F20; line-height: 1.7; }
+
+  .tbl-wrap { overflow-x: auto; margin: 12px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th { background: var(--cr2); padding: 10px 13px; text-align: left; font-weight: 600; color: var(--ct3); font-size: 13px; border-bottom: 1px solid var(--cr4); text-transform: uppercase; letter-spacing: .05em; }
+  th.r { text-align: right; }
+  td { padding: 10px 13px; border-bottom: 1px solid var(--cr3); color: var(--ct); vertical-align: top; }
+  td.r { text-align: right; }
+  td.warn-td { color: var(--cw2); font-weight: 600; background: var(--cw-l); }
+  td.good-td { color: var(--cg2); font-weight: 600; background: var(--cg-l); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--ca-ll); }
+  .tbl-caption { font-size: 12px; color: var(--ct4); margin-top: 6px; text-align: right; font-style: italic; }
+
+  .cgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .cgrid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .ccard { border: 1px solid var(--cr4); border-radius: var(--radius); padding: 13px 15px; background: var(--ca-ll); }
+  .ccard-title { font-size: 15px; font-weight: 600; margin-bottom: 7px; color: var(--ca2); }
+  .ccard-body { font-size: 15px; color: var(--ct2); line-height: 1.65; }
+  .ccard.danger { background: var(--cw-l); border-color: #D8A098; }
+  .ccard.danger .ccard-title { color: var(--cw2); }
+
+  .steps { margin: 12px 0; }
+  .step { display: flex; gap: 12px; margin-bottom: 11px; align-items: flex-start; }
+  .step-num { width: 27px; height: 27px; border-radius: 50%; background: var(--ca-l); color: var(--ca2); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; border: 1px solid var(--cr5); }
+  .step-num.red { background: var(--cw-l); color: var(--cw2); border-color: #D8A098; }
+  .step-text { font-size: 16px; color: var(--ct); line-height: 1.7; flex: 1; }
+
+  .case-strip { border: 1px solid var(--cr4); border-radius: var(--radius); margin: 9px 0; overflow: hidden; }
+  .case-hd { display: flex; align-items: center; gap: 10px; padding: 11px 15px; background: var(--cr2); cursor: pointer; user-select: none; transition: background .15s; }
+  .case-hd:hover { background: var(--cr3); }
+  .case-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .case-title { font-size: 15px; font-weight: 500; color: var(--ct); flex: 1; }
+  .case-tag { font-size: 11px; padding: 2px 9px; border-radius: 20px; font-weight: 500; border: 1px solid transparent; }
+  .tag-ok { background: var(--cg-l); color: var(--cg2); border-color: #A8C4A0; }
+  .tag-warn { background: var(--cw-l); color: var(--cw2); border-color: #D8A098; }
+  .tag-info { background: var(--cb-l); color: var(--cb2); border-color: #A8BCC8; }
+  .tag-neutral { background: var(--cr2); color: var(--ct3); border-color: var(--cr4); }
+  .case-chev { font-size: 11px; color: var(--ct4); transition: transform .2s; }
+  .case-chev.open { transform: rotate(180deg); }
+  .case-bd { padding: 14px 15px; font-size: 16px; line-height: 1.72; color: var(--ct); display: none; border-top: 1px solid var(--cr4); background: var(--ca-ll); }
+  .case-bd.open { display: block; }
+
+  .div { border: none; border-top: 1px solid var(--cr4); margin: 1.5rem 0; }
+  .formula { background: var(--cr2); border-radius: var(--radius); padding: 14px 20px; margin: 12px 0; text-align: center; font-size: 20px; font-weight: 700; color: var(--ca2); font-family: 'Noto Serif TC', serif; border: 1px solid var(--cr4); letter-spacing: .04em; }
+  .formula-note { font-size: 13px; color: var(--ct3); text-align: center; margin-top: 5px; }
+
+  .stat-row { display: flex; gap: 10px; margin: 12px 0; flex-wrap: wrap; }
+  .stat { background: var(--cr2); border: 1px solid var(--cr4); border-radius: var(--radius); padding: 10px 14px; flex: 1; min-width: 100px; }
+  .stat-label { font-size: 12px; color: var(--ct4); text-transform: uppercase; letter-spacing: .05em; }
+  .stat-val { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700; margin-top: 3px; }
+
+  .badge { display: inline-block; font-size: 12px; padding: 2px 10px; border-radius: 20px; margin-right: 4px; vertical-align: middle; font-weight: 500; border: 1px solid transparent; }
+  .bp { background: var(--ca-l); color: var(--ca2); border-color: var(--cr5); }
+  .bt { background: var(--cg-l); color: var(--cg2); border-color: #A8C4A0; }
+  .ba { background: #F5ECD8; color: #6B4F20; border-color: #C8A870; }
+  .br { background: var(--cw-l); color: var(--cw2); border-color: #D8A098; }
+  .bb { background: var(--cb-l); color: var(--cb2); border-color: #A8BCC8; }
+
+  .diagram { margin: 1.25rem 0; background: var(--ca-ll); border: 1px solid var(--cr4); border-radius: var(--radius-lg); padding: 1.5rem; }
+  .diagram-title { font-size: 11px; font-weight: 600; color: var(--ct4); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 1.1rem; }
+
+  .mr { display: flex; align-items: center; gap: 10px; margin: 7px 0; }
+  .ml { font-size: 13px; color: var(--ct3); width: 200px; flex-shrink: 0; text-align: right; }
+  .mbg { flex: 1; height: 9px; background: var(--cr3); border-radius: 5px; overflow: hidden; }
+  .mf { height: 100%; border-radius: 5px; }
+  .mv { font-size: 13px; font-weight: 600; width: 60px; flex-shrink: 0; }
+
+  .signal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .signal-card { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--cr4); }
+  .signal-hd { padding: 10px 14px; display: flex; align-items: center; gap: 8px; }
+  .signal-num { font-size: 11px; font-weight: 600; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .signal-title { font-size: 14px; font-weight: 600; flex: 1; }
+  .signal-bd { padding: 10px 14px; font-size: 14px; line-height: 1.68; color: var(--ct2); background: var(--ca-ll); border-top: 1px solid var(--cr4); }
+  .signal-card.red .signal-hd { background: var(--cw-l); }
+  .signal-card.red .signal-num { background: var(--cw2); color: #fff; }
+  .signal-card.red .signal-title { color: var(--cw2); }
+  .signal-card.amber .signal-hd { background: #F5ECD8; }
+  .signal-card.amber .signal-num { background: #A07838; color: #fff; }
+  .signal-card.amber .signal-title { color: #6B4F20; }
+
+  .flow-fake { display: flex; gap: 0; margin: 16px 0; align-items: stretch; flex-wrap: wrap; }
+  .fbox { border: 1px solid var(--cr4); padding: 12px 14px; background: var(--ca-ll); font-size: 15px; text-align: center; flex: 1; }
+  .fbox.red { background: var(--cw-l); border-color: #D8A098; color: var(--cw2); font-weight: 600; }
+  .fbox.amber { background: #F5ECD8; border-color: #C8A870; color: #6B4F20; }
+  .fbox.green { background: var(--cg-l); border-color: #A8C4A0; color: var(--cg2); font-weight: 600; }
+  .farrow { display: flex; align-items: center; padding: 0 4px; color: var(--ct4); font-size: 16px; }
+
+  .summary-tbl td:first-child { font-weight: 600; color: var(--ct2); width: 150px; }
+  .summary-tbl td:nth-child(2) { color: var(--ct3); font-size: 14px; }
+  .summary-tbl td:nth-child(3) { font-weight: 600; }
+
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ct3); text-decoration: none; padding: 5px 13px; border-radius: 20px; border: 1px solid var(--cr4); background: var(--ca-ll); transition: all .15s; font-weight: 400; margin-bottom: 1.5rem; }
+  .home-btn:hover { background: var(--ca-l); color: var(--ca2); border-color: var(--cr5); }
+  .home-btn-sidebar { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ct3); text-decoration: none; padding: .55rem 1rem .55rem 1.3rem; border-top: 1px solid var(--cr4); margin-top: .5rem; transition: color .15s; font-weight: 400; }
+  .home-btn-sidebar:hover { color: var(--ca2); background: var(--ca-l); }
+
+  @media (max-width: 700px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 1.25rem; }
+    .cgrid, .cgrid3, .signal-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <h1>第6章：預先看出財報地雷</h1>
+    <p>大會計師教你從財報數字看懂經營本質</p>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">動機</div>
+    <a class="nav-item active" onclick="navTo('intro')">本章導覽</a>
+    <a class="nav-item" onclick="navTo('motive')">假帳的5大動機</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">財報7大特徵</div>
+    <a class="nav-item" onclick="navTo('f1')">特徵1 應收帳款天數過高</a>
+    <a class="nav-item" onclick="navTo('f2')">特徵2 存貨天數過低</a>
+    <a class="nav-item" onclick="navTo('f3')">特徵3 存貨天數過高</a>
+    <a class="nav-item" onclick="navTo('f4')">特徵4 廠房設備過高</a>
+    <a class="nav-item" onclick="navTo('f5')">特徵5 長期投資過高</a>
+    <a class="nav-item" onclick="navTo('f6')">特徵6 現金過高</a>
+    <a class="nav-item" onclick="navTo('f7')">特徵7 雜項資產過高</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">非財務警訊</div>
+    <a class="nav-item" onclick="navTo('signals')">6大非財務警訊</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">速查</div>
+    <a class="nav-item" onclick="navTo('summary')">⭐ 重點整理</a>
+  </div>
+  <div style="padding:.75rem 1rem 1rem;margin-top:.5rem;">
+    <a class="home-btn-sidebar" href="index.html">← 回到目錄首頁</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <a class="home-btn" href="index.html">← 回到目錄首頁</a>
+
+  <div class="page-hero" id="intro">
+    <div class="hero-tag">第6章 · p.256–287</div>
+    <h2>預先看出財報地雷</h2>
+    <p>《大會計師教你從財報數字看懂經營本質》｜如何從財報數字與非財務訊號，在假帳爆發前先看出端倪</p>
+  </div>
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>這章在講什麼？</h3>
+    </div>
+    <div class="block-body">台灣平均每 2–3 年就會有上市櫃公司財報造假事件。一旦假帳被媒體報導，通常為時已晚，投資人只能眼睜睜看著血汗錢化為烏有。這章要教你：在假帳爆發之前，從財報數字與非財務訊號中，看出企業正在做假帳的蛛絲馬跡。</div>
+
+    <div class="hl red" style="margin-top:1rem">
+      <strong>本章的核心邏輯：</strong>做假帳的公司通常做了 2–3 年之後才會被抓到。這段時間內，財報上會留下 7 種可辨識的數字異常，加上 6 種非財務警訊。你不需要等到假帳爆發，提前看到這些訊號就應該離開。
+    </div>
+
+    <div class="div"></div>
+    <div class="block-title">本章架構一覽</div>
+    <div class="cgrid">
+      <div class="ccard">
+        <div class="ccard-title">① 企業為什麼要做假帳？</div>
+        <div class="ccard-body">5大動機：上市上櫃、掩飾虧損、避免大股東破產、操縱股價、掏空公司。了解動機，才能預判哪類公司風險最高。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">② 假帳在財報上留下的7個痕跡</div>
+        <div class="ccard-body">做假帳很難天衣無縫，每種手法都會在資產負債表或損益表上留下特定的異常數字。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">③ 財報之外的6個非財務警訊</div>
+        <div class="ccard-body">老闆賭博欠債、財務長離職、股票無端飆漲……這些訊號往往比財報數字更早出現。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">④ 搭配第3章一起看</div>
+        <div class="ccard-body">第3章教你正常公司的指標標準值；這章教你用同樣指標抓假帳。兩章是一體兩面。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 動機 ===== -->
+  <section class="section" id="motive">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--cw)"></span>
+      <h3>企業做假帳的 5 大動機</h3>
+      <span class="section-page">p.257–261</span>
+    </div>
+
+    <div class="block-body">做假帳風險這麼高（刑期 1–7 年有期徒刑），為什麼還是有人鋌而走險？了解動機，才能鎖定高風險的公司類型。</div>
+
+    <div class="steps" style="margin-top:1rem">
+      <div class="step">
+        <div class="step-num red">1</div>
+        <div class="step-text">
+          <strong>為順利上市上櫃</strong><br>
+          業績及財務必須符合獲利門檻，才能通過主管機關審查。財務數字不夠漂亮，就可能用假帳美化。
+          <div class="caution-box" style="margin-top:8px">真實案例：XX幹細胞公司找來無會計師執照的男子修改財務報表，讓公司順利上市，吸引投資者投入數千萬資金後才被發現。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num red">2</div>
+        <div class="step-text">
+          <strong>掩飾本業衰退或獲利不佳</strong><br>
+          銀行怕壞消息不繼續貸款、股價下跌——於是選擇做假帳掩蓋。
+          <div class="caution-box" style="margin-top:8px">光洋科因從事黃金買賣及衍生性金融商品虧損，為掩飾連年虧損製造假帳。印刷電路板廠雅新，為了讓景氣差時的 EPS 看起來還有 2 元以上，從 2011 年起連續 5 年製造不實財報。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num red">3</div>
+        <div class="step-text">
+          <strong>避免大股東破產</strong><br>
+          大股東用股票質押向銀行借款。一旦股價跌破一定比例，就必須提供額外擔保；若提供不出來，股票就會被銀行強制拋售，然後股價崩盤，大股東破產。
+          <div class="warn-box" style="margin-top:8px"><strong>大股東股票質押成數太高，是業績造假最大的壓力來源之一。</strong>當大股東有這個壓力，做假帳提高 EPS、拉抬股價就成了最快的解法。</div>
+          <div class="tbl-wrap" style="margin-top:10px">
+            <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 6-1｜和旺建設 2010–2015 年質押股數占個人持股比重</div>
+            <table>
+              <tr><th>年度</th><th class="r">董事長本人</th><th class="r">配偶及二親等</th></tr>
+              <tr><td>2010年</td><td class="r">14%</td><td class="r">0%</td></tr>
+              <tr><td>2011年</td><td class="r">14%</td><td class="r">0%</td></tr>
+              <tr><td>2012年</td><td class="r">62%</td><td class="r warn-td">51%</td></tr>
+              <tr><td>2013年</td><td class="r warn-td">90%</td><td class="r warn-td">76%</td></tr>
+              <tr><td>2014年</td><td class="r warn-td">90%</td><td class="r warn-td">95%</td></tr>
+              <tr><td>2015年</td><td class="r warn-td">100%</td><td class="r warn-td">74%</td></tr>
+            </table>
+            <div class="tbl-caption">資料來源：公開資訊觀測站，作者整理｜質押比重逐年增加，顯示大股東缺錢孔急，且財產可能無可再押</div>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num red">4</div>
+        <div class="step-text">
+          <strong>操縱股價</strong><br>
+          要從資本市場獲利，最常見手法：低價現金增資、發行可轉換公司債（透過人頭認購）、再透過人頭與市場主力拉抬股價。拉高 EPS 是操縱股價的核心工具。
+          <div class="caution-box" style="margin-top:8px">揚華科技聯合字加、百徽等 20 餘家公司，以假交易方式營造業績大幅上揚假象，再發行可轉換公司債向投資大眾募資。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num red">5</div>
+        <div class="step-text">
+          <strong>掏空公司</strong><br>
+          大股東把公司當提款機：在源頭截取客戶的應收帳款、透過預付方式將大筆資金匯出、安排假交易讓公司高價購買資產或低價出售資產。
+          <div class="warn-box" style="margin-top:8px">和旺建設前董事長借投資飯店名義，掏空公司資金；以不實土地交易價格向銀行詐貸，又虛增土地交易 30 多億元，被法院判刑 10 年 6 個月。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 假帳手法 intro ===== -->
+  <section class="section" id="f1">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--cw)"></span>
+      <h3>假帳在財報上常見的 7 大特徵</h3>
+      <span class="section-page">p.262–277</span>
+    </div>
+
+    <div class="block-body">做假帳的公司為了讓數字「合理」，通常會選擇虛增營收。但任何假交易都會在財報上留下痕跡，以下 7 種異常是最常見的。</div>
+
+    <div class="hl amber">
+      <strong>假帳的核心邏輯：虛增營收。</strong>為什麼要虛增營收？因為營收是股價的重要指標，而且上市公司每月 10 日前必須公告合併營收，造假最快見效。虛增營收的同時必然虛增成本，兩者一起動才不會讓毛利率異常。
+    </div>
+
+    <div class="div"></div>
+
+    <!-- 特徵1 -->
+    <div id="f1-detail">
+      <div class="block-title" style="color:var(--cw2);font-size:18px">特徵 1：過高的應收帳款天數</div>
+      <div class="block-body">做假帳最基本的手法：虛增的銷售沒有真實收款，應收帳款只增不減，導致天數異常拉長。</div>
+
+      <div class="hl red">
+        <strong>關鍵公式：應收帳款天數 ＝ 期末應收帳款 ÷ 全年銷貨收入 × 365</strong><br>
+        正常公司應維持在 2 個月（約 60 天）以內。帳齡超過 90 天、且同業無此情形，就是警訊。
+      </div>
+
+      <div class="block-body" style="margin-top:1rem">假帳是怎麼造出來的？標準流程如下：</div>
+      <div class="flow-fake" style="margin-top:10px">
+        <div class="fbox">甲公司以 100 萬<br>向 B 人頭公司買貨</div>
+        <div class="farrow">→</div>
+        <div class="fbox amber">甲公司以 120 萬<br>賣給 A 人頭公司<br><small style="color:var(--ct3)">帳上：收入+120、成本+100、利潤+20</small></div>
+        <div class="farrow">→</div>
+        <div class="fbox">A 人頭公司以 120 萬<br>轉賣給 B 人頭公司</div>
+        <div class="farrow">→</div>
+        <div class="fbox red">循環不斷<br>想多少收入<br>就有多少</div>
+      </div>
+
+      <div class="block-body" style="margin-top:.75rem"><strong>應收帳款越墊越高的兩個原因：</strong></div>
+      <div class="cgrid" style="margin-top:8px">
+        <div class="ccard danger">
+          <div class="ccard-title">① 利潤沖不掉</div>
+          <div class="ccard-body">老闆沒有即時拿錢填補虛假的利潤缺口，利潤金額就會一直留在應收帳款裡。缺口越來越大，應收帳款越滾越高。</div>
+        </div>
+        <div class="ccard danger">
+          <div class="ccard-title">② 應收帳款被挪用炒股</div>
+          <div class="ccard-body">炒股需要大筆資金。老闆資金不足時，透過「早付假交易中的應付帳款、晚收應收帳款」，挪用公司資金去炒股。挪用越多，應收帳款越高。</div>
+        </div>
+      </div>
+
+      <div class="tbl-wrap" style="margin-top:1.25rem">
+        <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 6-2｜揚華科技應收帳款週轉天數異常（2012–2014 年合併資產負債表節錄）</div>
+        <table>
+          <tr><th>會計科目</th><th class="r">2014年度</th><th class="r">2013年度</th><th class="r">2012年度</th></tr>
+          <tr><td>應收帳款－關係人（千元）</td><td class="r">43,859</td><td class="r">68,180</td><td class="r">25,779</td></tr>
+          <tr><td>應收帳款－<strong>非關係人</strong>（千元）</td><td class="r warn-td">1,263,562</td><td class="r warn-td">697,619</td><td class="r warn-td">295,775</td></tr>
+          <tr><td>存貨（千元）</td><td class="r">55,545</td><td class="r">191,220</td><td class="r">28,199</td></tr>
+          <tr><td>流動資產總計（千元）</td><td class="r">1,970,311</td><td class="r">1,127,445</td><td class="r">524,688</td></tr>
+        </table>
+        <div style="margin-top:10px;background:var(--cw-l);border-left:2.5px solid var(--cw);padding:10px 14px;font-size:15px;color:var(--cw2)">
+          應收帳款週轉天數：2012年 <strong>188天</strong> → 2013年 <strong>190天</strong> → 2014年 <strong>163天</strong>。應收帳款帳齡超過 90 天是危險警訊。2015年6月揚華科技假交易掏空案爆發。
+        </div>
+        <div class="tbl-caption">資料來源：公開資訊觀測站</div>
+      </div>
+
+      <div class="hl red" style="margin-top:1rem">
+        <strong>黃金法則：</strong>如果一家公司與同業相較，同時出現「應收帳款天數過高」與「存貨天數過低」這兩個指標，做假帳的機率高達 9 成。
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <!-- 特徵2 -->
+    <div id="f2">
+      <div class="block-title" style="color:var(--cw2);font-size:18px">特徵 2：過低的存貨天數</div>
+      <div class="block-body">做假交易的公司，最常「忘記」備貨。因為他們太忙於安排虛假的交易，根本沒有時間去管真正的倉庫，導致存貨天數異常低。</div>
+
+      <div class="hl red">
+        正常公司存貨不宜超過 2 個月，但也不能太低（太低會沒原料生產或無貨可賣）。<strong>統一超商的存貨天數約 30 天；若一家製造業的存貨天數只有 5–8 天，幾乎是在告訴你它在做假交易。</strong>
+      </div>
+
+      <div class="tbl-wrap" style="margin-top:1rem">
+        <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 6-3｜仕欽科技 2005–2007 年資產負債表財務比率（節錄）</div>
+        <table>
+          <tr><th>財務指標</th><th class="r">2007年度</th><th class="r">2006年度</th><th class="r">2005年度</th></tr>
+          <tr><td>應收款項週轉率（次）</td><td class="r">205.05</td><td class="r">175.48</td><td class="r">135.68</td></tr>
+          <tr><td>應收款項收現日數（天）</td><td class="r">107.65</td><td class="r">53.62</td><td class="r">44.91</td></tr>
+          <tr><td>存貨週轉率（次）</td><td class="r">3.39</td><td class="r">6.80</td><td class="r">8.12</td></tr>
+          <tr><td><strong>平均售貨日數（天）</strong></td><td class="r warn-td">9.49</td><td class="r warn-td">9.4</td><td class="r warn-td">8.08</td></tr>
+          <tr><td>每股盈餘（元）</td><td class="r">（22.54）</td><td class="r">16.50</td><td class="r">（18.23）</td></tr>
+        </table>
+        <div style="margin-top:10px;background:var(--cw-l);border-left:2.5px solid var(--cw);padding:10px 14px;font-size:15px;color:var(--cw2)">
+          存貨週轉天數僅 <strong>3–8天</strong>（正常製造業應在 30 天以上）。仕欽科技 2006–2008 年虛列不實交易，總計虛增不實銷貨 63 億 8,600 萬餘元。
+        </div>
+        <div class="tbl-caption">資料來源：公開資訊觀測站，作者彙整</div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <!-- 特徵3 -->
+    <div id="f3">
+      <div class="block-title" style="color:var(--cw2);font-size:18px">特徵 3：過高的存貨天數</div>
+      <div class="block-body">另一種做假帳的方式，是故意把存貨天數做高——為了虛增存貨、虛增毛利。</div>
+
+      <div class="caution-box">
+        <strong>虛增存貨的邏輯：</strong>假設公司以 120 萬買入一批香蕉，以 200 萬賣出後，正常毛利是 80 萬。但若公司只把 120 萬的香蕉轉 70 萬到營業成本（謊稱還有 50 萬的貨沒賣出），帳上毛利就虛增到 130 萬。代價是帳上多了 50 萬的「虛假存貨」，導致存貨天數虛高。
+      </div>
+
+      <div class="tbl-wrap" style="margin-top:1rem">
+        <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 6-4｜東貝光電 2019 Q3 合併資產負債表（節錄）</div>
+        <table>
+          <tr>
+            <th>會計科目</th>
+            <th class="r">2019/Q3<br><small>（經查核）</small></th>
+            <th class="r">2018年度<br><small>（經查核）</small></th>
+            <th class="r">2018/Q3<br><small>（經查核）</small></th>
+          </tr>
+          <tr><td>現金（千元）</td><td class="r">172,540</td><td class="r">296,198</td><td class="r">358,344</td></tr>
+          <tr><td>應收票據及帳款（千元）</td><td class="r">2,422,354</td><td class="r">2,410,972</td><td class="r">2,528,981</td></tr>
+          <tr><td><strong>存貨（千元）</strong></td><td class="r warn-td">4,014,848</td><td class="r warn-td">849,056</td><td class="r warn-td">3,890,333</td></tr>
+          <tr><td>流動資產總計（千元）</td><td class="r">7,877,293</td><td class="r">7,945,392</td><td class="r">8,097,084</td></tr>
+          <tr><td>不動產、廠房及設備（千元）</td><td class="r">4,296,088</td><td class="r">4,349,367</td><td class="r">4,358,388</td></tr>
+          <tr><td>資產總計（千元）</td><td class="r">13,584,246</td><td class="r">14,148,842</td><td class="r">14,366,181</td></tr>
+        </table>
+        <div style="margin-top:10px;background:var(--cw-l);border-left:2.5px solid var(--cw);padding:10px 14px;font-size:15px;color:var(--cw2)">
+          2019 年 Q3 存貨天數高達 <strong>417天</strong>（2018年底只有 361天）。2020年台北地方法院判定東貝以此手法低計營業成本、高計帳上存貨。
+        </div>
+        <div class="tbl-caption">資料來源：公開資訊觀測站</div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <!-- 特徵4 -->
+    <div id="f4">
+      <div class="block-title" style="color:var(--cw2);font-size:18px">特徵 4：過高的不動產、廠房及設備</div>
+      <div class="block-body">應收帳款做假帳做到太高會引起查帳會計師及主管機關注意。較「聰明」的作法是把過高的應收帳款轉入不動產廠房及設備。</div>
+
+      <div class="cgrid" style="margin-top:.75rem">
+        <div class="ccard danger">
+          <div class="ccard-title">轉入廠房設備的手法</div>
+          <div class="ccard-body">應收帳款突然消失，而不動產廠房設備卻以高於市價方式大幅增加。「企業以高於市價購買資產」，這筆錢往往就是原本的應收帳款。</div>
+        </div>
+        <div class="ccard danger">
+          <div class="ccard-title">怎麼查？</div>
+          <div class="ccard-body">比較同業的廠房設備佔營業額比例。若一家公司的廠房設備金額與同業相差懸殊，且無法用業務擴張合理解釋，就是警訊。</div>
+        </div>
+      </div>
+      <div class="good-box">東貝光電 2020 年被台北地院判定：為掩飾假交易而高漲的應收帳款，將部分虛假應收帳款轉入不動產、廠房及設備。</div>
+    </div>
+
+    <div class="div"></div>
+
+    <!-- 特徵5 -->
+    <div id="f5">
+      <div class="block-title" style="color:var(--cw2);font-size:18px">特徵 5：過高的長期投資</div>
+      <div class="block-body">做假帳的公司也可能藉由高價投資股票的方式消化應收帳款或掏空公司資產。</div>
+
+      <div class="cgrid" style="margin-top:.75rem">
+        <div class="ccard">
+          <div class="ccard-title">佔股超過 50%</div>
+          <div class="ccard-body">被投資公司會被編入合併報表。過高的投資價格反映在商譽（Goodwill）或「無形資產」科目上。商譽過高是警訊。</div>
+        </div>
+        <div class="ccard">
+          <div class="ccard-title">佔股不到 50%</div>
+          <div class="ccard-body">反映在合併資產負債表的「按權益法之投資」科目上。若這個數字與同業相比異常高，且被投資公司又與本業無關，就要特別留意。</div>
+        </div>
+      </div>
+      <div class="caution-box">樂陞未爆案前，從事幾個大型併購案。其出事後重編之 2016 年財報中，曾對相關長期投資打約 26 億元的商譽及其他無形資產。</div>
+    </div>
+
+    <div class="div"></div>
+
+    <!-- 特徵6 -->
+    <div id="f6">
+      <div class="block-title" style="color:var(--cw2);font-size:18px">特徵 6：過高的現金</div>
+      <div class="block-body">現金多看起來是好事，但如果一家公司手握大量現金，卻同時借了大量短長期借款，就非常不合理。</div>
+
+      <div class="hl amber">
+        <strong>正常邏輯：</strong>既然有那麼多現金，為何不先把貸款還掉，省下高額利息？<br>
+        <strong>異常訊號：</strong>現金高＋借款也高，而且利息收入遠低於利息費用。這通常代表帳上的現金「有問題」——是假的，或者被鎖在海外動不了。
+      </div>
+
+      <div class="tbl-wrap" style="margin-top:1rem">
+        <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 6-5｜博達科技 2001–2002 年合併資產負債表（節錄）</div>
+        <table>
+          <tr><th>會計科目</th><th class="r">2002年度（千元）</th><th class="r">%</th><th class="r">2001年度（千元）</th><th class="r">%</th></tr>
+          <tr><td>現金及銀行存款</td><td class="r good-td">520,146</td><td class="r">3</td><td class="r">1,512,135</td><td class="r">8</td></tr>
+          <tr><td><strong>短期投資淨額</strong></td><td class="r good-td">2,887,728</td><td class="r">15</td><td class="r">3,459,805</td><td class="r">19</td></tr>
+          <tr><td colspan="5" style="font-size:13px;color:var(--ct3);background:var(--cr2)">▲ 現金及銀行存款＋短期投資淨額合計約 47 億元，可供該公司正常營運超過 8 個月</td></tr>
+          <tr><td><strong>短期借款及應付短期票券</strong></td><td class="r warn-td">1,800,342</td><td class="r">9</td><td class="r warn-td">1,945,014</td><td class="r">10</td></tr>
+          <tr><td><strong>一年內到期長期負債</strong></td><td class="r warn-td">605,800</td><td class="r">3</td><td class="r warn-td">497,061</td><td class="r">3</td></tr>
+          <tr><td><strong>應付可轉換公司債</strong></td><td class="r warn-td">2,904,123</td><td class="r">15</td><td class="r warn-td">3,095,848</td><td class="r">17</td></tr>
+          <tr><td><strong>長期借款</strong></td><td class="r warn-td">3,874,201</td><td class="r">20</td><td class="r warn-td">2,401,605</td><td class="r">13</td></tr>
+          <tr><td colspan="5" style="font-size:13px;color:var(--ct3);background:var(--cr2)">▲ 流動借款＋長期借款總計超過 <strong style="color:var(--cw2)">92 億元</strong>，遠超過 47 億現金</td></tr>
+          <tr><td>資產總計</td><td class="r">19,445,052</td><td class="r">100</td><td class="r">18,549,871</td><td class="r">100</td></tr>
+        </table>
+        <div class="tbl-caption">資料來源：公開資訊觀測站</div>
+      </div>
+
+      <div class="tbl-wrap" style="margin-top:1.25rem">
+        <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 6-6｜博達科技 2002 年損益表（節錄）：利息支出遠超過利息收入，不合常理</div>
+        <table>
+          <tr><th>會計科目</th><th class="r">2002年度（千元）</th><th class="r">%</th><th class="r">2001年度（千元）</th><th class="r">%</th></tr>
+          <tr><td>銷貨收入</td><td class="r">6,479,440</td><td class="r">100</td><td class="r">8,171,950</td><td class="r">100</td></tr>
+          <tr><td>銷貨成本</td><td class="r">1,118,914</td><td class="r">17</td><td class="r">1,660,870</td><td class="r">20</td></tr>
+          <tr><td>營業費用合計</td><td class="r">449,787</td><td class="r">7</td><td class="r">441,466</td><td class="r">5</td></tr>
+          <tr><td>營業利潤（淨損）</td><td class="r">（642,304）</td><td class="r">—</td><td class="r">1,232,605</td><td class="r">15</td></tr>
+          <tr><td><strong>利息收入</strong></td><td class="r good-td">19,462</td><td class="r">—</td><td class="r">51,573</td><td class="r">—</td></tr>
+          <tr><td><strong>利息費用（支出）</strong></td><td class="r warn-td">407,596</td><td class="r warn-td">6</td><td class="r warn-td">398,510</td><td class="r warn-td">5</td></tr>
+          <tr><td>本期淨利</td><td class="r">154,585</td><td class="r">3</td><td class="r">938,993</td><td class="r">13</td></tr>
+        </table>
+        <div style="margin-top:10px;background:var(--cw-l);border-left:2.5px solid var(--cw);padding:10px 14px;font-size:15px;color:var(--cw2)">
+          2002年利息收入僅 <strong>1,946萬元</strong>，但利息費用（支出）卻高達 <strong>4億756萬元</strong>。利息支出遠超過利息收入，不合常理。手握 47 億現金卻借款 92 億，多付 4 億利息。
+        </div>
+        <div class="tbl-caption">資料來源：公開資訊觀測站</div>
+      </div>
+
+      <div class="tbl-wrap" style="margin-top:1.25rem">
+        <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 6-7｜台積電與同業利息收入對比（2022年底）</div>
+        <table>
+          <tr><th></th><th class="r">台積電</th><th class="r">聯發科</th><th class="r">瑞昱</th><th class="r">康友（2019）</th></tr>
+          <tr><td>現金及投資</td><td class="r">1兆5,615億</td><td class="r">2,705億</td><td class="r">609億</td><td class="r">—</td></tr>
+          <tr><td><strong>利息收入</strong></td><td class="r good-td">224億</td><td class="r good-td">32億</td><td class="r good-td">10億</td><td class="r warn-td">56億</td></tr>
+          <tr><td>各式借款（含租賃）</td><td class="r">8,882億</td><td class="r">150億</td><td class="r">166億</td><td class="r">0.6億</td></tr>
+          <tr><td><strong>財務成本</strong></td><td class="r">117億</td><td class="r">4億</td><td class="r">2億</td><td class="r warn-td">1億</td></tr>
+        </table>
+        <div style="margin-top:10px;background:var(--cw-l);border-left:2.5px solid var(--cw);padding:10px 14px;font-size:15px;color:var(--cw2)">
+          康友 2019 年：借款只有 0.6 億，財務成本才 1 億，但利息收入卻高達 56 億——利息收入竟然是財務成本的 56 倍！反觀台積電、聯發科、瑞昱，利息收入都遠高於財務成本，符合正常邏輯。康友的數字極不合理。
+        </div>
+        <div class="tbl-caption">資料來源：作者整理</div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <!-- 特徵7 -->
+    <div id="f7">
+      <div class="block-title" style="color:var(--cw2);font-size:18px">特徵 7：過高的雜項資產</div>
+      <div class="block-body">大股東挪用公司資金的方式通常有三種，都會在財報上產生奇怪的雜項資產：</div>
+
+      <div class="steps" style="margin-top:.75rem">
+        <div class="step">
+          <div class="step-num red">①</div>
+          <div class="step-text"><strong>透過人頭公司交易</strong>——再透過延遲退款，形成高額「應收帳款」</div>
+        </div>
+        <div class="step">
+          <div class="step-num red">②</div>
+          <div class="step-text"><strong>透過其他交易產生其他應收款</strong>——在報表上產生高額的「其他應收款」</div>
+        </div>
+        <div class="step">
+          <div class="step-num red">③</div>
+          <div class="step-text"><strong>透過租金等方式將資金撥出</strong>——在報表上產生高額「預付材料款」或「存出保證金」</div>
+        </div>
+      </div>
+
+      <div class="warn-box">
+        <strong>警訊：</strong>當一家公司長期一直存在高額的「其他應收款」、「預付款項」或「存出保證金」等七雜八雜的資產，而同業沒有或金額很低時，投資人就要小心了。
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 非財務警訊 ===== -->
+  <section class="section" id="signals">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--cw)"></span>
+      <h3>製造假帳常見的 6 大非財務警訊</h3>
+      <span class="section-page">p.278–285</span>
+    </div>
+
+    <div class="block-body">做假帳的公司在被發現前，除了從財報數字異常察覺外，還可以透過以下 6 個非財務警訊加強判斷。這些訊號之部分項目通常會在假帳爆發前「先後」或「同時」出現。</div>
+
+    <div class="hl amber" style="margin-top:1rem">
+      這 6 個警訊不是每個都會出現，但只要出現 2 個以上，就應該認真重新檢視這家公司的財報，甚至考慮離場。
+    </div>
+
+    <div class="signal-grid" style="margin-top:1.25rem">
+      <div class="signal-card red">
+        <div class="signal-hd">
+          <div class="signal-num">1</div>
+          <div class="signal-title">老闆的誠信被質疑</div>
+        </div>
+        <div class="signal-bd">
+          市場上有耳語或報導這家公司異常。老闆平時做生意手法不按牌理出牌，或行事不按一般誠信原則，就是警訊。<br><br>
+          <strong>和旺案例：</strong>市場傳言老闆去澳門豪賭欠下賭債，後來他承認這幾年為了公司營運及個人花費，陸續向地下錢莊借了約 10 億元，必須不斷挪用公司資產、出售土地價款、盜用公司支票，以清償個人債務。
+        </div>
+      </div>
+
+      <div class="signal-card red">
+        <div class="signal-hd">
+          <div class="signal-num">2</div>
+          <div class="signal-title">經營階層變動</div>
+        </div>
+        <div class="signal-bd">
+          做假帳情況惡化時，通常有 4 種人會離開：財務長或會計長、獨立董事、一般董事、董事長。<br><br>
+          <strong>先行指標是財務長或會計長。</strong>因為財務長最清楚，最不喜歡做假帳；一開始配合是因為相信董事長有能力解決，但最終撐不住就先逃。財務人員的異動是先行指標。<br><br>
+          <strong>獨董離開時通常已太晚了</strong>——因為獨董大多數是被矇騙的，等到他們知道並請辭，紙已燒起來了。
+        </div>
+      </div>
+
+      <div class="signal-card amber">
+        <div class="signal-hd">
+          <div class="signal-num">3</div>
+          <div class="signal-title">股票價格異常飆漲</div>
+        </div>
+        <div class="signal-bd">
+          當大風來時連豬也會飛，但當景氣不錯、大家都飛到 508 公尺的 101 大樓高度，此時若有一隻豬飛到 3,952 公尺的玉山高度，恐怕就是警訊了。<br><br>
+          一家公司的股價與擁有相同技術且規模相當的同業，不會相差太遠。<strong>如果一家公司股價不同於同業，也與公司未來前景不相符，通常暗示這家公司在炒股票。</strong>
+        </div>
+      </div>
+
+      <div class="signal-card amber">
+        <div class="signal-hd">
+          <div class="signal-num">4</div>
+          <div class="signal-title">市場上利多消息不斷</div>
+        </div>
+        <div class="signal-bd">
+          炒作股票最有效的手段是透過媒體或網路散布利多消息。<strong>一家公司如果不斷放出利多消息，發言人又常常在做澄清，也往往暗示公司在炒股票。</strong><br><br>
+          投資人可以查公開資訊觀測站的「重大訊息與公告」，若發言人一再說「這則消息是媒體善意的揣測與報導，公司不予置評」，但連續澄清好幾次，通常就是公司在放消息。
+        </div>
+      </div>
+
+      <div class="signal-card red">
+        <div class="signal-hd">
+          <div class="signal-num">5</div>
+          <div class="signal-title">企業處於被借殼後初期</div>
+        </div>
+        <div class="signal-bd">
+          台灣約有 300 家殭屍股（基本上沒什麼營收、獲利不佳、股票沒什麼交易的公司）。借殼後合理的 2 年成長之後，<strong>如果第 3 年還在大幅成長，憑什麼？</strong><br><br>
+          財務不好而去借殼的公司，成功借殼後很可能炒作股票，再以不實財報拉抬股價。建議投資人對借殼成功後 <strong>3–4 年內的公司</strong>，一定要多一分小心，尤其是利多消息不斷、營收大幅成長的公司。
+        </div>
+      </div>
+
+      <div class="signal-card amber">
+        <div class="signal-hd">
+          <div class="signal-num">6</div>
+          <div class="signal-title">不太好的產業卻獲利異常</div>
+        </div>
+        <div class="signal-bd">
+          當產業景氣不好時，通常產業內只有經營效率最好的公司會賺錢。<strong>當一家公司沒有明顯的強項，收入與獲利卻比同業高很多，就是警訊。</strong><br><br>
+          印刷電路板廠雅新：景氣差的當時，除非做的是軟板或高階板，否則不容易賺錢。但技術及產品普普通通的雅新，每年卻都能穩定賺到 EPS 2 元以上，實在太厲害、太穩定了，最後董事長終於承認增營收做假帳。
+        </div>
+      </div>
+    </div>
+
+    <div class="case-strip" style="margin-top:1.5rem">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cw)"></span><span class="case-title">真實案例全覽：揚華科技的借殼假帳掏空案</span><span class="case-tag tag-warn">台灣</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">
+        <strong>揚華科技（前身「金美克能」）時間軸：</strong><br><br>
+        <strong>2012年3月</strong>：被氮晶科技借殼後，改名揚華科技，主業轉型為綠能產業，改作 LED 生意。借殼當年起便涉嫌聯合字加、友旺、駿熠、佳營、百徽等 20 餘家公司，進行虛假交易數十億元。<br><br>
+        <strong>2012–2014年</strong>：三年連續出現驚人的業績成長數據（+91%、+136%、+98%）。但是營業活動的現金流量卻每年都是負的。<br><br>
+        <strong>2014年借殼後三年的異常：</strong>
+        <div class="tbl-wrap" style="margin-top:10px">
+          <table>
+            <tr><th></th><th class="r">2014年</th><th class="r">2013年</th><th class="r">2012年</th></tr>
+            <tr><td>營業收入（億元）</td><td class="r">29.2</td><td class="r">14.7</td><td class="r">6.3</td></tr>
+            <tr><td>營收成長率</td><td class="r warn-td">+98%</td><td class="r warn-td">+136%</td><td class="r warn-td">+91%</td></tr>
+            <tr><td>營業活動現金流入（出）（億元）</td><td class="r warn-td">-0.56</td><td class="r warn-td">-2.62</td><td class="r warn-td">-1.99</td></tr>
+          </table>
+          <div style="margin-top:8px;font-size:13px;color:var(--cw2);font-weight:600">營收自2012年起連續三年大幅成長，但營業活動的現金流卻每年都是負的。</div>
+        </div>
+        <br>
+        <strong>2015年6月</strong>：揚華科技爆發假交易掏空案，調查局調查後確認涉嫌虛假交易數十億元，並以不實財務報告陸續辦理現金增資及發行可轉換公司債，向投資大眾募集資金。
+        <div class="hl red" style="margin-top:12px">一家公司被借殼後，如果<strong>連續 2 年成長是合理的</strong>（因為借殼帶入新業務），但是<strong>超過 3 年就不正常了</strong>。加上營業活動現金流持續為負，就應該馬上提高警覺。</div>
+      </div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cw)"></span><span class="case-title">博達科技：手握 47 億現金卻還要借 92 億的謎</span><span class="case-tag tag-warn">台灣</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">
+        博達科技自 1999 年 12 月以每股 85.5 元在台灣證券交易所上市後，股價一路上揚，2000 年 4 月股價飆漲至 368 元，登上股王寶座，2002 年更被媒體評為「不景氣時代的投資瑰寶」。<br><br>
+        但該公司自 1999 年起即以循環交易的方式美化財報，製造 160 億元的假交易及 1.7 億美元假存款。2003 年本業首度出現虧損，應收帳款過高問題加重，平均收款天數達 347 天。<br><br>
+        <strong>博達的假帳揭秘：</strong><br>
+        為減少應收帳款金額，博達將幾十億元的應收帳款「賣」給國外銀行，但同時與銀行協議：在銀行尚未收到應收帳款的錢之前，博達不能動用這筆款項。換句話說，搞了半天這個交易有做等於沒做——只是在交易帳上虛減應收帳款、虛增現金。<br><br>
+        2004 年爆發做假帳醜聞，博達透過在葉素菲擔任非獨董期間，透過虛偽增營業空公司資產 63 億元。
+        <div class="hl red" style="margin-top:12px"><strong>警訊：</strong>手握 47 億現金卻借款 92 億，利息收入才 1,946 萬，利息費用卻高達 4 億元。這種「利息收入遠低於利息費用」的現象，清楚告訴你帳上的現金有問題。</div>
+      </div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--ca)"></span><span class="case-title">上市公司最常見的醜聞：虛增營收（竹縣生技廠做假帳案）</span><span class="case-tag tag-warn">台灣</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">
+        新竹縣 1 名 55 歲朱姓男子，於 2003 年創立 XX 幹細胞公司、XX 農業基因、XX 生化及 XX 生物企業社，同時擔任實際負責人。<strong>為了讓公司順利上市櫃</strong>，委由無會計師執照的歐姓男子負責修改公司不良財務報表，但 2 人授意歐男虛列資本、填製不實會計憑證、會計帳簿報表及財務報表，還利用兒女及友人當人頭，並隱匿與子公司交易的事實，虛增營業額，致使 2009 年及 2010 年財報不實。<br><br>
+        由於投資者投資數千萬入股後，發現有異，向調查局舉發，才揭發此事。新竹地院合議庭法官依違反公司法、商業會計法判朱男有期徒刑 2 年、緩刑 5 年，應捐國庫 100 萬元；彭女則違反公司法及商業會計法判 1 年 6 個月、緩刑 4 年，也應捐國庫 60 萬元。<br><br>
+        <span style="font-size:13px;color:var(--ct3)">資料來源：《蘋果日報》即時新聞 2014/06/17</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 重點整理 ===== -->
+  <section class="section" id="summary">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--ca)"></span>
+      <h3>⭐ 重點整理</h3>
+      <span class="section-page">第6章總結</span>
+    </div>
+
+    <div class="block-title">財報 7 大特徵一覽</div>
+    <div class="tbl-wrap">
+      <table class="summary-tbl">
+        <tr>
+          <th>特徵</th>
+          <th>異常方向</th>
+          <th>代表性案例</th>
+          <th>搭配第3章指標</th>
+        </tr>
+        <tr>
+          <td><strong>應收帳款天數</strong></td>
+          <td class="warn-td">過高（超過90天）</td>
+          <td>揚華科技（163–188天）</td>
+          <td>指標二</td>
+        </tr>
+        <tr>
+          <td><strong>存貨天數</strong></td>
+          <td class="warn-td">過低（低於5天）</td>
+          <td>仕欽科技（3–8天）</td>
+          <td>指標三</td>
+        </tr>
+        <tr>
+          <td><strong>存貨天數</strong></td>
+          <td class="warn-td">過高（超過正常2倍）</td>
+          <td>東貝光電（417天）</td>
+          <td>指標三</td>
+        </tr>
+        <tr>
+          <td><strong>不動產廠房設備</strong></td>
+          <td class="warn-td">過高（超過同業比例）</td>
+          <td>東貝光電（應收帳款轉入）</td>
+          <td>指標五</td>
+        </tr>
+        <tr>
+          <td><strong>長期投資</strong></td>
+          <td class="warn-td">過高（商譽、無形資產異常）</td>
+          <td>樂陞（商譽打26億）</td>
+          <td>指標四</td>
+        </tr>
+        <tr>
+          <td><strong>現金</strong></td>
+          <td class="warn-td">高現金＋高借款＋利息收入遠低於利息費用</td>
+          <td>博達（現金47億但借款92億）</td>
+          <td>指標一</td>
+        </tr>
+        <tr>
+          <td><strong>雜項資產</strong></td>
+          <td class="warn-td">其他應收款、預付款、存出保證金過高</td>
+          <td>和旺建設（各式掏空手法）</td>
+          <td>—</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="div"></div>
+
+    <div class="block-title">6 大非財務警訊速查</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>#</th><th>警訊</th><th>先行性</th><th>說明</th></tr>
+        <tr><td><span class="badge br">最優先</span></td><td><strong>財務長離職</strong></td><td class="good-td">最先出現</td><td>財務長最清楚，也最不想做假帳，一旦離開代表局面已惡化</td></tr>
+        <tr><td><span class="badge br">重要</span></td><td><strong>老闆誠信問題</strong></td><td>早期</td><td>市場耳語、賭博欠債、行事不按常理——品格問題比財報數字更早顯現</td></tr>
+        <tr><td><span class="badge ba">注意</span></td><td><strong>股價異常飆漲</strong></td><td>中期</td><td>與同業及公司基本面完全脫鉤的股價，通常是在炒股</td></tr>
+        <tr><td><span class="badge ba">注意</span></td><td><strong>利多消息不斷</strong></td><td>中期</td><td>發言人反覆澄清＝公司自己在放消息</td></tr>
+        <tr><td><span class="badge ba">注意</span></td><td><strong>借殼後第3年仍大幅成長</strong></td><td>中期</td><td>借殼後2年成長合理，第3年起就不正常</td></tr>
+        <tr><td><span class="badge bp">參考</span></td><td><strong>爛產業卻獲利異常</strong></td><td>晚期</td><td>沒有明顯強項卻超越同業，太穩定才是問題</td></tr>
+      </table>
+    </div>
+
+    <div class="div"></div>
+
+    <div class="block-title">三個核心心法</div>
+    <div class="cgrid3" style="margin-top:.75rem">
+      <div class="ccard">
+        <div class="ccard-title">① 兩個同時出現 = 9 成假帳</div>
+        <div class="ccard-body">應收帳款天數過高＋存貨天數過低，這兩個指標同時出現，做假帳的機率高達 9 成。這是最強的組合警訊。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">② 財報是魔鏡，現金流是照妖鏡</div>
+        <div class="ccard-body">再漂亮的損益表，只要「營業活動現金流量」長期為負，就代表賺的錢不是真實現金。現金流量表是假帳最難偽造的報表。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">③ 第3章是標準值，第6章是警示器</div>
+        <div class="ccard-body">第3章教你正常公司的指標應該是什麼值；第6章教你用同樣指標識別異常。兩章要交叉對照，才能真正看懂財報。</div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <div class="block-title" style="margin-bottom:.75rem">台積電對照：真正優等生的財報什麼樣子</div>
+    <div class="good-box">
+      台積電 2022 年：現金 1.34 兆元，借款 8,882 億，但利息收入 224 億遠高於財務成本 117 億——這才是正常的「有現金、有借款、利息合理」的財報。應收帳款天數 37 天（遠低於警戒的 90 天）、存貨天數 88 天（高但因高階製程合理）。沒有一項觸及任何特徵。
+    </div>
+
+    <div class="div"></div>
+
+    <div class="block-title">作者結語</div>
+    <div class="hl" style="margin-top:.75rem">
+      財報是釣竿，不是魚。期許讀者了解閱讀財報的方法之後，再加上自己研究的產業知識，才能真正從財報數字中看到企業經營的全貌。所有的書籍和課程裡的觀念，都是給予釣竿，而非直接給魚吃。
+    </div>
+  </section>
+
+</main>
+
+<script>
+function navTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const match = [...document.querySelectorAll('.nav-item')].find(n => n.getAttribute('onclick')?.includes(id));
+  if (match) match.classList.add('active');
+}
+function togCase(hd) {
+  const bd = hd.nextElementSibling;
+  const ch = hd.querySelector('.case-chev');
+  bd.classList.toggle('open');
+  ch.classList.toggle('open');
+}
+</script>
+</body>
+</html>
