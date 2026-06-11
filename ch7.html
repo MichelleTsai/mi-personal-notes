@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第7章：實戰分析工具</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--cr:#F5F0E8;--cr2:#EDE5D8;--cr3:#E2D7C6;--cr4:#D4C8B4;--cr5:#C0B09A;--ct:#2C2420;--ct2:#5C4A3A;--ct3:#8B7560;--ct4:#B09A82;--ca:#8B6B4A;--ca2:#6B4F32;--ca3:#4A3320;--ca-l:#F0E4D4;--ca-ll:#FAF5EE;--cg:#7A8C72;--cg2:#5A6C52;--cg-l:#EAF0E6;--cb:#7A8C9A;--cb2:#5A6C7A;--cb-l:#E6EDF2;--cw:#C4756A;--cw2:#A05548;--cw-l:#F5EAE8;--amber:#A07838;--amber-l:#F5ECD8;--radius:10px;--radius-lg:14px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans TC',-apple-system,sans-serif;background:var(--cr);color:var(--ct);line-height:1.72;font-size:17px;-webkit-font-smoothing:antialiased;}
+  h2,h3{font-family:'Noto Serif TC',serif;font-weight:700;letter-spacing:.02em;}
+  strong,b{font-weight:600;color:var(--ca2);}
+
+  .sidebar{position:fixed;top:0;left:0;width:260px;height:100vh;background:var(--ca-ll);border-right:1px solid var(--cr4);overflow-y:auto;z-index:100;padding:0 0 2rem;}
+  .sidebar-logo{padding:1.4rem 1.2rem 1rem;border-bottom:1px solid var(--cr4);background:var(--ca-l);}
+  .sidebar-logo h1{font-family:'Noto Serif TC',serif;font-size:14px;font-weight:700;color:var(--ca2);line-height:1.5;}
+  .sidebar-logo p{font-size:11px;color:var(--ct4);margin-top:4px;}
+  .nav-section{padding:.4rem 0;}
+  .nav-section-label{font-size:10px;font-weight:600;color:var(--ct4);text-transform:uppercase;letter-spacing:.12em;padding:.6rem 1.2rem .3rem;}
+  .nav-item{display:block;padding:.5rem 1rem .5rem 1.3rem;font-size:14px;color:var(--ct2);text-decoration:none;border-left:2px solid transparent;transition:all .15s;cursor:pointer;font-weight:400;}
+  .nav-item:hover{color:var(--ct);background:var(--cr2);}
+  .nav-item.active{color:var(--ca2);border-left-color:var(--ca);background:var(--ca-l);font-weight:600;}
+  .home-btn-sb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:.55rem 1rem .55rem 1.3rem;border-top:1px solid var(--cr4);margin-top:.5rem;transition:color .15s;}
+  .home-btn-sb:hover{color:var(--ca2);background:var(--ca-l);}
+  .main{margin-left:260px;padding:2.5rem 3.5rem 5rem;}
+  .home-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:5px 13px;border-radius:20px;border:1px solid var(--cr4);background:var(--ca-ll);transition:all .15s;margin-bottom:1.5rem;}
+  .home-btn:hover{background:var(--ca-l);color:var(--ca2);}
+  .page-hero{margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--cr4);}
+  .hero-tag{font-size:11px;font-weight:600;color:var(--ca2);background:var(--ca-l);padding:4px 13px;border-radius:20px;display:inline-block;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.08em;border:1px solid var(--cr5);}
+  .page-hero h2{font-size:30px;font-weight:700;color:var(--ct);margin-bottom:.4rem;}
+  .page-hero p{font-size:16px;color:var(--ct3);}
+  .section{margin-bottom:3rem;scroll-margin-top:1.5rem;}
+  .section-header{display:flex;align-items:center;gap:10px;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid var(--cr4);}
+  .section-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;background:var(--ca);}
+  .section-header h3{font-size:21px;font-weight:700;color:var(--ct);flex:1;}
+  .hl{border-left:2.5px solid var(--ca);background:var(--ca-ll);padding:12px 16px;margin:12px 0;font-size:16px;line-height:1.7;color:var(--ct2);}
+  .good-box{border-left:2.5px solid var(--cg);background:var(--cg-l);padding:13px 16px;margin:12px 0;font-size:16px;color:var(--cg2);}
+  .div{border:none;border-top:1px solid var(--cr4);margin:1.75rem 0;}
+
+  /* ── 學習地圖 ── */
+  .map-wrap{position:relative;margin:1.5rem 0;}
+
+  /* 章節筆記列 */
+  .map-row{display:grid;grid-template-columns:44px 1fr 20px 1fr;gap:0;margin-bottom:6px;align-items:stretch;}
+  .map-row.tool-row{grid-template-columns:44px 1fr;}
+
+  /* 節點圓圈 */
+  .node-col{display:flex;flex-direction:column;align-items:center;padding-top:2px;}
+  .node-circle{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif TC',serif;font-size:13px;font-weight:700;flex-shrink:0;border:2px solid transparent;transition:transform .15s;}
+  .node-circle:hover{transform:scale(1.08);}
+  .node-line{width:2px;flex:1;min-height:8px;background:var(--cr4);margin-top:2px;}
+  .node-line.none{background:transparent;}
+
+  /* 章節卡 */
+  .ch-card{border:1px solid var(--cr4);border-radius:var(--radius-lg);overflow:hidden;text-decoration:none;transition:box-shadow .18s,transform .15s;display:block;}
+  .ch-card:hover{box-shadow:0 6px 20px rgba(85,60,40,.1);transform:translateY(-1px);}
+  .ch-card-hd{padding:11px 14px 8px;display:flex;align-items:center;gap:10px;}
+  .ch-num{font-size:10px;font-weight:600;color:var(--ct4);text-transform:uppercase;letter-spacing:.08em;}
+  .ch-title{font-size:15px;font-weight:600;color:var(--ct);flex:1;line-height:1.3;}
+  .ch-tags{padding:0 14px 10px;display:flex;flex-wrap:wrap;gap:5px;}
+  .ch-tag{font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500;}
+
+  /* 箭頭連接列 */
+  .arrow-col{display:flex;align-items:center;justify-content:center;color:var(--cr5);font-size:16px;padding:0 4px;}
+
+  /* 工具卡 */
+  .tool-card{border:1px solid var(--cr4);border-radius:var(--radius-lg);overflow:hidden;text-decoration:none;transition:box-shadow .18s,transform .15s;display:block;margin-bottom:8px;}
+  .tool-card:hover{box-shadow:0 6px 20px rgba(85,60,40,.1);transform:translateY(-1px);}
+  .tool-hd{padding:12px 15px;display:flex;align-items:center;gap:12px;}
+  .tool-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;text-transform:uppercase;letter-spacing:.06em;}
+  .tool-title{font-size:15px;font-weight:600;color:var(--ct);flex:1;}
+  .tool-desc{padding:0 15px 12px;font-size:14px;color:var(--ct3);line-height:1.6;}
+  .tool-when{padding:0 15px 12px;font-size:13px;color:var(--ct4);}
+  .tool-when span{color:var(--ca2);font-weight:500;}
+  .tool-tags{padding:0 15px 12px;display:flex;flex-wrap:wrap;gap:5px;}
+  .ttag{font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500;}
+
+  /* 連接線區域 */
+  .connector{display:flex;align-items:center;gap:0;margin:10px 0 10px 22px;}
+  .conn-line{width:2px;height:30px;background:var(--cr4);margin-left:0;}
+  .conn-label{font-size:12px;color:var(--ct4);margin-left:10px;}
+
+  /* 情境選擇器 */
+  .scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:.75rem;}
+  .sc-card{border:1px solid var(--cr4);border-radius:var(--radius-lg);padding:14px 16px;background:var(--ca-ll);cursor:pointer;transition:all .15s;}
+  .sc-card:hover,.sc-card.active{background:var(--ca-l);border-color:var(--ca);}
+  .sc-num{font-size:11px;font-weight:600;color:var(--ct4);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;}
+  .sc-title{font-size:15px;font-weight:600;color:var(--ca2);margin-bottom:4px;}
+  .sc-desc{font-size:13px;color:var(--ct3);line-height:1.55;}
+  .sc-path{margin-top:12px;padding:10px 14px;background:var(--cr2);border-radius:8px;font-size:14px;color:var(--ct2);line-height:1.65;display:none;}
+  .sc-path.show{display:block;}
+  .sc-path a{color:var(--ca2);font-weight:600;text-decoration:none;}
+  .sc-path a:hover{text-decoration:underline;}
+
+  /* version table */
+  .ver-tbl{width:100%;border-collapse:collapse;font-size:14px;margin-top:.75rem;}
+  .ver-tbl th{background:var(--cr2);padding:9px 13px;text-align:left;font-weight:600;color:var(--ct3);font-size:12px;border-bottom:1px solid var(--cr4);text-transform:uppercase;letter-spacing:.05em;}
+  .ver-tbl td{padding:9px 13px;border-bottom:1px solid var(--cr3);vertical-align:top;color:var(--ct);}
+  .ver-tbl tr:last-child td{border-bottom:none;}
+  .ver-tbl tr:hover td{background:var(--ca-ll);}
+  .ver-tbl a{color:var(--ca2);font-weight:600;text-decoration:none;}
+  .ver-tbl a:hover{text-decoration:underline;}
+  .dot-yes{color:var(--cg2);font-weight:700;}
+  .dot-no{color:var(--cr4);}
+
+  @media(max-width:700px){
+    .sidebar{display:none;}
+    .main{margin-left:0;padding:1.25rem;}
+    .map-row{grid-template-columns:36px 1fr;}
+    .arrow-col{display:none;}
+    .scenario-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <h1>第7章：實戰分析工具</h1>
+    <p>大會計師教你從財報數字看懂經營本質</p>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">本章</div>
+    <a class="nav-item active" onclick="navTo('map')">學習地圖</a>
+    <a class="nav-item" onclick="navTo('scenario')">我現在想做什麼？</a>
+    <a class="nav-item" onclick="navTo('tools')">5個工具版本</a>
+  </div>
+  <div style="padding:.75rem 1rem 1rem;margin-top:.5rem;">
+    <a class="home-btn-sb" href="https://michelletsai.github.io/mi-personal-notes/index.html">← 回到目錄首頁</a>
+  </div>
+</nav>
+
+<main class="main">
+  <a class="home-btn" href="https://michelletsai.github.io/mi-personal-notes/index.html">← 回到目錄首頁</a>
+
+  <div class="page-hero">
+    <div class="hero-tag">第7章 · 實戰工具</div>
+    <h2>財報判讀實戰工具</h2>
+    <p>讀完哪章，就用哪個工具練習——讀書筆記和工具是一體兩面</p>
+  </div>
+
+  <!-- ── 學習地圖 ── -->
+  <section class="section" id="map">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>學習地圖——讀到哪，用哪個</h3>
+    </div>
+    <div class="block-body" style="font-size:16px;color:var(--ct2);margin-bottom:1.5rem">
+      每讀完一章，右邊的工具就可以搭配練習。左欄是讀書筆記，右欄是對應的工具功能。
+    </div>
+
+    <div class="map-wrap">
+
+      <!-- CH1 -->
+      <div class="map-row" style="margin-bottom:14px">
+        <div class="node-col">
+          <div class="node-circle" style="background:var(--ca-l);border-color:var(--ca);color:var(--ca2)">1</div>
+          <div class="node-line"></div>
+        </div>
+        <a class="ch-card" href="https://michelletsai.github.io/mi-personal-notes/ch1.html" style="background:var(--ca-ll)">
+          <div class="ch-card-hd">
+            <div>
+              <div class="ch-num">CH1 · p.025–056</div>
+              <div class="ch-title">對數字有感</div>
+            </div>
+          </div>
+          <div class="ch-tags">
+            <span class="ch-tag" style="background:var(--ca-l);color:var(--ca2)">財報基礎概念</span>
+            <span class="ch-tag" style="background:var(--ca-l);color:var(--ca2)">三張主表</span>
+            <span class="ch-tag" style="background:var(--ca-l);color:var(--ca2)">閱讀方法</span>
+          </div>
+        </a>
+        <div class="arrow-col">→</div>
+        <div style="display:flex;align-items:center;padding:12px 14px;background:var(--cr2);border:1px solid var(--cr4);border-radius:var(--radius-lg);font-size:14px;color:var(--ct3);">
+          先建立概念，這章不需要特別搭配工具。讀完後進入 CH2 再開始用工具。
+        </div>
+      </div>
+
+      <!-- CH2 -->
+      <div class="map-row" style="margin-bottom:14px">
+        <div class="node-col">
+          <div class="node-circle" style="background:var(--cb-l);border-color:var(--cb);color:var(--cb2)">2</div>
+          <div class="node-line"></div>
+        </div>
+        <a class="ch-card" href="https://michelletsai.github.io/mi-personal-notes/ch2.html" style="background:var(--ca-ll)">
+          <div class="ch-card-hd">
+            <div>
+              <div class="ch-num">CH2 · p.057–098</div>
+              <div class="ch-title">評估企業的真實身價</div>
+            </div>
+          </div>
+          <div class="ch-tags">
+            <span class="ch-tag" style="background:var(--cb-l);color:var(--cb2)">資產負債表</span>
+            <span class="ch-tag" style="background:var(--cb-l);color:var(--cb2)">7大宏觀標準</span>
+            <span class="ch-tag" style="background:var(--cb-l);color:var(--cb2)">負債比率</span>
+            <span class="ch-tag" style="background:var(--cb-l);color:var(--cb2)">流動比率</span>
+          </div>
+        </a>
+        <div class="arrow-col">→</div>
+        <a class="ch-card" href="https://michelletsai.github.io/mi-personal-notes/finance-checklist.html#s1" style="background:var(--ca-ll)">
+          <div class="ch-card-hd">
+            <div>
+              <div class="ch-num">搭配工具 · V1</div>
+              <div class="ch-title">Step 1 財務安全檢查</div>
+            </div>
+          </div>
+          <div class="ch-tags">
+            <span class="ch-tag" style="background:var(--cg-l);color:var(--cg2)">負債比率區間</span>
+            <span class="ch-tag" style="background:var(--cg-l);color:var(--cg2)">流動比率區間</span>
+            <span class="ch-tag" style="background:var(--cg-l);color:var(--cg2)">台積電對照</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- CH3 -->
+      <div class="map-row" style="margin-bottom:14px">
+        <div class="node-col">
+          <div class="node-circle" style="background:var(--amber-l);border-color:var(--amber);color:var(--amber)">3</div>
+          <div class="node-line"></div>
+        </div>
+        <a class="ch-card" href="https://michelletsai.github.io/mi-personal-notes/ch3.html" style="background:var(--ca-ll)">
+          <div class="ch-card-hd">
+            <div>
+              <div class="ch-num">CH3 · p.099–159</div>
+              <div class="ch-title">抓出數字背後的魔鬼</div>
+            </div>
+          </div>
+          <div class="ch-tags">
+            <span class="ch-tag" style="background:var(--amber-l);color:var(--amber)">微觀指標</span>
+            <span class="ch-tag" style="background:var(--amber-l);color:var(--amber)">DSO 應收天數</span>
+            <span class="ch-tag" style="background:var(--amber-l);color:var(--amber)">DIO 存貨天數</span>
+            <span class="ch-tag" style="background:var(--amber-l);color:var(--amber)">廠房設備</span>
+          </div>
+        </a>
+        <div class="arrow-col">→</div>
+        <a class="ch-card" href="https://michelletsai.github.io/mi-personal-notes/finance-checklist.html#s4" style="background:var(--ca-ll)">
+          <div class="ch-card-hd">
+            <div>
+              <div class="ch-num">搭配工具 · V1</div>
+              <div class="ch-title">Step 4 現金週轉效率</div>
+            </div>
+          </div>
+          <div class="ch-tags">
+            <span class="ch-tag" style="background:var(--cg-l);color:var(--cg2)">DSO / DIO 警訊門檻</span>
+            <span class="ch-tag" style="background:var(--cg-l);color:var(--cg2)">CCC 計算</span>
+            <span class="ch-tag" style="background:var(--cg-l);color:var(--cg2)">趨勢判讀</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- CH4 -->
+      <div class="map-row" style="margin-bottom:14px">
+        <div class="node-col">
+          <div class="node-circle" style="background:var(--cg-l);border-color:var(--cg);color:var(--cg2)">4</div>
+          <div class="node-line"></div>
+        </div>
+        <a class="ch-card" href="https://michelletsai.github.io/mi-personal-notes/ch4.html" style="background:var(--ca-ll)">
+          <div class="ch-card-hd">
+            <div>
+              <div class="ch-num">CH4 · p.160–218</div>
+              <div class="ch-title">具備結構性獲利能力</div>
+            </div>
+          </div>
+          <div class="ch-tags">
+            <span class="ch-tag" style="background:var(--cg-l);color:var(--cg2)">損益表</span>
+            <span class="ch-tag" style="background:var(--cg-l);color:var(--cg2)">毛利率穩定性</span>
+            <span class="ch-tag" style="background:var(--cg-l);color:var(--cg2)">EPS vs ROE</span>
+            <span class="ch-tag" style="background:var(--cg-l);color:var(--cg2)">費用率</span>
+          </div>
+        </a>
+        <div class="arrow-col">→</div>
+        <a class="ch-card" href="https://michelletsai.github.io/mi-personal-notes/finance-checklist.html#s2" style="background:var(--ca-ll)">
+          <div class="ch-card-hd">
+            <div>
+              <div class="ch-num">搭配工具 · V1 + V5</div>
+              <div class="ch-title">Step 2+5 獲利品質＋費用結構</div>
+            </div>
+          </div>
+          <div class="ch-tags">
+            <span class="ch-tag" style="background:var(--cg-l);color:var(--cg2)">5種護城河類型</span>
+            <span class="ch-tag" style="background:var(--cg-l);color:var(--cg2)">ROE 自動計算</span>
+            <span class="ch-tag" style="background:var(--cg-l);color:var(--cg2)">費用率比較</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- CH5 -->
+      <div class="map-row" style="margin-bottom:14px">
+        <div class="node-col">
+          <div class="node-circle" style="background:var(--cb-l);border-color:var(--cb);color:var(--cb2)">5</div>
+          <div class="node-line"></div>
+        </div>
+        <a class="ch-card" href="https://michelletsai.github.io/mi-personal-notes/ch5.html" style="background:var(--ca-ll)">
+          <div class="ch-card-hd">
+            <div>
+              <div class="ch-num">CH5 · p.220–254</div>
+              <div class="ch-title">真賺錢，還是帳面好看？</div>
+            </div>
+          </div>
+          <div class="ch-tags">
+            <span class="ch-tag" style="background:var(--cb-l);color:var(--cb2)">現金流量表</span>
+            <span class="ch-tag" style="background:var(--cb-l);color:var(--cb2)">三大活動</span>
+            <span class="ch-tag" style="background:var(--cb-l);color:var(--cb2)">自由現金流量</span>
+            <span class="ch-tag" style="background:var(--cb-l);color:var(--cb2)">獲利品質</span>
+          </div>
+        </a>
+        <div class="arrow-col">→</div>
+        <a class="ch-card" href="https://michelletsai.github.io/mi-personal-notes/finance-checklist.html#s3" style="background:var(--ca-ll)">
+          <div class="ch-card-hd">
+            <div>
+              <div class="ch-num">搭配工具 · V1 + V5</div>
+              <div class="ch-title">Step 3 現金流驗證</div>
+            </div>
+          </div>
+          <div class="ch-tags">
+            <span class="ch-tag" style="background:var(--cg-l);color:var(--cg2)">三大活動判讀</span>
+            <span class="ch-tag" style="background:var(--cg-l);color:var(--cg2)">FCF 自動計算</span>
+            <span class="ch-tag" style="background:var(--cg-l);color:var(--cg2)">獲利模式穩定度</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- CH6 -->
+      <div class="map-row" style="margin-bottom:6px">
+        <div class="node-col">
+          <div class="node-circle" style="background:var(--cw-l);border-color:var(--cw);color:var(--cw2)">6</div>
+          <div class="node-line none"></div>
+        </div>
+        <a class="ch-card" href="https://michelletsai.github.io/mi-personal-notes/ch6.html" style="background:var(--ca-ll)">
+          <div class="ch-card-hd">
+            <div>
+              <div class="ch-num">CH6 · p.256–287</div>
+              <div class="ch-title">預先看出財報地雷</div>
+            </div>
+          </div>
+          <div class="ch-tags">
+            <span class="ch-tag" style="background:var(--cw-l);color:var(--cw2)">7大假帳特徵</span>
+            <span class="ch-tag" style="background:var(--cw-l);color:var(--cw2)">6大非財務警訊</span>
+            <span class="ch-tag" style="background:var(--cw-l);color:var(--cw2)">博達 / 揚華案例</span>
+          </div>
+        </a>
+        <div class="arrow-col">→</div>
+        <a class="ch-card" href="https://michelletsai.github.io/mi-personal-notes/finance-checklist.html#s7" style="background:var(--ca-ll)">
+          <div class="ch-card-hd">
+            <div>
+              <div class="ch-num">搭配工具 · 全版本</div>
+              <div class="ch-title">Step 7 財報地雷排查</div>
+            </div>
+          </div>
+          <div class="ch-tags">
+            <span class="ch-tag" style="background:var(--cw-l);color:var(--cw2)">勾選 + 備註</span>
+            <span class="ch-tag" style="background:var(--cw-l);color:var(--cw2)">警訊計分</span>
+            <span class="ch-tag" style="background:var(--cw-l);color:var(--cw2)">黃金法則提示</span>
+          </div>
+        </a>
+      </div>
+
+    </div><!-- end map-wrap -->
+
+    <div class="good-box" style="margin-top:1.5rem">
+      <strong>讀完全部六章之後：</strong>用 <a href="https://michelletsai.github.io/mi-personal-notes/finance-checklist-v5-semiauto.html" style="color:var(--cg2)">V5 半自動版</a> 把一家公司的財報數字全部填進去，讓系統自動算出 7 個步驟的所有指標，再生成完整判讀文字。
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- ── 情境選擇 ── -->
+  <section class="section" id="scenario">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--cb)"></span>
+      <h3>我現在想做什麼？</h3>
+    </div>
+    <div style="font-size:16px;color:var(--ct2);margin-bottom:1rem">選一個情境，看推薦的路徑：</div>
+
+    <div class="scenario-grid">
+
+      <div class="sc-card" onclick="toggleSc(this,'p1')">
+        <div class="sc-num">情境 A</div>
+        <div class="sc-title">第一次看財報，想建立系統</div>
+        <div class="sc-desc">從來沒有系統性地看過財報，想從頭建立判讀框架</div>
+        <div class="sc-path" id="p1">
+          建議路徑：<br>
+          讀 CH1–CH3 → 打開 <a href="https://michelletsai.github.io/mi-personal-notes/finance-checklist.html">V1 框架學習版</a> 看 Step 1–4 → 讀 CH4–CH5 → 看 V1 的 Step 2、3、5 → 讀 CH6 → 看 V1 的 Step 7 地雷清單<br><br>
+          <strong>最後一步：</strong>用 <a href="https://michelletsai.github.io/mi-personal-notes/finance-checklist-v5-semiauto.html">V5 半自動版</a> 把台積電的數字填一遍，感受完整的判讀流程。
+        </div>
+      </div>
+
+      <div class="sc-card" onclick="toggleSc(this,'p2')">
+        <div class="sc-num">情境 B</div>
+        <div class="sc-title">手上有一家公司想分析</div>
+        <div class="sc-desc">已經有財報數字，想快速得出判讀結論</div>
+        <div class="sc-path" id="p2">
+          建議路徑：<br>
+          先用 <a href="https://michelletsai.github.io/mi-personal-notes/finance-checklist-v5-semiauto.html">V5 半自動版</a> 把數字填進去，讓系統算出所有比率＋生成初步判讀 → 再用 <a href="https://michelletsai.github.io/mi-personal-notes/finance-checklist-v4-worksheet.html">V4 工作底稿</a> 把趨勢判斷和最終判語寫完整<br><br>
+          <strong>若想和同業比較：</strong>用 <a href="https://michelletsai.github.io/mi-personal-notes/finance-checklist-v3-template.html">V3 空白模板</a>，左欄填研究標的，右欄填基準公司。
+        </div>
+      </div>
+
+      <div class="sc-card" onclick="toggleSc(this,'p3')">
+        <div class="sc-num">情境 C</div>
+        <div class="sc-title">想理解護城河型 vs 循環型</div>
+        <div class="sc-desc">看到兩家公司毛利率差不多，想知道為什麼品質可能完全不同</div>
+        <div class="sc-path" id="p3">
+          建議路徑：<br>
+          直接打開 <a href="https://michelletsai.github.io/mi-personal-notes/finance-checklist-v2-compare.html">V2 對照學習版</a>，用台積電 vs 南亞科的雙公司比較，走一遍 7 個步驟<br><br>
+          <strong>核心觀念：</strong>台積電看的是「品質能否維持」，南亞科看的是「景氣週期是不是在反轉」。同樣高毛利，本質完全不同。
+        </div>
+      </div>
+
+      <div class="sc-card" onclick="toggleSc(this,'p4')">
+        <div class="sc-num">情境 D</div>
+        <div class="sc-title">懷疑一家公司在做假帳</div>
+        <div class="sc-desc">某些數字看起來怪怪的，想系統性地排查</div>
+        <div class="sc-path" id="p4">
+          建議路徑：<br>
+          打開任何版本，直接跳到 <a href="https://michelletsai.github.io/mi-personal-notes/finance-checklist.html#s7">Step 7 財報地雷排查</a>，逐項勾選 7 大財報特徵＋6 大非財務警訊，每項可填備註<br><br>
+          <strong>黃金法則：</strong>「應收帳款天數過高」＋「存貨天數過低」同時出現 → 做假帳機率高達 9 成。出現 2 個以上警訊就要認真重查整份財報。
+        </div>
+      </div>
+
+      <div class="sc-card" onclick="toggleSc(this,'p5')">
+        <div class="sc-num">情境 E</div>
+        <div class="sc-title">想練習，用一家公司跑完整流程</div>
+        <div class="sc-desc">想把所有學到的東西都用一次，從頭走到尾</div>
+        <div class="sc-path" id="p5">
+          建議路徑：<br>
+          打開 <a href="https://michelletsai.github.io/mi-personal-notes/finance-checklist-v4-worksheet.html">V4 工作底稿</a>，填入公司名稱和基本設定 → 逐步完成安全、獲利、效率、趨勢、判語各區塊<br><br>
+          建議同時開著 <a href="https://michelletsai.github.io/mi-personal-notes/finance-checklist-v5-semiauto.html">V5 半自動版</a> 幫你算出數字，V4 負責寫你的分析思路和結論。
+        </div>
+      </div>
+
+      <div class="sc-card" onclick="toggleSc(this,'p6')">
+        <div class="sc-num">情境 F</div>
+        <div class="sc-title">只想快速記住判讀順序</div>
+        <div class="sc-desc">想要一個簡單清楚的 7 步驟提醒</div>
+        <div class="sc-path" id="p6">
+          直接看 <a href="https://michelletsai.github.io/mi-personal-notes/finance-checklist.html">V1 框架學習版</a> 最上方的總覽表：<br><br>
+          Step 1 會不會先爆？→ Step 2 真的有賺錢嗎？→ Step 3 賺到的是真現金嗎？→ Step 4 現金週轉順不順？→ Step 5 費用結構合不合理？→ Step 6 趨勢好轉還是惡化？→ Step 7 有沒有假帳痕跡？
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- ── 5個工具版本 ── -->
+  <section class="section" id="tools">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--cg)"></span>
+      <h3>5 個工具版本</h3>
+    </div>
+
+    <table class="ver-tbl">
+      <tr>
+        <th style="width:120px">版本</th>
+        <th>適合情境</th>
+        <th style="width:60px">自動計算</th>
+        <th style="width:60px">雙公司</th>
+        <th style="width:60px">地雷清單</th>
+        <th style="width:80px">連結</th>
+      </tr>
+      <tr>
+        <td><strong>V1</strong><br><span style="font-size:12px;color:var(--ct4)">框架學習版</span></td>
+        <td>第一次建立判讀框架；想看完整 7 步驟說明；台積電示例對照</td>
+        <td class="dot-no">—</td>
+        <td class="dot-no">—</td>
+        <td class="dot-yes">✓</td>
+        <td><a href="https://michelletsai.github.io/mi-personal-notes/finance-checklist.html">打開 →</a></td>
+      </tr>
+      <tr>
+        <td><strong>V2</strong><br><span style="font-size:12px;color:var(--ct4)">對照學習版</span></td>
+        <td>理解護城河型 vs 景氣循環型；台積電 vs 南亞科雙公司 7 步驟比較</td>
+        <td class="dot-no">—</td>
+        <td class="dot-yes">✓</td>
+        <td class="dot-yes">✓</td>
+        <td><a href="https://michelletsai.github.io/mi-personal-notes/finance-checklist-v2-compare.html">打開 →</a></td>
+      </tr>
+      <tr>
+        <td><strong>V3</strong><br><span style="font-size:12px;color:var(--ct4)">空白模板版</span></td>
+        <td>分析任何公司；兩公司對比；先定型再判讀</td>
+        <td class="dot-no">—</td>
+        <td class="dot-yes">✓</td>
+        <td class="dot-yes">✓</td>
+        <td><a href="https://michelletsai.github.io/mi-personal-notes/finance-checklist-v3-template.html">打開 →</a></td>
+      </tr>
+      <tr>
+        <td><strong>V4</strong><br><span style="font-size:12px;color:var(--ct4)">工作底稿版</span></td>
+        <td>像練習卷；逐步填寫數值、趨勢、最終判語；每次分析一家公司</td>
+        <td class="dot-no">—</td>
+        <td class="dot-no">—</td>
+        <td class="dot-yes">✓</td>
+        <td><a href="https://michelletsai.github.io/mi-personal-notes/finance-checklist-v4-worksheet.html">打開 →</a></td>
+      </tr>
+      <tr>
+        <td><strong>V5</strong><br><span style="font-size:12px;color:var(--ct4)">半自動計算版</span></td>
+        <td>手上有財報數字；自動算出所有比率＋ROE＋FCF；自動生成判讀文字</td>
+        <td class="dot-yes">✓</td>
+        <td class="dot-no">—</td>
+        <td class="dot-yes">✓</td>
+        <td><a href="https://michelletsai.github.io/mi-personal-notes/finance-checklist-v5-semiauto.html">打開 →</a></td>
+      </tr>
+    </table>
+
+  </section>
+
+</main>
+
+<script>
+function navTo(id){
+  const el=document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function toggleSc(card, pathId){
+  const path = document.getElementById(pathId);
+  const isOpen = path.classList.contains('show');
+  // close all
+  document.querySelectorAll('.sc-path').forEach(p=>p.classList.remove('show'));
+  document.querySelectorAll('.sc-card').forEach(c=>c.classList.remove('active'));
+  if(!isOpen){
+    path.classList.add('show');
+    card.classList.add('active');
+  }
+}
+const sections=document.querySelectorAll('section[id]');
+const navItems=document.querySelectorAll('.nav-item');
+window.addEventListener('scroll',()=>{
+  let current='map';
+  sections.forEach(s=>{ if(window.scrollY>=s.offsetTop-100) current=s.id; });
+  navItems.forEach(i=>{
+    i.classList.toggle('active', i.getAttribute('onclick')?.includes("'"+current+"'"));
+  });
+},{passive:true});
+</script>
+</body>
+</html>

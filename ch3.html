@@ -149,6 +149,11 @@
   .tl-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
   .tl-text { font-size: 16px; color: var(--ct); line-height: 1.7; flex: 1; }
 
+
+  .home-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:5px 13px;border-radius:20px;border:1px solid var(--cr4);background:var(--ca-ll);transition:all .15s;font-weight:400;margin-bottom:1.5rem;}
+  .home-btn:hover{background:var(--ca-l);color:var(--ca2);border-color:var(--cr5);}
+  .home-btn-sidebar{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:.55rem 1rem .55rem 1.3rem;border-top:1px solid var(--cr4);margin-top:.5rem;transition:color .15s;font-weight:400;}
+  .home-btn-sidebar:hover{color:var(--ca2);background:var(--ca-l);}
   @media (max-width: 700px) {
     .sidebar { display: none; }
     .main { margin-left: 0; padding: 1.25rem; }
@@ -187,6 +192,7 @@
 <main class="main">
 
   <!-- HERO -->
+  <a class="home-btn" href="index.html">← 回到目錄首頁</a>
   <div class="page-hero" id="intro">
     <div class="hero-tag">第3章 · p.099–159</div>
     <h2>抓出數字背後的魔鬼</h2>
