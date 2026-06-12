@@ -105,6 +105,14 @@
   .dot-yes{color:var(--cg2);font-weight:700;}
   .dot-no{color:var(--cr4);}
 
+
+  /* sidebar toggle */
+  .sidebar-toggle{position:fixed;top:50%;left:260px;transform:translateY(-50%);z-index:200;width:18px;height:48px;background:var(--ca-l);border:1px solid var(--cr4);border-left:none;border-radius:0 8px 8px 0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ct4);user-select:none;transition:left .25s ease,background .15s;}
+  .sidebar-toggle:hover{background:var(--ca);color:#fff;}
+  .sidebar{transition:transform .25s ease;}
+  .sidebar.collapsed{transform:translateX(-260px);}
+  .main{transition:margin-left .25s ease;}
+  .main.expanded{margin-left:0;}
   @media(max-width:700px){
     .sidebar{display:none;}
     .main{margin-left:0;padding:1.25rem;}
@@ -131,6 +139,8 @@
     <a class="home-btn-sb" href="https://michelletsai.github.io/mi-personal-notes/index.html">← 回到目錄首頁</a>
   </div>
 </nav>
+
+<div class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" title="收合側欄">‹</div>
 
 <main class="main">
   <a class="home-btn" href="https://michelletsai.github.io/mi-personal-notes/index.html">← 回到目錄首頁</a>
@@ -533,6 +543,33 @@ window.addEventListener('scroll',()=>{
     i.classList.toggle('active', i.getAttribute('onclick')?.includes("'"+current+"'"));
   });
 },{passive:true});
+
+function toggleSidebar(){
+  const sb = document.querySelector('.sidebar');
+  const main = document.querySelector('.main');
+  const btn = document.getElementById('sidebarToggle');
+  if(!sb||!main||!btn) return;
+  const collapsed = sb.classList.toggle('collapsed');
+  main.classList.toggle('expanded', collapsed);
+  btn.textContent = collapsed ? '›' : '‹';
+  btn.style.left = collapsed ? '0px' : '260px';
+  try{ localStorage.setItem('sb_collapsed', collapsed ? '1' : '0'); }catch(e){}
+}
+document.addEventListener('DOMContentLoaded', function(){
+  const btn = document.getElementById('sidebarToggle');
+  if(!btn) return;
+  try{
+    if(localStorage.getItem('sb_collapsed')==='1'){
+      const sb = document.querySelector('.sidebar');
+      const main = document.querySelector('.main');
+      if(sb) sb.classList.add('collapsed');
+      if(main) main.classList.add('expanded');
+      btn.textContent = '›';
+      btn.style.left = '0px';
+    }
+  }catch(e){}
+});
+
 </script>
 </body>
 </html>

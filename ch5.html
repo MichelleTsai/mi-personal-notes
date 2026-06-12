@@ -1,561 +1,780 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --cr:#F5F0E8; --cr2:#EDE5D8; --cr3:#E2D7C6; --cr4:#D4C8B4; --cr5:#C0B09A;
-      --ct:#2C2420; --ct2:#5C4A3A; --ct3:#8B7560; --ct4:#B09A82;
-      --ca:#8B6B4A; --ca2:#6B4F32; --ca3:#4A3320; --ca-l:#F0E4D4; --ca-ll:#FAF5EE;
-      --cg:#7A8C72; --cg2:#5A6C52; --cg3:#3A4C32; --cg-l:#EAF0E6;
-      --cb:#7A8C9A; --cb2:#5A6C7A; --cb3:#3A4C5A; --cb-l:#E6EDF2;
-      --cw:#C4756A; --cw2:#A05548; --cw3:#7A3A30; --cw-l:#F5EAE8;
-      --amber:#A07838; --amber-light:#F5ECD8; --amber-dark:#6B4F20;
-      --radius:10px; --radius-lg:14px;
-      box-sizing:border-box; margin:0; padding:0;
-    }
-    body { font-family:'Noto Sans TC',-apple-system,sans-serif; background:var(--cr); color:var(--ct); line-height:1.72; font-size:17px; -webkit-font-smoothing:antialiased; }
-    h2,h3 { font-family:'Noto Serif TC',serif; font-weight:700; letter-spacing:.02em; }
-    strong,b { font-weight:600; color:var(--ca2); }
-    ::-webkit-scrollbar { width:5px; }
-    ::-webkit-scrollbar-track { background:var(--cr2); }
-    ::-webkit-scrollbar-thumb { background:var(--cr4); border-radius:3px; }
-    .sidebar { position:fixed; top:0; left:0; width:260px; height:100vh; background:var(--ca-ll); border-right:1px solid var(--cr4); overflow-y:auto; z-index:100; padding:0 0 2rem; }
-    .sidebar-logo { padding:1.4rem 1.2rem 1rem; border-bottom:1px solid var(--cr4); background:var(--ca-l); }
-    .sidebar-logo h1 { font-family:'Noto Serif TC',serif; font-size:14px; font-weight:700; color:var(--ca2); line-height:1.5; }
-    .sidebar-logo p { font-size:11px; color:var(--ct4); margin-top:4px; }
-    .nav-section { padding:.4rem 0; }
-    .nav-section-label { font-size:10px; font-weight:600; color:var(--ct4); text-transform:uppercase; letter-spacing:.12em; padding:.6rem 1.2rem .3rem; }
-    .nav-item { display:block; padding:.5rem 1rem .5rem 1.3rem; font-size:14px; color:var(--ct2); text-decoration:none; border-left:2px solid transparent; transition:all .15s; cursor:pointer; }
-    .nav-item:hover { color:var(--ct); background:var(--cr2); }
-    .nav-item.active { color:var(--ca2); border-left-color:var(--ca); background:var(--ca-l); font-weight:600; }
-    .main { margin-left:260px; padding:2.5rem 3.5rem 5rem; }
-    .page-hero { margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:1px solid var(--cr4); }
-    .hero-tag { font-size:11px; font-weight:600; color:var(--ca2); background:var(--ca-l); padding:4px 13px; border-radius:20px; display:inline-block; margin-bottom:.75rem; text-transform:uppercase; letter-spacing:.08em; border:1px solid var(--cr5); }
-    .page-hero h2 { font-size:30px; margin-bottom:.4rem; }
-    .page-hero p { font-size:16px; color:var(--ct3); }
-    .section { margin-bottom:2.5rem; scroll-margin-top:1.5rem; }
-    .section-header { display:flex; align-items:center; gap:10px; margin-bottom:1.25rem; padding-bottom:.75rem; border-bottom:1px solid var(--cr4); }
-    .section-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; background:var(--ca); }
-    .section-header h3 { font-size:21px; color:var(--ct); flex:1; }
-    .section-page { font-size:13px; color:var(--ct4); letter-spacing:.04em; }
-    .block { margin-bottom:1.25rem; }
-    .block-title { font-size:16px; font-weight:600; color:var(--ca2); margin-bottom:.5rem; letter-spacing:.02em; }
-    .block-body { font-size:17px; color:var(--ct); line-height:1.78; }
-    .hl { border-left:2.5px solid var(--ca); background:var(--ca-ll); padding:12px 16px; margin:12px 0; font-size:16px; line-height:1.7; color:var(--ct2); }
-    .hl.sage { border-left-color:var(--cg); background:var(--cg-l); color:var(--cg2); }
-    .hl.amber { border-left-color:var(--amber); background:var(--amber-light); color:var(--amber-dark); }
-    .hl.red { border-left-color:var(--cw); background:var(--cw-l); color:var(--cw2); }
-    .hl.blue { border-left-color:var(--cb); background:var(--cb-l); color:var(--cb2); }
-    .warn-box,.good-box,.caution-box,.rr-loc-box { padding:13px 16px; margin:12px 0; font-size:16px; line-height:1.7; }
-    .warn-box { background:var(--cw-l); border-left:2.5px solid var(--cw); color:var(--cw2); }
-    .good-box { background:var(--cg-l); border-left:2.5px solid var(--cg); color:var(--cg2); }
-    .caution-box { background:var(--amber-light); border-left:2.5px solid var(--amber); color:var(--amber-dark); }
-    .rr-loc-box { background:var(--cb-l); border-left:2.5px solid var(--cb); color:var(--cb2); }
-    .rr-loc-title { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; margin-bottom:5px; }
-    .tbl-wrap { overflow-x:auto; margin:12px 0; }
-    table { width:100%; border-collapse:collapse; font-size:15px; }
-    th { background:var(--cr2); padding:10px 13px; text-align:left; font-weight:600; color:var(--ct3); font-size:13px; border-bottom:1px solid var(--cr4); text-transform:uppercase; letter-spacing:.05em; }
-    td { padding:10px 13px; border-bottom:1px solid var(--cr3); color:var(--ct); vertical-align:top; }
-    tr:last-child td { border-bottom:none; }
-    tr:hover td { background:var(--ca-ll); }
-    .cgrid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:12px 0; }
-    .ccard { border:1px solid var(--cr4); border-radius:var(--radius); padding:13px 15px; background:var(--ca-ll); }
-    .ccard-title { font-size:15px; font-weight:600; margin-bottom:7px; color:var(--ca2); }
-    .ccard-body { font-size:15px; color:var(--ct2); line-height:1.65; }
-    .steps { margin:12px 0; }
-    .step { display:flex; gap:12px; margin-bottom:11px; align-items:flex-start; }
-    .step-num { width:27px; height:27px; border-radius:50%; background:var(--ca-l); color:var(--ca2); font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; border:1px solid var(--cr5); }
-    .step-text { font-size:16px; color:var(--ct); line-height:1.7; flex:1; }
-    .formula { background:var(--cr2); border-radius:var(--radius); padding:14px 20px; margin:12px 0; text-align:center; font-size:20px; font-weight:700; color:var(--ca2); font-family:'Noto Serif TC',serif; border:1px solid var(--cr4); letter-spacing:.04em; }
-    .formula-note { font-size:13px; color:var(--ct3); text-align:center; margin-top:5px; }
-    .diagram { margin:1.25rem 0; background:var(--ca-ll); border:1px solid var(--cr4); border-radius:var(--radius-lg); padding:1.5rem; }
-    .diagram-title { font-size:11px; font-weight:600; color:var(--ct4); text-transform:uppercase; letter-spacing:.1em; margin-bottom:1.1rem; }
-    .flow-row { display:flex; align-items:center; gap:0; margin:12px 0; flex-wrap:wrap; }
-    .flow-box { border:1px solid var(--cr4); border-radius:var(--radius); padding:10px 14px; background:var(--ca-ll); font-size:14px; text-align:center; flex:1; min-width:100px; }
-    .flow-arrow { font-size:18px; color:var(--ct4); padding:0 6px; flex-shrink:0; }
-    .flow-box.highlight { background:var(--ca-l); border-color:var(--ca); font-weight:600; color:var(--ca2); }
-    .flow-box.danger { background:var(--cw-l); border-color:var(--cw); color:var(--cw2); font-weight:600; }
-    .flow-box.safe { background:var(--cg-l); border-color:var(--cg); color:var(--cg2); font-weight:600; }
-    .flow-box.info { background:var(--cb-l); border-color:var(--cb); color:var(--cb2); font-weight:600; }
-    .mr { display:flex; align-items:center; gap:10px; margin:8px 0; }
-    .ml { font-size:13px; color:var(--ct2); width:170px; flex-shrink:0; text-align:right; }
-    .mbg { flex:1; height:10px; background:var(--cr3); border-radius:5px; overflow:hidden; }
-    .mf { height:100%; border-radius:5px; }
-    .mv { font-size:13px; font-weight:600; width:70px; flex-shrink:0; }
-    .phase { margin-bottom:10px; border-radius:var(--radius-lg); border:1px solid var(--cr4); overflow:hidden; }
-    .phase-hd { padding:10px 15px; display:flex; align-items:center; gap:10px; }
-    .phase-tag { font-size:12px; font-weight:600; padding:3px 10px; border-radius:10px; letter-spacing:.04em; }
-    .phase-title { font-size:15px; font-weight:600; color:var(--ct); flex:1; }
-    .phase-bd { display:grid; grid-template-columns:1fr 1fr; }
-    .sd { padding:12px 15px; font-size:15px; line-height:1.68; color:var(--ct); }
-    .sd + .sd { border-left:1px solid var(--cr4); }
-    .sd-label { font-size:12px; font-weight:600; padding:2px 8px; border-radius:10px; display:inline-block; margin-bottom:6px; }
-    .phase-outcome { padding:8px 15px; font-size:14px; color:var(--ct3); border-top:1px solid var(--cr4); font-style:italic; }
-    .case-strip { border:1px solid var(--cr4); border-radius:var(--radius); margin:9px 0; overflow:hidden; }
-    .case-hd { display:flex; align-items:center; gap:10px; padding:11px 15px; background:var(--cr2); cursor:pointer; user-select:none; transition:background .15s; }
-    .case-hd:hover { background:var(--cr3); }
-    .case-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
-    .case-title { font-size:15px; font-weight:500; color:var(--ct); flex:1; }
-    .case-tag { font-size:11px; padding:2px 9px; border-radius:20px; font-weight:500; border:1px solid transparent; }
-    .tag-ok { background:var(--cg-l); color:var(--cg2); border-color:#A8C4A0; }
-    .tag-warn { background:var(--cw-l); color:var(--cw2); border-color:#D8A098; }
-    .tag-info { background:var(--cb-l); color:var(--cb2); border-color:#A8BCC8; }
-    .tag-neutral { background:var(--cr2); color:var(--ct3); border-color:var(--cr4); }
-    .case-chev { font-size:11px; color:var(--ct4); transition:transform .2s; }
-    .case-chev.open { transform:rotate(180deg); }
-    .case-bd { padding:14px 15px; font-size:16px; line-height:1.72; color:var(--ct); display:none; border-top:1px solid var(--cr4); background:var(--ca-ll); }
-    .case-bd.open { display:block; }
-    .home-btn { display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--ct3); text-decoration:none; padding:5px 13px; border-radius:20px; border:1px solid var(--cr4); background:var(--ca-ll); transition:all .15s; margin-bottom:1.5rem; }
-    .home-btn:hover,.home-btn-sidebar:hover { background:var(--ca-l); color:var(--ca2); border-color:var(--cr5); }
-    .home-btn-sidebar { display:flex; align-items:center; gap:6px; font-size:13px; color:var(--ct3); text-decoration:none; padding:.55rem 1rem .55rem 1.3rem; border-top:1px solid var(--cr4); margin-top:.5rem; }
-    @media (max-width:700px) {
-      .sidebar { display:none; }
-      .main { margin-left:0; padding:1.25rem; }
-      .cgrid,.phase-bd { grid-template-columns:1fr; }
-      .flow-row { flex-direction:column; }
-      .flow-arrow { transform:rotate(90deg); }
-      .ml { width:120px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第5章筆記：真賺錢，還是帳面好看？</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--cr:#F5F0E8;--cr2:#EDE5D8;--cr3:#E2D7C6;--cr4:#D4C8B4;--cr5:#C0B09A;--ct:#2C2420;--ct2:#5C4A3A;--ct3:#8B7560;--ct4:#B09A82;--ca:#8B6B4A;--ca2:#6B4F32;--ca3:#4A3320;--ca-l:#F0E4D4;--ca-ll:#FAF5EE;--cg:#7A8C72;--cg2:#5A6C52;--cg3:#3A4C32;--cg-l:#EAF0E6;--cb:#7A8C9A;--cb2:#5A6C7A;--cb3:#3A4C5A;--cb-l:#E6EDF2;--cw:#C4756A;--cw2:#A05548;--cw3:#7A3A30;--cw-l:#F5EAE8;--radius:10px;--radius-lg:14px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans TC',-apple-system,sans-serif;background:var(--cr);color:var(--ct);line-height:1.72;font-size:17px;font-weight:400;-webkit-font-smoothing:antialiased;}
+  h2,h3{font-family:'Noto Serif TC',serif;font-weight:700;letter-spacing:.02em;}
+  strong,b{font-weight:600;color:var(--ca2);}
+  ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--cr2);}::-webkit-scrollbar-thumb{background:var(--cr4);border-radius:3px;}
+  .sidebar{position:fixed;top:0;left:0;width:260px;height:100vh;background:var(--ca-ll);border-right:1px solid var(--cr4);overflow-y:auto;z-index:100;padding:0 0 2rem;}
+  .sidebar-logo{padding:1.4rem 1.2rem 1rem;border-bottom:1px solid var(--cr4);background:var(--ca-l);}
+  .sidebar-logo h1{font-family:'Noto Serif TC',serif;font-size:14px;font-weight:700;color:var(--ca2);line-height:1.5;}
+  .sidebar-logo p{font-size:11px;color:var(--ct4);margin-top:4px;}
+  .nav-section{padding:.4rem 0;}
+  .nav-section-label{font-size:10px;font-weight:600;color:var(--ct4);text-transform:uppercase;letter-spacing:.12em;padding:.6rem 1.2rem .3rem;}
+  .nav-item{display:block;padding:.5rem 1rem .5rem 1.3rem;font-size:14px;color:var(--ct2);text-decoration:none;border-left:2px solid transparent;transition:all .15s;cursor:pointer;font-weight:400;}
+  .nav-item:hover{color:var(--ct);background:var(--cr2);}
+  .nav-item.active{color:var(--ca2);border-left-color:var(--ca);background:var(--ca-l);font-weight:600;}
+  .main{margin-left:260px;padding:2.5rem 3.5rem 5rem;}
+  .page-hero{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--cr4);}
+  .hero-tag{font-size:11px;font-weight:600;color:var(--ca2);background:var(--ca-l);padding:4px 13px;border-radius:20px;display:inline-block;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.08em;border:1px solid var(--cr5);}
+  .page-hero h2{font-size:30px;font-weight:700;color:var(--ct);margin-bottom:.4rem;}
+  .page-hero p{font-size:16px;color:var(--ct3);}
+  .section{margin-bottom:2.5rem;scroll-margin-top:1.5rem;}
+  .section-header{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--cr4);}
+  .section-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;background:var(--ca);}
+  .section-header h3{font-size:21px;font-weight:700;color:var(--ct);flex:1;}
+  .section-page{font-size:13px;color:var(--ct4);letter-spacing:.04em;}
+  .block{margin-bottom:1.25rem;}
+  .block-title{font-size:16px;font-weight:600;color:var(--ca2);margin-bottom:.5rem;letter-spacing:.02em;}
+  .block-body{font-size:17px;color:var(--ct);line-height:1.78;}
+  .hl{border-left:2.5px solid var(--ca);border-radius:0;background:var(--ca-ll);padding:12px 16px;margin:12px 0;font-size:16px;line-height:1.7;color:var(--ct2);}
+  .hl.sage{border-left-color:var(--cg);background:var(--cg-l);color:var(--cg2);}
+  .hl.amber{border-left-color:#A07838;background:#F5ECD8;color:#6B4F20;}
+  .hl.red{border-left-color:var(--cw);background:var(--cw-l);color:var(--cw2);}
+  .hl.blue{border-left-color:var(--cb);background:var(--cb-l);color:var(--cb2);}
+  .warn-box{background:var(--cw-l);border-left:2.5px solid var(--cw);border-radius:0;padding:13px 16px;margin:12px 0;font-size:16px;color:var(--cw2);line-height:1.7;}
+  .good-box{background:var(--cg-l);border-left:2.5px solid var(--cg);border-radius:0;padding:13px 16px;margin:12px 0;font-size:16px;color:var(--cg2);line-height:1.7;}
+  .caution-box{background:#F5ECD8;border-left:2.5px solid #A07838;border-radius:0;padding:13px 16px;margin:12px 0;font-size:16px;color:#6B4F20;line-height:1.7;}
+  .tbl-wrap{overflow-x:auto;margin:12px 0;}
+  table{width:100%;border-collapse:collapse;font-size:15px;}
+  th{background:var(--cr2);padding:10px 13px;text-align:left;font-weight:600;color:var(--ct3);font-size:13px;border-bottom:1px solid var(--cr4);text-transform:uppercase;letter-spacing:.05em;}
+  th.r{text-align:right;}
+  td{padding:10px 13px;border-bottom:1px solid var(--cr3);color:var(--ct);vertical-align:top;}
+  td.r{text-align:right;}
+  td.hi{background:var(--ca-l);font-weight:600;color:var(--ca2);}
+  td.good{background:var(--cg-l);font-weight:600;color:var(--cg2);}
+  td.warn{background:var(--cw-l);font-weight:600;color:var(--cw2);}
+  td.mute{color:var(--ct4);font-size:14px;}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:var(--ca-ll);}
+  .tbl-caption{font-size:12px;color:var(--ct4);margin-top:5px;font-style:italic;text-align:right;}
+  .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;}
+  .cgrid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:12px 0;}
+  .ccard{border:1px solid var(--cr4);border-radius:var(--radius);padding:13px 15px;background:var(--ca-ll);}
+  .ccard-title{font-size:15px;font-weight:600;margin-bottom:7px;color:var(--ca2);}
+  .ccard-body{font-size:15px;color:var(--ct2);line-height:1.65;}
+  .steps{margin:12px 0;}
+  .step{display:flex;gap:12px;margin-bottom:11px;align-items:flex-start;}
+  .step-num{width:27px;height:27px;border-radius:50%;background:var(--ca-l);color:var(--ca2);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;border:1px solid var(--cr5);}
+  .step-num.b{background:var(--cb-l);color:var(--cb2);border-color:#A8BCC8;}
+  .step-num.g{background:var(--cg-l);color:var(--cg2);border-color:#A8C4A0;}
+  .step-text{font-size:16px;color:var(--ct);line-height:1.7;flex:1;}
+  .case-strip{border:1px solid var(--cr4);border-radius:var(--radius);margin:9px 0;overflow:hidden;}
+  .case-hd{display:flex;align-items:center;gap:10px;padding:11px 15px;background:var(--cr2);cursor:pointer;user-select:none;transition:background .15s;}
+  .case-hd:hover{background:var(--cr3);}
+  .case-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .case-title{font-size:15px;font-weight:500;color:var(--ct);flex:1;}
+  .case-tag{font-size:11px;padding:2px 9px;border-radius:20px;font-weight:500;border:1px solid transparent;}
+  .tag-ok{background:var(--cg-l);color:var(--cg2);border-color:#A8C4A0;}
+  .tag-warn{background:var(--cw-l);color:var(--cw2);border-color:#D8A098;}
+  .tag-info{background:var(--cb-l);color:var(--cb2);border-color:#A8BCC8;}
+  .tag-neutral{background:var(--cr2);color:var(--ct3);border-color:var(--cr4);}
+  .case-chev{font-size:11px;color:var(--ct4);transition:transform .2s;}
+  .case-chev.open{transform:rotate(180deg);}
+  .case-bd{padding:14px 15px;font-size:16px;line-height:1.72;color:var(--ct);display:none;border-top:1px solid var(--cr4);background:var(--ca-ll);}
+  .case-bd.open{display:block;}
+  .div{border:none;border-top:1px solid var(--cr4);margin:1.5rem 0;}
+  .formula{background:var(--cr2);border-radius:var(--radius);padding:14px 20px;margin:12px 0;text-align:center;font-size:20px;font-weight:700;color:var(--ca2);font-family:'Noto Serif TC',serif;border:1px solid var(--cr4);letter-spacing:.04em;}
+  .formula-note{font-size:13px;color:var(--ct3);text-align:center;margin-top:5px;}
+  .stat-row{display:flex;gap:10px;margin:12px 0;flex-wrap:wrap;}
+  .stat{background:var(--cr2);border:1px solid var(--cr4);border-radius:var(--radius);padding:10px 14px;flex:1;min-width:100px;}
+  .stat-label{font-size:12px;color:var(--ct4);text-transform:uppercase;letter-spacing:.05em;}
+  .stat-val{font-family:'Noto Serif TC',serif;font-size:22px;font-weight:700;margin-top:3px;}
+  .diagram{margin:1.25rem 0;background:var(--ca-ll);border:1px solid var(--cr4);border-radius:var(--radius-lg);padding:1.5rem;}
+  .diagram-title{font-size:11px;font-weight:600;color:var(--ct4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1.1rem;}
+  .badge{display:inline-block;font-size:12px;padding:2px 10px;border-radius:20px;margin-right:4px;vertical-align:middle;font-weight:500;border:1px solid transparent;}
+  .bp{background:var(--ca-l);color:var(--ca2);border-color:var(--cr5);}
+  .bt{background:var(--cg-l);color:var(--cg2);border-color:#A8C4A0;}
+  .ba{background:#F5ECD8;color:#6B4F20;border-color:#C8A870;}
+  .br{background:var(--cw-l);color:var(--cw2);border-color:#D8A098;}
+  .bb{background:var(--cb-l);color:var(--cb2);border-color:#A8BCC8;}
+
+  /* Cash flow 3-activity layout */
+  .cf-three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin:1.25rem 0;border:1px solid var(--cr4);border-radius:var(--radius-lg);overflow:hidden;}
+  .cf-col{padding:14px 15px;}
+  .cf-col.op{background:var(--cg-l);}
+  .cf-col.inv{background:var(--cb-l);}
+  .cf-col.fin{background:var(--ca-l);}
+  .cf-col-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+  .cf-col.op .cf-col-title{color:var(--cg2);}
+  .cf-col.inv .cf-col-title{color:var(--cb2);}
+  .cf-col.fin .cf-col-title{color:var(--ca2);}
+  .cf-item{font-size:14px;color:var(--ct);line-height:1.65;margin-bottom:4px;padding-left:8px;border-left:2px solid transparent;}
+  .cf-col.op .cf-item{border-left-color:var(--cg);}
+  .cf-col.inv .cf-item{border-left-color:var(--cb);}
+  .cf-col.fin .cf-item{border-left-color:var(--ca);}
+  .cf-item strong{color:inherit;}
+
+  /* tsmc flow comparison */
+  .cf-compare{background:var(--cr2);border:1px solid var(--cr4);border-radius:var(--radius);padding:14px 16px;margin:10px 0;}
+  .cf-compare-title{font-size:12px;font-weight:600;color:var(--ct3);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em;}
+  .cf-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .cf-bar-label{font-size:13px;color:var(--ct2);width:190px;flex-shrink:0;text-align:right;}
+  .cf-bar-bg{flex:1;height:20px;background:var(--cr3);border-radius:4px;overflow:hidden;position:relative;}
+  .cf-bar-fill{height:100%;border-radius:4px;}
+  .cf-bar-val{font-size:13px;font-weight:600;width:90px;flex-shrink:0;color:var(--ct2);}
+
+  /* health signal */
+  .health-row{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start;}
+  .health-icon{font-size:16px;flex-shrink:0;margin-top:2px;}
+  .health-text{font-size:15px;color:var(--ct);line-height:1.65;flex:1;}
+
+  .home-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:5px 13px;border-radius:20px;border:1px solid var(--cr4);background:var(--ca-ll);transition:all .15s;font-weight:400;margin-bottom:1.5rem;}
+  .home-btn:hover{background:var(--ca-l);color:var(--ca2);border-color:var(--cr5);}
+  .home-btn-sidebar{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:.55rem 1rem .55rem 1.3rem;border-top:1px solid var(--cr4);margin-top:.5rem;transition:color .15s;font-weight:400;}
+  .home-btn-sidebar:hover{color:var(--ca2);background:var(--ca-l);}
+
+  /* sidebar toggle */
+  .sidebar-toggle{position:fixed;top:50%;left:260px;transform:translateY(-50%);z-index:200;width:18px;height:48px;background:var(--ca-l);border:1px solid var(--cr4);border-left:none;border-radius:0 8px 8px 0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ct4);user-select:none;transition:left .25s ease,background .15s;}
+  .sidebar-toggle:hover{background:var(--ca);color:#fff;}
+  .sidebar{transition:transform .25s ease;}
+  .sidebar.collapsed{transform:translateX(-260px);}
+  .main{transition:margin-left .25s ease;}
+  .main.expanded{margin-left:0;}
+  @media(max-width:700px){.sidebar{display:none;}.main{margin-left:0;padding:1.25rem;}.cgrid,.cgrid3,.cf-three{grid-template-columns:1fr;}}
+</style>
 </head>
 <body>
-  <nav class="sidebar">
-    <div class="sidebar-logo">
-      <h1>5</h1>
-      <p>現金流量表｜營業活動、投資活動、籌資活動、自由現金流量</p>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <h1>第5章：真賺錢，還是帳面好看？</h1>
+    <p>大會計師教你從財報數字看懂經營本質</p>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">基礎</div>
+    <a class="nav-item active" onclick="navTo('intro')">本章導覽</a>
+    <a class="nav-item" onclick="navTo('three-keys')">現金流量表3大關鍵</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">三大活動</div>
+    <a class="nav-item" onclick="navTo('op')">1. 營業活動現金流</a>
+    <a class="nav-item" onclick="navTo('inv')">2. 投資活動現金流</a>
+    <a class="nav-item" onclick="navTo('fin')">3. 籌資活動現金流</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">進階分析</div>
+    <a class="nav-item" onclick="navTo('quality')">獲利品質照妖鏡</a>
+    <a class="nav-item" onclick="navTo('rescue')">困境公司有沒有救</a>
+    <a class="nav-item" onclick="navTo('fcf')">自由現金流量</a>
+    <a class="nav-item" onclick="navTo('global')">歐美大企業的用法</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">速查</div>
+    <a class="nav-item" onclick="navTo('summary')">⭐ 重點整理</a>
+  </div>
+  <div style="padding:.75rem 1rem 1rem;margin-top:.5rem;">
+    <a class="home-btn-sidebar" href="index.html">← 回到目錄首頁</a>
+  </div>
+</nav>
+
+<div class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" title="收合側欄">‹</div>
+
+<main class="main">
+  <a class="home-btn" href="index.html">← 回到目錄首頁</a>
+
+  <div class="page-hero" id="intro">
+    <div class="hero-tag">第5章 · p.220–254</div>
+    <h2>真賺錢，還是帳面好看？</h2>
+    <p>《大會計師教你從財報數字看懂經營本質》｜「現金流量表」是獲利品質照妖鏡</p>
+  </div>
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>這章在講什麼？</h3>
     </div>
-    <div class="nav-section">
-      <div class="nav-section-label">導讀</div>
-      <a class="nav-item active" onclick="navTo('intro', event)">本章主軸</a>
-      <a class="nav-item" onclick="navTo('bookway', event)">這章在教什麼</a>
-      <a class="nav-item" onclick="navTo('map', event)">現金流量地圖</a>
-      <a class="nav-item" onclick="navTo('i1', event)">營業活動現金流</a>
-      <a class="nav-item" onclick="navTo('i2', event)">投資活動現金流</a>
-      <a class="nav-item" onclick="navTo('i3', event)">籌資活動現金流</a>
-      <a class="nav-item" onclick="navTo('i4', event)">自由現金流量</a>
-      <a class="nav-item" onclick="navTo('i5', event)">台積電與華映</a>
-      <a class="nav-item" onclick="navTo('i6', event)">歐美企業對照</a>
-      <a class="nav-item" onclick="navTo('cheat', event)">Checklist</a>
-      <a class="nav-item" onclick="navTo('summary', event)">整章濃縮</a>
+    <div class="block-body">一家公司就算經營黑字，但不是藉由營業來賺錢，就不健康。損益表說的是「帳面上賺了多少」，現金流量表說的是「實際上賺到了多少現金」——兩者的差距，就是獲利品質的照妖鏡。</div>
+    <div class="hl">
+      <strong>張忠謀認為，唯有能夠「穩定」產生現金流量的公司，才是好公司。</strong>能夠從日常營運中產生穩定現金流量的公司，可以做到：<br>
+      ① 持續透過投入研發、購置設備、以及轉投資等方式投資未來<br>
+      ② 有能力穩定配發股息，甚至逐年增加<br>
+      ③ 不論是投資未來還是配發現金股息，都不需要跟股東拿錢（增資）
     </div>
-    <div style="padding:.75rem 1rem 1rem;margin-top:.5rem">
-      <a class="home-btn-sidebar" href="index.html">← 回首頁</a>
+    <div class="cgrid" style="margin-top:1.25rem">
+      <div class="ccard">
+        <div class="ccard-title">損益表 vs 現金流量表</div>
+        <div class="ccard-body">損益表用「應計基礎」：賣出就認收入，不管有沒有收到錢。現金流量表用「現金基礎」：實際收到的現金才算。兩者差距代表獲利品質。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">閱讀現金流量表的4個目的</div>
+        <div class="ccard-body">① 了解公司獲利品質是否良好、危機中的公司是否還有救<br>② 評估公司資本支出的承受度<br>③ 評估公司股利金額的合理性<br>④ 評估股價上漲的空間（特別是歐美大型企業）</div>
+      </div>
     </div>
-  </nav>
+  </section>
 
-  <main class="main">
-    <a class="home-btn" href="index.html">← 回首頁</a>
+  <!-- 3大關鍵 -->
+  <section class="section" id="three-keys">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>看懂現金流量表的 3 大關鍵</h3>
+      <span class="section-page">p.220–221</span>
+    </div>
+    <div class="block-body">現金流量表將企業平時的現金進出分成 3 大類活動來分析：</div>
+    <div class="cf-three" style="margin-top:1rem">
+      <div class="cf-col op">
+        <div class="cf-col-title">① 營業活動</div>
+        <div class="cf-item">從購買原料、僱用人工、投入生產，把產品賣給客戶所產生的現金流入與流出</div>
+        <div class="cf-item"><strong>最重要</strong>：這是本業的賺錢活動</div>
+        <div class="cf-item">台積電2022：＋1兆6,106億</div>
+      </div>
+      <div class="cf-col inv">
+        <div class="cf-col-title">② 投資活動</div>
+        <div class="cf-item">取得或處分不動產廠房設備、策略性投資、理財性投資</div>
+        <div class="cf-item"><strong>重點</strong>：看廠房設備支出，看企圖心</div>
+        <div class="cf-item">台積電2022：－1兆1,909億</div>
+      </div>
+      <div class="cf-col fin">
+        <div class="cf-col-title">③ 籌資活動</div>
+        <div class="cf-item">向股東拿錢或還錢：現金增減資、發行/還貸、股息、回購股票</div>
+        <div class="cf-item"><strong>重點</strong>：主要是發股利和借還款</div>
+        <div class="cf-item">台積電2022：－2,002億</div>
+      </div>
+    </div>
+  </section>
 
-    <div class="page-hero" id="intro">
-      <div class="hero-tag">Chapter 5｜p.222–254</div>
-      <h2>現金流量表：獲利品質、資本支出與現金真相</h2>
-      <p>這章的重點不是背現金流量表格式，而是學會用現金流量表回答 4 個問題：公司賺的錢有沒有真的收進來、現金被拿去做什麼、是不是靠融資撐住、以及扣掉資本支出後還剩多少自由現金流量。</p>
-      <div class="hl">一句話記住本章：<strong>損益表先告訴你「有沒有賺」，現金流量表再告訴你「有沒有收到」，自由現金流量最後告訴你「還剩多少能自由運用」。</strong></div>
+  <!-- 1. 營業活動 -->
+  <section class="section" id="op">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--cg)"></span>
+      <h3>1. 營業活動之現金流量</h3>
+      <span class="section-page">p.221–226</span>
+    </div>
+    <div class="block-body">損益表的稅後淨利，為什麼不等於從營業活動賺到的現金？有三個主要原因：</div>
+
+    <div class="steps" style="margin-top:1rem">
+      <div class="step">
+        <div class="step-num g">1</div>
+        <div class="step-text">
+          <strong>損益表採「應計基礎」</strong><br>
+          台積電將 A17 處理器賣給蘋果後就認列營業收入，但貨款可能是月結 1–2 個月後才能收到。台積電採購晶圓後，通常也要 2–3 個月後才支付供應商貨款。所以損益表中台積電賺多少錢，不表示台積電當年度賺得等額的現金。
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num g">2</div>
+        <div class="step-text">
+          <strong>折舊費用是不用花錢的</strong><br>
+          廠房及設備的折舊費用，絕大部分是不用花錢的——因為企業該花的錢在當初買廠房、設備及無形資產時已經一次付清了。由於先買後提折舊的特性，越是花巨資建廠房、買設備的資本密集產業，其折舊費用越高，因此每年從營業上賺取的現金會比「稅後淨利」高很多。
+          <div class="caution-box" style="margin-top:8px">台積電 2022 年折舊費用高達 4,285 億元，這是造成營業活動現金流（1兆6,106億）遠高於稅後淨利（1兆169億）的主因。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num g">3</div>
+        <div class="step-text">
+          <strong>部分收支被重分類至投資或籌資活動</strong><br>
+          出售不動產的資本利得、利息收入、股息收入等，雖和本業有點關聯，但依會計原則被列入投資活動；支付借款利息被列入籌資活動。這些金額通常不高，讀者不用太在意。
+        </div>
+      </div>
     </div>
 
-    
-    <section class="section" id="bookway">
-      <div class="section-header"><span class="section-dot"></span><h3>這章到底在教什麼</h3><span class="section-page">閱讀路線</span></div>
-      <div class="block-body">Chapter 5 的閱讀路線其實很明確：先用營業活動現金流量驗證「本業獲利是否真的落袋」；接著看投資活動，判斷企業把錢花在競爭力還是花在雜項；再看籌資活動，判斷企業是健康調度還是被迫輸血；最後用自由現金流量回到投資人的真正問題：這家公司還剩多少現金能自由支配。</div>
-      <div class="diagram">
-        <div class="diagram-title">書本式閱讀順序</div>
-        <div class="flow-row">
-          <div class="flow-box safe">損益表獲利</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box info">營業活動現金流</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box highlight">投資 / 籌資活動</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box danger">自由現金流量</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box safe">獲利品質與估值</div>
+    <div class="formula">稅前淨利 ＋ 折舊及攤銷費用 - 所得稅支付數<br><span style="font-size:14px;color:var(--ct3)">≈</span><br>營業活動之淨現金流入（流出）</div>
+    <div class="formula-note">如果歷年來一直保持著變化不大的「比例關係」或很小的數字差異，表示企業的獲利模式穩定；反之，如果每年差異很大，就表示獲利模式不穩定、獲利品質不是很好。</div>
+
+    <div class="tbl-wrap" style="margin-top:1.25rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 5-1｜台積電 2022 年現金流量表（摘要）—營業活動（重要科目節錄）</div>
+      <table>
+        <tr><th>會計科目</th><th class="r">2022年度（千元）</th><th class="r">2021年度（千元）</th></tr>
+        <tr><td>稅前淨利</td><td class="r">1,144,190,718</td><td class="r">663,126,314</td></tr>
+        <tr><td><strong>折舊費用</strong></td><td class="r hi">428,498,179</td><td class="r">414,187,700</td></tr>
+        <tr><td><strong>攤銷費用</strong></td><td class="r hi">8,756,094</td><td class="r">8,207,169</td></tr>
+        <tr><td>應收票據及帳款淨額（變動）</td><td class="r warn">（32,169,853）</td><td class="r">(52,105,823)</td></tr>
+        <tr><td>存貨（變動）</td><td class="r warn">（28,046,827）</td><td class="r">(55,748,914)</td></tr>
+        <tr><td>支付所得稅</td><td class="r warn">（86,561,247）</td><td class="r">(83,497,851)</td></tr>
+        <tr><td style="font-weight:600;color:var(--cg2)">營業活動之淨現金流入</td><td class="r good">1,610,599,188</td><td class="r good">1,112,160,722</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：台積電 2022 年報</div>
+    </div>
+
+    <div class="cf-compare" style="margin-top:1.25rem">
+      <div class="cf-compare-title">台積電 2022 年：稅後淨利 vs 營業活動現金流比較</div>
+      <div class="cf-bar-row">
+        <div class="cf-bar-label">稅後淨利</div>
+        <div class="cf-bar-bg"><div class="cf-bar-fill" style="width:63%;background:var(--ca)"></div></div>
+        <div class="cf-bar-val" style="color:var(--ca2)">1兆169億</div>
+      </div>
+      <div class="cf-bar-row">
+        <div class="cf-bar-label">營業活動現金流</div>
+        <div class="cf-bar-bg"><div class="cf-bar-fill" style="width:100%;background:var(--cg)"></div></div>
+        <div class="cf-bar-val" style="color:var(--cg2)">1兆6,106億</div>
+      </div>
+      <div class="cf-bar-row">
+        <div class="cf-bar-label">稅前淨利＋折舊攤銷-所得稅</div>
+        <div class="cf-bar-bg"><div class="cf-bar-fill" style="width:95%;background:var(--cb)"></div></div>
+        <div class="cf-bar-val" style="color:var(--cb2)">1兆4,949億</div>
+      </div>
+      <div style="font-size:13px;color:var(--ct3);margin-top:8px">差異主要來自應收帳款、存貨增加（佔差異65%），反映台積電的預收貨款增加了901億元。獲利模式高度穩定。</div>
+    </div>
+
+    <div class="hl sage" style="margin-top:1rem">
+      <strong>好公司的特徵：</strong>即使台積電 2022 年獲利為零，透過不用花錢的折舊及攤銷費用，營業活動還是可以為公司產生約 4,000 多億元的現金。這數字大於當年度股息 2,800 多億元支付數，也大於台積電 2023 年預計支付的 3,000 多億元股利數。所以請讀者以後千萬不要輕易說出「台積電每年賺的錢都投入資本支出，所以沒有錢分配股息」這種欠缺會計知識的渾話了。
+    </div>
+  </section>
+
+  <!-- 2. 投資活動 -->
+  <section class="section" id="inv">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--cb)"></span>
+      <h3>2. 投資活動之現金流量</h3>
+      <span class="section-page">p.226–232</span>
+    </div>
+    <div class="block-body">投資活動是指公司取得或處分不動產廠房設備、策略性投資以及理財性投資的現金流入及流出。</div>
+    <div class="hl blue"><strong>重點只有一件事：</strong>當我們看現金流量表的投資活動，主要就是看不動產、廠房及設備的收支，以及策略性投資的收支及內容。企業投資活動如果偏離這個主題，通常不是錢太多亂投資，就是已經不知道該幹什麼了！</div>
+
+    <div class="block-title" style="margin-top:1.25rem">投資活動的 6 大類分析</div>
+    <div class="steps" style="margin-top:.75rem">
+      <div class="step">
+        <div class="step-num b">1</div>
+        <div class="step-text">
+          <strong>不動產、廠房及設備的現金收支（最重要）</strong><br>
+          是資本密集及技術密集產業每年最主要的投資活動。投資者閱讀此科目，可以看出企業的企圖心與成長可能。這是整個投資活動之現金流量（表）中最值得注意的項目。
+          <div class="caution-box" style="margin-top:8px">英特爾推動 IDM2.0 計畫，準備與台積電競爭晶圓代工業務，投入巨資在不動產廠房設備。其資本支出從 2020 年的 142 億美元一路拉高到 2022 年的 248 億美元，可以看出英特爾追趕台積電的企圖心。</div>
         </div>
       </div>
-      <div class="cgrid">
-        <div class="ccard"><div class="ccard-title">這章不是看單一年份</div><div class="ccard-body">書裡一直用近 2 年、3 年甚至更長時間比較，因為現金流最怕只看單年特殊事件。真正要看的是趨勢能否延續。</div></div>
-        <div class="ccard"><div class="ccard-title">這章不是只看絕對金額</div><div class="ccard-body">重點是比例、結構與邏輯能否連起來：獲利是否能轉成現金、現金是否被花在合理地方、資金缺口是否靠融資硬補。</div></div>
-      </div>
-    </section>
-
-    <section class="section" id="map">
-      <div class="section-header"><span class="section-dot"></span><h3>現金流量地圖</h3><span class="section-page">總覽</span></div>
-      <div class="block-body">全章可拆成 3 條現金流與 1 個總結指標。先看本業造血能力，再看投資方向，再看融資依賴，最後用自由現金流量統整公司真正可支配的現金能力。</div>
-      <div class="diagram">
-        <div class="diagram-title">3 條現金流 + 1 個總結</div>
-        <div class="flow-row">
-          <div class="flow-box safe"><div style="font-size:19px;font-weight:700;">營業活動</div><div style="font-size:12px;color:var(--ct3);margin-top:6px;">本業有沒有真的收現金</div></div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box info"><div style="font-size:19px;font-weight:700;">投資活動</div><div style="font-size:12px;color:var(--ct3);margin-top:6px;">現金被拿去擴產還是亂投資</div></div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box"><div style="font-size:19px;font-weight:700;">籌資活動</div><div style="font-size:12px;color:var(--ct3);margin-top:6px;">靠借錢、發股還是健康調度</div></div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box danger"><div style="font-size:19px;font-weight:700;">自由現金流</div><div style="font-size:12px;color:var(--ct3);margin-top:6px;">扣掉資本支出後還剩多少</div></div>
+      <div class="step">
+        <div class="step-num b">2</div>
+        <div class="step-text">
+          <strong>策略性投資的現金收支</strong><br>
+          基於長期策略需要而長期持有其他公司股權，進而對被投資公司的決策有影響力。反映在「採用權益法之投資」科目。
+          <div style="font-size:14px;color:var(--ct3);margin-top:6px">例：大聯大看上文曄 20% 左右的股權，著眼長期合作甚至最終合併的可能。文曄為反制，尋找祥碩當白馬王子——這種策略角力都會反映在投資活動中。</div>
         </div>
       </div>
-      <div class="cgrid">
-        <div class="ccard"><div class="ccard-title">這章真正想抓什麼？</div><div class="ccard-body">抓的是「獲利品質」。因為帳上獲利可能被應收帳款、存貨、折舊攤銷、資產處分或融資行為扭曲，但現金流比較難假裝。</div></div>
-        <div class="ccard"><div class="ccard-title">最後會落到哪裡？</div><div class="ccard-body">落到自由現金流量。因為真正能用來配息、還債、回購、併購與再投資的，不是會計上的獲利，而是扣掉必要資本支出後還剩下的現金。</div></div>
-      </div>
-    </section>
-
-    <section class="section" id="i1">
-      <div class="section-header"><span class="section-dot"></span><h3>1. 營業活動現金流量</h3><span class="section-page">p.222–226｜表 5-1</span></div>
-      <div class="block">
-        <div class="block-title">營業活動現金流量在看什麼？</div>
-        <div class="block-body">它在看本業是否真的把現金收回來。公司可能在損益表上認列營收與獲利，但客戶還沒付款、存貨還沒賣掉、或應付條件不同，結果就是帳面獲利和實際現金流可能出現很大落差。</div>
-        <div class="formula">營業活動現金流量 ≈ 稅前淨利 + 折舊與攤銷 ± 營運資金變動 − 所得稅支付</div>
-        <div class="formula-note">書中建議先抓 4 個主軸：稅前淨利、折舊攤銷、所得稅、營運資金變動。</div>
-      </div>
-
-      <div class="rr-loc-box">
-        <div class="rr-loc-title">台積電案例定位</div>
-        書中用台積電 2022 年的營業活動現金流來說明：稅前淨利很高、折舊與攤銷也很高，兩者加總後已經很接近營業活動現金流主體，表示本業賺錢能力與現金收現能力整體是對得起來的。
-      </div>
-
-      <div class="diagram">
-        <div class="diagram-title">獲利 → 現金流的轉換路徑</div>
-        <div class="flow-row">
-          <div class="flow-box">帳上獲利</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box highlight">加回折舊 / 攤銷</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box info">調整應收 / 存貨 / 應付</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box danger">扣掉所得稅</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box safe">營業活動現金流</div>
+      <div class="step">
+        <div class="step-num b">3</div>
+        <div class="step-text">
+          <strong>理財性投資的現金收支</strong><br>
+          財務人員基於理財需要，存取長天期定存款、買賣基金、債券甚至股票。這些投資行為在現金流量表上以「透過損益按公允價值衡量之金融資產」、「按攤銷後成本衡量之金融資產」等科目出現。金額看起來有時會很嚇人，但合併後淨增減數往往很小，就不需太注意。
         </div>
       </div>
-
-      <div class="block-title">為什麼營運現金流會和獲利不同？</div>
-      <div class="cgrid">
-        <div class="ccard"><div class="ccard-title">差異來源 1：應收帳款</div><div class="ccard-body">賣出去不等於收到錢。若客戶付款週期拉長，損益表會先認列營收，但現金流還沒進來。</div></div>
-        <div class="ccard"><div class="ccard-title">差異來源 2：存貨</div><div class="ccard-body">公司先囤貨、備料，現金先出去，但損益表要等賣掉才反映成營收與成本。</div></div>
-        <div class="ccard"><div class="ccard-title">差異來源 3：折舊攤銷</div><div class="ccard-body">折舊攤銷會壓低獲利，但通常不是當期再掏現金，因此營運現金流可能高於淨利。</div></div>
-        <div class="ccard"><div class="ccard-title">差異來源 4：所得稅</div><div class="ccard-body">就算本業強，繳稅仍是現金真流出，會拉低營運現金流的最終數字。</div></div>
-      </div>
-
-      <div class="block-title">快速區間判讀</div>
-      <div class="mr"><span class="ml">營運現金流 ≈ 獲利</span><div class="mbg"><div class="mf" style="width:88%;background:var(--cg)"></div></div><span class="mv" style="color:var(--cg2);">佳</span></div>
-      <div class="mr"><span class="ml">營運現金流略低於獲利</span><div class="mbg"><div class="mf" style="width:58%;background:var(--amber)"></div></div><span class="mv" style="color:var(--amber-dark);">可追蹤</span></div>
-      <div class="mr"><span class="ml">長期低於獲利很多</span><div class="mbg"><div class="mf" style="width:26%;background:var(--cw)"></div></div><span class="mv" style="color:var(--cw2);">警訊</span></div>
-
-      
-      <div class="block-title">台積電營業活動現金流的書本拆法</div>
-      <div class="rr-loc-box">
-        <div class="rr-loc-title">表 5-1 的閱讀方法</div>
-        書中的讀法不是逐欄背下來，而是先抓最核心的幾項：<strong>稅前淨利</strong>、<strong>折舊費用</strong>、<strong>攤銷費用</strong>、<strong>所得稅支付</strong>，再看應收帳款與其他營運資金科目的增減。這樣就能快速找到營業活動現金流的主來源與主要拖累項。
-      </div>
-      <div class="diagram">
-        <div class="diagram-title">表 5-1 速讀邏輯</div>
-        <div class="steps" style="margin-top:0;">
-          <div class="step"><div class="step-num">1</div><div class="step-text">先看稅前淨利：本業帳面上賺多少。</div></div>
-          <div class="step"><div class="step-num">2</div><div class="step-text">再加折舊與攤銷：哪些是不用再掏現金的成本。</div></div>
-          <div class="step"><div class="step-num">3</div><div class="step-text">再扣所得稅：現金真正流出去的部分。</div></div>
-          <div class="step"><div class="step-num">4</div><div class="step-text">最後看應收 / 存貨 / 其他營運資金：現金是被卡住還是被釋放。</div></div>
+      <div class="step">
+        <div class="step-num b">4</div>
+        <div class="step-text">
+          <strong>持有股票、基金及債券的股息及利息</strong><br>
+          企業因擁有股票、基金及債券而賺取的股息及利息。這些金額一般不大（台積電例外），所以通常不必理會。
         </div>
       </div>
-      <div class="tbl-wrap">
-        <table>
-          <tr><th>書中的觀察點</th><th>為什麼重要</th><th>解讀方向</th></tr>
-          <tr><td>稅前淨利 + 折舊攤銷占大宗</td><td>代表營運現金流主體來自本業</td><td>偏正面</td></tr>
-          <tr><td>所得稅支付很高</td><td>代表有真實現金流出，但也常代表確實有賺錢</td><td>中性偏正面</td></tr>
-          <tr><td>應收增加很多</td><td>錢還沒收回來，會拖累現金流</td><td>需追蹤</td></tr>
-          <tr><td>差異只來自小項目</td><td>表示整體獲利模式穩</td><td>偏正面</td></tr>
-        </table>
-      </div>
-
-      <div class="good-box"><strong>好訊號：</strong>每年營業活動現金流都能維持和獲利接近的比例，或兩者差異很小，代表獲利模式穩定、品質較高。</div>
-      <div class="warn-box"><strong>警訊：</strong>損益表一直很好看，但營業活動現金流長期偏弱，代表錢可能卡在應收、存貨，甚至根本沒有真的收回來。</div>
-    </section>
-
-    <section class="section" id="i2">
-      <div class="section-header"><span class="section-dot"></span><h3>2. 投資活動現金流量</h3><span class="section-page">p.227–233｜表 5-2、5-3</span></div>
-      <div class="block-body">投資活動現金流量在看的是：公司把現金拿去做什麼。正常企業最常見的大宗項目是不動產、廠房與設備；除此之外，還可能有策略性投資、理財性投資、取得無形資產、併購與出售資產等。</div>
-
-      <div class="diagram">
-        <div class="diagram-title">投資活動 6 類閱讀法</div>
-        <div class="steps" style="margin-top:0;">
-          <div class="step"><div class="step-num">1</div><div class="step-text"><strong>不動產、廠房及設備：</strong>最重要，也最常見，反映企業對未來產能與競爭力的投資。</div></div>
-          <div class="step"><div class="step-num">2</div><div class="step-text"><strong>策略性投資：</strong>若是為了上下游布局、技術、合作關係，通常屬長期經營邏輯的一部分。</div></div>
-          <div class="step"><div class="step-num">3</div><div class="step-text"><strong>理財性投資：</strong>短期停泊資金、基金、債券等，解讀上要更保守，因為不一定和本業競爭力有關。</div></div>
-          <div class="step"><div class="step-num">4</div><div class="step-text"><strong>取得或處分子公司 / 併購：</strong>可能會一次性扭動現金流數字，要搭配經營策略一起看。</div></div>
-          <div class="step"><div class="step-num">5</div><div class="step-text"><strong>出售資產：</strong>短期增加現金，但不代表本業改善，可能只是賣祖產。</div></div>
-          <div class="step"><div class="step-num">6</div><div class="step-text"><strong>雜項投資：</strong>若項目很多又難以解釋，要提高警覺。</div></div>
+      <div class="step">
+        <div class="step-num b">5</div>
+        <div class="step-text">
+          <strong>企業併購交易</strong><br>
+          企業併購另一家企業，往往是支付一筆的各式各樣的資產。建議讀者閱讀相關財報附註。
         </div>
       </div>
-
-      <div class="block-title">投資活動的讀法，不是看流出多寡，而是看用途</div>
-      <div class="phase">
-        <div class="phase-hd" style="background:var(--cg-l)"><span class="phase-tag" style="background:#DCE8D8;color:var(--cg2);">偏健康</span><span class="phase-title">流出集中在本業 CAPEX</span></div>
-        <div class="phase-bd">
-          <div class="sd"><span class="sd-label" style="background:#DCE8D8;color:var(--cg2);">意義</span><br>擴廠、設備升級、維持技術優勢，代表現金拿去支撐未來競爭力。</div>
-          <div class="sd"><span class="sd-label" style="background:#DCE8D8;color:var(--cg2);">判讀</span><br>高資本密集產業很常見，不能因為投資活動淨流出就直接判斷不好。</div>
-        </div>
-        <div class="phase-outcome">像台積電、英特爾，就是本章典型教材。</div>
-      </div>
-      <div class="phase">
-        <div class="phase-hd" style="background:var(--cw-l)"><span class="phase-tag" style="background:#F0D7D3;color:var(--cw2);">偏需小心</span><span class="phase-title">流出很雜、理財投資多、出售資產撐現金</span></div>
-        <div class="phase-bd">
-          <div class="sd"><span class="sd-label" style="background:#F0D7D3;color:var(--cw2);">意義</span><br>短期數字可能變好看，但與本業成長不一定有關。</div>
-          <div class="sd"><span class="sd-label" style="background:#F0D7D3;color:var(--cw2);">判讀</span><br>要追問：這些投資能不能強化長期競爭力？還是只是財務操作？</div>
-        </div>
-        <div class="phase-outcome">賣資產不等於公司變強，只是現金短暫變多。</div>
-      </div>
-
-      
-      <div class="block-title">投資活動最容易誤判的地方</div>
-      <div class="cgrid">
-        <div class="ccard"><div class="ccard-title">誤判 1：看到大額流出就覺得不好</div><div class="ccard-body">書裡剛好相反，高資本密集企業若沒有持續投資廠房與設備，反而可能是在喪失競爭力。重點是現金流出去之後，是否能換回更強的產能與技術優勢。</div></div>
-        <div class="ccard"><div class="ccard-title">誤判 2：看到出售資產就覺得現金很多</div><div class="ccard-body">出售資產只是一次性補現金，不能當成正常營運造血。若公司常靠賣資產撐場面，通常不是好現象。</div></div>
-      </div>
-      <div class="rr-loc-box">
-        <div class="rr-loc-title">台積電 vs 英特爾</div>
-        兩者都能用來說明 CAPEX 會吃掉大量現金：台積電案例是「本業強、但 CAPEX 很重」；英特爾則進一步說明，當資本支出忽然大增時，自由現金流量、回購與股利政策都可能跟著受到壓力。
-      </div>
-
-      <div class="hl blue">重點不是「投資活動流出很大」就不好，而是<strong>流出大但主軸清楚，通常比金額小卻雜亂無章來得健康。</strong></div>
-    </section>
-
-    <section class="section" id="i3">
-      <div class="section-header"><span class="section-dot"></span><h3>3. 籌資活動現金流量</h3><span class="section-page">p.233–245｜表 5-4、5-7</span></div>
-      <div class="block-body">籌資活動現金流量在看的是公司如何向外界拿錢、還錢、回饋股東。它包含借款、還債、現金增資、可轉債、發放股利、買回庫藏股、租賃負債等。</div>
-      <div class="tbl-wrap">
-        <table>
-          <tr><th>項目</th><th>常見解讀</th><th>偏中性 / 好</th><th>偏警訊</th></tr>
-          <tr><td>借款增加</td><td>銀行或債市資金流入</td><td>成長期或短期調度</td><td>長期靠借新還舊維生</td></tr>
-          <tr><td>現金增資</td><td>向股東拿錢</td><td>少見且有明確成長計畫</td><td>常態性補洞、稀釋股本</td></tr>
-          <tr><td>發放股利</td><td>現金回饋股東</td><td>由自由現金流支撐</td><td>借錢發股利</td></tr>
-          <tr><td>股份回購</td><td>減少在外股數</td><td>現金流充裕時的股東回饋</td><td>只做題材、不具持續性</td></tr>
-          <tr><td>償還借款</td><td>去槓桿</td><td>本業現金流支應</td><td>還完又借、結構沒改善</td></tr>
-        </table>
-      </div>
-
-      <div class="diagram">
-        <div class="diagram-title">籌資活動的健康 vs 危險</div>
-        <div class="flow-row">
-          <div class="flow-box safe">本業現金流強<br><span style="font-size:12px;">→ 籌資只是工具</span></div>
-          <div class="flow-arrow">vs</div>
-          <div class="flow-box danger">本業現金流弱<br><span style="font-size:12px;">→ 籌資變成輸血</span></div>
+      <div class="step">
+        <div class="step-num b">6</div>
+        <div class="step-text">
+          <strong>其他（通常不需深入探討）</strong><br>
+          投資性不動產、應收關係人款、存出保證金等的增減，較不常見且金額不重大，通常不需深入探討。
         </div>
       </div>
+    </div>
 
-      
-      <div class="diagram">
-        <div class="diagram-title">籌資依賴程度</div>
-        <div class="mr"><span class="ml">偶爾借款調度</span><div class="mbg"><div class="mf" style="width:80%;background:var(--cg)"></div></div><span class="mv" style="color:var(--cg2);">可接受</span></div>
-        <div class="mr"><span class="ml">景氣差時融資增加</span><div class="mbg"><div class="mf" style="width:52%;background:var(--amber)"></div></div><span class="mv" style="color:var(--amber-dark);">觀察</span></div>
-        <div class="mr"><span class="ml">長期現增 / 借新還舊</span><div class="mbg"><div class="mf" style="width:22%;background:var(--cw)"></div></div><span class="mv" style="color:var(--cw2);">危險</span></div>
+    <div class="tbl-wrap" style="margin-top:1.25rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 5-3｜台積電 2022 年現金流量表（摘要）—投資活動（重要科目）</div>
+      <table>
+        <tr><th>會計科目</th><th class="r">2022年度（千元）</th><th class="r">2021年度（千元）</th></tr>
+        <tr><td>理財性投資買賣等（各科目合計，淨數）</td><td class="r mute">數字複雜但互相抵銷，淨數不大</td><td class="r mute">—</td></tr>
+        <tr><td><strong>取得不動產、廠房及設備</strong></td><td class="r warn">（1,082,672,130）</td><td class="r warn">（839,195,708）</td></tr>
+        <tr><td>取得無形資產</td><td class="r">（6,954,326）</td><td class="r">（9,040,751）</td></tr>
+        <tr><td>收取採用權益法投資之股利</td><td class="r">2,749,667</td><td class="r">2,136,426</td></tr>
+        <tr><td style="font-weight:600;color:var(--cw2)">投資活動之淨現金流出</td><td class="r warn">（1,190,928,235）</td><td class="r warn">（836,365,863）</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：台積電 2022 年報｜台積電投資活動幾乎 = 買廠房設備，這是最乾淨的資本配置邏輯</div>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top:1.25rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 5-2｜英特爾近 3 年現金流量變化（投資活動）</div>
+      <table>
+        <tr><th>科目（單位：百萬美元）</th><th class="r">2022年</th><th class="r">2021年</th><th class="r">2020年</th></tr>
+        <tr><td><strong>Cash flows (used for) investing activities</strong></td><td class="r warn">（24,844）</td><td class="r warn">（18,733）</td><td class="r warn">（14,259）</td></tr>
+        <tr><td>Additions to property, plant and equipment</td><td class="r warn">（24,844）</td><td class="r warn">（18,733）</td><td class="r warn">（14,259）</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：10-K filed by Intel｜英特爾資本支出從142億美元拉高到248億美元，追趕台積電的企圖心明顯</div>
+    </div>
+  </section>
+
+  <!-- 3. 籌資活動 -->
+  <section class="section" id="fin">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--ca)"></span>
+      <h3>3. 籌資活動之現金流量</h3>
+      <span class="section-page">p.232–236</span>
+    </div>
+    <div class="block-body">籌資活動是指企業向股東拿錢、還股東錢，以及舉借或償還借款的活動。</div>
+
+    <div class="block-title" style="margin-top:1rem">籌資活動的 5 大類</div>
+    <div class="cgrid" style="margin-top:.75rem">
+      <div class="ccard">
+        <div class="ccard-title">① 辦理現金增資/減資/回購股票</div>
+        <div class="ccard-body">健康的大企業通常很少辦理大規模的現金增資。台積電已很久沒辦理，即便讓員工執行認股權，也會從市場買回相同數量股份，讓對外發行的股數保持不變。</div>
       </div>
+      <div class="ccard">
+        <div class="ccard-title">② 發放現金股利</div>
+        <div class="ccard-body">支付股息通常是企業籌資活動中最常見的現金流出。台積電 2022 年就支付了 2,852 億元現金股利，以很穩定但配息率不高的方式支付股息。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">③ 發行或贖回可轉換公司債</div>
+        <div class="ccard-body">籌資活動現流表上出現「贖回可轉債」，通常意味公司業績不佳、股價一直低於可轉債的轉換價格，以致投資人寧等可轉債到期再贖回。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">④ 增加或減少借款</div>
+        <div class="ccard-body">企業經營過程中，借錢與還錢都是很正常的行為，所以對於籌資活動現流表中這些借款的進進出出就不必太在意。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">⑤ 支付銀行借款及公司債利息</div>
+        <div class="ccard-body">有借有還，再借不難。利息相對於營收或借款金額，實在太微不足道了，所以也不必太在意。</div>
+      </div>
+    </div>
 
-      <div class="caution-box"><strong>注意：</strong>單看某一年借款增加不一定有問題，但若長期都要靠借款、現增或發債來補洞，代表企業內生造血能力可能不足。</div>
-      <div class="warn-box"><strong>華映案例的啟示：</strong>如果營運現金流不能穩定生成足夠現金，公司就可能越來越依賴借款與處分資產，最後融資空間愈來愈小。</div>
-    </section>
+    <div class="tbl-wrap" style="margin-top:1.25rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 5-4｜台積電 2022 年現金流量表（摘要）—籌資活動（重要科目）</div>
+      <table>
+        <tr><th>會計科目</th><th class="r">2022年度（千元）</th><th class="r">2021年度（千元）</th></tr>
+        <tr><td>買回庫藏股票</td><td class="r">（2,428,277）</td><td class="r">（1,985,338）</td></tr>
+        <tr><td>租賃本金價還</td><td class="r warn">（12,218,659）</td><td class="r warn">（3,833,633）</td></tr>
+        <tr><td><strong>支付現金股利</strong></td><td class="r warn">（285,234,185）</td><td class="r warn">（265,786,399）</td></tr>
+        <tr><td style="font-weight:600;color:var(--cw2)">籌資活動之淨現金流出</td><td class="r warn">（200,244,032）</td><td class="r good">136,608,438</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：台積電 2022 年報｜台積電籌資活動最主要就是發股息</div>
+    </div>
+    <div class="good-box">簡單就是美：<strong>好公司的主要現金流量，就是可以從營業活動中賺取足夠與穩定的現金，再把這些現金花在資本支出、策略性轉投資以及返還股東三大支出中。</strong>台積電現金流量表是作者看過台灣所有上市櫃公司當中，最乾淨的現流表之一。</div>
+  </section>
 
-    <section class="section" id="i4">
-      <div class="section-header"><span class="section-dot"></span><h3>4. 自由現金流量</h3><span class="section-page">p.246–251｜表 5-8、5-9</span></div>
-      <div class="block-title">本章最重要的公式</div>
-      <div class="formula">自由現金流量 = 營業活動現金流入 − 資本支出</div>
-      <div class="block-body">自由現金流量才是真正能自由分配的錢。因為資本支出不是「想不想花」的問題，而是企業要維持競爭力、設備與產能時不得不花的錢，所以看企業能不能配息、還債、回購、併購，都要回到自由現金流量。</div>
+  <!-- 獲利品質照妖鏡 -->
+  <section class="section" id="quality">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--ca)"></span>
+      <h3>現金流量表——獲利品質照妖鏡</h3>
+      <span class="section-page">p.236–238</span>
+    </div>
+    <div class="block-body">為什麼從現金流量表可以看出一家企業盈餘的品質？主要原因有二：</div>
+    <div class="cgrid" style="margin-top:.75rem">
+      <div class="ccard">
+        <div class="ccard-title">原因① 商譽問題</div>
+        <div class="ccard-body">很多公司在購併其他公司之後，會產生龐大的商譽。商譽是不用攤提的，但有時很難認定其真正的價值——國外有些法人投資者在分析企業財務狀況時，有時候把無形資產從資產負債表中扣除。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">原因② 折舊政策差異</div>
+        <div class="ccard-body">折舊政策會影響損益：台積電用 5 年攤提設備折舊，但格芯用 10 年攤提。這些差異都會影響企業的獲利品質，從現金流量表的角度看會更清楚。</div>
+      </div>
+    </div>
 
-      <div class="diagram">
-        <div class="diagram-title">自由現金流量的實戰用途</div>
-        <div class="flow-row">
-          <div class="flow-box">營業活動現金流</div>
-          <div class="flow-arrow">−</div>
-          <div class="flow-box info">資本支出</div>
-          <div class="flow-arrow">=</div>
-          <div class="flow-box safe">自由現金流量</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box highlight">股利 / 還債 / 回購 / 再投資</div>
+    <div class="case-strip" style="margin-top:1rem">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--ca)"></span><span class="case-title">真實案例：帳上賺錢，但老闆每天睡不著——電子流通業老闆的故事</span><span class="case-tag tag-neutral">台灣</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">
+        <strong>老闆說：</strong>「我是賺錢沒錯，但你知道嗎？這個錢到底是真的賺還是假的賺，我也不清楚。」<br><br>
+        老闆解釋：客戶主要是代工大廠，賣產品給他們的毛利率不高，以前是五窮六絕（毛利率 5–6%），現在只有茅山道士（毛利率 3–4%），未來說不定還會降到說不二（毛利率 1–2%）。<br><br>
+        毛利率已經不高了，結果代工大廠給的應收帳款天數是 6 個月，但他跟上游進貨的應付帳款是 2 個月，中間就差 4 個月。再嚴格來說，存貨要 2 個月，應收帳款 6 個月，基本上要存 8 個月的錢，可是付給供應商的應付帳款是 2 個月，一來一往淨差就 6 個月。<br><br>
+        <strong>結果：</strong>「你看，我的營收越來越增加，我賺的錢越來越多，但是賺得越多，表示我的應收帳款跟存貨越多，我每年賺的錢都沒辦法發現金股利，因為都圍困在應收帳款跟存貨裡面。」<br><br>
+        他苦惱的繼續說：「雖然我帳上都是賺錢，可是銀行借款越來越多。」也就是說，在現金流上，他根本找不到現金可以從哪裡擠出來，以至於必須跟銀行借錢發股利，就算要轉投資，也必須跟銀行借錢。<br><br>
+        <strong>教訓：</strong>即便一家公司賺錢，基本上表示這個獲利是不健康的，如果長期無法從營業上取得現金，這家公司通常就不值得救了。
+      </div>
+    </div>
+  </section>
+
+  <!-- 困境公司 -->
+  <section class="section" id="rescue">
+    <div class="section-header">
+      <span class="section-dot" style="background:var(--cw)"></span>
+      <h3>從現金流量表判斷困境公司有沒有救——以華映為例</h3>
+      <span class="section-page">p.239–245</span>
+    </div>
+    <div class="block-body">通常而言，生病的企業即使透過增資或借款暫時治癒後，如果在營業活動上不能產生足夠供企業再投資、償還借款以及分配股息的現金，這家公司通常就不值得救了。</div>
+
+    <div class="hl red">華映（中華映管）多年財務困境，最終在 2018 年聲請重整，並於 2022 年經法院裁定宣告破產。如果時光可以倒流，如果投資人看懂財報，透過解讀華映 2017 年甚至更早年的財報，特別是現金流量表，一定可以比其他人更早知道華映窘境之必然。</div>
+
+    <div class="tbl-wrap" style="margin-top:1.25rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 5-5｜華映 2017 年個體現金流量表（摘要）—營業活動（重要科目）</div>
+      <table>
+        <tr><th>會計科目</th><th class="r">2017年（千元）</th><th class="r">2016年（千元）</th></tr>
+        <tr><td>本期稅前淨利（淨損）</td><td class="r">3,274,958</td><td class="r warn">（1,776,479）</td></tr>
+        <tr><td>折舊費用</td><td class="r hi">220,120</td><td class="r hi">278,857</td></tr>
+        <tr><td>攤銷費用</td><td class="r">5,267</td><td class="r">12,160</td></tr>
+        <tr><td>處分出售非流動資產利益</td><td class="r warn">（2,323,058）</td><td class="r">—</td></tr>
+        <tr><td>預收款項（變動）</td><td class="r warn">（7,129,738）</td><td class="r">—</td></tr>
+        <tr><td style="font-weight:600;color:var(--cw2)">營業活動之淨現金流入（流出）</td><td class="r warn">（1,192,695）</td><td class="r warn">4,367,842</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：公開資訊觀測站</div>
+    </div>
+
+    <div class="block-body" style="margin-top:1rem">從華映 2017 年個體報表之營業活動現金流表中可以看出：</div>
+    <div class="steps" style="margin-top:.75rem">
+      <div class="step">
+        <div class="step-num" style="background:var(--cw-l);color:var(--cw2);border-color:#D8A098">①</div>
+        <div class="step-text">當年度稅前淨利有 33 億元，加上當年度的折舊及攤銷費用高達 35 億元，華映的營業活動現金流量似乎應該不錯才對。</div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:var(--cw-l);color:var(--cw2);border-color:#D8A098">②</div>
+        <div class="step-text">但當年度稅前淨利中有 23 億元是出售資產的獲利，這表示其當年度獲利主要是來自業外的一時性收入，以後年度不會再有。而且這部分的現金流入屬於投資活動，所以被重分類至投資活動的現金流量中。</div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:var(--cw-l);color:var(--cw2);border-color:#D8A098">③</div>
+        <div class="step-text">更嚴重的是，當年度營業收入中約有 71 億元是在以前年度已經向關係人預收貨款了，因此這部分營收無法再為華映產生現金流量。</div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:var(--cw-l);color:var(--cw2);border-color:#D8A098">④</div>
+        <div class="step-text">綜合以上 3 個主要因素，華映 2017 年營業活動之現金流量為約負 12 億元。</div>
+      </div>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top:1rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 5-6｜華映 2017 年個體資產負債表（摘要）—顯示財務困境</div>
+      <table>
+        <tr><th>會計科目（千元）</th><th class="r">2017年</th><th class="r">%</th><th class="r">2016年</th><th class="r">%</th></tr>
+        <tr><td>現金及約當現金</td><td class="r">3,485,121</td><td class="r">7</td><td class="r">3,416,241</td><td class="r">7</td></tr>
+        <tr><td>應收帳款及票據淨額</td><td class="r warn">1,130,776</td><td class="r warn">3</td><td class="r warn">1,400,105</td><td class="r warn">3</td></tr>
+        <tr><td><strong>應付帳款－關係人</strong></td><td class="r warn">9,522,839</td><td class="r warn">20</td><td class="r warn">9,663,469</td><td class="r warn">17</td></tr>
+        <tr><td><strong>預收款項</strong></td><td class="r warn">8,123,404</td><td class="r warn">17</td><td class="r warn">15,259,269</td><td class="r warn">27</td></tr>
+        <tr><td>負債總計</td><td class="r warn">33,763,855</td><td class="r warn">70</td><td class="r warn">37,397,725</td><td class="r warn">82</td></tr>
+      </table>
+      <div style="margin-top:8px;background:var(--cw-l);border-left:2.5px solid var(--cw);padding:10px 14px;font-size:15px;color:var(--cw2)">
+        <strong>2017年的關鍵：</strong>應付帳款-關係人 95 億元（積欠關係人貸款），加上預收款項 81 億元（除非買方願意再預收貨款，否則 2018 年的營收中會有 81 億元不會再收到錢了），兩者合計達 176 億元。除非這些預收貨款及積欠的貸款可以繼續展延，否則華映 2018 年及往後年度的營業活動現金流應該會是負的。
+      </div>
+      <div class="tbl-caption">資料來源：公開資訊觀測站</div>
+    </div>
+  </section>
+
+  <!-- 自由現金流量 -->
+  <section class="section" id="fcf">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>「自由現金流量」的觀念很重要</h3>
+      <span class="section-page">p.246–250</span>
+    </div>
+    <div class="block-body">「自由現金流量」是企業正常營運一段期間所累積起來可以自由支配的錢——可以拿這筆錢去發放股息、回購股份、償還貸款、從事策略性投資、併購，甚至增加公司的現金儲備等。</div>
+
+    <div class="formula">自由現金流量 ＝ 營業活動現金流入 - 資本支出</div>
+    <div class="formula-note">「資本支出」是企業為維持並增加競爭力，基於長期策略必須支應在不動產、廠房及設備上的支出。不能直接拿投資活動的現金流量來充數（因為裡面還包含策略性及理財性投資等其他項目）。</div>
+
+    <div class="diagram" style="margin-top:1.25rem">
+      <div class="diagram-title">台積電 2022 年自由現金流量計算</div>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-label">營業活動現金流入</div>
+          <div class="stat-val" style="color:var(--cg2)">1兆6,106億</div>
+        </div>
+        <div class="stat" style="display:flex;align-items:center;justify-content:center;background:transparent;border:none">
+          <div style="font-size:28px;color:var(--ct4)">－</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">資本支出（廠房設備）</div>
+          <div class="stat-val" style="color:var(--cw2)">1兆896億</div>
+        </div>
+        <div class="stat" style="display:flex;align-items:center;justify-content:center;background:transparent;border:none">
+          <div style="font-size:28px;color:var(--ct4)">＝</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">自由現金流量</div>
+          <div class="stat-val" style="color:var(--ca2)">5,209億</div>
         </div>
       </div>
+      <div class="good-box" style="margin-top:1rem">這筆 5,209 億元台積電可以決定用來配發股息、償還負債、轉投資，或直接存在銀行裡。</div>
+    </div>
 
-      <div class="block-title">自由現金流量可以怎麼分層看？</div>
-      <div class="mr"><span class="ml">穩定為正且逐年增加</span><div class="mbg"><div class="mf" style="width:92%;background:var(--cg)"></div></div><span class="mv" style="color:var(--cg2);">強</span></div>
-      <div class="mr"><span class="ml">為正但波動大</span><div class="mbg"><div class="mf" style="width:60%;background:var(--amber)"></div></div><span class="mv" style="color:var(--amber-dark);">中性</span></div>
-      <div class="mr"><span class="ml">長期偏低或為負</span><div class="mbg"><div class="mf" style="width:28%;background:var(--cw)"></div></div><span class="mv" style="color:var(--cw2);">弱</span></div>
+    <div class="block-title" style="margin-top:1.25rem">未來的自由現金流量會影響股價</div>
+    <div class="block-body">在股市上，股票價值的推算除了預估的 EPS 以外，也往往離不開企業未來的自由現金流量。巴菲特就特別喜歡自由現金流量穩定且高的企業。</div>
 
-      <div class="cgrid">
-        <div class="ccard"><div class="ccard-title">高自由現金流代表什麼？</div><div class="ccard-body">企業有更大能力穩定發股利、回購股票、降低負債、保留現金，或在景氣不好時維持彈性。</div></div>
-        <div class="ccard"><div class="ccard-title">低自由現金流一定不好嗎？</div><div class="ccard-body">不一定。若是高成長期的大額擴產，可能只是「現在先花，未來再收」。但若多年都收不到成果，就要警覺。</div></div>
-      </div>
+    <div class="hl amber">
+      <strong>台商到香港或美國掛牌的本益比都很低的兩個原因：</strong><br>
+      ① 台灣上市公司主要以製造業為主，製造業只要業務增加就必須擴廠，不斷購買或建造土地、廠房與機器設備，還會產生大量的應收帳款與存貨，結果公司越大，資金需求越多，自由現金流量自然低。<br>
+      ② 不斷的高資本支出，基掛牌台商的股價本益比普遍較低。利潤難以合理預估，以致景氣好壞都嚴重影響公司獲利能力，以及伴隨而來的沒錢發股息及回購股份。
+    </div>
 
-      
-      <div class="block-title">自由現金流量為什麼比 EPS 更接近現實？</div>
-      <div class="cgrid">
-        <div class="ccard"><div class="ccard-title">EPS 是會計分配結果</div><div class="ccard-body">EPS 會受到股本、折舊政策、會計認列方式影響，所以它很重要，但不夠完整。</div></div>
-        <div class="ccard"><div class="ccard-title">自由現金流量是現金剩餘結果</div><div class="ccard-body">它直接回答投資人的問題：公司在維持競爭力後，究竟還剩多少現金可運用。</div></div>
-      </div>
-      <div class="diagram">
-        <div class="diagram-title">同樣賺錢，估值卻可能不同的原因</div>
-        <div class="flow-row">
-          <div class="flow-box">公司 A、B 淨利相近</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box info">CAPEX 不同</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box highlight">自由現金流不同</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box danger">股利 / 回購 / 估值不同</div>
-        </div>
-      </div>
+    <div class="tbl-wrap" style="margin-top:1rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 5-9｜台積電 ADR 本益比偏低（截至2023年7月）</div>
+      <table>
+        <tr><th>公司</th><th class="r">台積電ADR</th><th class="r">博通(Broadcom)</th><th class="r">超微AMD</th><th class="r">蘋果Apple</th><th class="r">高通Qualcomm</th></tr>
+        <tr>
+          <td>本益比<br><small>（股價/未來1年預估EPS）</small></td>
+          <td class="r warn">19.1</td>
+          <td class="r good">24.92</td>
+          <td class="r good">66.84</td>
+          <td class="r good">29.65</td>
+          <td class="r good">17.42</td>
+        </tr>
+      </table>
+      <div class="tbl-caption">資料來源：Seeking Alpha｜台積電因資本支出太龐大，其本益比只比高通高一點。不斷的高資本支出，讓台積電自由現金流量相對較低</div>
+    </div>
 
-      <div class="hl red"><strong>真正的判斷難點：</strong>自由現金流量低，到底是因為企業在做有回報的投資，還是因為根本沒有現金造血能力？這是本章要你練習分辨的地方。</div>
-    </section>
+    <div class="block-body" style="margin-top:1rem">
+      <strong>自由現金流量的推算公式：</strong>
+    </div>
+    <div class="formula" style="font-size:16px">預計稅後淨利 × X% ＋ 預估攤折費用 - 預計資本支出</div>
+    <div class="formula-note">至於這些數字，沒有人，包括公司，能夠告訴你確切的數字。但自由現金流量在商業模式越是穩定的公司、資訊越是透明的公司，越能夠推算出越準確的數字。</div>
+  </section>
 
-    <section class="section" id="i5">
-      <div class="section-header"><span class="section-dot"></span><h3>5. 台積電與華映：正反兩種教材</h3><span class="section-page">p.224–245</span></div>
-      <div class="case-strip">
-        <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cg)"></span><span class="case-title">台積電：營運現金流穩，投資活動大額流出也合理</span><span class="case-tag tag-ok">正面教材</span><span class="case-chev">▼</span></div>
-        <div class="case-bd">台積電案例的重點不是「現金很多」而已，而是三條現金流的邏輯彼此一致：本業獲利能轉成營運現金流；投資活動大額流出，主要是廠房、設備與競爭力支出；籌資活動則更多是資金調度與股東回饋，不是被迫性輸血。這代表公司的賺錢方式、擴張方式與資本支出邏輯是連得起來的。</div>
-      </div>
-      <div class="case-strip">
-        <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cw)"></span><span class="case-title">華映：帳上有數字，不代表真的健康</span><span class="case-tag tag-warn">反面教材</span><span class="case-chev">▼</span></div>
-        <div class="case-bd">華映案例用來說明：公司可能有部分帳面獲利、也可能透過處分資產帶來現金，但若營業活動現金流不能穩定造血，還要靠借款、資產處分與其他非本業方式支撐，最後籌資壓力會越來越大。也就是說，數字可以一度好看，但現金流結構很難長期假裝。</div>
-      </div>
-      
-      <div class="block-title">把案例放進同一張圖看</div>
-      <div class="tbl-wrap">
-        <table>
-          <tr><th>公司</th><th>營運現金流</th><th>投資活動</th><th>籌資活動</th><th>整體解讀</th></tr>
-          <tr><td>台積電</td><td style="color:var(--cg2)">強</td><td style="color:var(--amber-dark)">大額 CAPEX</td><td>調度與股東回饋</td><td>高品質但資本密集</td></tr>
-          <tr><td>華映</td><td style="color:var(--cw2)">弱</td><td>夾雜資產處分</td><td style="color:var(--cw2)">融資依賴高</td><td>結構脆弱</td></tr>
-          <tr><td>蘋果</td><td style="color:var(--cg2)">強</td><td>相對可控</td><td style="color:var(--cg2)">回購與股利</td><td>高自由現金流模式</td></tr>
-          <tr><td>英特爾</td><td>仍有本業現金流</td><td style="color:var(--amber-dark)">CAPEX 壓力升高</td><td>回購能力受壓</td><td>轉折期觀察</td></tr>
-        </table>
-      </div>
+  <!-- 歐美大企業 -->
+  <section class="section" id="global">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>歐美大企業善於運用自由現金流量</h3>
+      <span class="section-page">p.250–254</span>
+    </div>
+    <div class="block-body">相同的獲利與現金流量下，不同的股利政策也會讓股價大不同。</div>
 
-      <div class="diagram">
-        <div class="diagram-title">台積電 vs 華映 的現金流邏輯</div>
-        <div class="phase">
-          <div class="phase-hd" style="background:var(--cg-l)"><span class="phase-tag" style="background:#DCE8D8;color:var(--cg2);">健康循環</span><span class="phase-title">台積電</span></div>
-          <div class="phase-bd">
-            <div class="sd"><span class="sd-label" style="background:#DCE8D8;color:var(--cg2);">本業</span><br>營運現金流穩定而強，代表本業真能收現。</div>
-            <div class="sd"><span class="sd-label" style="background:#DCE8D8;color:var(--cg2);">資金用途</span><br>投資活動主要是 CAPEX，代表在買未來競爭力。</div>
-          </div>
-          <div class="phase-outcome">高資本支出會壓縮自由現金流，但屬於可理解的產業特性。</div>
-        </div>
-        <div class="phase">
-          <div class="phase-hd" style="background:var(--cw-l)"><span class="phase-tag" style="background:#F0D7D3;color:var(--cw2);">惡化循環</span><span class="phase-title">華映</span></div>
-          <div class="phase-bd">
-            <div class="sd"><span class="sd-label" style="background:#F0D7D3;color:var(--cw2);">本業</span><br>營運現金流不足，難以靠本業自己供血。</div>
-            <div class="sd"><span class="sd-label" style="background:#F0D7D3;color:var(--cw2);">資金用途</span><br>靠處分資產與借款延命，代表不是良性的現金循環。</div>
-          </div>
-          <div class="phase-outcome">當外部融資空間縮小，風險就會快速浮現。</div>
-        </div>
-      </div>
-    </section>
+    <div class="hl amber">
+      在歐美這種「先進資本主義國家」，企業經營的主要目的除了為企業賺錢外，更要<strong>讓投資人真正賺錢</strong>。加上法人機構、退休基金等希望企業的股息要穩定、讓投資人可以有穩定可預期的收入。在穩定的股息政策下，<strong>產生太多現金流入怎麼辦？方法就是將多餘的資金用回購股份的方式發還股民</strong>，或部分股份透過市場賣給企業，實現資本利得。
+    </div>
 
-    <section class="section" id="i6">
-      <div class="section-header"><span class="section-dot"></span><h3>6. 歐美企業對照：自由現金流與股東回饋</h3><span class="section-page">p.250–254｜表 5-10、5-11</span></div>
-      <div class="block-body">這段重點在對照出台灣企業與歐美大型企業的差異。歐美大型企業常常不是把大部分現金都拿去高配息，而是把部分現金透過<strong>市場給企業、企業再透過股份回購還給股東</strong>的方式回饋，這會進一步帶動 EPS 成長與股價表現。</div>
-      <div class="cgrid">
-        <div class="ccard"><div class="ccard-title">台灣常見思維</div><div class="ccard-body">比較直覺看配息率、現金股利高不高，偏重「今年拿到多少現金」。</div></div>
-        <div class="ccard"><div class="ccard-title">歐美大型企業思維</div><div class="ccard-body">除了股利，更重視自由現金流是否足以支撐回購、EPS 成長與長期股東報酬。</div></div>
-      </div>
-      <div class="diagram">
-        <div class="diagram-title">歐美股東回饋鏈條</div>
-        <div class="flow-row">
-          <div class="flow-box">自由現金流充沛</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box info">回購庫藏股</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box highlight">在外股數下降</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box safe">EPS 提升</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box safe">長期股價表現受益</div>
-        </div>
-      </div>
-      <div class="hl amber">這段的真正重點不是要你崇拜回購，而是理解：<strong>當企業自由現金流量很強時，它的股東回饋工具會比單純配息更多元。</strong></div>
-    </section>
+    <div class="tbl-wrap" style="margin-top:1.25rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 5-10｜歐美大企業 2022 年現金流量概況（億美元）</div>
+      <table>
+        <tr><th></th><th class="r">蘋果</th><th class="r">高通</th><th class="r">殼牌石油</th></tr>
+        <tr><td>單位</td><td class="r mute">億美元</td><td class="r mute">億美元</td><td class="r mute">億美元</td></tr>
+        <tr><td>營業活動之現金流入</td><td class="r">1,222</td><td class="r">91</td><td class="r">684</td></tr>
+        <tr><td>資本支出</td><td class="r">110</td><td class="r">72</td><td class="r">249</td></tr>
+        <tr><td><strong>現金股利</strong></td><td class="r hi">148</td><td class="r hi">32</td><td class="r hi">184</td></tr>
+        <tr><td><strong>股份回購並註銷</strong></td><td class="r hi">894</td><td class="r hi">31</td><td class="r hi">76</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：作者整理｜3 家公司都採用「一部分的股息加上一部分甚至金額更高的股份回購」的返還股東政策</div>
+    </div>
 
-    <section class="section" id="cheat">
-      <div class="section-header"><span class="section-dot"></span><h3>Checklist</h3><span class="section-page">Chapter 5 速查表</span></div>
-      <div class="tbl-wrap">
-        <table>
-          <tr><th>問題</th><th>偏健康訊號</th><th>偏中性</th><th>偏警訊</th></tr>
-          <tr><td>營業活動現金流</td><td style="color:var(--cg2)">長期為正，且和獲利大致對應</td><td style="color:var(--amber-dark)">年度間有波動，但可解釋</td><td style="color:var(--cw2)">長期偏弱，甚至與獲利背離</td></tr>
-          <tr><td>應收 / 存貨影響</td><td style="color:var(--cg2)">偶有變動，但可回收</td><td style="color:var(--amber-dark)">短期放大，需要追蹤</td><td style="color:var(--cw2)">多年累積，現金被卡住</td></tr>
-          <tr><td>折舊 / 攤銷</td><td style="color:var(--cg2)">合理解釋現金流高於獲利</td><td style="color:var(--amber-dark)">需搭配產業特性理解</td><td style="color:var(--cw2)">只靠折舊回沖撐門面</td></tr>
-          <tr><td>投資活動</td><td style="color:var(--cg2)">集中於本業 CAPEX</td><td style="color:var(--amber-dark)">有部分策略投資</td><td style="color:var(--cw2)">過於零散或賣資產美化現金</td></tr>
-          <tr><td>籌資活動</td><td style="color:var(--cg2)">只是調度工具</td><td style="color:var(--amber-dark)">景氣差時短期借款</td><td style="color:var(--cw2)">長期靠借款 / 現增 / 發債輸血</td></tr>
-          <tr><td>自由現金流量</td><td style="color:var(--cg2)">穩定為正，可支撐配息與還債</td><td style="color:var(--amber-dark)">波動大，要看 CAPEX 階段</td><td style="color:var(--cw2)">長期偏弱或為負</td></tr>
-          <tr><td>股東回饋</td><td style="color:var(--cg2)">來自真實現金流</td><td style="color:var(--amber-dark)">偶有調整</td><td style="color:var(--cw2)">借錢配息或回購</td></tr>
-        </table>
-      </div>
+    <div class="block-body" style="margin-top:1.25rem">股份回購的好處：</div>
+    <div class="hl sage" style="margin-top:.75rem">
+      <strong>將發行在外的部分股份買回並註銷</strong>，會讓公司股份逐漸減少，如此一來公司以後即使獲利不能增加，也會因為股份變少，使 EPS 年年增加、進而每股股利也可以增加，股價於是不斷上漲。
+    </div>
 
-      
-      <div class="block-title">把 Chapter 5 接進總分析框架</div>
-      <div class="diagram">
-        <div class="diagram-title">你之後分析公司時，Chapter 5 要放在哪裡</div>
-        <div class="flow-row">
-          <div class="flow-box">先看財務安全</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box">再看營運效率</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box highlight">接著看現金品質</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box safe">最後再談估值與股東回饋</div>
-        </div>
-      </div>
+    <div class="tbl-wrap" style="margin-top:1.25rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 5-11｜蘋果公司讓 EPS 成長大於淨利成長</div>
+      <table>
+        <tr><th>項目</th><th class="r">2022年</th><th class="r">2021年</th><th class="r">2020年</th><th class="r">2019年</th></tr>
+        <tr><td>稅後淨利金額（億美元）</td><td class="r">998</td><td class="r">947</td><td class="r">574</td><td class="r">553</td></tr>
+        <tr><td><strong>稅後淨利成長率</strong></td><td class="r hi">5.4%</td><td class="r hi">65%</td><td class="r hi">3.8%</td><td class="r warn">-7.1%</td></tr>
+        <tr><td>EPS金額（美元）</td><td class="r">6.15</td><td class="r">5.67</td><td class="r">3.31</td><td class="r">2.99</td></tr>
+        <tr><td><strong>EPS成長率</strong></td><td class="r good">8.5%</td><td class="r good">71.3%</td><td class="r good">10.7%</td><td class="r warn">-0.3%</td></tr>
+        <tr><td>股利發放金額（億美元）</td><td class="r">148</td><td class="r">145</td><td class="r">141</td><td class="r">141</td></tr>
+        <tr><td>股份回購金額（億美元）</td><td class="r hi">894</td><td class="r hi">860</td><td class="r hi">724</td><td class="r hi">669</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：作者整理｜蘋果每年都會花股息金額 5–6 倍左右的金額執行股份回購，在發行在外數逐年減少下，讓 EPS 的成長率大於稅後淨利成長率。蘋果股價在過去4年中上漲超過 120%，市值曾一度超過 3 兆美元。</div>
+    </div>
 
-      <div class="block-title">實戰版檢查順序</div>
-      <div class="steps">
-        <div class="step"><div class="step-num">1</div><div class="step-text">先看營業活動現金流：本業有沒有真的收現金。</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-text">再看投資活動：現金是用在 CAPEX，還是亂投資與處分資產。</div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-text">再看籌資活動：是正常調度，還是靠融資補洞。</div></div>
-        <div class="step"><div class="step-num">4</div><div class="step-text">最後算自由現金流量：扣掉必要資本支出後，還剩多少能自由分配。</div></div>
-        <div class="step"><div class="step-num">5</div><div class="step-text">把現金流結構和產業特性一起看，不要只看單年數字。</div></div>
-      </div>
-    </section>
+    <div class="tbl-wrap" style="margin-top:1.25rem">
+      <div style="font-size:13px;font-weight:600;color:var(--ct3);margin-bottom:6px">表 5-8｜英特爾 IDM2.0 資本支出大增，股份回購被迫歸零</div>
+      <table>
+        <tr><th>單位：億美元</th><th class="r">2022年</th><th class="r">2021年</th><th class="r">2020年</th></tr>
+        <tr><td><strong>資本支出</strong></td><td class="r warn">248</td><td class="r warn">187</td><td class="r warn">143</td></tr>
+        <tr><td>股份回購支出</td><td class="r warn">0</td><td class="r">24</td><td class="r">142</td></tr>
+        <tr><td>股息支出</td><td class="r hi">60</td><td class="r hi">56</td><td class="r hi">56</td></tr>
+      </table>
+      <div class="tbl-caption">資料來源：作者整理｜英特爾因 IDM2.0 計畫，將原本每年花在股份回購的 100 多億美元的支出砍到剩下 20 幾億美元，再於 2022 年將金額砍至零，又於 2023 年宣布股息減少 2/3。IDM2.0 計畫公布後，英特爾股價就開始下跌，至 2023 年 8 月已經跌了 5 成。</div>
+    </div>
+  </section>
 
-    <section class="section" id="summary">
-      <div class="section-header"><span class="section-dot"></span><h3>整章濃縮</h3><span class="section-page">4 個目的</span></div>
-      <div class="block-body">書末其實已把 Chapter 5 的目的收得很清楚：了解公司獲利品質是否良好、危機中的公司是否還有救；評估公司資本支出的承受度；評估公司股利金額是否合理；以及評估股票上漲空間，特別是歐美大型企業。</div>
-      <div class="diagram">
-        <div class="diagram-title">Chapter 5 最後收斂的 4 件事</div>
-        <div class="cgrid" style="margin:0;">
-          <div class="ccard"><div class="ccard-title">1. 驗證獲利品質</div><div class="ccard-body">賺的是不是現金，危機企業還有沒有造血能力。</div></div>
-          <div class="ccard"><div class="ccard-title">2. 看懂資本支出</div><div class="ccard-body">現金被拿去做什麼，CAPEX 是成長投資還是壓力來源。</div></div>
-          <div class="ccard"><div class="ccard-title">3. 看股利合理性</div><div class="ccard-body">配息到底是自由現金流支撐，還是借來配的。</div></div>
-          <div class="ccard"><div class="ccard-title">4. 看估值與上漲空間</div><div class="ccard-body">自由現金流不同，股東回饋方式不同，最終估值也會不同。</div></div>
-        </div>
-      </div>
-      <div class="hl red"><strong>最後一句：</strong>Chapter 5 真正教你的，不是背表格，而是學會用現金流量表拆穿「只有獲利、沒有現金」的假象，並分辨出「高 CAPEX 的好公司」和「靠融資硬撐的壞公司」。</div>
-    </section>
-  </main>
+  <!-- 重點整理 -->
+  <section class="section" id="summary">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>⭐ 重點整理</h3>
+      <span class="section-page">第5章總結</span>
+    </div>
 
-  <script>
-    function navTo(id, event) {
-      const el = document.getElementById(id);
-      if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
-      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-      if (event && event.target) event.target.classList.add('active');
+    <div class="block-title">三大活動速查表</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>活動</th><th>主要內容</th><th>好公司的特徵</th><th>警訊</th></tr>
+        <tr>
+          <td><span class="badge bt">① 營業</span></td>
+          <td>本業賺錢活動，是現金流量表最重要的部分</td>
+          <td class="good">穩定為正，且「稅前淨利＋折舊攤銷-所得稅」與實際現金流的比例關係多年不變</td>
+          <td class="warn">長期為負，或每年差異很大</td>
+        </tr>
+        <tr>
+          <td><span class="badge bb">② 投資</span></td>
+          <td>主要看廠房設備支出及策略性投資</td>
+          <td class="good">投資活動幾乎等於買廠房設備（聚焦本業）</td>
+          <td class="warn">亂投資與本業無關的項目，或資本支出突然大增</td>
+        </tr>
+        <tr>
+          <td><span class="badge bp">③ 籌資</span></td>
+          <td>發股息、借還款、回購股票</td>
+          <td class="good">主要現金流出是發股息（靠本業賺的錢發）</td>
+          <td class="warn">出現「贖回可轉債」，頻繁辦理現金增資</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="div"></div>
+    <div class="block-title">三個核心心法</div>
+    <div class="cgrid3">
+      <div class="ccard">
+        <div class="ccard-title">① 折舊費用是不用花錢的</div>
+        <div class="ccard-body">損益表的稅後淨利 ≠ 從本業賺到的現金。折舊費用是已付清的費用，加回來才是真正可以自由運用的現金。台積電每年折舊 4,000+ 億，所以現金流量遠大於稅後淨利。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">② 自由現金流量才是股價的關鍵</div>
+        <div class="ccard-body">台積電 ADR 本益比只比高通高，因為資本支出龐大，自由現金流量相對低。企業的自由現金流量愈高、愈穩定，股價本益比就愈高。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">③ 看是否能從本業產生穩定現金</div>
+        <div class="ccard-body">好公司 = 從營業活動穩定賺取現金 → 花在資本支出、策略性投資 → 剩餘返還股東（股息＋回購）。這個模式長期穩定，就是結構性獲利能力的最終體現。</div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+    <div class="block-title">台積電 vs 華映 現金流量對比</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>指標</th><th class="r">台積電（2022）</th><th class="r">華映（2017）</th></tr>
+        <tr><td>營業活動現金流</td><td class="r good">＋1兆6,106億（健康）</td><td class="r warn">-11.9億（危險）</td></tr>
+        <tr><td>資本支出</td><td class="r">1兆896億（積極擴廠）</td><td class="r warn">17億（設備停滯投資）</td></tr>
+        <tr><td>自由現金流量</td><td class="r good">5,209億</td><td class="r warn">負值</td></tr>
+        <tr><td>籌資活動</td><td class="r">發股利2,852億</td><td class="r warn">靠借新還舊，關係人積欠95億</td></tr>
+        <tr><td>預收款項</td><td class="r">正常</td><td class="r warn">81億（2018年不會再產生現金）</td></tr>
+        <tr><td>最終結局</td><td class="r good">2022年獲利1兆169億，台灣唯一全球百大</td><td class="r warn">2022年法院裁定宣告破產</td></tr>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<script>
+function navTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const match = [...document.querySelectorAll('.nav-item')].find(n => n.getAttribute('onclick')?.includes(id));
+  if (match) match.classList.add('active');
+}
+function togCase(hd) {
+  const bd = hd.nextElementSibling;
+  const ch = hd.querySelector('.case-chev');
+  bd.classList.toggle('open');
+  ch.classList.toggle('open');
+}
+
+function toggleSidebar(){
+  const sb = document.querySelector('.sidebar');
+  const main = document.querySelector('.main');
+  const btn = document.getElementById('sidebarToggle');
+  if(!sb||!main||!btn) return;
+  const collapsed = sb.classList.toggle('collapsed');
+  main.classList.toggle('expanded', collapsed);
+  btn.textContent = collapsed ? '›' : '‹';
+  btn.style.left = collapsed ? '0px' : '260px';
+  try{ localStorage.setItem('sb_collapsed', collapsed ? '1' : '0'); }catch(e){}
+}
+document.addEventListener('DOMContentLoaded', function(){
+  const btn = document.getElementById('sidebarToggle');
+  if(!btn) return;
+  try{
+    if(localStorage.getItem('sb_collapsed')==='1'){
+      const sb = document.querySelector('.sidebar');
+      const main = document.querySelector('.main');
+      if(sb) sb.classList.add('collapsed');
+      if(main) main.classList.add('expanded');
+      btn.textContent = '›';
+      btn.style.left = '0px';
     }
-    function togCase(hd) {
-      const bd = hd.nextElementSibling;
-      const ch = hd.querySelector('.case-chev');
-      const open = bd.classList.contains('open');
-      bd.classList.toggle('open', !open);
-      if (ch) ch.classList.toggle('open', !open);
-    }
-    const sections = document.querySelectorAll('section[id], .page-hero[id]');
-    const navItems = document.querySelectorAll('.nav-item');
-    window.addEventListener('scroll', () => {
-      let current = 'intro';
-      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
-      navItems.forEach(i => {
-        i.classList.remove('active');
-        const onclick = i.getAttribute('onclick') || '';
-        if (onclick.includes("'" + current + "'")) i.classList.add('active');
-      });
-    }, {passive:true});
-  </script>
+  }catch(e){}
+});
+
+</script>
 </body>
 </html>

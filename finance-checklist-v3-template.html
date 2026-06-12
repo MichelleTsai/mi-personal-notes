@@ -19,7 +19,15 @@
     .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}.company{border:1px solid var(--cr4);border-radius:var(--radius-lg);overflow:hidden;background:var(--ca-ll)}.company-hd{padding:10px 14px;background:var(--cr2);font-size:15px;font-weight:600;color:var(--ca2)}.company-bd{padding:13px 14px}.metric{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--cr4)}.metric:last-child{border-bottom:none}.metric-label{font-size:14px;color:var(--ct3)}.metric-val{font-size:15px;font-weight:700}
     .check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}.check-card{border:1px solid var(--cr4);border-radius:var(--radius);background:var(--ca-ll);padding:12px 13px}.check-card h4{font-size:14px;color:var(--ca2);margin-bottom:6px}.fill{background:#fff;border:1px dashed var(--cr5);border-radius:8px;padding:2px 8px;color:var(--cw2)}
     .legend{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}.legend-card{border:1px solid var(--cr4);border-radius:var(--radius);padding:10px 12px;background:var(--ca-ll)}.legend-card h4{font-size:13px;color:var(--ca2);margin-bottom:5px}.legend-card p{font-size:14px;color:var(--ct3)}
-    @media (max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:1.25rem}.compare-grid,.check-grid,.legend{grid-template-columns:1fr}}
+  
+  /* sidebar toggle */
+  .sidebar-toggle{position:fixed;top:50%;left:260px;transform:translateY(-50%);z-index:200;width:18px;height:48px;background:var(--ca-l);border:1px solid var(--cr4);border-left:none;border-radius:0 8px 8px 0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ct4);user-select:none;transition:left .25s ease,background .15s;}
+  .sidebar-toggle:hover{background:var(--ca);color:#fff;}
+  .sidebar{transition:transform .25s ease;}
+  .sidebar.collapsed{transform:translateX(-260px);}
+  .main{transition:margin-left .25s ease;}
+  .main.expanded{margin-left:0;}
+  @media (max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:1.25rem}.compare-grid,.check-grid,.legend{grid-template-columns:1fr}}
 
     .home-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:5px 13px;border-radius:20px;border:1px solid var(--cr4);background:var(--ca-ll);transition:all .15s;margin-bottom:1.5rem;}
     .home-btn:hover{background:var(--ca-l);color:var(--ca2);}
@@ -52,6 +60,9 @@
     <a class="nav-item" onclick="navTo('final')">判語模板</a>
   </div>
 </nav>
+
+<div class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" title="收合側欄">‹</div>
+
 <main class="main">
   <div class="page-hero">
     <div class="hero-tag">第三版・模板</div>
@@ -168,6 +179,33 @@ function updateMineScore(){
 }
 
 function navTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}const sections=document.querySelectorAll('section[id]');const navItems=document.querySelectorAll('.nav-item');window.addEventListener('scroll',()=>{let current='how';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-100)current=s.id;});navItems.forEach(i=>{i.classList.toggle('active',i.getAttribute('onclick')?.includes(current));});},{passive:true});
+
+function toggleSidebar(){
+  const sb = document.querySelector('.sidebar');
+  const main = document.querySelector('.main');
+  const btn = document.getElementById('sidebarToggle');
+  if(!sb||!main||!btn) return;
+  const collapsed = sb.classList.toggle('collapsed');
+  main.classList.toggle('expanded', collapsed);
+  btn.textContent = collapsed ? '›' : '‹';
+  btn.style.left = collapsed ? '0px' : '260px';
+  try{ localStorage.setItem('sb_collapsed', collapsed ? '1' : '0'); }catch(e){}
+}
+document.addEventListener('DOMContentLoaded', function(){
+  const btn = document.getElementById('sidebarToggle');
+  if(!btn) return;
+  try{
+    if(localStorage.getItem('sb_collapsed')==='1'){
+      const sb = document.querySelector('.sidebar');
+      const main = document.querySelector('.main');
+      if(sb) sb.classList.add('collapsed');
+      if(main) main.classList.add('expanded');
+      btn.textContent = '›';
+      btn.style.left = '0px';
+    }
+  }catch(e){}
+});
+
 </script>
 </body>
 </html>
