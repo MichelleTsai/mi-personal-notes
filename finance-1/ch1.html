@@ -34,7 +34,7 @@
   .main{margin-left:260px;padding:2.5rem 3.5rem 5rem}
 
   .page-hero{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--cr4)}
-  .hero-tag{font-size:11px;font-weight:600;color:var(--ca2);background:var(--ca-l);padding:4px 13px;border-radius:20px;display:inline-block;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.08em}
+  .hero-tag{font-size:11px;font-weight:600;color:var(--ca2);background:var(--ca-l);padding:4px 13px;border-radius:20px;display:inline-block;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.08em;border:1px solid var(--cr5)}
   .page-hero h2{font-size:30px;font-weight:700;color:var(--ct);margin-bottom:.4rem}
   .page-hero p{font-size:16px;color:var(--ct3)}
 
@@ -71,7 +71,7 @@
 
   .steps{margin:12px 0}
   .step{display:flex;gap:12px;margin-bottom:11px;align-items:flex-start}
-  .step-num{width:27px;height:27px;border-radius:50%;background:var(--ca-l);color:var(--ca2);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .step-num{width:27px;height:27px;border-radius:50%;background:var(--ca-l);color:var(--ca2);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;border:1px solid var(--cr5)}
   .step-text{font-size:16px;color:var(--ct);line-height:1.7;flex:1}
 
   .case-strip{border:1px solid var(--cr4);border-radius:var(--radius);margin:9px 0;overflow:hidden}
@@ -90,7 +90,7 @@
   .case-bd.open{display:block}
 
   .div{border:none;border-top:1px solid var(--cr4);margin:1.5rem 0}
-  .formula{background:var(--cr2);border-radius:var(--radius);padding:14px 20px;margin:12px 0;text-align:center;font-size:20px;font-weight:700;color:var(--ca2);font-family:'Noto Serif TC',serif;border:1px solid var(--cr4)}
+  .formula{background:var(--cr2);border-radius:var(--radius);padding:14px 20px;margin:12px 0;text-align:center;font-size:20px;font-weight:700;color:var(--ca2);font-family:'Noto Serif TC',serif;border:1px solid var(--cr4);letter-spacing:.04em}
 
   .mr{display:flex;align-items:center;gap:10px;margin:7px 0}
   .ml{font-size:13px;color:var(--ct3);width:160px;flex-shrink:0;text-align:right}
@@ -122,7 +122,7 @@
 
 
   /* sidebar toggle */
-  .sidebar-toggle{position:fixed;top:50%;left:260px;transform:translateY(-50%);z-index:200;width:18px;height:48px;background:var(--ca-l);border:1px solid var(--cr4);border-left:none;border-radius:0 8px 8px 0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ca2);font-weight:bold;transition:all .2s}
+  .sidebar-toggle{position:fixed;top:50%;left:260px;transform:translateY(-50%);z-index:200;width:18px;height:48px;background:var(--ca-l);border:1px solid var(--cr4);border-left:none;border-radius:0 8px 8px 0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ct4);user-select:none;transition:left .25s ease,background .15s;}
   .sidebar-toggle:hover{background:var(--ca);color:#fff;}
   .sidebar{transition:transform .25s ease;}
   .sidebar.collapsed{transform:translateX(-260px);}
@@ -135,9 +135,9 @@
     .flow-arrow{transform:rotate(90deg)}
   }
 
-  .home-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:5px 13px;border-radius:20px;border:1px solid var(--cr4);background:var(--ca-l)}
+  .home-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:5px 13px;border-radius:20px;border:1px solid var(--cr4);background:var(--ca-ll);transition:all .15s;font-weight:400;margin-bottom:1.5rem;}
   .home-btn:hover{background:var(--ca-l);color:var(--ca2);border-color:var(--cr5);}
-  .home-btn-sidebar{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:.55rem 1rem .55rem 1.3rem;border-top:1px solid var(--cr4);margin-top:.5rem;transition:all .15s;cursor:pointer}
+  .home-btn-sidebar{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ct3);text-decoration:none;padding:.55rem 1rem .55rem 1.3rem;border-top:1px solid var(--cr4);margin-top:.5rem;transition:color .15s;font-weight:400;}
   .home-btn-sidebar:hover{color:var(--ca2);background:var(--ca-l);}
 </style>
 </head>
@@ -164,15 +164,512 @@
     <a class="nav-item" onclick="navTo('summary')">⭐ 重點整理</a>
   </div>
   <div style="padding:.75rem 1rem 1rem;margin-top:.5rem;">
-    <a class="home-btn-sidebar" href="../finance-1/index.html">← 回到目錄首頁</a>
+    <a class="home-btn-sidebar" href="index.html">← 回到目錄首頁</a>
   </div>
 </nav>
 
 <div class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" title="收合側欄">‹</div>
 
 <main class="main">
-  <a class="home-btn" href="../finance-1/index.html">← 回到目錄首頁</a>
+
+  <!-- HERO -->
+  <a class="home-btn" href="index.html">← 回到目錄首頁</a>
+  <div class="page-hero" id="intro">
+    <div class="hero-tag">第1章 · p.025–056</div>
+    <h2>對數字有感</h2>
+    <p>《大會計師教你從財報數字看懂經營本質》｜經營管理不能只憑直覺和經驗</p>
+  </div>
+
+  <!-- 為什麼要看財報 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>為什麼一定要看財報？</h3>
+      <span class="section-page">p.025–027</span>
+    </div>
+    <div class="block-body">
+      很多人靠「感覺」和「經驗」做生意——覺得今年業績不錯、感覺公司在賺錢。但感覺是會騙人的，數字不會。財報就是把公司的健康狀況，用白紙黑字、可驗證的方式呈現出來。
+    </div>
+    <div class="hl">就像你去健康檢查，不能光憑「感覺還好」就知道自己健不健康，你需要看血壓、血糖、膽固醇這些具體數字。財報就是企業的健康檢查報告。</div>
+
+    <div class="block" style="margin-top:1rem">
+      <div class="block-title">財報能幫你做到四件事</div>
+    </div>
+    <div class="diagram">
+      <div class="diagram-title">財報數字思維的四大用途</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="background:var(--ca-l);border:1px solid var(--cr5);border-radius:var(--radius);padding:13px">
+          <div style="font-size:13px;font-weight:600;color:var(--ca2);margin-bottom:6px">① 了解公司真實狀況</div>
+          <div style="font-size:13px;color:var(--ct2);line-height:1.6">不被漂亮的營收數字或CEO演講騙到，從財報數字看出公司真正賺不賺錢、資產健不健康。</div>
+        </div>
+        <div style="background:var(--cg-l);border:1px solid #A8C4A0;border-radius:var(--radius);padding:13px">
+          <div style="font-size:13px;font-weight:600;color:var(--cg2);margin-bottom:6px">② 評估競爭力與護城河</div>
+          <div style="font-size:13px;color:var(--ct2);line-height:1.6">透過毛利率、ROE等指標，判斷這家公司在同業中的位置，護城河有多深。</div>
+        </div>
+        <div style="background:var(--cb-l);border:1px solid #A8BCC8;border-radius:var(--radius);padding:13px">
+          <div style="font-size:13px;font-weight:600;color:var(--cb2);margin-bottom:6px">③ 預測未來風險</div>
+          <div style="font-size:13px;color:var(--ct2);line-height:1.6">負債比率、流動比率、應收帳款天數——這些數字能在公司出問題前給你預警訊號。</div>
+        </div>
+        <div style="background:#F5ECD8;border:1px solid #C8A870;border-radius:var(--radius);padding:13px">
+          <div style="font-size:13px;font-weight:600;color:#6B4F20;margin-bottom:6px">④ 做出更好的投資決策</div>
+          <div style="font-size:13px;color:var(--ct2);line-height:1.6">不再只憑股價漲跌、新聞消息做決策，而是用真實的財務數字判斷一家公司值不值得投資。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">分析財報的4個步驟（本章的骨幹）</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>了解產業特性</strong>：不同產業的財報長相完全不同。先搞清楚這是什麼行業，才能判斷數字正不正常。</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>閱讀損益表重點</strong>：公司有沒有賺錢？毛利率高不高？費用有沒有控制好？</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>看資產負債表</strong>：公司的資產健不健康？負債有沒有過高？（第2、3章詳述）</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text"><strong>看現金流量表</strong>：賺的錢是真的進帳了嗎？還是只是帳面數字？（第5章詳述）</div></div>
+    </div>
+  </section>
+
+  <!-- Step 1 產業 -->
+  <section class="section" id="step1">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>Step 1：了解產業特性</h3>
+      <span class="section-page">p.028–029</span>
+    </div>
+    <div class="block-body">
+      分析財報前，最重要的第一步是：這是一家什麼產業的公司？因為同樣的數字，在不同產業代表的意義完全不同。</div>
+    <div class="hl">醫院的流動比率低是正常的（先收費再看病）；超商的應收帳款接近零是正常的（消費者當場付現）。如果你不懂產業，就會用錯標準評判。</div>
+
+    <div class="block" style="margin-top:1rem">
+      <div class="block-title">了解產業的4個面向</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>發展前景</strong>：這個產業是成長中、成熟期還是衰退期？例如LED照明業的台積電友達，2022年面板需求大幅衰退，導致整體獲利大降。</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>競爭的激烈程度</strong>：產業的競爭者多嗎？有沒有定價能力？B2B vs B2C 的競爭模式差很多（詳見下方）。</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>獲利的穩定性</strong>：這個產業景氣循環性強嗎？半導體和記憶體就是典型的高度景氣循環產業。</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text"><strong>經營的複雜程度</strong>：資本密集還是輕資產？需要大量人力還是可以自動化？</div></div>
+    </div>
+
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">B2B vs B2C：兩種完全不同的商業模式</div>
+    </div>
+    <div class="cgrid">
+      <div class="ccard">
+        <div class="ccard-title">B2B（企業對企業）</div>
+        <div class="ccard-body">
+          例如：台積電（幫蘋果代工）、鴻海（幫蘋果組裝）<br><br>
+          特點：<br>
+          • 客戶少但訂單大<br>
+          • 通常賒帳（應收帳款多）<br>
+          • 客戶黏性高，但議價能力強<br>
+          • 毛利率通常較低但穩定<br>
+          • 不需要花大錢做廣告
+        </div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">B2C（企業對消費者）</div>
+        <div class="ccard-body">
+          例如：蘋果（直接賣iPhone給你）、統一超商<br><br>
+          特點：<br>
+          • 客戶多但每筆金額小<br>
+          • 通常現金交易（應收帳款少）<br>
+          • 品牌力決定定價能力<br>
+          • 毛利率可以很高（品牌溢價）<br>
+          • 需要大量行銷廣告費用
+        </div>
+      </div>
+    </div>
+    <div class="hl">同樣是科技業，蘋果（B2C品牌）毛利率可以超過40%，鴻海（B2B代工）只有6%左右。差距如此巨大，就是因為商業模式根本不同。</div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cg)"></span><span class="case-title">稻盛和夫：從外行人變成通訊業大佬的故事</span><span class="case-tag tag-ok">日本 真實案例</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">日本京瓷（Kyocera）創辦人稻盛和夫，本來是做陶瓷零件起家的工程師。1984年日本電信自由化，他在完全不懂電信業的情況下創辦了KDDI（日本第二大電信公司），最終成功挑戰當時獨佔市場的NTT。<br><br>他成功的關鍵之一是：徹底研究電信產業的財報數字，了解競爭對手的成本結構，找到可以切入的定價空間。他說：「數字是判斷一切的基礎，沒有數字就沒有管理。」</div>
+    </div>
+  </section>
+
+  <!-- Step 2 損益表 -->
+  <section class="section" id="step2">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>Step 2：閱讀損益表重點</h3>
+      <span class="section-page">p.030–033 / p.038–045</span>
+    </div>
+    <div class="block-body">損益表就是「公司這一段時間賺了多少錢」的報告。從上到下，每一層都代表扣掉一種費用之後剩下多少。</div>
+
+    <div class="diagram">
+      <div class="diagram-title">損益表的結構：從營收到淨利，一層一層往下剝</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="background:var(--ca-l);border:1px solid var(--cr5);border-radius:var(--radius);padding:11px 15px;display:flex;justify-content:space-between;align-items:center">
+          <div><strong style="color:var(--ca2)">營業收入（營收）</strong><span style="font-size:13px;color:var(--ct3);margin-left:10px">賣出產品或服務收到的錢</span></div>
+          <span style="font-size:12px;color:var(--ct4)">台積電2022：2兆2,639億</span>
+        </div>
+        <div style="text-align:center;font-size:13px;color:var(--ct4)">－ 銷貨成本（生產這些產品花了多少錢）</div>
+        <div style="background:var(--cg-l);border:1px solid #A8C4A0;border-radius:var(--radius);padding:11px 15px;display:flex;justify-content:space-between;align-items:center">
+          <div><strong style="color:var(--cg2)">毛利</strong><span style="font-size:13px;color:var(--ct3);margin-left:10px">= 營收 − 銷貨成本</span></div>
+          <span style="font-size:12px;color:var(--cg2)">毛利率 = 毛利 ÷ 營收</span>
+        </div>
+        <div style="text-align:center;font-size:13px;color:var(--ct4)">－ 營業費用（研發、行銷、管理費用）</div>
+        <div style="background:var(--cb-l);border:1px solid #A8BCC8;border-radius:var(--radius);padding:11px 15px;display:flex;justify-content:space-between;align-items:center">
+          <div><strong style="color:var(--cb2)">營業利益</strong><span style="font-size:13px;color:var(--ct3);margin-left:10px">= 毛利 − 營業費用</span></div>
+          <span style="font-size:12px;color:var(--cb2)">營業利益率 = 營業利益 ÷ 營收</span>
+        </div>
+        <div style="text-align:center;font-size:13px;color:var(--ct4)">＋/－ 業外收支（利息、投資獲利/損失）</div>
+        <div style="text-align:center;font-size:13px;color:var(--ct4)">－ 所得稅</div>
+        <div style="background:var(--ca-l);border:2px solid var(--ca);border-radius:var(--radius);padding:11px 15px;display:flex;justify-content:space-between;align-items:center">
+          <div><strong style="color:var(--ca2);font-size:16px">稅後淨利</strong><span style="font-size:13px;color:var(--ct3);margin-left:10px">最終留下來的利潤</span></div>
+          <span style="font-size:12px;color:var(--ca2)">台積電2022：1兆169億</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 毛利率 -->
+  <section class="section" id="margin">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>最重要的兩個指標：毛利率 vs 營業利益率</h3>
+      <span class="section-page">p.038–045</span>
+    </div>
+
+    <div class="block">
+      <div class="block-title">毛利率：衡量核心競爭力</div>
+      <div class="block-body">毛利率是扣掉「直接生產成本」之後，還剩多少比例的錢。它代表公司的核心產品有多少定價能力。</div>
+    </div>
+    <div class="formula">毛利率 ＝ （營收 − 銷貨成本）÷ 營收</div>
+    <div class="hl">想像你開一家咖啡廳，一杯咖啡賣100元，豆子、牛奶、杯子成本20元，毛利就是80元，毛利率就是80%。但這還沒算員工薪水、房租、水電費。毛利率高代表產品本身很有競爭力。</div>
+
+    <div class="block" style="margin-top:1rem">
+      <div class="block-title">各產業毛利率合理範圍</div>
+    </div>
+    <div class="diagram">
+      <div class="diagram-title">台灣各產業毛利率標準對照</div>
+      <div class="mr"><span class="ml">藥品、軟體</span><div class="mbg"><div class="mf" style="width:95%;background:#C9A98A"></div></div><span class="mv" style="color:var(--ca2)">90–95%</span></div>
+      <div class="mr"><span class="ml">消費品牌（B2C）</span><div class="mbg"><div class="mf" style="width:87%;background:#C4A882"></div></div><span class="mv" style="color:var(--ca2)">80–90%</span></div>
+      <div class="mr"><span class="ml">IC設計、高科技</span><div class="mbg"><div class="mf" style="width:65%;background:#D4B896"></div></div><span class="mv" style="color:var(--ct2)">50–80%</span></div>
+      <div class="mr"><span class="ml">一般製造業</span><div class="mbg"><div class="mf" style="width:52%;background:#E8CFA0"></div></div><span class="mv" style="color:var(--ct2)">40–65%</span></div>
+      <div class="mr"><span class="ml">電子代工（B2B）</span><div class="mbg"><div class="mf" style="width:25%;background:var(--cr3)"></div></div><span class="mv" style="color:var(--ct3)">5–10%</span></div>
+      <div class="caution-box" style="margin-top:12px">鴻海的毛利率只有約6%，這不代表鴻海是爛公司——這就是電子代工業的本質。但如果一家「號稱是B2C品牌」的公司毛利率只有6%，那就有問題了。</div>
+    </div>
+
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">營業利益率：衡量管理效率</div>
+      <div class="block-body">毛利率高不夠，還要看費用有沒有控制好。營業利益率是扣掉研發費用、行銷費用、管理費用之後的利潤率。</div>
+    </div>
+    <div class="formula">營業利益率 ＝ 營業利益 ÷ 營收</div>
+    <div class="cgrid">
+      <div class="ccard">
+        <div class="ccard-title" style="color:var(--cg2)">毛利率高但營業利益率低：費用太高</div>
+        <div class="ccard-body">例如一家科技公司毛利率60%，但拼命花錢打廣告、研發，最後營業利益率只剩5%。這代表費用控管有問題，或是還在燒錢擴張期。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title" style="color:var(--ca2)">毛利率和營業利益率都高：頂尖公司</div>
+        <div class="ccard-body">台積電2022年毛利率59%，營業利益率49%。代表不只賣得貴，費用控制也很好。大立光毛利率超過70%，也是這類頂尖企業。</div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">兩個容易混淆的費用：研發費用 vs 員工薪資</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>研發費用</strong>：高科技公司（台積電、聯發科）的研發費用是投資未來的錢，佔營收比例高是好事。台積電2022年研發費用佔營收約8%，Alphabet（Google母公司）更高達12–15%。但如果一家公司研發費用很低卻說自己是科技公司，要懷疑。</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>員工薪資</strong>：薪資佔營收或毛利的比例，可以看出公司的人力成本結構。台積電2022年員工薪資超過535億元，佔毛利約4%。重點不是薪資絕對金額，而是薪資增長有沒有和業績增長同步——有沒有「員工共享獲利」的文化。</div></div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cg)"></span><span class="case-title">大立光：台灣毛利率最高的上市公司之一</span><span class="case-tag tag-ok">台灣 優等生</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">大立光做的是手機鏡頭模組，聽起來很平凡，但毛利率長年維持在70%以上，在台灣上市公司中排名頂尖。原因是：大立光的精密光學技術全球獨一無二，蘋果等品牌無法找到替代供應商，所以大立光有強大的定價能力。這就是「技術護城河轉換為財務優勢」的最好案例。</div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cg)"></span><span class="case-title">Alphabet（Google）：研發費用投資未來</span><span class="case-tag tag-ok">美國 優等生</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">Google母公司Alphabet的研發費用佔營收高達12–15%，2020–2022年每年研發費用都在數十億美元以上。在外界看來，這讓每年的獲利「看起來」比較低，但正是這些巨額研發投入，讓Google能持續保持搜尋廣告的壟斷地位，並孵化出YouTube、Google Cloud、Android等多個現金牛業務。</div>
+    </div>
+  </section>
+
+  <!-- Step 3 資產負債表 -->
+  <section class="section" id="step3">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>Step 3：看資產負債表重點</h3>
+      <span class="section-page">p.034–037</span>
+    </div>
+    <div class="block-body">資產負債表是第2章和第3章的主角，這裡先掌握最重要的思考框架。</div>
+    <div class="hl">資產負債表回答的問題是：公司擁有什麼？這些東西是怎麼來的（借的還是自己的）？</div>
+    <div class="block" style="margin-top:1rem">
+      <div class="block-title">看資產負債表要問的3個問題</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>資產夠不夠乾淨？</strong>資產大部分用在核心業務上，還是有很多閒置資產、無形資產？（第2、3章深入探討）</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>負債比率合不合理？</strong>不同產業有不同合理標準。超過警戒線就代表財務風險升高。</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>股東權益有沒有持續增長？</strong>保留盈餘越來越多，代表公司長期確實在賺錢且留住利潤。</div></div>
+    </div>
+
+    <div class="case-strip">
+      <div class="case-hd" onclick="togCase(this)"><span class="case-dot" style="background:var(--cw)"></span><span class="case-title">BP石油2010年墨西哥灣漏油：一個事故讓資產負債表大變臉</span><span class="case-tag tag-warn">美國 2010</span><span class="case-chev">▼</span></div>
+      <div class="case-bd">2010年4月，BP在墨西哥灣的鑽油平台爆炸，造成史上最嚴重的海洋石油污染事故。BP必須立刻在資產負債表上提列高達數百億美元的「損失準備金」（Provision）——也就是預先估計未來要賠多少錢，先認列為負債。<br><br>這讓BP的資產負債表瞬間惡化：負債大增、股東權益縮水、信用評等下調。這就是為什麼資產負債表不只是靜態的財產目錄，而是反映公司所有已知風險的動態文件。<br><br>到2017年，BP已累計支付超過650億美元的清理費用和罰款，比最初提列的準備金還多，再次補提。台積電帳上有類似的「損失準備」科目，雖然金額不大，但代表公司誠實面對潛在風險的態度。</div>
+    </div>
+  </section>
+
+  <!-- Step 4 現金流量表 -->
+  <section class="section" id="step4">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>Step 4：看現金流量表重點</h3>
+      <span class="section-page">p.034–037</span>
+    </div>
+    <div class="block-body">損益表說公司賺了多少錢，但現金流量表才能告訴你：這些錢，真的有進帳嗎？</div>
+    <div class="warn-box">有公司明明損益表上顯示賺了很多錢，但現金流量卻是負的——這通常是財務造假或業務快速衰退的警訊。「賺錢」跟「有錢」是兩件事！</div>
+
+    <div class="block" style="margin-top:1rem">
+      <div class="block-title">現金流量表的三大組成</div>
+    </div>
+    <div class="cgrid">
+      <div class="ccard">
+        <div class="ccard-title" style="color:var(--cg2)">① 營業活動現金流</div>
+        <div class="ccard-body">核心業務實際產生的現金。這個數字應該長期為正，而且越來越多。這是最重要的一項。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title" style="color:var(--ca2)">② 投資活動現金流</div>
+        <div class="ccard-body">買設備、收購公司、賣資產產生的現金變動。高成長公司這項通常是負的（一直在買設備），這是正常的。</div>
+      </div>
+    </div>
+    <div class="ccard" style="margin-top:10px;border:1px solid var(--cr4);border-radius:var(--radius);padding:13px 15px;background:var(--ca-ll)">
+      <div class="ccard-title" style="color:var(--cb2)">③ 融資活動現金流</div>
+      <div class="ccard-body">借款、還款、發股票、發股息產生的現金變動。這項本身沒有好壞，要配合其他兩項一起看。</div>
+    </div>
+    <div class="good-box" style="margin-top:10px">最健康的公司：「營業活動現金流」持續為正且增長，代表本業確實在產生真實的現金。台積電就是這樣的公司。</div>
+  </section>
+
+  <!-- ROE EPS -->
+  <section class="section" id="roe">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>ROE、EPS 是什麼？為什麼重要？</h3>
+      <span class="section-page">p.046–051</span>
+    </div>
+
+    <div class="block">
+      <div class="block-title">EPS（每股盈餘）：你持有的每一張股票幫你賺了多少錢</div>
+    </div>
+    <div class="formula">EPS ＝ 稅後淨利 ÷ 流通在外股數</div>
+    <div class="block-body" style="margin-top:8px">台積電2022年流通在外2,593萬張股票，稅後淨利約1兆元，所以EPS ≈ 39.2元。也就是說，你持有台積電一張股票（1,000股），2022年幫你賺了39,200元。</div>
+    <div class="caution-box" style="margin-top:10px">EPS高不一定代表公司好。如果公司大量買回股票（股數減少），EPS會自動上升，但公司本身的獲利能力未必提升。所以要搭配ROE一起看。</div>
+
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">ROE（股東權益報酬率）：才是衡量真實獲利能力的指標</div>
+    </div>
+    <div class="formula">ROE ＝ 稅後淨利 ÷ 平均股東權益</div>
+    <div class="hl">ROE就像你把錢存在銀行的利率。你把錢（股東權益）交給這家公司經營，它幫你賺了多少％回來？台積電2022年ROE約40%，意思是你交給台積電100元，它幫你賺了40元回來。相比銀行定存1–2%，這個回報超級高。</div>
+
+    <div class="diagram">
+      <div class="diagram-title">台積電 ROE 與 EPS（2020–2022）</div>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-label">2020 EPS</div><div class="stat-val" style="color:var(--ct2)">19.97元</div></div>
+        <div class="stat"><div class="stat-label">2021 EPS</div><div class="stat-val" style="color:var(--ca2)">23.01元</div></div>
+        <div class="stat"><div class="stat-label">2022 EPS</div><div class="stat-val" style="color:var(--ca2)">39.2元</div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-label">2020 ROE</div><div class="stat-val" style="color:var(--ct2)">29.8%</div></div>
+        <div class="stat"><div class="stat-label">2021 ROE</div><div class="stat-val" style="color:var(--ca2)">29.9%</div></div>
+        <div class="stat"><div class="stat-label">2022 ROE</div><div class="stat-val" style="color:var(--ca2)">~40%</div></div>
+      </div>
+      <div class="good-box" style="margin-top:10px">台積電三年EPS翻倍，ROE從29%躍升到40%——這是真正的成長，不是靠買回股票或財務技巧做出來的假成長。</div>
+    </div>
+
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">提升ROE的4大方法（不是每種都好）</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>提高獲利能力</strong>（最好）：提高毛利率、降低費用率，讓同樣的資產賺更多錢。這是真實的競爭力提升。</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>提高資產運用效能</strong>（好）：同樣的資產創造更多營收。例如台積電擴廠後產能更大，效能更高。</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>提高財務槓桿（借更多錢）</strong>（要小心）：借錢來放大報酬，但風險也同步放大。景氣好時有效，景氣差時可能壓垮公司。</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text"><strong>買回股票減少股東權益</strong>（短期有效但治標）：股東權益變少，ROE數字自動上升，但不代表公司賺錢能力真的變強。HP就是靠這個讓股東權益變負數的案例。</div></div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">ROE vs ROA vs ROIC：三兄弟的差異</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>指標</th><th>全名</th><th>計算方式</th><th>重點</th></tr>
+        <tr><td><strong>ROE</strong></td><td>股東權益報酬率</td><td>稅後淨利 ÷ 股東權益</td><td>股東的投資報酬率，最常用</td></tr>
+        <tr><td><strong>ROA</strong></td><td>總資產報酬率</td><td>稅後淨利 ÷ 總資產</td><td>不管借款或自己的錢，整體資產的獲利效率</td></tr>
+        <tr><td><strong>ROIC</strong></td><td>投入資本報酬率</td><td>稅後營業利益 ÷ 投入資本</td><td>剔除財務槓桿效果，更能反映核心業務的獲利能力</td></tr>
+      </table>
+    </div>
+    <div class="caution-box">作者建議初學者先掌握ROE和EPS就夠了。ROIC和ROA是進階指標，適合深度分析時使用。</div>
+  </section>
+
+  <!-- 如何查財報 -->
+  <section class="section" id="howto">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>實作：如何查閱台灣上市公司財報？</h3>
+      <span class="section-page">p.054–056</span>
+    </div>
+    <div class="block-body">財報不只是會計師的工具，一般人也可以免費查到所有上市公司的完整財報。台灣有一個官方網站專門提供這些資料。</div>
+
+    <div class="diagram">
+      <div class="diagram-title">公開資訊觀測站查財報 3步驟</div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-text"><strong>進入公開資訊觀測站</strong>：網址 <span style="color:var(--cb2);font-weight:600">mops.twse.com.tw</span>，下方選擇①「基本資料」→②「公司概況」→③「經營績效」，可以看到公司的基本財務概況。</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text"><strong>進入完整財報</strong>：選擇④「財務報告」→⑤「合併財務報告書」，裡面包含完整的資產負債表、損益表、現金流量表，以及重要的「附註」。</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-text"><strong>發現並閱讀IFRS財報</strong>：台灣上市公司自2013年起採用IFRS（國際財務報告準則）格式。財報格式包含：會計項目（科目）、金額、比率，以及最重要的「附註」——很多細節都藏在附註裡。</div></div>
+      </div>
+      <div class="hl" style="margin-top:10px">附註（Notes）是財報中最容易被忽視、但資訊量最豐富的部分。台積電的年度財報附註超過一百頁，裡面有每個科目的明細說明，是進階分析的寶庫。</div>
+    </div>
+  </section>
+
+  <!-- 重點整理 -->
+  <section class="section" id="summary">
+    <div class="section-header">
+      <span class="section-dot"></span>
+      <h3>第1章重點整理</h3>
+    </div>
+
+    <div class="block">
+      <div class="block-title">一句話總結這章</div>
+      <div class="hl">財報不是只有會計師才看得懂的東西。它就是企業的健康檢查報告——用數字說出公司真正的狀況。掌握4個分析步驟，你也能從財報讀出別人看不到的訊息。</div>
+    </div>
+
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">財報分析4步驟 × 核心問題</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>步驟</th><th>看什麼</th><th>核心問題</th><th>關鍵指標</th></tr>
+        <tr><td><strong>Step 1</strong><br>了解產業</td><td>產業特性、商業模式</td><td>這是什麼行業？B2B還是B2C？景氣循環嗎？</td><td>產業毛利率基準、競爭結構</td></tr>
+        <tr><td><strong>Step 2</strong><br>損益表</td><td>毛利率、營業利益率、研發費用、員工薪資</td><td>公司賺不賺錢？費用控制得好嗎？</td><td>毛利率、營業利益率、EPS</td></tr>
+        <tr><td><strong>Step 3</strong><br>資產負債表</td><td>資產品質、負債比率、股東權益</td><td>資產健不健康？財務結構穩不穩？</td><td>負債比率、流動比率、ROE</td></tr>
+        <tr><td><strong>Step 4</strong><br>現金流量表</td><td>三大現金流</td><td>賺的錢是真的進帳了嗎？</td><td>營業活動現金流、自由現金流</td></tr>
+      </table>
+    </div>
+
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">最重要的三個財務指標</div>
+    </div>
+    <div class="cgrid">
+      <div class="ccard">
+        <div class="ccard-title">毛利率</div>
+        <div style="font-family:'Noto Serif TC',serif;font-size:16px;font-weight:700;color:var(--ca2);margin:6px 0">（營收－成本）÷ 營收</div>
+        <div class="ccard-body">衡量核心競爭力與定價能力。和同業比，越高越好。鴻海6% vs 大立光70%+，反映兩者完全不同的競爭位置。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">ROE 股東權益報酬率</div>
+        <div style="font-family:'Noto Serif TC',serif;font-size:16px;font-weight:700;color:var(--ca2);margin:6px 0">稅後淨利 ÷ 股東權益</div>
+        <div class="ccard-body">衡量股東資金的使用效率。台積電2022年40%，遠超銀行定存。一般而言，長期維持15%以上的公司就算優秀。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">EPS 每股盈餘</div>
+        <div style="font-family:'Noto Serif TC',serif;font-size:16px;font-weight:700;color:var(--ca2);margin:6px 0">稅後淨利 ÷ 流通股數</div>
+        <div class="ccard-body">衡量每張股票的獲利能力。台積電2022年EPS 39.2元。要注意：EPS高可能是買回股票造成的，要搭配ROE確認。</div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-title">營業活動現金流</div>
+        <div style="font-family:'Noto Serif TC',serif;font-size:16px;font-weight:700;color:var(--ca2);margin:6px 0">核心業務真實進帳的現金</div>
+        <div class="ccard-body">「賺錢」不等於「有現金」。現金流量表才能告訴你獲利是真實的還是紙上富貴。長期為正且增長，才是健康的公司。</div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">毛利率各產業速查</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>產業類型</th><th>毛利率範圍</th><th>代表公司</th><th>原因</th></tr>
+        <tr><td>藥品、軟體、SaaS</td><td style="color:var(--cg2);font-weight:600">90–95%</td><td>Adobe、輝瑞</td><td>邊際成本接近零，複製成本極低</td></tr>
+        <tr><td>B2C消費品牌</td><td style="color:var(--cg2);font-weight:600">80–90%</td><td>蘋果、路易威登</td><td>品牌溢價，消費者願意付高價</td></tr>
+        <tr><td>IC設計、高端科技</td><td style="color:var(--ca2);font-weight:600">50–80%</td><td>台積電、大立光、聯發科</td><td>技術護城河深，難以被替代</td></tr>
+        <tr><td>一般製造業</td><td style="color:var(--ct2);font-weight:600">40–65%</td><td>機械、食品廠</td><td>競爭充分，定價能力有限</td></tr>
+        <tr><td>大型電子代工</td><td style="color:var(--ct3);font-weight:600">5–10%</td><td>鴻海、廣達</td><td>純代工，沒有品牌溢價，薄利多銷</td></tr>
+      </table>
+    </div>
+
+    <div class="div"></div>
+    <div class="block">
+      <div class="block-title">本章三個核心觀念</div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>財報分析一定要「放在產業背景下」判斷</strong>——鴻海毛利率6%是正常的，但一家號稱是品牌公司的廠商毛利率只有6%，就代表沒有品牌競爭力。脫離產業背景的財報分析，沒有意義。</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>損益表、資產負債表、現金流量表要三表合看</strong>——損益表說賺多少，資產負債表說存了多少、欠了多少，現金流量表說真正進帳多少。三表互相印證，才能看清楚公司的全貌。</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>ROE才是最重要的獲利指標，不是EPS</strong>——EPS可以靠買回股票「美化」，但ROE長期維持高水準，才代表公司真的有持續創造價值的能力。台積電ROE接近40%，遠超絕大多數公司。</div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+    <div class="hl sage" style="font-size:17px;line-height:1.8">
+      <strong>本章最重要的一句話：</strong>「經營管理不能只憑直覺和經驗，數字是判斷一切的基礎。」你不需要成為會計師，但你需要懂得用財報數字來驗證你的直覺——因為數字不會說謊。
+    </div>
+  </section>
+
 </main>
 
+<script>
+function navTo(id){
+  const el=document.getElementById(id);
+  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+  document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+  event.target.classList.add('active');
+}
+function togCase(hd){
+  const bd=hd.nextElementSibling;
+  const ch=hd.querySelector('.case-chev');
+  const open=bd.classList.contains('open');
+  bd.classList.toggle('open',!open);
+  ch&&ch.classList.toggle('open',!open);
+}
+const sections=document.querySelectorAll('section[id],.page-hero[id]');
+const navItems=document.querySelectorAll('.nav-item');
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-80)current=s.id});
+  navItems.forEach(i=>{
+    i.classList.remove('active');
+    if(i.getAttribute('onclick')?.includes(current))i.classList.add('active');
+  });
+},{passive:true});
+
+function toggleSidebar(){
+  const sb = document.querySelector('.sidebar');
+  const main = document.querySelector('.main');
+  const btn = document.getElementById('sidebarToggle');
+  if(!sb||!main||!btn) return;
+  const collapsed = sb.classList.toggle('collapsed');
+  main.classList.toggle('expanded', collapsed);
+  btn.textContent = collapsed ? '›' : '‹';
+  btn.style.left = collapsed ? '0px' : '260px';
+  try{ localStorage.setItem('sb_collapsed', collapsed ? '1' : '0'); }catch(e){}
+}
+document.addEventListener('DOMContentLoaded', function(){
+  const btn = document.getElementById('sidebarToggle');
+  if(!btn) return;
+  try{
+    if(localStorage.getItem('sb_collapsed')==='1'){
+      const sb = document.querySelector('.sidebar');
+      const main = document.querySelector('.main');
+      if(sb) sb.classList.add('collapsed');
+      if(main) main.classList.add('expanded');
+      btn.textContent = '›';
+      btn.style.left = '0px';
+    }
+  }catch(e){}
+});
+
+</script>
 </body>
 </html>
