@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EP.26｜被「正2」嘎空手的人，最容易變成恐怖情人・大人來開槓 筆記</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F0E8;
+  --cream-soft:#FBF8F3;
+  --caramel:#8B6B4A;
+  --caramel-light:#C9AD8F;
+  --sage:#7A8C72;
+  --slate:#7A8C9A;
+  --brick:#C4756A;
+  --ink:#3A332C;
+  --ink-soft:#73685B;
+  --line:#E4D8C9;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:'Noto Sans TC',sans-serif;
+  font-size:17px;
+  line-height:1.9;
+  color:var(--ink);
+  background:var(--cream);
+  font-weight:400;
+}
+h1,h2,h3,h4{
+  font-family:'Noto Serif TC',serif;
+  font-weight:700;
+  color:var(--caramel);
+  line-height:1.4;
+  margin:0;
+}
+p{margin:0 0 16px;}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px;}
+
+/* ---------- Hero ---------- */
+header.hero{
+  background:linear-gradient(135deg,var(--caramel) 0%,#A8845F 100%);
+  color:var(--cream-soft);
+  padding:56px 0 40px;
+}
+header.hero .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:32px;justify-content:space-between;}
+.hero-text{flex:1 1 420px;}
+.eyebrow{
+  display:inline-block;
+  font-size:13px;
+  letter-spacing:.18em;
+  font-weight:600;
+  color:var(--cream);
+  opacity:.85;
+  margin-bottom:10px;
+  text-transform:uppercase;
+}
+header.hero h1{
+  color:#fff;
+  font-size:clamp(26px,4vw,38px);
+  margin-bottom:14px;
+}
+.hero-meta{
+  display:flex;flex-wrap:wrap;gap:10px;
+  margin-top:18px;
+}
+.tag{
+  font-size:13px;
+  font-weight:500;
+  padding:5px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.16);
+  color:var(--cream-soft);
+}
+.hero-info{font-size:14px;color:var(--cream-soft);opacity:.9;margin-top:10px;}
+
+/* soundwave decoration */
+.soundwave{display:flex;align-items:flex-end;gap:6px;height:64px;flex:0 0 auto;padding:0 10px;}
+.soundwave span{display:block;width:7px;border-radius:4px;background:var(--cream-soft);opacity:.85;
+  animation:wave 1.4s ease-in-out infinite;transform-origin:bottom;}
+.soundwave span:nth-child(1){height:18px;animation-delay:.0s;}
+.soundwave span:nth-child(2){height:40px;animation-delay:.15s;}
+.soundwave span:nth-child(3){height:60px;animation-delay:.3s;}
+.soundwave span:nth-child(4){height:32px;animation-delay:.45s;}
+.soundwave span:nth-child(5){height:52px;animation-delay:.6s;}
+.soundwave span:nth-child(6){height:24px;animation-delay:.75s;}
+.soundwave span:nth-child(7){height:44px;animation-delay:.9s;}
+@keyframes wave{0%,100%{transform:scaleY(.45);}50%{transform:scaleY(1);}}
+@media (prefers-reduced-motion:reduce){.soundwave span{animation:none;height:36px;}}
+
+/* ---------- Intro summary box ---------- */
+.intro{
+  background:var(--cream-soft);
+  border-bottom:1px solid var(--line);
+  padding:28px 0;
+}
+.intro p{margin:0;color:var(--ink-soft);font-size:15.5px;}
+
+/* ---------- Nav ---------- */
+nav.toc{
+  position:sticky;top:0;z-index:20;
+  background:rgba(251,248,243,.94);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+nav.toc .wrap{
+  display:flex;gap:6px;overflow-x:auto;padding:10px 24px;
+  scrollbar-width:thin;
+}
+nav.toc a{
+  flex:0 0 auto;
+  font-size:13.5px;
+  font-weight:500;
+  color:var(--ink-soft);
+  text-decoration:none;
+  padding:7px 14px;
+  border-radius:999px;
+  white-space:nowrap;
+  transition:background .15s,color .15s;
+}
+nav.toc a:hover,nav.toc a.active{
+  background:var(--caramel);
+  color:#fff;
+}
+
+/* ---------- Sections ---------- */
+main section{
+  padding:52px 0;
+  border-bottom:1px dashed var(--line);
+}
+main section:last-of-type{border-bottom:none;}
+.sec-eyebrow{
+  font-size:13px;font-weight:600;letter-spacing:.18em;
+  color:var(--sage);text-transform:uppercase;margin-bottom:8px;
+  display:block;
+}
+section h2{font-size:clamp(22px,3vw,28px);margin-bottom:18px;}
+section h3{font-size:18px;color:var(--ink);margin:28px 0 10px;}
+
+/* ---------- Highlight & formula boxes ---------- */
+.hl{
+  background:var(--cream-soft);
+  border-left:4px solid var(--sage);
+  border-radius:8px;
+  padding:16px 20px;
+  margin:20px 0;
+  font-weight:500;
+}
+.hl b{color:var(--sage);}
+.hl.warn{border-left-color:var(--brick);}
+.hl.warn b{color:var(--brick);}
+
+.formula{
+  border:1.5px dashed var(--caramel);
+  border-radius:10px;
+  padding:18px 22px;
+  margin:20px 0;
+  text-align:center;
+  font-family:'Noto Serif TC',serif;
+  font-weight:600;
+  font-size:18px;
+  color:var(--caramel);
+  background:var(--cream-soft);
+}
+.formula small{
+  display:block;font-family:'Noto Sans TC',sans-serif;
+  font-weight:400;font-size:13px;color:var(--ink-soft);margin-top:6px;
+}
+
+/* ---------- Case strip (collapsible) ---------- */
+details.case-strip{
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--cream-soft);
+  margin:16px 0;
+  overflow:hidden;
+}
+details.case-strip summary{
+  list-style:none;
+  cursor:pointer;
+  padding:14px 44px 14px 18px;
+  font-weight:600;
+  color:var(--caramel);
+  position:relative;
+  font-family:'Noto Serif TC',serif;
+}
+details.case-strip summary::-webkit-details-marker{display:none;}
+details.case-strip summary::after{
+  content:'+';
+  position:absolute;right:18px;top:50%;
+  transform:translateY(-50%);
+  font-size:20px;color:var(--caramel);
+  font-family:'Noto Sans TC',sans-serif;
+}
+details.case-strip[open] summary::after{content:'−';}
+.case-content{padding:0 18px 18px;color:var(--ink-soft);}
+.case-content ul{margin:8px 0 0;padding-left:22px;}
+.case-content li{margin-bottom:8px;}
+
+/* ---------- Diagram card ---------- */
+.diagram-card{
+  background:var(--cream-soft);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:20px;
+  margin:24px 0;
+}
+.diagram-card svg{display:block;width:100%;height:auto;}
+.diagram-caption{
+  text-align:center;font-size:13px;color:var(--ink-soft);
+  margin-top:10px;
+}
+.d-label{font-size:14px;fill:var(--ink);}
+.d-label-sm{font-size:12px;fill:var(--ink-soft);}
+.d-label-strong{font-size:16px;font-weight:600;fill:var(--caramel);font-family:'Noto Serif TC',serif;}
+.d-bar-text{font-size:18px;font-weight:600;fill:var(--cream-soft);}
+.d-bar-sub{font-size:13px;fill:var(--cream-soft);}
+.d-bar-text-sm{font-size:14px;font-weight:600;fill:var(--cream-soft);}
+.d-bar-sub-sm{font-size:11px;fill:var(--cream-soft);}
+.d-total{font-size:15px;font-weight:600;fill:var(--ink);}
+.d-node-title{font-size:14px;font-weight:600;fill:var(--caramel);}
+.d-node-sub{font-size:12px;fill:var(--ink-soft);}
+.d-donut-num{font-size:26px;font-weight:700;fill:var(--ink);font-family:'Noto Serif TC',serif;}
+.d-donut-sub{font-size:13px;fill:var(--ink-soft);}
+.d-note{font-size:12px;fill:var(--ink-soft);}
+
+/* ---------- Lists ---------- */
+.bullet-list{margin:14px 0;padding-left:0;list-style:none;}
+.bullet-list li{
+  position:relative;padding-left:26px;margin-bottom:10px;
+}
+.bullet-list li::before{
+  content:'';position:absolute;left:0;top:10px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--caramel-light);
+}
+
+/* ---------- Summary ---------- */
+section.summary{
+  background:var(--cream-soft);
+}
+section.summary h2{display:flex;align-items:center;gap:10px;}
+.summary-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;
+}
+@media (max-width:680px){.summary-grid{grid-template-columns:1fr;}}
+.summary-card{
+  background:#fff;border:1px solid var(--line);border-radius:12px;
+  padding:18px 20px;
+}
+.summary-card .num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:28px;height:28px;border-radius:50%;
+  background:var(--caramel);color:#fff;font-weight:600;font-size:14px;
+  font-family:'Noto Serif TC',serif;margin-bottom:10px;
+}
+.summary-card p{margin:0;font-size:15px;color:var(--ink);}
+
+/* ---------- My Notes / Editor ---------- */
+.mynotes-desc{color:var(--ink-soft);font-size:15px;margin-top:-4px;}
+.mynotes-desc code, .mynotes-desc b{color:var(--caramel);}
+.mynotes-desc code{
+  background:var(--cream-soft);border:1px solid var(--line);border-radius:4px;
+  padding:1px 6px;font-size:13px;
+}
+.editor-card{
+  background:#fff;border:1px solid var(--line);border-radius:12px;
+  overflow:hidden;margin-top:20px;
+}
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  padding:10px 14px;background:var(--cream-soft);border-bottom:1px solid var(--line);
+}
+.toolbar button{
+  border:1px solid var(--line);background:#fff;color:var(--ink);
+  font-size:13px;line-height:1;padding:7px 11px;border-radius:6px;cursor:pointer;
+  font-family:'Noto Sans TC',sans-serif;transition:background .15s,border-color .15s,color .15s;
+}
+.toolbar button:hover{background:var(--cream);border-color:var(--caramel-light);}
+.toolbar button.icon-btn{display:inline-flex;align-items:center;gap:6px;}
+.toolbar button.icon-btn svg{width:15px;height:15px;flex:0 0 auto;}
+.toolbar .sep{width:1px;align-self:stretch;background:var(--line);margin:0 2px;}
+
+/* GitHub settings panel */
+.gh-panel{display:none;padding:16px 18px;border-bottom:1px solid var(--line);background:var(--cream);}
+.gh-panel.open{display:block;}
+.gh-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media (max-width:560px){.gh-grid{grid-template-columns:1fr;}}
+.gh-grid label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--ink-soft);}
+.gh-grid input{
+  border:1px solid var(--line);border-radius:6px;padding:7px 10px;
+  font-size:13.5px;font-family:'Noto Sans TC',sans-serif;background:#fff;color:var(--ink);
+}
+.gh-grid input:focus{outline:2px solid var(--caramel-light);border-color:var(--caramel);}
+.gh-actions{display:flex;gap:8px;margin-top:12px;}
+.gh-hint{font-size:12.5px;color:var(--ink-soft);margin:12px 0 0;line-height:1.7;}
+.gh-hint b{color:var(--caramel);}
+.gh-hint code{
+  background:var(--cream-soft);border:1px solid var(--line);border-radius:4px;
+  padding:1px 6px;font-size:12px;color:var(--caramel);
+}
+
+.editor{
+  min-height:260px;padding:22px 24px;outline:none;
+  font-size:16px;line-height:1.9;color:var(--ink);
+}
+.editor:focus{background:var(--cream-soft);}
+.editor:empty::before{
+  content:attr(data-placeholder);color:var(--ink-soft);pointer-events:none;
+}
+.editor h3{color:var(--caramel);font-size:18px;margin:14px 0 8px;}
+.editor p{margin:0 0 10px;}
+.editor ul,.editor ol{margin:0 0 10px;padding-left:24px;}
+.editor blockquote{
+  border-left:3px solid var(--caramel-light);padding-left:14px;
+  margin:10px 0;color:var(--ink-soft);
+}
+.editor a{color:var(--slate);text-decoration:underline;}
+.editor img{max-width:100%;border-radius:8px;margin:10px 0;display:block;}
+.yt-embed{
+  position:relative;padding-bottom:56.25%;height:0;
+  overflow:hidden;border-radius:8px;margin:14px 0;background:#000;
+}
+.yt-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.video-fallback{
+  display:block;text-align:center;margin-top:4px;font-size:13px;
+  color:var(--ink-soft);text-decoration:none;
+}
+.video-fallback:hover{color:var(--caramel);text-decoration:underline;}
+
+.editor-footer{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  flex-wrap:wrap;
+  padding:10px 14px;border-top:1px solid var(--line);background:var(--cream-soft);
+}
+.footer-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.save-status{font-size:12.5px;color:var(--ink-soft);}
+.save-status.saved{color:var(--sage);}
+.save-status.error{color:var(--brick);}
+.ghost-btn{
+  border:1px solid var(--line);background:transparent;color:var(--ink-soft);
+  font-size:12.5px;padding:6px 12px;border-radius:6px;cursor:pointer;
+  font-family:'Noto Sans TC',sans-serif;
+}
+.ghost-btn:hover{border-color:var(--brick);color:var(--brick);}
+.ghost-btn.primary-ghost{border-color:var(--caramel);color:var(--caramel);font-weight:500;}
+.ghost-btn.primary-ghost:hover{background:var(--caramel);color:#fff;border-color:var(--caramel);}
+.editor-hint{
+  padding:10px 14px;font-size:12.5px;color:var(--ink-soft);
+  border-top:1px solid var(--line);background:var(--cream);
+}
+.editor-hint code{
+  background:var(--cream-soft);border:1px solid var(--line);border-radius:4px;
+  padding:1px 6px;font-size:12px;color:var(--caramel);
+}
+
+/* ---------- Footer ---------- */
+footer{
+  text-align:center;padding:36px 24px;font-size:13px;color:var(--ink-soft);
+}
+
+@media (max-width:640px){
+  header.hero{padding:40px 0 28px;}
+  main section{padding:38px 0;}
+  .soundwave{display:none;}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-text">
+      <span class="eyebrow">大人來開槓 · 聽後筆記</span>
+      <h1>EP.26　被「正2」嘎空手的人<br>最容易變成恐怖情人</h1>
+      <div class="hero-meta">
+        <span class="tag">#股票溢酬</span>
+        <span class="tag">#曝險控制</span>
+        <span class="tag">#莊家錢效應</span>
+        <span class="tag">#認知與信仰</span>
+      </div>
+      <div class="hero-info">2026.06.12 首播　·　節目長度約 58 分鐘</div>
+    </div>
+    <div class="soundwave" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<div class="intro">
+  <div class="wrap">
+    <p>
+      這集主持人「大人」先針對上一集的研究來源做了更正，並從「股票溢酬之謎」談到投資人該用什麼時間尺度看待波動。
+      接著延伸到三個主題：①如何判斷投資資訊背後的利益關係、②「莊家的錢效應」如何影響市場情緒、
+      ③為什麼「曝險」才是衡量風險的正確指標，而不是「有沒有用槓桿」。
+      以下整理成可快速複習的圖文筆記。
+    </p>
+  </div>
+</div>
+
+<nav class="toc">
+  <div class="wrap">
+    <a href="#s1">01 一個更正</a>
+    <a href="#s2">02 時間尺度</a>
+    <a href="#s3">03 誰在賣東西</a>
+    <a href="#s4">04 莊家的錢</a>
+    <a href="#s5">05 恐怖情人</a>
+    <a href="#s6">06 認知與信仰</a>
+    <a href="#summary">⭐ 重點整理</a>
+    <a href="#mynotes">📝 我的筆記</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============ FEATURED PODCAST ============ -->
+<section class="video-feature">
+  <div class="wrap">
+    <span class="sec-eyebrow">本集節目</span>
+    <h2>🎧 本集 Podcast</h2>
+    <div class="diagram-card">
+      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/6gEagE0jIZxArVmcfqODOR?utm_source=generator"
+        width="100%" height="152" frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 1 ============ -->
+<section id="s1">
+  <div class="wrap">
+    <span class="sec-eyebrow">Section 01</span>
+    <h2>一個更正：股票溢酬之謎</h2>
+    <p>
+      這集一開頭，大人先針對上一集的內容做了更正——上次提到「股票溢酬之謎」的研究時，
+      把兩位學者的研究結果搞混了。雖然只是一個出處上的小錯誤，但更正後的內容，
+      反而完整呈現了這集真正的核心主題：<b>你用什麼「時間尺度」看待投資，決定了你能承受多少波動</b>。
+    </p>
+
+    <details class="case-strip">
+      <summary>上一集的說法（有誤）</summary>
+      <div class="case-content">
+        <ul>
+          <li>提到：以 20 年為週期審視持股的投資者，最終只能拿到 1.4% 的「股票溢酬」。</li>
+          <li>把這個研究結果歸給了行為經濟學家理查．塞勒（Richard Thaler）。</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="case-strip">
+      <summary>更正後的說法</summary>
+      <div class="case-content">
+        <ul>
+          <li>這個研究其實出自塞勒與另一位知名學者傑諾米．席格爾（Jeremy Siegel，著有《長線獲利之道》）1997 年合著的論文。</li>
+          <li>正確的意思是：如果投資者把「審視持股的週期」拉長到 20 年（也就是 20 年才檢視一次帳戶），那麼股票只需要比債券多出約 1.4% 的報酬，投資者就會願意持有股票。</li>
+          <li>這跟「股票報酬只有 1.4%」是完全不同的兩件事——1.4% 指的是「願意持有股票所需的最低溢酬」，不是實際報酬率。</li>
+        </ul>
+      </div>
+    </details>
+
+    <p>
+      這個研究背後想解決的問題，就是經典的「股票溢酬之謎」：長期來看，股票的報酬遠遠超過債券，
+      理論上大家應該把資金大量配置在股票上，但實際上多數人並沒有這麼做。原因之一就是——
+      大多數投資者非常「短視」：帳戶一有波動，幾分鐘就要打開手機看一次，這種「短視損失厭惡」
+      （myopic loss aversion）正是股票溢酬之謎的核心解釋之一。
+    </p>
+
+    <div class="hl">
+      <b>核心觀念：</b>報酬本身沒有改變，改變的是「你用多長的時間尺度去看它」——
+      看得越短，越容易被波動嚇到；看得越長，越能承受波動、也越敢配置股票。
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 2 ============ -->
+<section id="s2">
+  <div class="wrap">
+    <span class="sec-eyebrow">Section 02</span>
+    <h2>時間尺度，決定你敢配置多少股票</h2>
+    <p>
+      塞勒與席格爾的論文裡，還提到另一個很經典的實驗：研究人員讓兩組大學職員，
+      看同一份「1926～1996 年股票與債券的歷史報酬資料」，唯一不同的是「呈現方式」。
+    </p>
+
+    <ul class="bullet-list">
+      <li><b>第一組</b>看到的是「逐年報酬」——1926、1927、1928……每一年股票與債券各賺多少。</li>
+      <li><b>第二組</b>看到的是「30 年滾動報酬」——例如 1926～1955、1927～1956……每一筆數據都是 30 年的累積結果。</li>
+    </ul>
+
+    <div class="diagram-card">
+      <svg viewBox="0 0 640 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="不同時間尺度下的股票配置比例">
+        <text x="320" y="30" text-anchor="middle" class="d-label-strong">退休金中「股票」的配置比例</text>
+        <line x1="60" y1="260" x2="580" y2="260" stroke="var(--line)" stroke-width="2"/>
+
+        <rect x="140" y="196" width="120" height="64" fill="var(--slate)"/>
+        <text x="200" y="186" text-anchor="middle" class="d-total">40%</text>
+        <text x="200" y="288" text-anchor="middle" class="d-label">看「逐年報酬」</text>
+
+        <rect x="380" y="116" width="120" height="144" fill="var(--sage)"/>
+        <text x="440" y="106" text-anchor="middle" class="d-total">90%</text>
+        <text x="440" y="288" text-anchor="middle" class="d-label">看「30 年滾動報酬」</text>
+
+        <text x="320" y="312" text-anchor="middle" class="d-note">同一份歷史資料，只是呈現的時間尺度不同，配置結果就差了一倍以上</text>
+      </svg>
+      <div class="diagram-caption">看得越長期，越敢把資金放在股票上</div>
+    </div>
+
+    <p>
+      結果很有意思：只看「逐年報酬」的那組，最終只願意把 <b>40%</b> 的退休金配置到股票；
+      而看「30 年滾動報酬」的那組，願意配置到股票的比例直接拉高到 <b>90%</b>。
+      兩組看的是同一份歷史資料，差別只在於「呈現的時間尺度」，配置結果卻天差地別。
+    </p>
+    <p>
+      另一份研究也顯示：從 1926 到 1989 年，任何一個 20 年的持有期間，股票的報酬都優於債券。
+      也就是說，如果你真的能把眼光放到 20 年，股票幾乎沒有理由不該是你的核心配置。
+    </p>
+
+    <div class="hl">
+      <b>延伸：</b>大人自己的股票曝險長期維持在 <b>140%</b> 以上（透過槓桿創造出額外的現金餘裕後仍維持高曝險），
+      遠高於這兩個研究建議的 90%，甚至超過 100%。他認為：曝險 100% 以上，才是「真正的長期投資者」該有的最低標準；
+      如果你自稱長期投資，配置卻只有 8 成股票、2 成債券，某種程度上代表你還沒真正建立起「長期視角」。
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 3 ============ -->
+<section id="s3">
+  <div class="wrap">
+    <span class="sec-eyebrow">Section 03</span>
+    <h2>每個人都在賣東西：如何判斷一個建議可不可信？</h2>
+    <p>
+      大人提到最近在看一本書《投資贏在不犯錯》，書中強調一個很實用的判斷框架：
+      在接收任何投資建議之前，先問自己——<b>「這個人是不是想賺我的錢？他到底在賣什麼？」</b>
+      每個人本質上都是在做行銷、在賣東西；先看懂背後的利益關係，才能把建議放在正確的脈絡裡解讀。
+    </p>
+
+    <div class="diagram-card">
+      <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="常見的內容行銷漏斗">
+        <defs>
+          <marker id="fArrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--ink-soft)"/>
+          </marker>
+        </defs>
+        <rect x="20" y="65" width="180" height="80" rx="8" fill="var(--sage)"/>
+        <text x="110" y="100" text-anchor="middle" class="d-bar-text-sm">免費影片</text>
+        <text x="110" y="122" text-anchor="middle" class="d-bar-sub-sm">第一個鉤子</text>
+
+        <line x1="208" y1="105" x2="248" y2="105" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#fArrow)"/>
+
+        <rect x="258" y="75" width="150" height="60" rx="8" fill="var(--slate)"/>
+        <text x="333" y="100" text-anchor="middle" class="d-bar-text-sm">免費課程</text>
+        <text x="333" y="122" text-anchor="middle" class="d-bar-sub-sm">30 分～1 小時</text>
+
+        <line x1="416" y1="105" x2="456" y2="105" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#fArrow)"/>
+
+        <rect x="466" y="85" width="130" height="40" rx="8" fill="var(--brick)"/>
+        <text x="531" y="110" text-anchor="middle" class="d-bar-text-sm">付費課程</text>
+
+        <text x="320" y="190" text-anchor="middle" class="d-note">用免費內容建立信任、吸引你「上鉤」，最終導向付費商品</text>
+      </svg>
+      <div class="diagram-caption">YouTube 上常見的內容行銷路徑——免費影片只是入口，終點通常是付費課程</div>
+    </div>
+
+    <p>
+      大人也提到一些更誇張的手法：所謂的「免費課程直播」，其實常常是事先錄好的影片，
+      連那些「同學發問」的互動橋段，也是早就安排好、預先錄製的「暗樁」——目的是營造出
+      「大家都在搶著上課」的緊迫感。
+    </p>
+
+    <p>
+      美國作家厄普頓．辛克萊（Upton Sinclair）有一句話可以總結這種現象：<b>當一個人的收入建立在
+      「不理解某件事」之上時，要讓他理解那件事是非常困難的</b>——也就是俗話說的「裝睡的人叫不醒」。
+    </p>
+
+    <h3>用這個框架檢視大人自己</h3>
+    <ul class="bullet-list">
+      <li>Podcast 完全免費收聽，沒有訂閱制、沒有會員專屬內容。</li>
+      <li>出版的書籍內容，100% 同步公開在個人網站上，不買書也能看到完整內容。</li>
+      <li>出書的收益捐入公益基金（目前基金規模約 400 萬元，已捐出約 20 萬元，明年計畫再捐 20 萬元）。</li>
+      <li>推廣 0050／正 2，本人並不會因此獲利——他不是發行商，也沒有銷售任何相關課程或商品。</li>
+    </ul>
+
+    <h3>原創內容的價值：手織的毛巾 vs AI 代工</h3>
+    <p>
+      大人也分享了《選擇障礙世代》書中的一個比喻：手工織的毛巾，即使做工不如工廠精緻，
+      但「花了時間」這件事本身，就傳達了用心的程度——收到的人一看就知道，這不是五分鐘做出來的。
+      相反地，直接把問題丟給 AI、再原封不動貼上的內容，給人的感覺往往是「沒有用心、浪費彼此的時間」。
+    </p>
+    <p>
+      同一本書還提到一個概念叫「品味鴻溝」（taste gap）：創作者在技巧還不成熟時，
+      作品的實際水準（例如 10 分）會遠低於自己心中的審美標準（例如 100 分），
+      這個落差會讓人很想放棄。但唯有持續創作、持續產出，才能逐漸縮小「技巧」與「品味」之間的差距——
+      大人錄 Podcast、寫書的初期，也都經歷過這樣卡關的階段。
+    </p>
+
+    <div class="hl">
+      <b>提醒：</b>看到一篇分析或一支影片時，先問「這個人在賣什麼」；
+      也可以留意內容是不是花了時間、用心整理出來的——這往往跟內容的可信度成正比。
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 4 ============ -->
+<section id="s4">
+  <div class="wrap">
+    <span class="sec-eyebrow">Section 04</span>
+    <h2>「莊家的錢」：為什麼大漲之後反而更敢賭？</h2>
+    <p>
+      大人接著分享一個行為金融學上很有名的現象，叫做「莊家錢效應」（house money effect）：
+      當投資者已經從市場上賺到一筆錢之後，會把這筆獲利在心裡歸類成「莊家的錢」、不是自己的本金，
+      因此會更願意拿這些錢去承擔更大的風險。
+    </p>
+
+    <div class="diagram-card">
+      <svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="心理帳戶示意圖">
+        <defs>
+          <marker id="mArrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--ink-soft)"/>
+          </marker>
+        </defs>
+        <text x="320" y="28" text-anchor="middle" class="d-label-strong">心理帳戶：同一筆錢，兩種感覺</text>
+
+        <rect x="60" y="55" width="140" height="90" rx="8" fill="var(--cream-soft)" stroke="var(--caramel)" stroke-width="2"/>
+        <text x="130" y="95" text-anchor="middle" class="d-node-title">本金帳戶</text>
+        <text x="130" y="120" text-anchor="middle" class="d-total">$100</text>
+
+        <rect x="280" y="55" width="300" height="90" rx="8" fill="var(--cream-soft)" stroke="var(--sage)" stroke-width="2"/>
+        <text x="430" y="95" text-anchor="middle" class="d-node-title">「莊家的錢」帳戶</text>
+        <text x="430" y="120" text-anchor="middle" class="d-total">$999,900（賭贏來的）</text>
+
+        <line x1="320" y1="155" x2="320" y2="185" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#mArrow)"/>
+        <text x="320" y="205" text-anchor="middle" class="d-label">合計 $1,000,000　→　全部下注、全部輸光</text>
+
+        <rect x="160" y="222" width="320" height="42" rx="8" fill="var(--brick)" opacity="0.15" stroke="var(--brick)"/>
+        <text x="320" y="248" text-anchor="middle" class="d-bar-text-sm" fill="var(--brick)">心裡的感覺：「我只是輸掉了一開始的 $100」</text>
+      </svg>
+      <div class="diagram-caption">經典案例：賭客把 $100 一路滾到 $1,000,000，又全部輸光，回家卻說「只輸了 $100」</div>
+    </div>
+
+    <p>
+      這跟「心理帳戶」（mental accounting）的概念有關：人不會把每一塊錢都當成等值，
+      而是依照來源把錢分到不同的帳戶裡，並用不同的標準去看待風險。
+    </p>
+
+    <p>
+      大人推測，這可能也是最近台股震盪的原因之一：2026 年 6 月這一週，台股出現「跌、漲、跌、再漲」
+      的劇烈波動。但從 2025 年 4 月以來，多數投資者已經累積了 40～50% 以上的獲利——
+      當你前面已經贏了一大筆，面對短期回檔時，承受力自然會比「還沒有獲利緩衝」的人更高。
+    </p>
+
+    <div class="hl">
+      <b>提醒：</b>莊家錢效應能解釋市場情緒，但不該被當成「現在加碼一定安全」的理由——
+      它說明的是「人的感覺」，不是「市場的真實風險」。
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 5 ============ -->
+<section id="s5">
+  <div class="wrap">
+    <span class="sec-eyebrow">Section 05</span>
+    <h2>恐怖情人：曝險才是風險，工具不是</h2>
+    <p>
+      回到這集標題的核心。大人觀察到：每次台股大跌，都會出現一群人「等著看槓桿 ETF（正 2）崩盤」——
+      認為「你現在賺錢，總有一天會跌到歸零」，甚至希望透過下一次金融海嘯來證明自己是對的。
+    </p>
+    <p>
+      大人的反駁很直接：金融海嘯來臨時，正 2 可能會跌到只剩 20%（100 元變 20 元），
+      但 0050 同樣會大跌，可能只剩 50～60 元——本質上是「半斤八兩」，並不是正 2 獨有的風險。
+      用「恐怖情人」來比喻這種心態：因為自己錯過了這一波漲幅，反而希望對方「過得不好」，
+      自己心理才會平衡。
+    </p>
+
+    <div class="diagram-card">
+      <svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="曝險等價示意圖">
+        <defs>
+          <marker id="eArrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--ink-soft)"/>
+          </marker>
+        </defs>
+        <text x="320" y="26" text-anchor="middle" class="d-label-strong">曝險才是風險的指標</text>
+
+        <rect x="40" y="50" width="220" height="60" rx="8" fill="var(--sage)"/>
+        <text x="150" y="74" text-anchor="middle" class="d-bar-text-sm">50% 本金</text>
+        <text x="150" y="95" text-anchor="middle" class="d-bar-sub-sm">買進「正 2」（2 倍曝險）</text>
+
+        <text x="320" y="90" text-anchor="middle" class="d-label-strong" style="font-size:24px">＝</text>
+
+        <rect x="380" y="50" width="220" height="60" rx="8" fill="var(--slate)"/>
+        <text x="490" y="74" text-anchor="middle" class="d-bar-text-sm">100% 本金</text>
+        <text x="490" y="95" text-anchor="middle" class="d-bar-sub-sm">買進「0050」（1 倍曝險）</text>
+
+        <line x1="150" y1="110" x2="150" y2="145" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#eArrow)"/>
+        <line x1="490" y1="110" x2="490" y2="145" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#eArrow)"/>
+
+        <rect x="40" y="155" width="560" height="46" rx="8" fill="var(--brick)" opacity="0.15" stroke="var(--brick)"/>
+        <text x="320" y="184" text-anchor="middle" class="d-bar-text-sm" fill="var(--brick)">兩者的「市場曝險」都是 100%——風險本質相同</text>
+
+        <text x="320" y="240" text-anchor="middle" class="d-label">2025 關稅大跌進場至今：0050 約 +180%　·　正 2 約 +480%</text>
+        <text x="320" y="266" text-anchor="middle" class="d-label-sm">差距來自「曝險倍數」，並不是工具本身比較「危險」</text>
+      </svg>
+      <div class="diagram-caption">用一半本金買正 2、跟用全部本金買 0050，承擔的市場曝險其實是一樣的</div>
+    </div>
+
+    <div class="formula">
+      曝險　＝　持有市值　÷　本金
+      <small>例如：50 萬本金買進 100 萬市值的正 2，曝險就是 200%；50 萬本金買進 50 萬市值的 0050，曝險是 100%</small>
+    </div>
+
+    <p>
+      大人也提到一個正面案例：另一位分享槓桿投資的「阿良」，在前期已經累積到數千萬甚至破億的資產後，
+      主動把曝險降到 100% 以下，搭配現金與正股——這是基於「財富目標已經達成」的合理調整，
+      而不是出於恐懼的退縮。
+    </p>
+
+    <div class="hl warn">
+      <b>核心觀念：</b>「曝險」才是衡量風險的正確指標，不是「有沒有用槓桿」。
+      大人認為「100% 曝險」應該是長期投資者的最低標準——如果你自稱長期投資，
+      股票配置卻只有 8 成，某種程度上代表你的認知還沒有到位。
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 6 ============ -->
+<section id="s6">
+  <div class="wrap">
+    <span class="sec-eyebrow">Section 06</span>
+    <h2>認知 vs 信仰：投資最終要相信什麼？</h2>
+    <p>
+      大人總結：投資到了最後，比的其實是「信仰」——你有多相信自己的投資理念、能不能在下跌時繼續堅持。
+      這跟 EP1 提過的「能力圈」是同一件事的延伸：每個人只能賺到、也只能守住自己認知範圍以內的錢；
+      靠運氣賺到的錢，遲早會因為認知不足而還回去。
+    </p>
+    <p>
+      但這裡的「信仰」不該是盲目的——不是把某個工具當成宗教（大人自己也很反感「正二教」這種說法）。
+      真正該信仰的，是「持續擴展中的認知」本身：你要知道自己知道什麼、不知道什麼，
+      並且相信只要持續學習，就能做出比現在更好的判斷。
+    </p>
+
+    <div class="diagram-card">
+      <svg viewBox="0 0 520 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="認知擴展循環示意圖">
+        <defs>
+          <marker id="coArrow2" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+            <path d="M0,0 L10,5 L0,10 Z" fill="var(--sage)"/>
+          </marker>
+        </defs>
+
+        <rect x="160" y="20"  width="200" height="84" rx="10" fill="#fff" stroke="var(--sage)" stroke-width="2"/>
+        <rect x="320" y="198" width="190" height="84" rx="10" fill="#fff" stroke="var(--caramel)" stroke-width="2"/>
+        <rect x="160" y="376" width="200" height="84" rx="10" fill="#fff" stroke="var(--sage)" stroke-width="2"/>
+        <rect x="10"  y="198" width="190" height="84" rx="10" fill="#fff" stroke="var(--caramel)" stroke-width="2"/>
+
+        <text x="260" y="48"  text-anchor="middle" class="d-node-title">① 持續學習</text>
+        <text x="260" y="70"  text-anchor="middle" class="d-node-sub">讀書、思考、</text>
+        <text x="260" y="88"  text-anchor="middle" class="d-node-sub">看原始研究</text>
+
+        <text x="415" y="226" text-anchor="middle" class="d-node-title">② 認知擴展</text>
+        <text x="415" y="248" text-anchor="middle" class="d-node-sub">看懂更多、</text>
+        <text x="415" y="266" text-anchor="middle" class="d-node-sub">想得更深</text>
+
+        <text x="260" y="404" text-anchor="middle" class="d-node-title">③ 更好的判斷</text>
+        <text x="260" y="426" text-anchor="middle" class="d-node-sub">知道自己</text>
+        <text x="260" y="444" text-anchor="middle" class="d-node-sub">不知道什麼</text>
+
+        <text x="105" y="226" text-anchor="middle" class="d-node-title">④ 守得住的錢</text>
+        <text x="105" y="248" text-anchor="middle" class="d-node-sub">報酬與認知</text>
+        <text x="105" y="266" text-anchor="middle" class="d-node-sub">範圍相符</text>
+
+        <path d="M 345 104 Q 470 130 410 198" fill="none" stroke="var(--sage)" stroke-width="2.5" marker-end="url(#coArrow2)"/>
+        <path d="M 460 282 Q 480 360 360 396" fill="none" stroke="var(--sage)" stroke-width="2.5" marker-end="url(#coArrow2)"/>
+        <path d="M 200 396 Q 60 380 75 282"  fill="none" stroke="var(--sage)" stroke-width="2.5" marker-end="url(#coArrow2)"/>
+        <path d="M 75 198 Q 60 130 175 104"  fill="none" stroke="var(--sage)" stroke-width="2.5" marker-end="url(#coArrow2)"/>
+      </svg>
+      <div class="diagram-caption">「信仰認知」是一個正向循環：持續學習 → 認知擴展 → 更好的判斷 → 守得住相應的報酬</div>
+    </div>
+
+    <details class="case-strip">
+      <summary>聽眾 QA｜為什麼聽 Podcast 反而興奮到睡不著？</summary>
+      <div class="case-content">
+        <ul>
+          <li>有聽眾分享：習慣睡前聽 Podcast，但聽大人的節目反而因為太興奮、情緒被帶動而睡不著。</li>
+          <li>大人解釋：當一個人感受到自己的「認知正在往前推進」時，那種興奮感是真實的——
+              知道了一件以前不知道的事，就回不去了。他建議這類內容適合在散步、通勤時聽，不適合睡前聽。</li>
+          <li>大人也自我覺察：自己具備一種「魅力型權威」（charisma）——講話有自信、情緒強烈，容易讓聽眾「情不自禁被感染」，
+              覺得「講得這麼有信心，應該是對的」。</li>
+          <li>但他特別提醒：<b>魅力不等於正確</b>。聽到很有自信的論述時，還是要去想「這裡會不會有錯」「哪裡可能不對」，
+              多聽聽不同意見，自己對照思考。</li>
+          <li>也分享一個用 AI 做「中立判斷」的小技巧：跟 AI 討論時，明確要求它「不要順著我的立場講，給我最客觀、中立的答案」，
+              才能得到比較真實的回饋，而不是一個只會附和你的工具。</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="hl">
+      <b>結語：</b>每個人都只能賺到、守住自己認知範圍內的錢。信仰沒問題，但該信仰的是「持續擴展的認知」，
+      不是任何單一工具、任何一個人——包括大人自己。
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUMMARY ============ -->
+<section id="summary" class="summary">
+  <div class="wrap">
+    <h2>⭐ 重點整理</h2>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <span class="num">1</span>
+        <p>研究更正：「20年才審視一次持股，股票只需多 1.4% 報酬就值得持有」——指的是溢酬門檻，不是實際報酬只有 1.4%。</p>
+      </div>
+      <div class="summary-card">
+        <span class="num">2</span>
+        <p>時間尺度決定配置：看「逐年報酬」的人只願配置 40% 股票，看「30年滾動報酬」的人願意配置 90%。</p>
+      </div>
+      <div class="summary-card">
+        <span class="num">3</span>
+        <p>接收任何投資建議前，先問「這個人在賣什麼、跟你有沒有利益關係」；原創、用心的內容，AI 代寫無法取代。</p>
+      </div>
+      <div class="summary-card">
+        <span class="num">4</span>
+        <p>「莊家錢效應」：先前的獲利會被當成「別人的錢」，讓人更敢承擔風險——可能也解釋了大漲後的劇烈震盪。</p>
+      </div>
+      <div class="summary-card">
+        <span class="num">5</span>
+        <p>「曝險」才是風險的真正指標，不是「有沒有用槓桿」：50% 本金買正2 ≈ 100% 本金買 0050，本質風險相同。</p>
+      </div>
+      <div class="summary-card">
+        <span class="num">6</span>
+        <p>投資最終比的是「信仰」，但該信仰的是「持續擴展的認知」——保持獨立思考，不因魅力或自信就盡信。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MY NOTES ============ -->
+<section id="mynotes" class="mynotes">
+  <div class="wrap">
+    <span class="sec-eyebrow" style="color:var(--brick);">Workspace</span>
+    <h2>📝 我的筆記</h2>
+    <p class="mynotes-desc">
+      在這裡寫筆記、貼圖片、嵌入 YouTube 影片。內容會先自動暫存在這台瀏覽器，
+      按下<b>「提交到 GitHub」</b>會直接把筆記轉成 Markdown 並 commit 到你的 repo
+      <code>MichelleTsai/mi-personal-notes</code>。
+    </p>
+
+    <div class="editor-card">
+      <div class="toolbar" id="toolbar">
+        <button data-cmd="bold" title="粗體"><b>B</b></button>
+        <button data-cmd="italic" title="斜體"><i>I</i></button>
+        <button data-cmd="underline" title="底線"><u>U</u></button>
+        <button data-cmd="strikeThrough" title="刪除線"><s>S</s></button>
+        <span class="sep"></span>
+        <button data-cmd="formatBlock" data-value="H3" title="標題">標題</button>
+        <button data-cmd="formatBlock" data-value="P" title="段落">段落</button>
+        <span class="sep"></span>
+        <button data-cmd="insertUnorderedList" title="項目清單">・清單</button>
+        <button data-cmd="insertOrderedList" title="編號清單">1. 清單</button>
+        <button data-cmd="formatBlock" data-value="BLOCKQUOTE" title="引用">引用</button>
+        <span class="sep"></span>
+        <button id="linkBtn" class="icon-btn" title="插入連結">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l1.93-1.93a5 5 0 0 0-7.07-7.07L10.5 5.5"/><path d="M14 11a5 5 0 0 0-7.07 0L4.99 12.93a5 5 0 0 0 7.07 7.07L13.5 18.5"/></svg>
+          連結
+        </button>
+        <button id="imageBtn" class="icon-btn" title="插入圖片">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+          圖片
+        </button>
+        <button id="youtubeBtn" class="icon-btn" title="嵌入 YouTube 影片">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m10 9 5 3-5 3z" fill="currentColor"/></svg>
+          YouTube
+        </button>
+        <span class="sep"></span>
+        <button data-cmd="removeFormat" title="清除格式">清除格式</button>
+        <span class="sep"></span>
+        <button id="gearBtn" class="icon-btn" title="GitHub 設定">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          設定
+        </button>
+        <input type="file" id="imageInput" accept="image/*" hidden>
+      </div>
+
+      <div class="gh-panel" id="ghPanel">
+        <div class="gh-grid">
+          <label>Personal Access Token
+            <input type="password" id="ghToken" placeholder="github_pat_••••••••">
+          </label>
+          <label>Repo（owner/repo）
+            <input type="text" id="ghRepo" placeholder="MichelleTsai/mi-personal-notes">
+          </label>
+          <label>檔案路徑
+            <input type="text" id="ghPath" placeholder="00631L/notes/ep26-notes.md">
+          </label>
+          <label>分支
+            <input type="text" id="ghBranch" placeholder="main">
+          </label>
+        </div>
+        <div class="gh-actions">
+          <button id="ghSave" class="ghost-btn primary-ghost">儲存設定</button>
+          <button id="ghClearToken" class="ghost-btn">清除 Token</button>
+        </div>
+        <p class="gh-hint">
+          建議到 GitHub →「Settings → Developer settings → Fine-grained tokens」建立一個<b>僅限
+          <code>mi-personal-notes</code> 這個 repo</b>、且只勾選「Contents: Read and write」權限的 Token，並設定到期日。
+          Token 只會存在這台瀏覽器的 localStorage，不會被寫進筆記檔案內容、也不會出現在 commit 裡。
+          若這個 repo 是公開的，commit 後筆記內容（包含圖片）也會是公開的，請留意。
+        </p>
+      </div>
+      <div class="editor" id="editor" contenteditable="true" data-placeholder="點這裡開始輸入筆記…可以貼上文字、插入圖片或嵌入 YouTube 影片"></div>
+      <div class="editor-footer">
+        <span id="saveStatus" class="save-status">尚未儲存草稿</span>
+        <div class="footer-actions">
+          <button id="loadBtn" class="ghost-btn">從 GitHub 載入</button>
+          <button id="commitBtn" class="ghost-btn primary-ghost">提交到 GitHub</button>
+          <button id="clearBtn" class="ghost-btn">清空筆記</button>
+        </div>
+      </div>
+      <div class="editor-hint" id="commitStatus">尚未提交　·　點「設定」填入 Token 與檔案路徑後即可使用</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  筆記整理自《大人來開槓》Podcast EP.26（2026.06.12）逐字稿，內容為節目觀點整理，僅供個人學習參考，非投資建議。
+</footer>
+
+<script>
+// 簡易 scroll-spy：依目前可視區域高亮對應的導覽連結
+(function(){
+  var links = document.querySelectorAll('nav.toc a');
+  var sections = document.querySelectorAll('main section, section.summary');
+  if(!('IntersectionObserver' in window)) return;
+  var map = {};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      var link = map[entry.target.id];
+      if(!link) return;
+      if(entry.isIntersecting){
+        links.forEach(function(a){a.classList.remove('active');});
+        link.classList.add('active');
+      }
+    });
+  },{rootMargin:'-40% 0px -50% 0px'});
+  sections.forEach(function(s){ observer.observe(s); });
+})();
+</script>
+
+<script>
+// 我的筆記：簡易編輯器（格式化、圖片、YouTube 嵌入、自動儲存）
+(function(){
+  var editor = document.getElementById('editor');
+  var toolbar = document.getElementById('toolbar');
+  var saveStatus = document.getElementById('saveStatus');
+  var imageInput = document.getElementById('imageInput');
+  var DRAFT_KEY = 'ep26-notes-draft';
+  var GH_SETTINGS_KEY = 'ep26-notes-gh-settings';
+  var GH_TOKEN_KEY = 'mi-personal-notes-gh-token';
+  var saveTimer = null;
+
+  function insertHTML(html){
+    editor.focus();
+    if(document.queryCommandSupported && document.queryCommandSupported('insertHTML')){
+      document.execCommand('insertHTML', false, html);
+    } else {
+      editor.innerHTML += html;
+    }
+    scheduleSave();
+  }
+
+  // 文字格式按鈕
+  toolbar.querySelectorAll('button[data-cmd]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      editor.focus();
+      document.execCommand(btn.dataset.cmd, false, btn.dataset.value || null);
+      scheduleSave();
+    });
+  });
+
+  // 連結
+  document.getElementById('linkBtn').addEventListener('click', function(){
+    var url = prompt('請輸入連結網址（例如 https://example.com）');
+    if(!url) return;
+    editor.focus();
+    if(window.getSelection().toString()){
+      document.execCommand('createLink', false, url);
+      scheduleSave();
+    } else {
+      var text = url.replace(/^https?:\/\//,'');
+      insertHTML('<a href="'+url.replace(/"/g,'&quot;')+'" target="_blank" rel="noopener noreferrer">'+text+'</a>&nbsp;');
+    }
+  });
+
+  // 圖片上傳（自動縮小到最大寬度 1000px，避免筆記過大）
+  document.getElementById('imageBtn').addEventListener('click', function(){ imageInput.click(); });
+  imageInput.addEventListener('change', function(){
+    var file = imageInput.files && imageInput.files[0];
+    if(!file) return;
+    if(!file.type.startsWith('image/')){ alert('請選擇圖片檔案'); return; }
+    var reader = new FileReader();
+    reader.onload = function(e){
+      var img = new Image();
+      img.onload = function(){
+        var maxW = 1000;
+        var scale = Math.min(1, maxW / img.width);
+        var canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.width * scale);
+        canvas.height = Math.round(img.height * scale);
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        var dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+        insertHTML('<img src="'+dataUrl+'" alt="筆記圖片"><br>');
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+    imageInput.value = '';
+  });
+
+  // YouTube 嵌入
+  document.getElementById('youtubeBtn').addEventListener('click', function(){
+    var url = prompt('貼上 YouTube 影片連結（例如 https://youtu.be/xxxxxxxxxxx）：');
+    if(!url) return;
+    var m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    if(!m){ alert('無法辨識這個 YouTube 連結，請確認網址格式'); return; }
+    var id = m[1];
+    insertHTML('<div class="yt-embed"><iframe src="https://www.youtube.com/embed/'+id+'" title="YouTube video" allowfullscreen></iframe></div><br>');
+  });
+
+  // 自動儲存
+  editor.addEventListener('input', function(){
+    if(editor.innerHTML === '<br>') editor.innerHTML = '';
+    scheduleSave();
+  });
+
+  function scheduleSave(){
+    saveStatus.textContent = '正在輸入…';
+    saveStatus.className = 'save-status';
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveDraft, 800);
+  }
+
+  function saveDraft(){
+    try{
+      localStorage.setItem(DRAFT_KEY, editor.innerHTML);
+      var t = new Date();
+      saveStatus.textContent = '本機草稿已更新　' + t.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'}) + '　·　記得按「提交到 GitHub」同步';
+      saveStatus.className = 'save-status saved';
+    }catch(err){
+      saveStatus.textContent = '本機暫存失敗（瀏覽器儲存空間可能不足）';
+      saveStatus.className = 'save-status error';
+    }
+  }
+
+  function loadDraft(){
+    try{
+      var html = localStorage.getItem(DRAFT_KEY);
+      if(html){
+        editor.innerHTML = html;
+        saveStatus.textContent = '已載入本機草稿';
+        saveStatus.className = 'save-status saved';
+      }
+    }catch(err){
+      // 無法讀取本機草稿，維持初始狀態即可
+    }
+  }
+
+  // ---------- GitHub 設定面板 ----------
+  var ghPanel = document.getElementById('ghPanel');
+  var ghTokenInput = document.getElementById('ghToken');
+  var ghRepoInput = document.getElementById('ghRepo');
+  var ghPathInput = document.getElementById('ghPath');
+  var ghBranchInput = document.getElementById('ghBranch');
+  var commitStatus = document.getElementById('commitStatus');
+
+  document.getElementById('gearBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    ghPanel.classList.toggle('open');
+  });
+
+  function getGhSettings(){
+    var s = {};
+    try{ s = JSON.parse(localStorage.getItem(GH_SETTINGS_KEY) || '{}'); }catch(e){}
+    return {
+      token: localStorage.getItem(GH_TOKEN_KEY) || '',
+      repo: s.repo || 'MichelleTsai/mi-personal-notes',
+      path: s.path || '00631L/notes/ep26-notes.md',
+      branch: s.branch || 'main'
+    };
+  }
+
+  function loadGhSettingsIntoForm(){
+    var s = getGhSettings();
+    ghTokenInput.value = s.token;
+    ghRepoInput.value = s.repo;
+    ghPathInput.value = s.path;
+    ghBranchInput.value = s.branch;
+  }
+
+  document.getElementById('ghSave').addEventListener('click', function(){
+    var settings = {
+      repo: ghRepoInput.value.trim() || 'MichelleTsai/mi-personal-notes',
+      path: ghPathInput.value.trim() || '00631L/notes/ep26-notes.md',
+      branch: ghBranchInput.value.trim() || 'main'
+    };
+    try{
+      localStorage.setItem(GH_SETTINGS_KEY, JSON.stringify(settings));
+      var token = ghTokenInput.value.trim();
+      if(token) localStorage.setItem(GH_TOKEN_KEY, token);
+      commitStatus.textContent = '設定已儲存在這台瀏覽器';
+      commitStatus.className = 'save-status saved';
+    }catch(err){
+      commitStatus.textContent = '設定儲存失敗：' + err.message;
+      commitStatus.className = 'save-status error';
+    }
+  });
+
+  document.getElementById('ghClearToken').addEventListener('click', function(){
+    localStorage.removeItem(GH_TOKEN_KEY);
+    ghTokenInput.value = '';
+    commitStatus.textContent = 'Token 已從這台瀏覽器清除';
+    commitStatus.className = 'save-status';
+  });
+
+  // ---------- UTF-8 ⇄ Base64 ----------
+  function utf8ToBase64(str){
+    var bytes = new TextEncoder().encode(str);
+    var binary = '';
+    bytes.forEach(function(b){ binary += String.fromCharCode(b); });
+    return btoa(binary);
+  }
+  function base64ToUtf8(b64){
+    var binary = atob(b64.replace(/\n/g, ''));
+    var bytes = new Uint8Array(binary.length);
+    for(var i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return new TextDecoder('utf-8').decode(bytes);
+  }
+
+  // ---------- 提交到 GitHub ----------
+  document.getElementById('commitBtn').addEventListener('click', async function(){
+    var s = getGhSettings();
+    if(!s.token || !s.repo || !s.path){
+      ghPanel.classList.add('open');
+      commitStatus.textContent = '請先在「設定」填入 Token、Repo 與檔案路徑';
+      commitStatus.className = 'save-status error';
+      return;
+    }
+
+    commitStatus.textContent = '正在提交到 GitHub…';
+    commitStatus.className = 'save-status';
+
+    var md = htmlToMarkdown(editor);
+    var apiUrl = 'https://api.github.com/repos/' + s.repo + '/contents/' + s.path;
+    var headers = {
+      'Authorization': 'Bearer ' + s.token,
+      'Accept': 'application/vnd.github+json'
+    };
+
+    try{
+      var sha = null;
+      var getRes = await fetch(apiUrl + '?ref=' + encodeURIComponent(s.branch), { headers: headers });
+      if(getRes.status === 200){
+        var fileData = await getRes.json();
+        sha = fileData.sha;
+      } else if(getRes.status !== 404){
+        var ge = await getRes.json().catch(function(){ return {}; });
+        throw new Error(ge.message || ('讀取檔案資訊失敗（HTTP ' + getRes.status + '）'));
+      }
+
+      var body = {
+        message: '更新筆記：' + s.path,
+        content: utf8ToBase64(md),
+        branch: s.branch
+      };
+      if(sha) body.sha = sha;
+
+      var putRes = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: Object.assign({'Content-Type': 'application/json'}, headers),
+        body: JSON.stringify(body)
+      });
+
+      if(!putRes.ok){
+        var pe = await putRes.json().catch(function(){ return {}; });
+        throw new Error(pe.message || ('提交失敗（HTTP ' + putRes.status + '）'));
+      }
+
+      var result = await putRes.json();
+      var t = new Date();
+      commitStatus.innerHTML = '已提交　' + t.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'}) +
+        '　·　<a href="' + result.content.html_url + '" target="_blank" rel="noopener">在 GitHub 上查看</a>';
+      commitStatus.className = 'save-status saved';
+      saveDraft();
+    }catch(err){
+      commitStatus.textContent = '提交失敗：' + err.message;
+      commitStatus.className = 'save-status error';
+    }
+  });
+
+  // ---------- 從 GitHub 載入 ----------
+  document.getElementById('loadBtn').addEventListener('click', async function(){
+    var s = getGhSettings();
+    if(!s.token || !s.repo || !s.path){
+      ghPanel.classList.add('open');
+      commitStatus.textContent = '請先在「設定」填入 Token、Repo 與檔案路徑';
+      commitStatus.className = 'save-status error';
+      return;
+    }
+    if(editor.textContent.trim() && !confirm('從 GitHub 載入會覆蓋目前編輯區的內容，確定要繼續嗎？')) return;
+
+    commitStatus.textContent = '正在從 GitHub 載入…';
+    commitStatus.className = 'save-status';
+
+    var apiUrl = 'https://api.github.com/repos/' + s.repo + '/contents/' + s.path + '?ref=' + encodeURIComponent(s.branch);
+    var headers = {
+      'Authorization': 'Bearer ' + s.token,
+      'Accept': 'application/vnd.github+json'
+    };
+
+    try{
+      var res = await fetch(apiUrl, { headers: headers });
+      if(res.status === 404){
+        commitStatus.textContent = 'GitHub 上還沒有這個檔案（之後按「提交到 GitHub」會自動建立）';
+        commitStatus.className = 'save-status';
+        return;
+      }
+      if(!res.ok){
+        var ed = await res.json().catch(function(){ return {}; });
+        throw new Error(ed.message || ('讀取失敗（HTTP ' + res.status + '）'));
+      }
+      var data = await res.json();
+      var md = base64ToUtf8(data.content);
+      editor.innerHTML = markdownToHtml(md);
+      commitStatus.textContent = '已載入 GitHub 上的最新筆記';
+      commitStatus.className = 'save-status saved';
+      saveDraft();
+    }catch(err){
+      commitStatus.textContent = '載入失敗：' + err.message;
+      commitStatus.className = 'save-status error';
+    }
+  });
+
+  // ---------- HTML ⇄ Markdown 轉換 ----------
+  function htmlToMarkdown(root){
+    var lines = [];
+
+    function inline(node){
+      var out = '';
+      node.childNodes.forEach(function(child){
+        if(child.nodeType === Node.TEXT_NODE){
+          out += child.textContent;
+          return;
+        }
+        if(child.nodeType !== Node.ELEMENT_NODE) return;
+        var tag = child.tagName.toLowerCase();
+        var inner = inline(child);
+        if(tag === 'b' || tag === 'strong') out += '**'+inner+'**';
+        else if(tag === 'i' || tag === 'em') out += '*'+inner+'*';
+        else if(tag === 's' || tag === 'strike' || tag === 'del') out += '~~'+inner+'~~';
+        else if(tag === 'u') out += '<u>'+inner+'</u>';
+        else if(tag === 'a') out += '['+(inner||child.getAttribute('href'))+']('+child.getAttribute('href')+')';
+        else if(tag === 'br') out += '\n';
+        else if(tag === 'img') out += '![筆記圖片]('+child.getAttribute('src')+')';
+        else out += inner;
+      });
+      return out;
+    }
+
+    function block(parent){
+      parent.childNodes.forEach(function(node){
+        if(node.nodeType === Node.TEXT_NODE){
+          var t = node.textContent.trim();
+          if(t){ lines.push(t); lines.push(''); }
+          return;
+        }
+        if(node.nodeType !== Node.ELEMENT_NODE) return;
+        var tag = node.tagName.toLowerCase();
+
+        if(tag === 'h3'){
+          lines.push('### '+inline(node).trim()); lines.push('');
+        } else if(tag === 'p'){
+          var txt = inline(node).trim();
+          if(txt){ lines.push(txt); lines.push(''); }
+        } else if(tag === 'ul'){
+          node.querySelectorAll(':scope > li').forEach(function(li){
+            lines.push('- '+inline(li).trim());
+          });
+          lines.push('');
+        } else if(tag === 'ol'){
+          var n = 1;
+          node.querySelectorAll(':scope > li').forEach(function(li){
+            lines.push(n+'. '+inline(li).trim()); n++;
+          });
+          lines.push('');
+        } else if(tag === 'blockquote'){
+          lines.push('> '+inline(node).trim()); lines.push('');
+        } else if(tag === 'img'){
+          lines.push('![筆記圖片]('+node.getAttribute('src')+')'); lines.push('');
+        } else if(tag === 'div' && node.classList.contains('yt-embed')){
+          var iframe = node.querySelector('iframe');
+          var src = iframe ? (iframe.getAttribute('src') || '') : '';
+          var m = src.match(/embed\/([a-zA-Z0-9_-]{11})/);
+          if(m){ lines.push('[▶ YouTube 影片](https://youtu.be/'+m[1]+')'); lines.push(''); }
+        } else if(tag === 'br'){
+          // 段落內換行已在 inline 處理，區塊層級忽略
+        } else {
+          block(node);
+        }
+      });
+    }
+
+    block(root);
+    return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim() + '\n';
+  }
+
+  function markdownToHtml(md){
+    var lines = md.replace(/\r\n/g, '\n').split('\n');
+    var html = '';
+    var i = 0;
+
+    function inline(text){
+      var t = text;
+      t = t.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
+      t = t.replace(/\[▶[^\]]*\]\((https?:\/\/(?:www\.)?(?:youtu\.be\/|youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})[^)]*)\)/g,
+        function(_, url, id){
+          return '<div class="yt-embed"><iframe src="https://www.youtube.com/embed/'+id+'" title="YouTube video" allowfullscreen></iframe></div>';
+        });
+      t = t.replace(/\[([^\]]*)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+      t = t.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+      t = t.replace(/(^|[^*])\*([^*]+)\*/g, '$1<i>$2</i>');
+      t = t.replace(/~~([^~]+)~~/g, '<s>$1</s>');
+      return t;
+    }
+
+    while(i < lines.length){
+      var line = lines[i];
+      if(/^\s*$/.test(line)){ i++; continue; }
+
+      if(/^###\s+/.test(line)){
+        html += '<h3>'+inline(line.replace(/^###\s+/,'').trim())+'</h3>';
+        i++; continue;
+      }
+      if(/^>\s?/.test(line)){
+        var quote = [];
+        while(i < lines.length && /^>\s?/.test(lines[i])){
+          quote.push(lines[i].replace(/^>\s?/,'')); i++;
+        }
+        html += '<blockquote>'+inline(quote.join(' ').trim())+'</blockquote>';
+        continue;
+      }
+      if(/^-\s+/.test(line)){
+        var items = [];
+        while(i < lines.length && /^-\s+/.test(lines[i])){
+          items.push('<li>'+inline(lines[i].replace(/^-\s+/,'').trim())+'</li>'); i++;
+        }
+        html += '<ul>'+items.join('')+'</ul>';
+        continue;
+      }
+      if(/^\d+\.\s+/.test(line)){
+        var oitems = [];
+        while(i < lines.length && /^\d+\.\s+/.test(lines[i])){
+          oitems.push('<li>'+inline(lines[i].replace(/^\d+\.\s+/,'').trim())+'</li>'); i++;
+        }
+        html += '<ol>'+oitems.join('')+'</ol>';
+        continue;
+      }
+      if(/^!\[[^\]]*\]\([^)]+\)\s*$/.test(line) || /^\[▶/.test(line)){
+        html += inline(line.trim()); i++; continue;
+      }
+
+      var para = [line];
+      i++;
+      while(i < lines.length && !/^\s*$/.test(lines[i]) && !/^(#{1,6}\s|>\s?|-\s|\d+\.\s|!\[|\[▶)/.test(lines[i])){
+        para.push(lines[i]); i++;
+      }
+      html += '<p>'+inline(para.join(' ').trim())+'</p>';
+    }
+    return html;
+  }
+
+  // 清空筆記
+  document.getElementById('clearBtn').addEventListener('click', function(){
+    if(!confirm('確定要清空筆記嗎？這個動作無法復原（GitHub 上已提交的版本不會受影響）。')) return;
+    editor.innerHTML = '';
+    try{ localStorage.removeItem(DRAFT_KEY); }catch(e){}
+    saveStatus.textContent = '已清空（本機草稿）';
+    saveStatus.className = 'save-status';
+  });
+
+  loadDraft();
+  loadGhSettingsIntoForm();
+})();
+</script>
+
+</body>
+</html>
