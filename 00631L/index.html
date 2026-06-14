@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>00631L 元大台灣50正2｜分析筆記</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F0E8;
+  --cream-soft:#FBF8F3;
+  --caramel:#8B6B4A;
+  --caramel-light:#C9AD8F;
+  --sage:#7A8C72;
+  --slate:#7A8C9A;
+  --brick:#C4756A;
+  --ink:#3A332C;
+  --ink-soft:#73685B;
+  --line:#E4D8C9;
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:'Noto Sans TC',sans-serif;
+  font-size:17px;line-height:1.9;color:var(--ink);
+  background:var(--cream);
+}
+h1,h2,h3{font-family:'Noto Serif TC',serif;font-weight:700;color:var(--caramel);margin:0;}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px;}
+
+header.hero{
+  background:linear-gradient(135deg,var(--caramel) 0%,#A8845F 100%);
+  color:var(--cream-soft);padding:56px 0 40px;
+}
+header.hero .eyebrow{
+  display:inline-block;font-size:13px;letter-spacing:.18em;font-weight:600;
+  color:var(--cream);opacity:.85;text-transform:uppercase;margin-bottom:10px;
+}
+header.hero h1{color:#fff;font-size:clamp(26px,4vw,36px);margin-bottom:10px;}
+header.hero p{margin:0;color:var(--cream-soft);opacity:.9;font-size:15px;}
+
+main{padding:40px 0 80px;}
+
+.back-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:14px;color:var(--ink-soft);text-decoration:none;margin-bottom:28px;
+}
+.back-link svg{width:16px;height:16px;}
+.back-link:hover{color:var(--caramel);}
+
+.episode-list{display:flex;flex-direction:column;gap:16px;}
+
+.episode-card{
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  background:#fff;border:1px solid var(--line);border-radius:12px;
+  padding:22px 26px;text-decoration:none;color:var(--ink);
+  transition:border-color .2s ease, transform .2s ease;
+}
+.episode-card:hover{border-color:var(--caramel);transform:translateX(4px);}
+.episode-card:focus-visible{outline:2px solid var(--caramel);outline-offset:3px;}
+
+.episode-tag{
+  display:inline-block;font-size:12px;font-weight:600;letter-spacing:.14em;
+  color:var(--sage);text-transform:uppercase;margin-bottom:6px;
+}
+.episode-title{
+  font-size:17px;font-weight:700;font-family:'Noto Serif TC',serif;
+  color:var(--caramel);margin-bottom:4px;
+}
+.episode-meta{font-size:13px;color:var(--ink-soft);}
+
+.episode-card .go svg{
+  width:18px;height:18px;color:var(--caramel);flex:0 0 auto;
+  transition:transform .2s ease;
+}
+.episode-card:hover .go svg{transform:translateX(4px);}
+
+.episode-card.upcoming{
+  opacity:.55;cursor:default;
+}
+.episode-card.upcoming:hover{border-color:var(--line);transform:none;}
+.episode-card.upcoming .episode-tag{color:var(--ink-soft);}
+.episode-card.upcoming .episode-title{color:var(--ink-soft);}
+
+@media (prefers-reduced-motion:reduce){
+  .episode-card{transition:none;}
+  .episode-card:hover{transform:none;}
+  .episode-card .go svg{transition:none;}
+  .episode-card:hover .go svg{transform:none;}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">ETF 分析筆記</span>
+    <h1>元大台灣50正2（00631L.TW）</h1>
+    <p>整理自《大人來開槓》Podcast 的觀念筆記與延伸思考</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <a class="back-link" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    回首頁
+  </a>
+
+  <div class="episode-list">
+    <a class="episode-card" href="podcast_ep1.html">
+      <div>
+        <span class="episode-tag">EP.1　2025.03.03</span>
+        <div class="episode-title">0050分割的真相與投資人的認知偏誤</div>
+        <div class="episode-meta">股票分割・總報酬・確認偏誤・能力圈</div>
+      </div>
+      <span class="go">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </span>
+    </a>
+
+    <div class="episode-card upcoming">
+      <div>
+        <span class="episode-tag">EP.2</span>
+        <div class="episode-title">敬請期待</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
