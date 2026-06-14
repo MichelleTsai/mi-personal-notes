@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EP.1｜0050分割的真相與投資人的認知偏誤・大人來開槓 筆記</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F0E8;
+  --cream-soft:#FBF8F3;
+  --caramel:#8B6B4A;
+  --caramel-light:#C9AD8F;
+  --sage:#7A8C72;
+  --slate:#7A8C9A;
+  --brick:#C4756A;
+  --ink:#3A332C;
+  --ink-soft:#73685B;
+  --line:#E4D8C9;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:'Noto Sans TC',sans-serif;
+  font-size:17px;
+  line-height:1.9;
+  color:var(--ink);
+  background:var(--cream);
+  font-weight:400;
+}
+h1,h2,h3,h4{
+  font-family:'Noto Serif TC',serif;
+  font-weight:700;
+  color:var(--caramel);
+  line-height:1.4;
+  margin:0;
+}
+p{margin:0 0 16px;}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px;}
+
+/* ---------- Hero ---------- */
+header.hero{
+  background:linear-gradient(135deg,var(--caramel) 0%,#A8845F 100%);
+  color:var(--cream-soft);
+  padding:56px 0 40px;
+}
+header.hero .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:32px;justify-content:space-between;}
+.hero-text{flex:1 1 420px;}
+.eyebrow{
+  display:inline-block;
+  font-size:13px;
+  letter-spacing:.18em;
+  font-weight:600;
+  color:var(--cream);
+  opacity:.85;
+  margin-bottom:10px;
+  text-transform:uppercase;
+}
+header.hero h1{
+  color:#fff;
+  font-size:clamp(26px,4vw,38px);
+  margin-bottom:14px;
+}
+.hero-meta{
+  display:flex;flex-wrap:wrap;gap:10px;
+  margin-top:18px;
+}
+.tag{
+  font-size:13px;
+  font-weight:500;
+  padding:5px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.16);
+  color:var(--cream-soft);
+}
+.hero-info{font-size:14px;color:var(--cream-soft);opacity:.9;margin-top:10px;}
+
+/* soundwave decoration */
+.soundwave{display:flex;align-items:flex-end;gap:6px;height:64px;flex:0 0 auto;padding:0 10px;}
+.soundwave span{display:block;width:7px;border-radius:4px;background:var(--cream-soft);opacity:.85;
+  animation:wave 1.4s ease-in-out infinite;transform-origin:bottom;}
+.soundwave span:nth-child(1){height:18px;animation-delay:.0s;}
+.soundwave span:nth-child(2){height:40px;animation-delay:.15s;}
+.soundwave span:nth-child(3){height:60px;animation-delay:.3s;}
+.soundwave span:nth-child(4){height:32px;animation-delay:.45s;}
+.soundwave span:nth-child(5){height:52px;animation-delay:.6s;}
+.soundwave span:nth-child(6){height:24px;animation-delay:.75s;}
+.soundwave span:nth-child(7){height:44px;animation-delay:.9s;}
+@keyframes wave{0%,100%{transform:scaleY(.45);}50%{transform:scaleY(1);}}
+@media (prefers-reduced-motion:reduce){.soundwave span{animation:none;height:36px;}}
+
+/* ---------- Intro summary box ---------- */
+.intro{
+  background:var(--cream-soft);
+  border-bottom:1px solid var(--line);
+  padding:28px 0;
+}
+.intro p{margin:0;color:var(--ink-soft);font-size:15.5px;}
+
+/* ---------- Nav ---------- */
+nav.toc{
+  position:sticky;top:0;z-index:20;
+  background:rgba(251,248,243,.94);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+nav.toc .wrap{
+  display:flex;gap:6px;overflow-x:auto;padding:10px 24px;
+  scrollbar-width:thin;
+}
+nav.toc a{
+  flex:0 0 auto;
+  font-size:13.5px;
+  font-weight:500;
+  color:var(--ink-soft);
+  text-decoration:none;
+  padding:7px 14px;
+  border-radius:999px;
+  white-space:nowrap;
+  transition:background .15s,color .15s;
+}
+nav.toc a:hover,nav.toc a.active{
+  background:var(--caramel);
+  color:#fff;
+}
+
+/* ---------- Sections ---------- */
+main section{
+  padding:52px 0;
+  border-bottom:1px dashed var(--line);
+}
+main section:last-of-type{border-bottom:none;}
+.sec-eyebrow{
+  font-size:13px;font-weight:600;letter-spacing:.18em;
+  color:var(--sage);text-transform:uppercase;margin-bottom:8px;
+  display:block;
+}
+section h2{font-size:clamp(22px,3vw,28px);margin-bottom:18px;}
+section h3{font-size:18px;color:var(--ink);margin:28px 0 10px;}
+
+/* ---------- Highlight & formula boxes ---------- */
+.hl{
+  background:var(--cream-soft);
+  border-left:4px solid var(--sage);
+  border-radius:8px;
+  padding:16px 20px;
+  margin:20px 0;
+  font-weight:500;
+}
+.hl b{color:var(--sage);}
+.hl.warn{border-left-color:var(--brick);}
+.hl.warn b{color:var(--brick);}
+
+.formula{
+  border:1.5px dashed var(--caramel);
+  border-radius:10px;
+  padding:18px 22px;
+  margin:20px 0;
+  text-align:center;
+  font-family:'Noto Serif TC',serif;
+  font-weight:600;
+  font-size:18px;
+  color:var(--caramel);
+  background:var(--cream-soft);
+}
+.formula small{
+  display:block;font-family:'Noto Sans TC',sans-serif;
+  font-weight:400;font-size:13px;color:var(--ink-soft);margin-top:6px;
+}
+
+/* ---------- Case strip (collapsible) ---------- */
+details.case-strip{
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--cream-soft);
+  margin:16px 0;
+  overflow:hidden;
+}
+details.case-strip summary{
+  list-style:none;
+  cursor:pointer;
+  padding:14px 44px 14px 18px;
+  font-weight:600;
+  color:var(--caramel);
+  position:relative;
+  font-family:'Noto Serif TC',serif;
+}
+details.case-strip summary::-webkit-details-marker{display:none;}
+details.case-strip summary::after{
+  content:'+';
+  position:absolute;right:18px;top:50%;
+  transform:translateY(-50%);
+  font-size:20px;color:var(--caramel);
+  font-family:'Noto Sans TC',sans-serif;
+}
+details.case-strip[open] summary::after{content:'−';}
+.case-content{padding:0 18px 18px;color:var(--ink-soft);}
+.case-content ul{margin:8px 0 0;padding-left:22px;}
+.case-content li{margin-bottom:8px;}
+
+/* ---------- Diagram card ---------- */
+.diagram-card{
+  background:var(--cream-soft);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:20px;
+  margin:24px 0;
+}
+.diagram-card svg{display:block;width:100%;height:auto;}
+.diagram-caption{
+  text-align:center;font-size:13px;color:var(--ink-soft);
+  margin-top:10px;
+}
+.d-label{font-size:14px;fill:var(--ink);}
+.d-label-sm{font-size:12px;fill:var(--ink-soft);}
+.d-label-strong{font-size:16px;font-weight:600;fill:var(--caramel);font-family:'Noto Serif TC',serif;}
+.d-bar-text{font-size:18px;font-weight:600;fill:var(--cream-soft);}
+.d-bar-sub{font-size:13px;fill:var(--cream-soft);}
+.d-bar-text-sm{font-size:14px;font-weight:600;fill:var(--cream-soft);}
+.d-bar-sub-sm{font-size:11px;fill:var(--cream-soft);}
+.d-total{font-size:15px;font-weight:600;fill:var(--ink);}
+.d-node-title{font-size:14px;font-weight:600;fill:var(--caramel);}
+.d-node-sub{font-size:12px;fill:var(--ink-soft);}
+.d-donut-num{font-size:26px;font-weight:700;fill:var(--ink);font-family:'Noto Serif TC',serif;}
+.d-donut-sub{font-size:13px;fill:var(--ink-soft);}
+.d-note{font-size:12px;fill:var(--ink-soft);}
+
+/* ---------- Lists ---------- */
+.bullet-list{margin:14px 0;padding-left:0;list-style:none;}
+.bullet-list li{
+  position:relative;padding-left:26px;margin-bottom:10px;
+}
+.bullet-list li::before{
+  content:'';position:absolute;left:0;top:10px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--caramel-light);
+}
+
+/* ---------- Summary ---------- */
+section.summary{
+  background:var(--cream-soft);
+}
+section.summary h2{display:flex;align-items:center;gap:10px;}
+.summary-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;
+}
+@media (max-width:680px){.summary-grid{grid-template-columns:1fr;}}
+.summary-card{
+  background:#fff;border:1px solid var(--line);border-radius:12px;
+  padding:18px 20px;
+}
+.summary-card .num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:28px;height:28px;border-radius:50%;
+  background:var(--caramel);color:#fff;font-weight:600;font-size:14px;
+  font-family:'Noto Serif TC',serif;margin-bottom:10px;
+}
+.summary-card p{margin:0;font-size:15px;color:var(--ink);}
+
+/* ---------- My Notes / Editor ---------- */
+.mynotes-desc{color:var(--ink-soft);font-size:15px;margin-top:-4px;}
+.editor-card{
+  background:#fff;border:1px solid var(--line);border-radius:12px;
+  overflow:hidden;margin-top:20px;
+}
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  padding:10px 14px;background:var(--cream-soft);border-bottom:1px solid var(--line);
+}
+.toolbar button{
+  border:1px solid var(--line);background:#fff;color:var(--ink);
+  font-size:13px;line-height:1;padding:7px 11px;border-radius:6px;cursor:pointer;
+  font-family:'Noto Sans TC',sans-serif;transition:background .15s,border-color .15s,color .15s;
+}
+.toolbar button:hover{background:var(--cream);border-color:var(--caramel-light);}
+.toolbar button.icon-btn{display:inline-flex;align-items:center;gap:6px;}
+.toolbar button.icon-btn svg{width:15px;height:15px;flex:0 0 auto;}
+.toolbar .sep{width:1px;align-self:stretch;background:var(--line);margin:0 2px;}
+
+.editor{
+  min-height:260px;padding:22px 24px;outline:none;
+  font-size:16px;line-height:1.9;color:var(--ink);
+}
+.editor:focus{background:var(--cream-soft);}
+.editor:empty::before{
+  content:attr(data-placeholder);color:var(--ink-soft);pointer-events:none;
+}
+.editor h3{color:var(--caramel);font-size:18px;margin:14px 0 8px;}
+.editor p{margin:0 0 10px;}
+.editor ul,.editor ol{margin:0 0 10px;padding-left:24px;}
+.editor blockquote{
+  border-left:3px solid var(--caramel-light);padding-left:14px;
+  margin:10px 0;color:var(--ink-soft);
+}
+.editor a{color:var(--slate);text-decoration:underline;}
+.editor img{max-width:100%;border-radius:8px;margin:10px 0;display:block;}
+.editor .yt-embed{
+  position:relative;padding-bottom:56.25%;height:0;
+  overflow:hidden;border-radius:8px;margin:14px 0;background:#000;
+}
+.editor .yt-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+.editor-footer{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:10px 14px;border-top:1px solid var(--line);background:var(--cream-soft);
+}
+.save-status{font-size:12.5px;color:var(--ink-soft);}
+.save-status.saved{color:var(--sage);}
+.save-status.error{color:var(--brick);}
+.ghost-btn{
+  border:1px solid var(--line);background:transparent;color:var(--ink-soft);
+  font-size:12.5px;padding:6px 12px;border-radius:6px;cursor:pointer;
+  font-family:'Noto Sans TC',sans-serif;
+}
+.ghost-btn:hover{border-color:var(--brick);color:var(--brick);}
+
+/* ---------- Footer ---------- */
+footer{
+  text-align:center;padding:36px 24px;font-size:13px;color:var(--ink-soft);
+}
+
+@media (max-width:640px){
+  header.hero{padding:40px 0 28px;}
+  main section{padding:38px 0;}
+  .soundwave{display:none;}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-text">
+      <span class="eyebrow">大人來開槓 · 聽後筆記</span>
+      <h1>EP.1　0050分割的真相<br>與投資人的認知偏誤</h1>
+      <div class="hero-meta">
+        <span class="tag">#股票分割</span>
+        <span class="tag">#總報酬</span>
+        <span class="tag">#確認偏誤</span>
+        <span class="tag">#能力圈</span>
+      </div>
+      <div class="hero-info">2025.03.03 首播　·　節目長度約 44 分鐘</div>
+    </div>
+    <div class="soundwave" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<div class="intro">
+  <div class="wrap">
+    <p>
+      這集是《大人來開槓》Podcast 的第一集。主持人「大人」分享了兩件事：①元大 0050 股票分割的機制與影響；
+      ②從一篇討論 0050 分割的爭議貼文，談投資人很常見、卻不容易自己察覺的「確認偏誤」。
+      以下整理成可快速複習的圖文筆記。
+    </p>
+  </div>
+</div>
+
+<nav class="toc">
+  <div class="wrap">
+    <a href="#s1">01 股票分割</a>
+    <a href="#s2">02 爭議貼文</a>
+    <a href="#s3">03 問題在哪</a>
+    <a href="#s4">04 真正風險</a>
+    <a href="#s5">05 認知偏誤</a>
+    <a href="#s6">06 安心與成長</a>
+    <a href="#summary">⭐ 重點整理</a>
+    <a href="#mynotes">📝 我的筆記</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============ SECTION 1 ============ -->
+<section id="s1">
+  <div class="wrap">
+    <span class="sec-eyebrow">Section 01</span>
+    <h2>股票分割（拆分）是什麼？</h2>
+    <p>
+      0050 的股價已逼近 200 元，一張（1,000 股）要價約 20 萬元，對小資族來說門檻不低。
+      因此元大決定把 0050「分割」：把 1 股拆成 5 股，讓股價降到約 40 元上下，一張只要 4 萬元，更親民、流動性也更好。
+    </p>
+    <p>
+      但分割說到底，只是「把同一塊餅切成更多小塊」，餅本身的大小完全不變。
+    </p>
+
+    <div class="diagram-card">
+      <svg viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="股票分割示意圖">
+        <defs>
+          <marker id="arrow1" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--ink-soft)"/>
+          </marker>
+        </defs>
+        <text x="380" y="26" text-anchor="middle" class="d-label-strong">分割前</text>
+        <rect x="80" y="42" width="600" height="70" rx="8" fill="var(--caramel)"/>
+        <text x="380" y="73" text-anchor="middle" class="d-bar-text">1 張</text>
+        <text x="380" y="95" text-anchor="middle" class="d-bar-sub">1,000 股 × NT$200　＝　NT$200,000</text>
+
+        <line x1="380" y1="122" x2="380" y2="162" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#arrow1)"/>
+        <text x="398" y="148" class="d-label">1 股拆 5 股（1：5）</text>
+
+        <text x="380" y="192" text-anchor="middle" class="d-label-strong">分割後</text>
+
+        <rect x="80"  y="207" width="120" height="70" fill="var(--sage)" stroke="var(--cream-soft)" stroke-width="3"/>
+        <rect x="200" y="207" width="120" height="70" fill="var(--sage)" stroke="var(--cream-soft)" stroke-width="3"/>
+        <rect x="320" y="207" width="120" height="70" fill="var(--sage)" stroke="var(--cream-soft)" stroke-width="3"/>
+        <rect x="440" y="207" width="120" height="70" fill="var(--sage)" stroke="var(--cream-soft)" stroke-width="3"/>
+        <rect x="560" y="207" width="120" height="70" fill="var(--sage)" stroke="var(--cream-soft)" stroke-width="3"/>
+
+        <g text-anchor="middle">
+          <text x="140" y="236" class="d-bar-text-sm">1 張</text>
+          <text x="140" y="258" class="d-bar-sub-sm">NT$40,000</text>
+          <text x="260" y="236" class="d-bar-text-sm">1 張</text>
+          <text x="260" y="258" class="d-bar-sub-sm">NT$40,000</text>
+          <text x="380" y="236" class="d-bar-text-sm">1 張</text>
+          <text x="380" y="258" class="d-bar-sub-sm">NT$40,000</text>
+          <text x="500" y="236" class="d-bar-text-sm">1 張</text>
+          <text x="500" y="258" class="d-bar-sub-sm">NT$40,000</text>
+          <text x="620" y="236" class="d-bar-text-sm">1 張</text>
+          <text x="620" y="258" class="d-bar-sub-sm">NT$40,000</text>
+        </g>
+
+        <text x="380" y="310" text-anchor="middle" class="d-total">5 張 × NT$40,000　＝　NT$200,000　（總值不變）</text>
+      </svg>
+      <div class="diagram-caption">分割只是把同一塊「總市值」切成更多更小的張數，餅的大小沒有改變</div>
+    </div>
+
+    <p>
+      換成生活上的比喻：把一張 1,000 元鈔票換成 10 張 100 元，你並沒有變有錢，只是口袋裡多了幾張零錢，
+      購買力完全一樣。重點永遠是「你有多少總價值」，不是「你有幾股、幾張」。
+    </p>
+
+    <div class="hl">
+      <b>結論：</b>分割／拆分本身，對你已持有的總資產，以及未來的報酬率，影響是<b>零</b>。
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 2 ============ -->
+<section id="s2">
+  <div class="wrap">
+    <span class="sec-eyebrow">Section 02</span>
+    <h2>一篇引發爭議的貼文</h2>
+    <p>
+      就在 0050 宣布分割後，一位長期推廣 0056、主張「安心存股」的財經粉專「樂活分享人生」（樂活大叔）發文談這件事，
+      在留言區引發不少討論。後續他又發了第二篇文章做澄清。以下整理兩篇文章的論點重點。
+    </p>
+
+    <details class="case-strip">
+      <summary>第一篇貼文｜分割後的 0050，報酬率會不會輸 0056？</summary>
+      <div class="case-content">
+        <ul>
+          <li>以 0050 收盤價 192.5 元計算，分割後（1 拆 5）股價約變成 38.5 元，與 0056 收盤價 36.81 元相當接近。</li>
+          <li>認為「分割後才買進 0050 的人」，投資報酬率可能不會再大幅領先 0056。</li>
+          <li>甚至提到：若 0056 的股息殖利率高於 0050 的漲幅，0050 的報酬率可能還會輸給 0056。</li>
+          <li>分割本身對「原本就持有」的人總資產沒有影響，但分割後才買進的人，要面對股價「重新回到」與 0056 相近的起跑點——並表示之後會買一張來做實驗。</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="case-strip">
+      <summary>第二篇貼文｜澄清：我沒有說報酬率會下降</summary>
+      <div class="case-content">
+        <ul>
+          <li>表示第一篇貼文並沒有說「分割造成報酬率下降」，是大家誤會了。</li>
+          <li>原意是提醒大家：別因為 0050 分割後股價變便宜、跟 0056 差不多了，就急著買進。</li>
+          <li>強調買市值型 ETF 該看的是「指數位階」，而不是「股價高低」。</li>
+          <li>認為目前指數位於相對高檔，不該對未來漲幅有過高期待；分割後仍會買一張做實驗。</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ SECTION 3 ============ -->
+<section id="s3">
+  <div class="wrap">
+    <span class="sec-eyebrow">Section 03</span>
+    <h2>為什麼這個說法有問題？</h2>
+
+    <h3>3-1　數學上：分割對報酬率的影響是零</h3>
+    <p>
+      延續第一節的結論：1 張 20 萬元的 0050，和分割後 5 張各 4 萬元的 0050，總值完全相同。
+      未來不管 0050 漲多少、跌多少，「分割前的 1 張」和「分割後的 5 張」漲跌幅必定一致。
+      股價「看起來」變得跟 0056 差不多，並不代表報酬率會跟著趨同——股價高低本身不影響報酬率。
+    </p>
+
+    <h3>3-2　股息殖利率，不等於總報酬</h3>
+    <p>
+      投資 ETF 真正該看的指標是「總報酬」：
+    </p>
+    <div class="formula">
+      總報酬　＝　資本利得　＋　股息
+      <small>不管股息殖利率配多少，配出去的股息會直接反映在淨值（股價）的下跌上</small>
+    </div>
+
+    <div class="diagram-card">
+      <svg viewBox="0 0 640 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="配息版與不配息版總報酬比較示意圖">
+        <line x1="60" y1="260" x2="580" y2="260" stroke="var(--line)" stroke-width="2"/>
+        <line x1="100" y1="100" x2="540" y2="100" stroke="var(--ink-soft)" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <text x="320" y="84" text-anchor="middle" class="d-label-strong">兩者總報酬幾乎一樣</text>
+
+        <rect x="100" y="150" width="140" height="110" fill="var(--sage)"/>
+        <rect x="100" y="100" width="140" height="50" fill="var(--brick)"/>
+        <text x="170" y="210" text-anchor="middle" class="d-bar-text-sm">資本利得</text>
+        <text x="170" y="129" text-anchor="middle" class="d-bar-text-sm">股息</text>
+        <text x="170" y="288" text-anchor="middle" class="d-label">某 ETF（配息版）</text>
+
+        <rect x="400" y="100" width="140" height="160" fill="var(--sage)"/>
+        <text x="470" y="178" text-anchor="middle" class="d-bar-text-sm">資本利得</text>
+        <text x="470" y="198" text-anchor="middle" class="d-bar-sub-sm">（含股息再投入）</text>
+        <text x="470" y="288" text-anchor="middle" class="d-label">同類（不配息版）</text>
+      </svg>
+      <div class="diagram-caption">元大同時發行配息與不配息版的同類 ETF，兩者總報酬率幾乎一致——可見股息殖利率高低並非重點</div>
+    </div>
+
+    <p>
+      所以拿「0056 殖利率 8%」去跟「0050 的股價漲幅」做比較，本身就是比錯了指標。
+    </p>
+
+    <h3>3-3　用「指數高低點」決定買不買，本身就有問題</h3>
+    <p>
+      第二篇澄清主張「目前指數相對高檔，別對漲幅有過高期待」——這其實就是在猜高低點。
+      回顧台股歷史：當大盤站上 12,000 點時，很多人說那是高點；後來一路漲到 18,000 點，
+      18,000 點時同樣有人說是高點……過去常常猜錯高低點的人，沒有理由現在突然就會猜對。
+    </p>
+    <p>
+      事實上，這位作者過去也曾在 0050 價格遠低於現在時，就已經說「0050 太高了，投資 0056 比較安心」——
+      顯示這種「位階判斷」歷史上並不準確。
+    </p>
+
+    <div class="hl warn">
+      <b>提問：</b>投資 ETF 該比的是「總報酬」，不是股息殖利率；該避免的是「猜高低點」，
+      不是「分割後股價變便宜」。
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 4 ============ -->
+<section id="s4">
+  <div class="wrap">
+    <span class="sec-eyebrow">Section 04</span>
+    <h2>0050 真正的風險：集中度</h2>
+    <p>
+      0050 是由台股市值前 50 大公司組成的 ETF，理論上應該是「分散」的代表。但實際上：
+    </p>
+    <ul class="bullet-list">
+      <li>台積電在 0050 中的權重已逼近 <b>60%</b>。</li>
+      <li>也就是說，投入 100 萬元在 0050，大約有 60 萬元其實是壓在台積電一家公司上。</li>
+      <li>2024 年台灣加權報酬指數（含息）約 30%，而 0050 的報酬率約 45%，超額報酬高達約 50%。</li>
+      <li>報酬比大盤多出這麼多，背後代表「承擔了更高的集中度風險」，並不是天上掉下來的禮物——更高的報酬必然對應更高的風險。</li>
+    </ul>
+
+    <div class="diagram-card">
+      <svg viewBox="0 0 400 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="0050持股集中度示意圖">
+        <circle cx="155" cy="140" r="100" fill="none" stroke="var(--line)" stroke-width="40"/>
+        <circle cx="155" cy="140" r="100" fill="none" stroke="var(--brick)" stroke-width="40"
+                stroke-dasharray="370.7 628.3" transform="rotate(-90 155 140)"/>
+        <text x="155" y="134" text-anchor="middle" class="d-donut-num">≈ 59%</text>
+        <text x="155" y="158" text-anchor="middle" class="d-donut-sub">台積電權重</text>
+
+        <rect x="288" y="92"  width="16" height="16" fill="var(--brick)"/>
+        <text x="312" y="105" class="d-label">台積電　約 59%</text>
+
+        <rect x="288" y="124" width="16" height="16" fill="var(--line)"/>
+        <text x="312" y="137" class="d-label">其他約49家公司</text>
+        <text x="312" y="157" class="d-label-sm">合計約 41%</text>
+
+        <text x="200" y="266" text-anchor="middle" class="d-note">投入 100 萬元在 0050，約 60 萬元集中在台積電一家公司</text>
+      </svg>
+      <div class="diagram-caption">0050 的「分散」其實高度集中在台積電一家公司</div>
+    </div>
+
+    <div class="hl">
+      <b>結論：</b>0050 真正的問題不是「貴不貴」，而是「過度集中在台積電」。
+      解法是資產配置與分散（搭配 0056、海外 ETF 等），而不是用「指數位階」來決定要不要買。
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 5 ============ -->
+<section id="s5">
+  <div class="wrap">
+    <span class="sec-eyebrow">Section 05</span>
+    <h2>確認偏誤：信念如何戰勝事實</h2>
+    <p>
+      為什麼會出現「分割影響報酬率」這種在數學上明顯有問題的說法，而且在被大量留言反駁後，
+      還是沒有承認原本論述有誤？大人認為，這背後反映的是心理學上很常見的<b>確認偏誤（Confirmation Bias）</b>。
+    </p>
+    <p>
+      確認偏誤是說：人在面對一件事情時，會傾向於尋找、相信支持自己既有立場的證據，
+      並選擇性忽視、扭曲對自己不利的證據——也就是只挑「對自己有利」的角度去解讀世界。
+    </p>
+
+    <h3>經典案例：世界末日預言</h3>
+    <p>
+      某宗教團體曾預言「特定日期地球將毀滅」，信徒們把家當換成罐頭和物資，躲進避難所等待末日。
+      結果那一天什麼事都沒發生。神奇的是，信徒們並沒有因此醒悟，反而說：
+      「正是因為我們的信念太強、感動了上天，所以世界才沒有毀滅」——
+      用扭曲後的解釋，化解了「我深信的事 vs. 現實沒發生」之間的矛盾（也就是認知失調）。
+    </p>
+
+    <div class="diagram-card">
+      <svg viewBox="0 0 520 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="確認偏誤循環示意圖">
+        <defs>
+          <marker id="cbArrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+            <path d="M0,0 L10,5 L0,10 Z" fill="var(--caramel)"/>
+          </marker>
+        </defs>
+
+        <rect x="160" y="20"  width="200" height="84" rx="10" fill="#fff" stroke="var(--caramel)" stroke-width="2"/>
+        <rect x="320" y="198" width="190" height="84" rx="10" fill="#fff" stroke="var(--brick)" stroke-width="2"/>
+        <rect x="160" y="376" width="200" height="84" rx="10" fill="#fff" stroke="var(--brick)" stroke-width="2"/>
+        <rect x="10"  y="198" width="190" height="84" rx="10" fill="#fff" stroke="var(--caramel)" stroke-width="2"/>
+
+        <text x="260" y="48"  text-anchor="middle" class="d-node-title">① 既有信念</text>
+        <text x="260" y="70"  text-anchor="middle" class="d-node-sub">「0056 最安心，</text>
+        <text x="260" y="88"  text-anchor="middle" class="d-node-sub">其他不用再想」</text>
+
+        <text x="415" y="226" text-anchor="middle" class="d-node-title">② 出現反例</text>
+        <text x="415" y="248" text-anchor="middle" class="d-node-sub">網友提出數學反證：</text>
+        <text x="415" y="266" text-anchor="middle" class="d-node-sub">分割不影響報酬率</text>
+
+        <text x="260" y="404" text-anchor="middle" class="d-node-title">③ 重新詮釋</text>
+        <text x="260" y="426" text-anchor="middle" class="d-node-sub">「大家誤會了，</text>
+        <text x="260" y="444" text-anchor="middle" class="d-node-sub">我沒那個意思」</text>
+
+        <text x="105" y="226" text-anchor="middle" class="d-node-title">④ 信念維持</text>
+        <text x="105" y="248" text-anchor="middle" class="d-node-sub">不承認原本論述</text>
+        <text x="105" y="266" text-anchor="middle" class="d-node-sub">有問題，繼續推廣</text>
+
+        <path d="M 345 104 Q 470 130 410 198" fill="none" stroke="var(--caramel)" stroke-width="2.5" marker-end="url(#cbArrow)"/>
+        <path d="M 460 282 Q 480 360 360 396" fill="none" stroke="var(--caramel)" stroke-width="2.5" marker-end="url(#cbArrow)"/>
+        <path d="M 200 396 Q 60 380 75 282"  fill="none" stroke="var(--caramel)" stroke-width="2.5" marker-end="url(#cbArrow)"/>
+        <path d="M 75 198 Q 60 130 175 104"  fill="none" stroke="var(--caramel)" stroke-width="2.5" marker-end="url(#cbArrow)"/>
+      </svg>
+      <div class="diagram-caption">遇到不利的證據時，不是修正信念，而是「重新詮釋」證據——信念因此被維持下來</div>
+    </div>
+
+    <p>
+      對照回本集案例：第一篇貼文發出後，留言區大量網友指出數學上的問題；
+      但第二篇貼文並沒有承認原本論述有誤，而是重新詮釋為「大家誤會了，我沒有那個意思」。
+      大人認為，第一篇文章字面意思相當清楚，這並不是「誤會」，而是面對大量反對證據時，
+      選擇用「重新詮釋」來維持原本立場的典型確認偏誤。
+    </p>
+
+    <div class="hl">
+      <b>提醒：</b>確認偏誤不是「別人才會有」的特質，而是每個人都可能發生的心理機制。
+      投資時更要留意：自己是不是也在「選擇相信自己想相信的數字」？
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 6 ============ -->
+<section id="s6">
+  <div class="wrap">
+    <span class="sec-eyebrow">Section 06</span>
+    <h2>安心 vs 成長：能力圈的選擇</h2>
+    <p>
+      大人特別強調：他並不討厭股息，也認同「把存定存的人帶去投資 0056」是很有貢獻的一件事——
+      這是從 0 到 1 的成長。但問題在於，如果整個論述的終點變成「0056 最安心，大家不要再想別的了」，
+      可能反而讓很多人停在原地，錯過後續更大的成長空間。
+    </p>
+
+    <h3>核心觀點：每個人只能賺到「認知範圍」以內的錢</h3>
+    <p>
+      「認知範圍」也就是「能力圈」（Circle of Competence）。能力圈越大，能看懂、能承擔、能掌握的投資機會就越多；
+      而能力圈不是天生固定的，可以透過持續學習慢慢擴大。
+    </p>
+
+    <div class="diagram-card">
+      <svg viewBox="0 0 520 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="能力圈示意圖">
+        <defs>
+          <marker id="coArrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+            <path d="M0,0 L10,5 L0,10 Z" fill="var(--caramel)"/>
+          </marker>
+        </defs>
+
+        <circle cx="180" cy="220" r="180" fill="none" stroke="var(--slate)" stroke-width="2" stroke-dasharray="6 6"/>
+        <circle cx="180" cy="220" r="120" fill="var(--slate)" opacity="0.12" stroke="var(--slate)" stroke-width="1.5"/>
+        <circle cx="180" cy="220" r="60"  fill="var(--caramel)" opacity="0.25" stroke="var(--caramel)" stroke-width="1.5"/>
+
+        <text x="180" y="215" text-anchor="middle" class="d-node-title">安心區</text>
+        <text x="180" y="234" text-anchor="middle" class="d-node-sub">（定存／0056）</text>
+
+        <line x1="180" y1="220" x2="270" y2="65" stroke="var(--caramel)" stroke-width="2.5" marker-end="url(#coArrow)"/>
+        <text x="280" y="60" class="d-label-strong">認知擴展 →</text>
+
+        <line x1="265" y1="138" x2="360" y2="138" stroke="var(--ink-soft)" stroke-width="1.5"/>
+        <text x="368" y="125" class="d-label">資產配置</text>
+        <text x="368" y="145" class="d-label-sm">0050＋0056＋海外ETF…</text>
+
+        <line x1="307" y1="347" x2="380" y2="347" stroke="var(--ink-soft)" stroke-width="1.5"/>
+        <text x="388" y="335" class="d-label">持續學習</text>
+        <text x="388" y="355" class="d-label-sm">能力圈持續擴大</text>
+      </svg>
+      <div class="diagram-caption">「安心」常常剛好停在現在能力圈的邊界——但邊界本身是可以透過學習擴大的</div>
+    </div>
+
+    <h3>「安心」該扮演什麼角色？</h3>
+    <p>
+      安心本身沒有錯，但不該被當成「停止學習、停止成長」的藉口。
+      大人認為，真正有資格說「安心就好，不用再想了」的時刻，是當你已經達成財務目標、或即將退休的時候。
+      對於還在累積資產階段的人，如果只用「安心」自我安慰，可能只是一種對成長的迴避。
+    </p>
+
+    <h3>大人的自身對照</h3>
+    <p>
+      大人現在主要分享槓桿 ETF（正 2）相關內容，但他也明確說：正 2 不是「最好的選擇」，
+      只是他目前認知範圍內、現階段的選擇。如果未來認知擴展、出現更好的工具，他也會調整。
+      重點不是「哪個標的最好」，而是「持續擴大自己的認知範圍」。
+    </p>
+
+    <div class="hl warn">
+      <b>提醒：</b>安心不能用來換成長。能力圈可以、也應該透過學習持續擴大；
+      現階段的選擇，不代表是永遠最好的選擇。
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUMMARY ============ -->
+<section id="summary" class="summary">
+  <div class="wrap">
+    <h2>⭐ 重點整理</h2>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <span class="num">1</span>
+        <p>股票分割／拆分：對總資產與未來報酬率的影響為零，只是把同一塊餅切成更多小塊。</p>
+      </div>
+      <div class="summary-card">
+        <span class="num">2</span>
+        <p>比較 ETF 該看「總報酬」（資本利得＋股息），股息殖利率的高低本身不是重點。</p>
+      </div>
+      <div class="summary-card">
+        <span class="num">3</span>
+        <p>用「指數位階」猜高低點來決定進出場，長期來看效果不佳——過去常猜錯的人，沒理由現在突然就猜對。</p>
+      </div>
+      <div class="summary-card">
+        <span class="num">4</span>
+        <p>0050 真正的風險是台積電佔比過高（約 60%）；解法是資產配置與分散，不是因為「指數高點」而不買。</p>
+      </div>
+      <div class="summary-card">
+        <span class="num">5</span>
+        <p>確認偏誤：人會本能地用「重新詮釋」來化解信念與事實的矛盾——投資時要留意自己是否也在這樣做。</p>
+      </div>
+      <div class="summary-card">
+        <span class="num">6</span>
+        <p>「安心」不該是停止成長的理由；能力圈可以透過持續學習擴大，現階段的選擇不代表是永遠最好的選擇。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MY NOTES ============ -->
+<section id="mynotes" class="mynotes">
+  <div class="wrap">
+    <span class="sec-eyebrow" style="color:var(--brick);">Workspace</span>
+    <h2>📝 我的筆記</h2>
+    <p class="mynotes-desc">
+      在這裡寫下你聽完這集的想法、延伸資料，或貼上相關的 YouTube 影片連結。內容會自動儲存在這個頁面裡，下次打開時會自動載入。
+    </p>
+
+    <div class="editor-card">
+      <div class="toolbar" id="toolbar">
+        <button data-cmd="bold" title="粗體"><b>B</b></button>
+        <button data-cmd="italic" title="斜體"><i>I</i></button>
+        <button data-cmd="underline" title="底線"><u>U</u></button>
+        <button data-cmd="strikeThrough" title="刪除線"><s>S</s></button>
+        <span class="sep"></span>
+        <button data-cmd="formatBlock" data-value="H3" title="標題">標題</button>
+        <button data-cmd="formatBlock" data-value="P" title="段落">段落</button>
+        <span class="sep"></span>
+        <button data-cmd="insertUnorderedList" title="項目清單">・清單</button>
+        <button data-cmd="insertOrderedList" title="編號清單">1. 清單</button>
+        <button data-cmd="formatBlock" data-value="BLOCKQUOTE" title="引用">引用</button>
+        <span class="sep"></span>
+        <button id="linkBtn" class="icon-btn" title="插入連結">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l1.93-1.93a5 5 0 0 0-7.07-7.07L10.5 5.5"/><path d="M14 11a5 5 0 0 0-7.07 0L4.99 12.93a5 5 0 0 0 7.07 7.07L13.5 18.5"/></svg>
+          連結
+        </button>
+        <button id="imageBtn" class="icon-btn" title="插入圖片">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+          圖片
+        </button>
+        <button id="youtubeBtn" class="icon-btn" title="嵌入 YouTube 影片">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m10 9 5 3-5 3z" fill="currentColor"/></svg>
+          YouTube
+        </button>
+        <span class="sep"></span>
+        <button data-cmd="removeFormat" title="清除格式">清除格式</button>
+        <input type="file" id="imageInput" accept="image/*" hidden>
+      </div>
+      <div class="editor" id="editor" contenteditable="true" data-placeholder="點這裡開始輸入筆記…可以貼上文字、插入圖片或嵌入 YouTube 影片"></div>
+      <div class="editor-footer">
+        <span id="saveStatus" class="save-status">尚未儲存</span>
+        <button id="clearBtn" class="ghost-btn">清空筆記</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  筆記整理自《大人來開槓》Podcast EP.1（2025.03.03）逐字稿，內容為節目觀點整理，僅供個人學習參考，非投資建議。
+</footer>
+
+<script>
+// 簡易 scroll-spy：依目前可視區域高亮對應的導覽連結
+(function(){
+  var links = document.querySelectorAll('nav.toc a');
+  var sections = document.querySelectorAll('main section, section.summary');
+  if(!('IntersectionObserver' in window)) return;
+  var map = {};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      var link = map[entry.target.id];
+      if(!link) return;
+      if(entry.isIntersecting){
+        links.forEach(function(a){a.classList.remove('active');});
+        link.classList.add('active');
+      }
+    });
+  },{rootMargin:'-40% 0px -50% 0px'});
+  sections.forEach(function(s){ observer.observe(s); });
+})();
+</script>
+
+<script>
+// 我的筆記：簡易編輯器（格式化、圖片、YouTube 嵌入、自動儲存）
+(function(){
+  var editor = document.getElementById('editor');
+  var toolbar = document.getElementById('toolbar');
+  var saveStatus = document.getElementById('saveStatus');
+  var imageInput = document.getElementById('imageInput');
+  var STORAGE_KEY = 'ep1-mynotes';
+  var saveTimer = null;
+
+  function insertHTML(html){
+    editor.focus();
+    if(document.queryCommandSupported && document.queryCommandSupported('insertHTML')){
+      document.execCommand('insertHTML', false, html);
+    } else {
+      editor.innerHTML += html;
+    }
+    scheduleSave();
+  }
+
+  // 文字格式按鈕
+  toolbar.querySelectorAll('button[data-cmd]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      editor.focus();
+      document.execCommand(btn.dataset.cmd, false, btn.dataset.value || null);
+      scheduleSave();
+    });
+  });
+
+  // 連結
+  document.getElementById('linkBtn').addEventListener('click', function(){
+    var url = prompt('請輸入連結網址（例如 https://example.com）');
+    if(!url) return;
+    editor.focus();
+    if(window.getSelection().toString()){
+      document.execCommand('createLink', false, url);
+      scheduleSave();
+    } else {
+      var text = url.replace(/^https?:\/\//,'');
+      insertHTML('<a href="'+url.replace(/"/g,'&quot;')+'" target="_blank" rel="noopener noreferrer">'+text+'</a>&nbsp;');
+    }
+  });
+
+  // 圖片上傳（自動縮小到最大寬度 1000px，避免筆記過大）
+  document.getElementById('imageBtn').addEventListener('click', function(){ imageInput.click(); });
+  imageInput.addEventListener('change', function(){
+    var file = imageInput.files && imageInput.files[0];
+    if(!file) return;
+    if(!file.type.startsWith('image/')){ alert('請選擇圖片檔案'); return; }
+    var reader = new FileReader();
+    reader.onload = function(e){
+      var img = new Image();
+      img.onload = function(){
+        var maxW = 1000;
+        var scale = Math.min(1, maxW / img.width);
+        var canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.width * scale);
+        canvas.height = Math.round(img.height * scale);
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        var dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+        insertHTML('<img src="'+dataUrl+'" alt="筆記圖片"><br>');
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+    imageInput.value = '';
+  });
+
+  // YouTube 嵌入
+  document.getElementById('youtubeBtn').addEventListener('click', function(){
+    var url = prompt('貼上 YouTube 影片連結（例如 https://youtu.be/xxxxxxxxxxx）：');
+    if(!url) return;
+    var m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    if(!m){ alert('無法辨識這個 YouTube 連結，請確認網址格式'); return; }
+    var id = m[1];
+    insertHTML('<div class="yt-embed"><iframe src="https://www.youtube.com/embed/'+id+'" title="YouTube video" allowfullscreen></iframe></div><br>');
+  });
+
+  // 自動儲存
+  editor.addEventListener('input', function(){
+    if(editor.innerHTML === '<br>') editor.innerHTML = '';
+    scheduleSave();
+  });
+
+  function scheduleSave(){
+    saveStatus.textContent = '正在輸入…';
+    saveStatus.className = 'save-status';
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveNotes, 1000);
+  }
+
+  async function saveNotes(){
+    saveStatus.textContent = '儲存中…';
+    try{
+      await window.storage.set(STORAGE_KEY, JSON.stringify({html: editor.innerHTML, updatedAt: Date.now()}), false);
+      var t = new Date();
+      saveStatus.textContent = '已儲存　' + t.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'});
+      saveStatus.className = 'save-status saved';
+    }catch(err){
+      saveStatus.textContent = '儲存失敗，請稍後再試';
+      saveStatus.className = 'save-status error';
+    }
+  }
+
+  async function loadNotes(){
+    try{
+      var result = await window.storage.get(STORAGE_KEY, false);
+      if(result && result.value){
+        var data = JSON.parse(result.value);
+        editor.innerHTML = data.html || '';
+        saveStatus.textContent = '已載入先前的筆記';
+        saveStatus.className = 'save-status saved';
+      }
+    }catch(err){
+      // 尚無儲存的筆記，維持初始狀態即可
+    }
+  }
+
+  // 清空筆記
+  document.getElementById('clearBtn').addEventListener('click', async function(){
+    if(!confirm('確定要清空筆記嗎？這個動作無法復原。')) return;
+    editor.innerHTML = '';
+    try{ await window.storage.delete(STORAGE_KEY, false); }catch(e){}
+    saveStatus.textContent = '已清空';
+    saveStatus.className = 'save-status';
+  });
+
+  loadNotes();
+})();
+</script>
+
+</body>
+</html>
