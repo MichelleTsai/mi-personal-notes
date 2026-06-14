@@ -263,6 +263,11 @@ section.summary h2{display:flex;align-items:center;gap:10px;}
 
 /* ---------- My Notes / Editor ---------- */
 .mynotes-desc{color:var(--ink-soft);font-size:15px;margin-top:-4px;}
+.mynotes-desc code, .mynotes-desc b{color:var(--caramel);}
+.mynotes-desc code{
+  background:var(--cream-soft);border:1px solid var(--line);border-radius:4px;
+  padding:1px 6px;font-size:13px;
+}
 .editor-card{
   background:#fff;border:1px solid var(--line);border-radius:12px;
   overflow:hidden;margin-top:20px;
@@ -281,6 +286,25 @@ section.summary h2{display:flex;align-items:center;gap:10px;}
 .toolbar button.icon-btn svg{width:15px;height:15px;flex:0 0 auto;}
 .toolbar .sep{width:1px;align-self:stretch;background:var(--line);margin:0 2px;}
 
+/* GitHub settings panel */
+.gh-panel{display:none;padding:16px 18px;border-bottom:1px solid var(--line);background:var(--cream);}
+.gh-panel.open{display:block;}
+.gh-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media (max-width:560px){.gh-grid{grid-template-columns:1fr;}}
+.gh-grid label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--ink-soft);}
+.gh-grid input{
+  border:1px solid var(--line);border-radius:6px;padding:7px 10px;
+  font-size:13.5px;font-family:'Noto Sans TC',sans-serif;background:#fff;color:var(--ink);
+}
+.gh-grid input:focus{outline:2px solid var(--caramel-light);border-color:var(--caramel);}
+.gh-actions{display:flex;gap:8px;margin-top:12px;}
+.gh-hint{font-size:12.5px;color:var(--ink-soft);margin:12px 0 0;line-height:1.7;}
+.gh-hint b{color:var(--caramel);}
+.gh-hint code{
+  background:var(--cream-soft);border:1px solid var(--line);border-radius:4px;
+  padding:1px 6px;font-size:12px;color:var(--caramel);
+}
+
 .editor{
   min-height:260px;padding:22px 24px;outline:none;
   font-size:16px;line-height:1.9;color:var(--ink);
@@ -298,16 +322,23 @@ section.summary h2{display:flex;align-items:center;gap:10px;}
 }
 .editor a{color:var(--slate);text-decoration:underline;}
 .editor img{max-width:100%;border-radius:8px;margin:10px 0;display:block;}
-.editor .yt-embed{
+.yt-embed{
   position:relative;padding-bottom:56.25%;height:0;
   overflow:hidden;border-radius:8px;margin:14px 0;background:#000;
 }
-.editor .yt-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.yt-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.video-fallback{
+  display:block;text-align:center;margin-top:4px;font-size:13px;
+  color:var(--ink-soft);text-decoration:none;
+}
+.video-fallback:hover{color:var(--caramel);text-decoration:underline;}
 
 .editor-footer{
   display:flex;justify-content:space-between;align-items:center;gap:12px;
+  flex-wrap:wrap;
   padding:10px 14px;border-top:1px solid var(--line);background:var(--cream-soft);
 }
+.footer-actions{display:flex;gap:8px;flex-wrap:wrap;}
 .save-status{font-size:12.5px;color:var(--ink-soft);}
 .save-status.saved{color:var(--sage);}
 .save-status.error{color:var(--brick);}
@@ -317,6 +348,16 @@ section.summary h2{display:flex;align-items:center;gap:10px;}
   font-family:'Noto Sans TC',sans-serif;
 }
 .ghost-btn:hover{border-color:var(--brick);color:var(--brick);}
+.ghost-btn.primary-ghost{border-color:var(--caramel);color:var(--caramel);font-weight:500;}
+.ghost-btn.primary-ghost:hover{background:var(--caramel);color:#fff;border-color:var(--caramel);}
+.editor-hint{
+  padding:10px 14px;font-size:12.5px;color:var(--ink-soft);
+  border-top:1px solid var(--line);background:var(--cream);
+}
+.editor-hint code{
+  background:var(--cream-soft);border:1px solid var(--line);border-radius:4px;
+  padding:1px 6px;font-size:12px;color:var(--caramel);
+}
 
 /* ---------- Footer ---------- */
 footer{
@@ -375,6 +416,19 @@ footer{
 </nav>
 
 <main>
+
+<!-- ============ FEATURED PODCAST ============ -->
+<section class="video-feature">
+  <div class="wrap">
+    <span class="sec-eyebrow">本集節目</span>
+    <h2>🎧 本集 Podcast</h2>
+    <div class="diagram-card">
+      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/61UyTsb1ggEt755EeIvftr?utm_source=generator"
+        width="100%" height="152" frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
 
 <!-- ============ SECTION 1 ============ -->
 <section id="s1">
@@ -762,7 +816,9 @@ footer{
     <span class="sec-eyebrow" style="color:var(--brick);">Workspace</span>
     <h2>📝 我的筆記</h2>
     <p class="mynotes-desc">
-      在這裡寫下你聽完這集的想法、延伸資料，或貼上相關的 YouTube 影片連結。內容會自動儲存在這個頁面裡，下次打開時會自動載入。
+      在這裡寫筆記、貼圖片、嵌入 YouTube 影片。內容會先自動暫存在這台瀏覽器，
+      按下<b>「提交到 GitHub」</b>會直接把筆記轉成 Markdown 並 commit 到你的 repo
+      <code>MichelleTsai/mi-personal-notes</code>。
     </p>
 
     <div class="editor-card">
@@ -793,13 +849,50 @@ footer{
         </button>
         <span class="sep"></span>
         <button data-cmd="removeFormat" title="清除格式">清除格式</button>
+        <span class="sep"></span>
+        <button id="gearBtn" class="icon-btn" title="GitHub 設定">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          設定
+        </button>
         <input type="file" id="imageInput" accept="image/*" hidden>
+      </div>
+
+      <div class="gh-panel" id="ghPanel">
+        <div class="gh-grid">
+          <label>Personal Access Token
+            <input type="password" id="ghToken" placeholder="github_pat_••••••••">
+          </label>
+          <label>Repo（owner/repo）
+            <input type="text" id="ghRepo" placeholder="MichelleTsai/mi-personal-notes">
+          </label>
+          <label>檔案路徑
+            <input type="text" id="ghPath" placeholder="00631L/notes/ep1-notes.md">
+          </label>
+          <label>分支
+            <input type="text" id="ghBranch" placeholder="main">
+          </label>
+        </div>
+        <div class="gh-actions">
+          <button id="ghSave" class="ghost-btn primary-ghost">儲存設定</button>
+          <button id="ghClearToken" class="ghost-btn">清除 Token</button>
+        </div>
+        <p class="gh-hint">
+          建議到 GitHub →「Settings → Developer settings → Fine-grained tokens」建立一個<b>僅限
+          <code>mi-personal-notes</code> 這個 repo</b>、且只勾選「Contents: Read and write」權限的 Token，並設定到期日。
+          Token 只會存在這台瀏覽器的 localStorage，不會被寫進筆記檔案內容、也不會出現在 commit 裡。
+          若這個 repo 是公開的，commit 後筆記內容（包含圖片）也會是公開的，請留意。
+        </p>
       </div>
       <div class="editor" id="editor" contenteditable="true" data-placeholder="點這裡開始輸入筆記…可以貼上文字、插入圖片或嵌入 YouTube 影片"></div>
       <div class="editor-footer">
-        <span id="saveStatus" class="save-status">尚未儲存</span>
-        <button id="clearBtn" class="ghost-btn">清空筆記</button>
+        <span id="saveStatus" class="save-status">尚未儲存草稿</span>
+        <div class="footer-actions">
+          <button id="loadBtn" class="ghost-btn">從 GitHub 載入</button>
+          <button id="commitBtn" class="ghost-btn primary-ghost">提交到 GitHub</button>
+          <button id="clearBtn" class="ghost-btn">清空筆記</button>
+        </div>
       </div>
+      <div class="editor-hint" id="commitStatus">尚未提交　·　點「設定」填入 Token 與檔案路徑後即可使用</div>
     </div>
   </div>
 </section>
@@ -839,7 +932,9 @@ footer{
   var toolbar = document.getElementById('toolbar');
   var saveStatus = document.getElementById('saveStatus');
   var imageInput = document.getElementById('imageInput');
-  var STORAGE_KEY = 'ep1-mynotes';
+  var DRAFT_KEY = 'ep1-notes-draft';
+  var GH_SETTINGS_KEY = 'mi-personal-notes-gh-settings';
+  var GH_TOKEN_KEY = 'mi-personal-notes-gh-token';
   var saveTimer = null;
 
   function insertHTML(html){
@@ -922,46 +1017,358 @@ footer{
     saveStatus.textContent = '正在輸入…';
     saveStatus.className = 'save-status';
     clearTimeout(saveTimer);
-    saveTimer = setTimeout(saveNotes, 1000);
+    saveTimer = setTimeout(saveDraft, 800);
   }
 
-  async function saveNotes(){
-    saveStatus.textContent = '儲存中…';
+  function saveDraft(){
     try{
-      await window.storage.set(STORAGE_KEY, JSON.stringify({html: editor.innerHTML, updatedAt: Date.now()}), false);
+      localStorage.setItem(DRAFT_KEY, editor.innerHTML);
       var t = new Date();
-      saveStatus.textContent = '已儲存　' + t.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'});
+      saveStatus.textContent = '本機草稿已更新　' + t.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'}) + '　·　記得按「提交到 GitHub」同步';
       saveStatus.className = 'save-status saved';
     }catch(err){
-      saveStatus.textContent = '儲存失敗，請稍後再試';
+      saveStatus.textContent = '本機暫存失敗（瀏覽器儲存空間可能不足）';
       saveStatus.className = 'save-status error';
     }
   }
 
-  async function loadNotes(){
+  function loadDraft(){
     try{
-      var result = await window.storage.get(STORAGE_KEY, false);
-      if(result && result.value){
-        var data = JSON.parse(result.value);
-        editor.innerHTML = data.html || '';
-        saveStatus.textContent = '已載入先前的筆記';
+      var html = localStorage.getItem(DRAFT_KEY);
+      if(html){
+        editor.innerHTML = html;
+        saveStatus.textContent = '已載入本機草稿';
         saveStatus.className = 'save-status saved';
       }
     }catch(err){
-      // 尚無儲存的筆記，維持初始狀態即可
+      // 無法讀取本機草稿，維持初始狀態即可
     }
   }
 
+  // ---------- GitHub 設定面板 ----------
+  var ghPanel = document.getElementById('ghPanel');
+  var ghTokenInput = document.getElementById('ghToken');
+  var ghRepoInput = document.getElementById('ghRepo');
+  var ghPathInput = document.getElementById('ghPath');
+  var ghBranchInput = document.getElementById('ghBranch');
+  var commitStatus = document.getElementById('commitStatus');
+
+  document.getElementById('gearBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    ghPanel.classList.toggle('open');
+  });
+
+  function getGhSettings(){
+    var s = {};
+    try{ s = JSON.parse(localStorage.getItem(GH_SETTINGS_KEY) || '{}'); }catch(e){}
+    return {
+      token: localStorage.getItem(GH_TOKEN_KEY) || '',
+      repo: s.repo || 'MichelleTsai/mi-personal-notes',
+      path: s.path || '00631L/notes/ep1-notes.md',
+      branch: s.branch || 'main'
+    };
+  }
+
+  function loadGhSettingsIntoForm(){
+    var s = getGhSettings();
+    ghTokenInput.value = s.token;
+    ghRepoInput.value = s.repo;
+    ghPathInput.value = s.path;
+    ghBranchInput.value = s.branch;
+  }
+
+  document.getElementById('ghSave').addEventListener('click', function(){
+    var settings = {
+      repo: ghRepoInput.value.trim() || 'MichelleTsai/mi-personal-notes',
+      path: ghPathInput.value.trim() || '00631L/notes/ep1-notes.md',
+      branch: ghBranchInput.value.trim() || 'main'
+    };
+    try{
+      localStorage.setItem(GH_SETTINGS_KEY, JSON.stringify(settings));
+      var token = ghTokenInput.value.trim();
+      if(token) localStorage.setItem(GH_TOKEN_KEY, token);
+      commitStatus.textContent = '設定已儲存在這台瀏覽器';
+      commitStatus.className = 'save-status saved';
+    }catch(err){
+      commitStatus.textContent = '設定儲存失敗：' + err.message;
+      commitStatus.className = 'save-status error';
+    }
+  });
+
+  document.getElementById('ghClearToken').addEventListener('click', function(){
+    localStorage.removeItem(GH_TOKEN_KEY);
+    ghTokenInput.value = '';
+    commitStatus.textContent = 'Token 已從這台瀏覽器清除';
+    commitStatus.className = 'save-status';
+  });
+
+  // ---------- UTF-8 ⇄ Base64 ----------
+  function utf8ToBase64(str){
+    var bytes = new TextEncoder().encode(str);
+    var binary = '';
+    bytes.forEach(function(b){ binary += String.fromCharCode(b); });
+    return btoa(binary);
+  }
+  function base64ToUtf8(b64){
+    var binary = atob(b64.replace(/\n/g, ''));
+    var bytes = new Uint8Array(binary.length);
+    for(var i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return new TextDecoder('utf-8').decode(bytes);
+  }
+
+  // ---------- 提交到 GitHub ----------
+  document.getElementById('commitBtn').addEventListener('click', async function(){
+    var s = getGhSettings();
+    if(!s.token || !s.repo || !s.path){
+      ghPanel.classList.add('open');
+      commitStatus.textContent = '請先在「設定」填入 Token、Repo 與檔案路徑';
+      commitStatus.className = 'save-status error';
+      return;
+    }
+
+    commitStatus.textContent = '正在提交到 GitHub…';
+    commitStatus.className = 'save-status';
+
+    var md = htmlToMarkdown(editor);
+    var apiUrl = 'https://api.github.com/repos/' + s.repo + '/contents/' + s.path;
+    var headers = {
+      'Authorization': 'Bearer ' + s.token,
+      'Accept': 'application/vnd.github+json'
+    };
+
+    try{
+      var sha = null;
+      var getRes = await fetch(apiUrl + '?ref=' + encodeURIComponent(s.branch), { headers: headers });
+      if(getRes.status === 200){
+        var fileData = await getRes.json();
+        sha = fileData.sha;
+      } else if(getRes.status !== 404){
+        var ge = await getRes.json().catch(function(){ return {}; });
+        throw new Error(ge.message || ('讀取檔案資訊失敗（HTTP ' + getRes.status + '）'));
+      }
+
+      var body = {
+        message: '更新筆記：' + s.path,
+        content: utf8ToBase64(md),
+        branch: s.branch
+      };
+      if(sha) body.sha = sha;
+
+      var putRes = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: Object.assign({'Content-Type': 'application/json'}, headers),
+        body: JSON.stringify(body)
+      });
+
+      if(!putRes.ok){
+        var pe = await putRes.json().catch(function(){ return {}; });
+        throw new Error(pe.message || ('提交失敗（HTTP ' + putRes.status + '）'));
+      }
+
+      var result = await putRes.json();
+      var t = new Date();
+      commitStatus.innerHTML = '已提交　' + t.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'}) +
+        '　·　<a href="' + result.content.html_url + '" target="_blank" rel="noopener">在 GitHub 上查看</a>';
+      commitStatus.className = 'save-status saved';
+      saveDraft();
+    }catch(err){
+      commitStatus.textContent = '提交失敗：' + err.message;
+      commitStatus.className = 'save-status error';
+    }
+  });
+
+  // ---------- 從 GitHub 載入 ----------
+  document.getElementById('loadBtn').addEventListener('click', async function(){
+    var s = getGhSettings();
+    if(!s.token || !s.repo || !s.path){
+      ghPanel.classList.add('open');
+      commitStatus.textContent = '請先在「設定」填入 Token、Repo 與檔案路徑';
+      commitStatus.className = 'save-status error';
+      return;
+    }
+    if(editor.textContent.trim() && !confirm('從 GitHub 載入會覆蓋目前編輯區的內容，確定要繼續嗎？')) return;
+
+    commitStatus.textContent = '正在從 GitHub 載入…';
+    commitStatus.className = 'save-status';
+
+    var apiUrl = 'https://api.github.com/repos/' + s.repo + '/contents/' + s.path + '?ref=' + encodeURIComponent(s.branch);
+    var headers = {
+      'Authorization': 'Bearer ' + s.token,
+      'Accept': 'application/vnd.github+json'
+    };
+
+    try{
+      var res = await fetch(apiUrl, { headers: headers });
+      if(res.status === 404){
+        commitStatus.textContent = 'GitHub 上還沒有這個檔案（之後按「提交到 GitHub」會自動建立）';
+        commitStatus.className = 'save-status';
+        return;
+      }
+      if(!res.ok){
+        var ed = await res.json().catch(function(){ return {}; });
+        throw new Error(ed.message || ('讀取失敗（HTTP ' + res.status + '）'));
+      }
+      var data = await res.json();
+      var md = base64ToUtf8(data.content);
+      editor.innerHTML = markdownToHtml(md);
+      commitStatus.textContent = '已載入 GitHub 上的最新筆記';
+      commitStatus.className = 'save-status saved';
+      saveDraft();
+    }catch(err){
+      commitStatus.textContent = '載入失敗：' + err.message;
+      commitStatus.className = 'save-status error';
+    }
+  });
+
+  // ---------- HTML ⇄ Markdown 轉換 ----------
+  function htmlToMarkdown(root){
+    var lines = [];
+
+    function inline(node){
+      var out = '';
+      node.childNodes.forEach(function(child){
+        if(child.nodeType === Node.TEXT_NODE){
+          out += child.textContent;
+          return;
+        }
+        if(child.nodeType !== Node.ELEMENT_NODE) return;
+        var tag = child.tagName.toLowerCase();
+        var inner = inline(child);
+        if(tag === 'b' || tag === 'strong') out += '**'+inner+'**';
+        else if(tag === 'i' || tag === 'em') out += '*'+inner+'*';
+        else if(tag === 's' || tag === 'strike' || tag === 'del') out += '~~'+inner+'~~';
+        else if(tag === 'u') out += '<u>'+inner+'</u>';
+        else if(tag === 'a') out += '['+(inner||child.getAttribute('href'))+']('+child.getAttribute('href')+')';
+        else if(tag === 'br') out += '\n';
+        else if(tag === 'img') out += '![筆記圖片]('+child.getAttribute('src')+')';
+        else out += inner;
+      });
+      return out;
+    }
+
+    function block(parent){
+      parent.childNodes.forEach(function(node){
+        if(node.nodeType === Node.TEXT_NODE){
+          var t = node.textContent.trim();
+          if(t){ lines.push(t); lines.push(''); }
+          return;
+        }
+        if(node.nodeType !== Node.ELEMENT_NODE) return;
+        var tag = node.tagName.toLowerCase();
+
+        if(tag === 'h3'){
+          lines.push('### '+inline(node).trim()); lines.push('');
+        } else if(tag === 'p'){
+          var txt = inline(node).trim();
+          if(txt){ lines.push(txt); lines.push(''); }
+        } else if(tag === 'ul'){
+          node.querySelectorAll(':scope > li').forEach(function(li){
+            lines.push('- '+inline(li).trim());
+          });
+          lines.push('');
+        } else if(tag === 'ol'){
+          var n = 1;
+          node.querySelectorAll(':scope > li').forEach(function(li){
+            lines.push(n+'. '+inline(li).trim()); n++;
+          });
+          lines.push('');
+        } else if(tag === 'blockquote'){
+          lines.push('> '+inline(node).trim()); lines.push('');
+        } else if(tag === 'img'){
+          lines.push('![筆記圖片]('+node.getAttribute('src')+')'); lines.push('');
+        } else if(tag === 'div' && node.classList.contains('yt-embed')){
+          var iframe = node.querySelector('iframe');
+          var src = iframe ? (iframe.getAttribute('src') || '') : '';
+          var m = src.match(/embed\/([a-zA-Z0-9_-]{11})/);
+          if(m){ lines.push('[▶ YouTube 影片](https://youtu.be/'+m[1]+')'); lines.push(''); }
+        } else if(tag === 'br'){
+          // 段落內換行已在 inline 處理，區塊層級忽略
+        } else {
+          block(node);
+        }
+      });
+    }
+
+    block(root);
+    return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim() + '\n';
+  }
+
+  function markdownToHtml(md){
+    var lines = md.replace(/\r\n/g, '\n').split('\n');
+    var html = '';
+    var i = 0;
+
+    function inline(text){
+      var t = text;
+      t = t.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
+      t = t.replace(/\[▶[^\]]*\]\((https?:\/\/(?:www\.)?(?:youtu\.be\/|youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})[^)]*)\)/g,
+        function(_, url, id){
+          return '<div class="yt-embed"><iframe src="https://www.youtube.com/embed/'+id+'" title="YouTube video" allowfullscreen></iframe></div>';
+        });
+      t = t.replace(/\[([^\]]*)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+      t = t.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+      t = t.replace(/(^|[^*])\*([^*]+)\*/g, '$1<i>$2</i>');
+      t = t.replace(/~~([^~]+)~~/g, '<s>$1</s>');
+      return t;
+    }
+
+    while(i < lines.length){
+      var line = lines[i];
+      if(/^\s*$/.test(line)){ i++; continue; }
+
+      if(/^###\s+/.test(line)){
+        html += '<h3>'+inline(line.replace(/^###\s+/,'').trim())+'</h3>';
+        i++; continue;
+      }
+      if(/^>\s?/.test(line)){
+        var quote = [];
+        while(i < lines.length && /^>\s?/.test(lines[i])){
+          quote.push(lines[i].replace(/^>\s?/,'')); i++;
+        }
+        html += '<blockquote>'+inline(quote.join(' ').trim())+'</blockquote>';
+        continue;
+      }
+      if(/^-\s+/.test(line)){
+        var items = [];
+        while(i < lines.length && /^-\s+/.test(lines[i])){
+          items.push('<li>'+inline(lines[i].replace(/^-\s+/,'').trim())+'</li>'); i++;
+        }
+        html += '<ul>'+items.join('')+'</ul>';
+        continue;
+      }
+      if(/^\d+\.\s+/.test(line)){
+        var oitems = [];
+        while(i < lines.length && /^\d+\.\s+/.test(lines[i])){
+          oitems.push('<li>'+inline(lines[i].replace(/^\d+\.\s+/,'').trim())+'</li>'); i++;
+        }
+        html += '<ol>'+oitems.join('')+'</ol>';
+        continue;
+      }
+      if(/^!\[[^\]]*\]\([^)]+\)\s*$/.test(line) || /^\[▶/.test(line)){
+        html += inline(line.trim()); i++; continue;
+      }
+
+      var para = [line];
+      i++;
+      while(i < lines.length && !/^\s*$/.test(lines[i]) && !/^(#{1,6}\s|>\s?|-\s|\d+\.\s|!\[|\[▶)/.test(lines[i])){
+        para.push(lines[i]); i++;
+      }
+      html += '<p>'+inline(para.join(' ').trim())+'</p>';
+    }
+    return html;
+  }
+
   // 清空筆記
-  document.getElementById('clearBtn').addEventListener('click', async function(){
-    if(!confirm('確定要清空筆記嗎？這個動作無法復原。')) return;
+  document.getElementById('clearBtn').addEventListener('click', function(){
+    if(!confirm('確定要清空筆記嗎？這個動作無法復原（GitHub 上已提交的版本不會受影響）。')) return;
     editor.innerHTML = '';
-    try{ await window.storage.delete(STORAGE_KEY, false); }catch(e){}
-    saveStatus.textContent = '已清空';
+    try{ localStorage.removeItem(DRAFT_KEY); }catch(e){}
+    saveStatus.textContent = '已清空（本機草稿）';
     saveStatus.className = 'save-status';
   });
 
-  loadNotes();
+  loadDraft();
+  loadGhSettingsIntoForm();
 })();
 </script>
 
